@@ -18,14 +18,18 @@ function App() {
     <div className="App bp4-dark">
       <Navbar>
         <Navbar.Group align="left">
+        <Navbar.Heading>Navigation bar</Navbar.Heading>
           <Navbar.Divider />
           <Button className="bp4-minimal" icon="home" text="Home" />
+          <Button className="bp4-minimal" text="Destination 1" />
+          <Button className="bp4-minimal" text="Destination 2" />
+
+
         </Navbar.Group>
       </Navbar>
       <header className="App-header">
-        <p>Placeholder text</p>
-        <p>{windowHeight}</p>
-        <p>{windowWidth}</p>
+        <p>This is a placeholder page for a future project. So far, it only contains some components for testing purposes</p>
+        <p>height: {windowHeight}, width: {windowWidth}</p>
         <Slider
           labelRenderer={true}
           min={1}
