@@ -23,7 +23,7 @@ function App() {
         </Navbar.Group>
       </Navbar>
       <header className="App-header">
-
+        <p>Placeholder text</p>
         <p>{windowHeight}</p>
         <p>{windowWidth}</p>
         <Slider
