@@ -1,12 +1,12 @@
 import { useEffect } from "react"
-import { DrawFunc } from "../types";
+import { DrawFunc, Parameters } from "../types";
 type CanvasProps = {
   id: string;
   fullScreen?: boolean;
   height?: string;
   width?: string;
   draw: DrawFunc;
-  parameters: unknown;
+  parameters: Parameters;
 }
 
 export function Canvas(props: CanvasProps) {
@@ -19,17 +19,17 @@ export function Canvas(props: CanvasProps) {
     ? windowHeight - whitespace - 15
     : 0.75 * windowWidth;
   }
-  console.dir({
-    windowHeight, windowWidth, size
-  })
+
   useEffect(() => {
-    var canvas = document.getElementById(props.id) as HTMLCanvasElement;
+    console.log('useEffect')
+    const canvas = document.getElementById(props.id) as HTMLCanvasElement;
     canvas.style.background = "white"; 
     const drawArgs = {
       canvas,
       size,
+      parameters: props.parameters,
     }
-    props.draw(drawArgs, props.parameters);
+    props.draw(drawArgs);
   }, [props, size]);
   return <canvas
     height={size}

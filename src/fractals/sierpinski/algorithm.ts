@@ -43,7 +43,6 @@ export function drawTriangle(
   ctx.lineTo(...c);
   ctx.moveTo(...c);
   ctx.lineTo(...a);
-  ctx.stroke();
   if (iterations === 1) { return };
 
   const newTriangles = getNewTriangles(points);

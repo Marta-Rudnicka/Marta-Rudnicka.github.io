@@ -8,6 +8,7 @@ export function Example() {
   return (
     <DefaultLayout
       draw={draw}
+      parameters={{}}
       conrols={<Controls/>}
       title="Example"
       description={description}

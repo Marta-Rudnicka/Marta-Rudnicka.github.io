@@ -1,9 +1,10 @@
 export type DrawFuncArgs = {
   canvas: HTMLCanvasElement,
   size: number,
+  parameters: Parameters;
 };
 
-export type DrawFunc= (args: DrawFuncArgs, parameters: unknown) => void;
+export type DrawFunc= (args: DrawFuncArgs) => void;
 
 export type Point = [
   number, number,
@@ -14,3 +15,5 @@ export type Triangle = {
   b: Point;
   c: Point;
 }
+
+export type Parameters = Record<string, number>

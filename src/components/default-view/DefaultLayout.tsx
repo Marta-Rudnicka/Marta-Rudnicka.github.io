@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { DrawFunc } from "../../types";
+import { DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Canvas";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
@@ -14,9 +14,10 @@ type DefaultLayoutProps = {
   extraControls?: ReactElement;
   prevLink?: string;
   nextLink?: string;
+  parameters: Parameters;
 }
 
-export function DefaultLayout(props: DefaultLayoutProps, parameters: unknown) {
+export function DefaultLayout(props: DefaultLayoutProps) {
   return (
     <div className="defaultLayout">
       <Header />
@@ -27,7 +28,7 @@ export function DefaultLayout(props: DefaultLayoutProps, parameters: unknown) {
             fullScreen={false}
             id="canvas"
             draw={props.draw}
-            parameters={parameters}
+            parameters={props.parameters}
           />
         </div>
         <div className="controls">
