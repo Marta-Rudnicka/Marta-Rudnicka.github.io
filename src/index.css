@@ -23,3 +23,7 @@ div {
 .app-nav {
   display: flex;
 }
+
+.slider-container {
+  padding: 5px;
+}
