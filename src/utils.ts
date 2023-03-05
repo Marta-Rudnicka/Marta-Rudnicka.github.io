@@ -10,3 +10,8 @@ export function getSize(fullScreen: boolean | undefined): number {
   }
   return size;
 }
+
+export function getIterationsNumber(fullScreen: boolean | undefined): number {
+  const size = getSize(fullScreen);
+  return Math.round((Math.log(size) / Math.log(2)) - 2);
+}

@@ -1,8 +1,9 @@
-import { SliderControl } from "../../components/Slider";
+import { SliderControl } from "../../components/SliderControl";
 
 type ControlProps = {
   iterations: number;
-  setIterations: React.Dispatch<React.SetStateAction<number>>
+  setIterations: React.Dispatch<React.SetStateAction<number>>;
+  maxValue: number;
 }
 export function Controls(props: ControlProps) {
   return (
@@ -10,7 +11,7 @@ export function Controls(props: ControlProps) {
       <SliderControl
         label="iterations"
         setValue={props.setIterations}
-        maxValue={8}
+        maxValue={props.maxValue}
         minValue={1}
         defaultValue={props.iterations}
         info="dummy info"
