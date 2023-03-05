@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { DrawFunc, Parameters } from "../types";
+import { getSize } from "../utils";
 type CanvasProps = {
   id: string;
   fullScreen?: boolean;
@@ -10,15 +11,8 @@ type CanvasProps = {
 }
 
 export function Canvas(props: CanvasProps) {
-  const windowHeight = window.innerHeight;
-  const windowWidth = window.innerWidth;
-  const whitespace = 30;
-  let size = windowHeight < windowWidth ? windowHeight : windowWidth;
-  if (!props.fullScreen) {
-    size = windowHeight - whitespace < 0.75 * windowWidth 
-    ? windowHeight - whitespace - 15
-    : 0.75 * windowWidth;
-  }
+
+  const size = getSize(props.fullScreen)
 
   useEffect(() => {
     console.log('useEffect')

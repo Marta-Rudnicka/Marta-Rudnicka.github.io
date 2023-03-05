@@ -1,5 +1,5 @@
 import { DrawFuncArgs } from "../../types";
-import { drawTriangle, equilateralTriangle } from "./algorithm";
+import { generate, equilateralTriangle, fillFirstTriangle } from "./algorithm";
 
 type SierpinskiParameters = {
   iterations: number;
@@ -10,11 +10,13 @@ export function draw (
   const { canvas, size } = args;
   const parameters = args.parameters  as SierpinskiParameters;
   const ctx = canvas.getContext("2d");
+  const first = equilateralTriangle(size);
   if (ctx) {
     ctx?.clearRect(0, 0, size, size);
     ctx.beginPath();
-    drawTriangle(
-      equilateralTriangle(size),
+    fillFirstTriangle(first, ctx);
+    generate(
+      first,
       parameters["iterations"],
       ctx
     );

@@ -31,22 +31,50 @@ function getNewTriangles(points: Triangle): Triangle[] {
   ];
 }
 
-export function drawTriangle(
+function cutOutMiddleTriangle(
+  points: Triangle,
+  ctx: CanvasRenderingContext2D  
+  ): void {
+  const { a, b, c } = points;
+  const newPoints = {a: middle(a, b), b: middle(b, c), c: middle(c, a)}
+  ctx.fillStyle = "white";
+  ctx.beginPath();
+  drawTriangle(newPoints, ctx);
+  ctx.closePath()
+  ctx.fill();
+}
+
+function drawTriangle(
+  points: Triangle,
+  ctx: CanvasRenderingContext2D  
+  ): void {
+  const { a, b, c } = points;
+  ctx.moveTo(...a);
+  ctx.lineTo(...b);
+  ctx.lineTo(...c);
+  ctx.lineTo(...a);
+}
+
+export function fillFirstTriangle(
+  points: Triangle,
+  ctx: CanvasRenderingContext2D,
+): void {
+  ctx.fillStyle = "black";
+  drawTriangle(points, ctx);
+  ctx.fill();
+}
+
+export function generate(
   points: Triangle,
   iterations: number,
   ctx: CanvasRenderingContext2D,
 ): void {
-  const { a, b, c } = points;
-  ctx.moveTo(...a);
-  ctx.lineTo(...b);
-  ctx.moveTo(...b);
-  ctx.lineTo(...c);
-  ctx.moveTo(...c);
-  ctx.lineTo(...a);
-  if (iterations === 1) { return };
 
+  drawTriangle(points, ctx);
+  if (iterations === 1) { return };
+  cutOutMiddleTriangle(points, ctx);
   const newTriangles = getNewTriangles(points);
   newTriangles.forEach(triangle => {
-    drawTriangle(triangle, iterations-1, ctx)
+    generate(triangle, iterations-1, ctx)
   });
 }
