@@ -5,7 +5,7 @@ import "@blueprintjs/core/lib/css/blueprint.css"
 import "@blueprintjs/icons/lib/css/blueprint-icons.css"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
-import { Example } from './fractals/sierpinski';
+import { SierpinskiTriangle } from './fractals/sierpinski';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
-        <Route path="example" element={<Example />} />
+        <Route path="example" element={<SierpinskiTriangle />} />
       </Route>
     </Routes>
   </BrowserRouter>

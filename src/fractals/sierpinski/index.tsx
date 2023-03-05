@@ -4,7 +4,7 @@ import { Controls } from "./controls";
 import { description } from "./description";
 import { useState } from "react";
 
-export function Example() {
+export function SierpinskiTriangle() {
   const [iterations, setIterations] = useState(4)
 
   return (
@@ -15,7 +15,7 @@ export function Example() {
         iterations={iterations}
         setIterations={setIterations} />
       }
-      title="Example"
+      title="Sierpiński triangle - work in progress"
       description={description}
       prevLink="www.example.com"
       nextLink="www.example.com"
