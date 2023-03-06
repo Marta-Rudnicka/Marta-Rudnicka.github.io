@@ -11,8 +11,8 @@ export function AppNav(props: FooterProps) {
 
   return (
     <div className="app-nav">
-      {prevLink && <div><a href={prevLink}><ChevronLeft/>Previous fractal</a></div>}
-      {nextLink && <div><a href={nextLink}>Next fractal <ChevronRight/></a></div>}
+      {prevLink && <div className="floating-box"><a href={prevLink}><ChevronLeft/>Previous fractal</a></div>}
+      {nextLink && <div className="floating-box"><a href={nextLink}>Next fractal <ChevronRight/></a></div>}
     </div>
   );
 }

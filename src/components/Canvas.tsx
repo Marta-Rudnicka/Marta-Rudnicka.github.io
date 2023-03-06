@@ -15,12 +15,12 @@ type CanvasProps = {
 export function Canvas(props: CanvasProps) {
 
   const size = getSize(props.fullScreen);
-  
+
 
   useEffect(() => {
     console.log('useEffect')
     const canvas = document.getElementById(props.id) as HTMLCanvasElement;
-    canvas.style.background = "white"; 
+    canvas.style.background = "white";
     const drawArgs = {
       canvas,
       size,
@@ -29,20 +29,21 @@ export function Canvas(props: CanvasProps) {
     props.draw(drawArgs);
   }, [props, size]);
   return (
-  <div className="canvas-wrapper">
-    <div 
-    className="change-view-icon"
-    onClick={props.handleClick}
-    >
-      {props.fullScreen 
-      ? <ExitFullScreen width={30} height={30}/>
-      : <EnterFullScreen width={30} height={30}/> 
-    }
-    </div>
-    <canvas
-    height={props.size}
-    width={props.size}
-    id={props.id}
-  />
-  </div>)
+    <div className="canvas-wrapper">
+      <div
+        className="change-view-icon"
+        onClick={props.handleClick}
+      >
+        {props.fullScreen
+          ? <ExitFullScreen width={30} height={30} />
+          : <EnterFullScreen width={30} height={30} />
+        }
+      </div>
+      <canvas
+        className="floating-box"
+        height={props.size}
+        width={props.size}
+        id={props.id}
+      />
+    </div>)
 }

@@ -4,7 +4,7 @@ import { fractals } from "../config/links";
 
 export function Header() {  
   return (
-<Navbar className="bp4-dark">
+<Navbar className="bp4-dark floating-box">
   <Navbar.Group align="left">
     <Navbar.Heading>Navigation bar</Navbar.Heading>
     <Navbar.Divider />

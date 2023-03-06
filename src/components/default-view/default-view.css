@@ -4,22 +4,24 @@ body {
   padding: 10px;
 }
 
-.default-view canvas {
-  border: solid aliceblue 1px;
+.default-layout .floating-box {
+  background: #383e47;
+  box-shadow: 8px 8px 5px #200920;
 }
 
-.defaultLayoutInner, .canvas, .description, .controls {
-  border: solid #f6f7f9 2px;
-  padding: 10px;
-}
+#root {
+  margin-left: 40px;
+  margin-right: 40px;
 
-.defaultLayout {
+}
+.default-layout {
   display: grid;
   height: 100%;
   grid-template-rows: 50px auto auto 50px;
+  padding-bottom: 15px;
 }
 
-.defaultLayoutInner {
+.default-layout-inner {
   height: 100%;
   display: grid;
   grid-gap: 1em;
@@ -41,6 +43,7 @@ body {
 .description {
   grid-column: 2;
   grid-row: 2/4;
+  padding: 10px;
 }
 
 .app-nav {
@@ -48,12 +51,11 @@ body {
   justify-content: space-between;
 
 }
-.app-nav a:link, .app-nav a:visited {
-  color: aquamarine;
+h1, .app-nav a:link, .app-nav a:visited {
+  color: #31cece;
 }
 
 .app-nav div {
   padding: 5px;
   font-size: 1.5em;
-  border: solid magenta 1px;
 }

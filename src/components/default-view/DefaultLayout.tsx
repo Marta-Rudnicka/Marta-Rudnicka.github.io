@@ -23,11 +23,11 @@ export function DefaultLayout(props: DefaultLayoutProps) {
   document.exitFullscreen();
 
   return (
-    <div className="defaultLayout">
+    <div className="default-layout">
       <Header />
       <h1>{props.title}</h1>
-      <div className="defaultLayoutInner">
-        <div className="canvas">
+      <div className="default-layout-inner">
+        <div className="canvas floating-box">
           <Canvas
             fullScreen={false}
             id="canvas"
@@ -37,10 +37,10 @@ export function DefaultLayout(props: DefaultLayoutProps) {
             size={props.size}
           />
         </div>
-        <div className="controls">
+        <div className="controls floating-box">
           {props.conrols}
         </div>
-        <div className="description">
+        <div className="description floating-box">
           {props.description}
         </div>
         <div className="extra-controls">
