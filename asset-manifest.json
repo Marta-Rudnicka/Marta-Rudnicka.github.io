@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.40f38444.css",
-    "main.js": "/static/js/main.470b45a4.js",
-    "static/media/blueprint-icons-20.eot?": "/static/media/blueprint-icons-20.157fc7a37a71b9495da1.eot",
-    "static/media/blueprint-icons-20.ttf?": "/static/media/blueprint-icons-20.8a525ab91769f6d60c94.ttf",
-    "static/media/blueprint-icons-16.eot?": "/static/media/blueprint-icons-16.04fc31dc7c0257d5b3f3.eot",
-    "static/media/blueprint-icons-16.ttf?": "/static/media/blueprint-icons-16.565ce5e4e7c8be823549.ttf",
-    "static/media/blueprint-icons-20.woff?": "/static/media/blueprint-icons-20.3843580eab4844b48210.woff",
-    "static/media/blueprint-icons-16.woff?": "/static/media/blueprint-icons-16.9ad9cbe47f2f5821528d.woff",
-    "static/media/blueprint-icons-20.woff2?": "/static/media/blueprint-icons-20.8a26d7e1bb38c9c64a59.woff2",
-    "static/media/blueprint-icons-16.woff2?": "/static/media/blueprint-icons-16.8b1c5e35bad17bae103e.woff2",
+    "main.css": "/static/css/main.df85d8bb.css",
+    "main.js": "/static/js/main.824bea9e.js",
+    "static/media/blueprint-icons-20.eot?": "/static/media/blueprint-icons-20.493e70cebc4e49062a16.eot",
+    "static/media/blueprint-icons-20.ttf?": "/static/media/blueprint-icons-20.982ea1c161b2804b72da.ttf",
+    "static/media/blueprint-icons-16.eot?": "/static/media/blueprint-icons-16.fde8cacb8868288ed9d1.eot",
+    "static/media/blueprint-icons-16.ttf?": "/static/media/blueprint-icons-16.eb652aad9a929d252b80.ttf",
+    "static/media/blueprint-icons-20.woff?": "/static/media/blueprint-icons-20.003685e3c699021a45e0.woff",
+    "static/media/blueprint-icons-16.woff?": "/static/media/blueprint-icons-16.869b8978b3bcfa884f8e.woff",
+    "static/media/blueprint-icons-20.woff2?": "/static/media/blueprint-icons-20.60be483452f2e760526f.woff2",
+    "static/media/blueprint-icons-16.woff2?": "/static/media/blueprint-icons-16.5a0658c2b025e421ebc2.woff2",
     "index.html": "/index.html",
-    "main.40f38444.css.map": "/static/css/main.40f38444.css.map",
-    "main.470b45a4.js.map": "/static/js/main.470b45a4.js.map"
+    "main.df85d8bb.css.map": "/static/css/main.df85d8bb.css.map",
+    "main.824bea9e.js.map": "/static/js/main.824bea9e.js.map"
   },
   "entrypoints": [
-    "static/css/main.40f38444.css",
-    "static/js/main.470b45a4.js"
+    "static/css/main.df85d8bb.css",
+    "static/js/main.824bea9e.js"
   ]
 }
