@@ -3,7 +3,7 @@ import './App.css';
 import "normalize.css"
 import "@blueprintjs/core/lib/css/blueprint.css"
 import "@blueprintjs/icons/lib/css/blueprint-icons.css"
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
 import { SierpinskiTriangle } from './fractals/sierpinski';
 

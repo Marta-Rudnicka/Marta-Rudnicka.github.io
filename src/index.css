@@ -35,7 +35,31 @@ code {
 }
 
 .change-view-icon {
+  color: #31cece;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 3px;
+  right: 3px;
+}
+
+.tooltip {
+  background-color: black;
+  box-shadow: 3px 3px 5px #31cece;
+  border: #31cece solid 1px;
+  padding: 5px;
+  position: absolute;
+  top: -100px;
+}
+
+.tooltip-bottom {
+  background-color: black;
+  box-shadow: 3px 3px 5px #31cece;
+  border: #31cece solid 1px;
+  padding: 5px;
+  opacity: 0.7;
+}
+
+.tooltip-wrapper {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
 }

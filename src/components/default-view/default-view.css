@@ -51,7 +51,7 @@ body {
   justify-content: space-between;
 
 }
-h1, .app-nav a:link, .app-nav a:visited {
+h1, h2, .app-nav a:link, .app-nav a:visited {
   color: #31cece;
 }
 
