@@ -1,6 +1,6 @@
 export const fractals = [
   {
-    label: "TestExample",
+    label: "Sierpiński triangle",
     url: 'example',
     image: '',
   },

@@ -14,7 +14,7 @@ export function Home(){
     <div className="App bp4-dark">
       <Layout>
       <header className="App-header">
-        <p>This is a placeholder page for a future project. So far, it only contains some components for testing purposes</p>
+        <p>This is a placeholder page</p>
         <p>height: {windowHeight}, width: {windowWidth}</p>
         <div>
         <ChevronDown />
