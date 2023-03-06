@@ -1,0 +1,31 @@
+body {
+  color: #f6f7f9;
+  background: #282c34;
+  padding: 0;
+}
+
+.full-screen-layout .controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  opacity: 0.6;
+  border: none;
+}
+
+.full-screen-layout .canvas, .full-screen-layout .controls {
+  border: none;
+  padding: 0;
+}
+
+.controls {
+  padding: 5px;
+}
+
+.full-screen-layout .slider-container {
+  background: aliceblue;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+
+}

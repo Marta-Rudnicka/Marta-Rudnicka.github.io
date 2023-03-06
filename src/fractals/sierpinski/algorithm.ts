@@ -37,7 +37,7 @@ function cutOutMiddleTriangle(
   ): void {
   const { a, b, c } = points;
   const newPoints = {a: middle(a, b), b: middle(b, c), c: middle(c, a)}
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "black";
   ctx.beginPath();
   drawTriangle(newPoints, ctx);
   ctx.closePath()
@@ -59,7 +59,7 @@ export function fillFirstTriangle(
   points: Triangle,
   ctx: CanvasRenderingContext2D,
 ): void {
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   drawTriangle(points, ctx);
   ctx.fill();
 }

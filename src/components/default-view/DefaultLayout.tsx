@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { MouseEventHandler, ReactElement } from "react"
 import { DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Canvas";
 import { Footer } from "../Footer";
@@ -15,9 +15,13 @@ type DefaultLayoutProps = {
   prevLink?: string;
   nextLink?: string;
   parameters: Parameters;
+  handleClick: MouseEventHandler;
+  size: number;
 }
 
 export function DefaultLayout(props: DefaultLayoutProps) {
+  document.exitFullscreen();
+
   return (
     <div className="defaultLayout">
       <Header />
@@ -29,6 +33,8 @@ export function DefaultLayout(props: DefaultLayoutProps) {
             id="canvas"
             draw={props.draw}
             parameters={props.parameters}
+            handleClick={props.handleClick}
+            size={props.size}
           />
         </div>
         <div className="controls">

@@ -10,6 +10,7 @@ export function draw (
   const { canvas, size } = args;
   const parameters = args.parameters  as SierpinskiParameters;
   const ctx = canvas.getContext("2d");
+  canvas.style.background = "black";
   const first = equilateralTriangle(size);
   if (ctx) {
     ctx?.clearRect(0, 0, size, size);

@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-div {
-  background: #282c34;
-}
-
 .footer {
   height: 40px;
 }
@@ -26,4 +22,18 @@ div {
 
 .slider-container {
   padding: 5px;
+}
+
+.canvas {
+  padding: 0;
+}
+
+.canvas-wrapper {
+  position: relative;
+}
+
+.change-view-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }

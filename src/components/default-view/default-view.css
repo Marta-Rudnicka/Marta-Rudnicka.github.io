@@ -4,7 +4,7 @@ body {
   padding: 10px;
 }
 
-canvas {
+.default-view canvas {
   border: solid aliceblue 1px;
 }
 

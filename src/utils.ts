@@ -9,9 +9,9 @@ export function getCanvasSize(
   windowWidth: number,
   fullScreen?: boolean,
 ): number {
-  const whitespace = 30;
   let size = windowHeight < windowWidth ? windowHeight : windowWidth;
   if (!fullScreen) {
+    const whitespace = 30;
     size = windowHeight - whitespace < 0.75 * windowWidth
       ? windowHeight - whitespace - 15
       : 0.75 * windowWidth;
@@ -21,5 +21,5 @@ export function getCanvasSize(
 
 export function getIterationsNumber(fullScreen: boolean | undefined): number {
   const size = getSize(fullScreen);
-  return Math.round((Math.log(size) / Math.log(2)) - 2);
+  return Math.round((Math.log(size) / Math.log(2)) - 1);
 }

@@ -1,6 +1,6 @@
-import { IconProps } from "./types";
+import { IconWrapperProps } from "./types";
 
-export function IconWrapper(props: IconProps) {
+export function IconWrapper(props: IconWrapperProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
