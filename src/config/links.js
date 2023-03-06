@@ -1,7 +1,7 @@
 export const fractals = [
   {
     label: "Sierpiński triangle",
-    url: 'example',
+    url: '#/example',
     image: '',
   },
 ];
