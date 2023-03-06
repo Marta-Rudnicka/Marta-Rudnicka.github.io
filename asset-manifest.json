@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.40f38444.css",
-    "main.js": "/static/js/main.2e57b213.js",
+    "main.js": "/static/js/main.470b45a4.js",
     "static/media/blueprint-icons-20.eot?": "/static/media/blueprint-icons-20.157fc7a37a71b9495da1.eot",
     "static/media/blueprint-icons-20.ttf?": "/static/media/blueprint-icons-20.8a525ab91769f6d60c94.ttf",
     "static/media/blueprint-icons-16.eot?": "/static/media/blueprint-icons-16.04fc31dc7c0257d5b3f3.eot",
@@ -12,10 +12,10 @@
     "static/media/blueprint-icons-16.woff2?": "/static/media/blueprint-icons-16.8b1c5e35bad17bae103e.woff2",
     "index.html": "/index.html",
     "main.40f38444.css.map": "/static/css/main.40f38444.css.map",
-    "main.2e57b213.js.map": "/static/js/main.2e57b213.js.map"
+    "main.470b45a4.js.map": "/static/js/main.470b45a4.js.map"
   },
   "entrypoints": [
     "static/css/main.40f38444.css",
-    "static/js/main.2e57b213.js"
+    "static/js/main.470b45a4.js"
   ]
 }
