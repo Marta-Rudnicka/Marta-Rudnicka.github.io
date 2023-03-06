@@ -1,6 +1,7 @@
 {
   "name": "fractals",
   "version": "0.1.0",
+  "homepage": "https://Marta-Rudnicka.github.io/",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^4.16.3",
