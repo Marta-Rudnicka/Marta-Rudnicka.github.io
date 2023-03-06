@@ -13,7 +13,7 @@ function App() {
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
-        <Route path="example" element={<SierpinskiTriangle />} />
+        <Route path="/example" element={<SierpinskiTriangle />} />
       </Route>
     </Routes>
   </BrowserRouter>

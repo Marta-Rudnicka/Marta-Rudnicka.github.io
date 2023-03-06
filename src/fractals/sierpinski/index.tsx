@@ -8,7 +8,7 @@ import { FullScreenLayout } from "../../components/full-screen-view/FullScreenLa
 
 export function SierpinskiTriangle() {
   const [iterations, setIterations] = useState(4)
-  const [fullScreen, setFullScreen] = useState(true);
+  const [fullScreen, setFullScreen] = useState(false);
   const [size, setSize ] = useState(getSize(fullScreen))
   const maxIterations = getIterationsNumber(false);
 
