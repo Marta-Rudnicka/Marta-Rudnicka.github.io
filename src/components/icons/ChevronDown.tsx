@@ -1,9 +1,11 @@
 import { IconWrapper } from "./IconWrapper";
+import { IconProps } from "./types";
 
-export function ChevronDown() {
+export function ChevronDown(props: IconProps) {
   return (
     <IconWrapper
       className="bi bi-chevron-compact-down"
+      {...props}
     >
       <path
         fill-rule="evenodd"

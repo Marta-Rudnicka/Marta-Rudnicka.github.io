@@ -8,24 +8,42 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 500px;
+  width: 25%;
   opacity: 0.6;
   border: none;
+  background-color: lightgrey;
 }
 
-.full-screen-layout .canvas, .full-screen-layout .controls {
+.full-screen-layout .canvas, .full-screen-layout {
   border: none;
   padding: 0;
 }
 
 .controls {
   padding: 5px;
+  padding-bottom: 10px;
+}
+
+.control-header {
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.full-screen-layout h2 {
+  color: black;
 }
 
 .full-screen-layout .slider-container {
-  background: aliceblue;
+  background: white;
   color: black;
   padding-left: 10px;
   padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-shadow: 3px 3px 5px #200920;
+}
 
+.control-header-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
 }

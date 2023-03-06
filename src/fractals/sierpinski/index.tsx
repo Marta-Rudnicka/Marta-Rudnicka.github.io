@@ -33,6 +33,7 @@ export function SierpinskiTriangle() {
           iterations={iterations}
           setIterations={setIterations}
           maxValue={maxIterations}
+          fullScreen={fullScreen}
         />}
       />
     );
