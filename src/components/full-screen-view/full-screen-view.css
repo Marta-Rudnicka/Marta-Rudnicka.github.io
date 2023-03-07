@@ -6,12 +6,12 @@ body {
 
 .full-screen-layout .controls {
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 0;
   width: 25%;
-  opacity: 0.6;
+  opacity: 0.7;
   border: none;
-  background-color: lightgrey;
+  background-color:  aliceblue;
 }
 
 .full-screen-layout .canvas, .full-screen-layout {
@@ -29,8 +29,15 @@ body {
   justify-content: flex-end;
 }
 
+.full-screen-layout {
+  background-color: black;
+}
+
 .full-screen-layout h2 {
+  margin:0 0 5px 0;
   color: black;
+  display: inline-flex;
+  align-items: end;
 }
 
 .full-screen-layout .slider-container {
@@ -46,4 +53,9 @@ body {
 .control-header-wrapper {
   display: flex;
   flex-direction: column-reverse;
+}
+
+:focus {
+  outline: #31cece solid 1px;
+  outline-offset: 2px;
 }

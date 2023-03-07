@@ -9,16 +9,13 @@ body {
   box-shadow: 8px 8px 5px #200920;
 }
 
-#root {
-  margin-left: 40px;
-  margin-right: 40px;
-
-}
 .default-layout {
   display: grid;
   height: 100%;
   grid-template-rows: 50px auto auto 50px;
   padding-bottom: 15px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .default-layout-inner {
@@ -51,7 +48,7 @@ body {
   justify-content: space-between;
 
 }
-h1, h2, .app-nav a:link, .app-nav a:visited {
+.app-nav a:link, .app-nav a:visited {
   color: #31cece;
 }
 
