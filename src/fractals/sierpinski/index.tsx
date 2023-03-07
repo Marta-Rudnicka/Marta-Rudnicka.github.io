@@ -7,7 +7,7 @@ import { getIterationsNumber, getSize } from "../../utils";
 import { FullScreenLayout } from "../../components/full-screen-view/FullScreenLayout";
 
 export function SierpinskiTriangle() {
-  const [iterations, setIterations] = useState(4)
+  const [iterations, setIterations] = useState(5)
   const [fullScreen, setFullScreen] = useState(false);
   const [size, setSize ] = useState(getSize(fullScreen))
   const maxIterations = getIterationsNumber(false);
@@ -51,8 +51,8 @@ export function SierpinskiTriangle() {
       />}
       title="Sierpiński triangle - work in progress"
       description={description}
-      prevLink="www.example.com"
-      nextLink="www.example.com"
+      prevLink="/#/dummy"
+      nextLink="/#/dummy"
       size={size}
     />
   );

@@ -6,6 +6,7 @@ import "@blueprintjs/icons/lib/css/blueprint-icons.css"
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
 import { SierpinskiTriangle } from './fractals/sierpinski';
+import { Dummy } from './components/Dummy';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="/example" element={<SierpinskiTriangle />} />
+        <Route path="/dummy" element={<Dummy />} />
+
       </Route>
     </Routes>
   </HashRouter>
