@@ -12,7 +12,7 @@ type FullScreenLayoutProps = {
 }
 
 export function FullScreenLayout(props: FullScreenLayoutProps) {
-  document.documentElement.requestFullscreen();
+
   return (
     <div className="full-screen-layout">
       <div className="canvas">

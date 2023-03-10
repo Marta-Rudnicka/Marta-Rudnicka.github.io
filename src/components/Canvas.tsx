@@ -20,7 +20,6 @@ export function Canvas(props: CanvasProps) {
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
 
   useEffect(() => {
-    console.log('useEffect')
     const canvas = document.getElementById(props.id) as HTMLCanvasElement;
     canvas.style.background = "white";
     const drawArgs = {

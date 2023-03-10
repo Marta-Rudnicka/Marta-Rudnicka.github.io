@@ -10,10 +10,24 @@ export function SierpinskiTriangle() {
   const [iterations, setIterations] = useState(5)
   const [fullScreen, setFullScreen] = useState(false);
   const [size, setSize ] = useState(getSize(fullScreen))
-  const maxIterations = getIterationsNumber(false);
+  const [maxIterations, setMaxIterations] = useState(getIterationsNumber(false));
 
   function handleResize(): void{
     setSize(getSize(fullScreen));
+    setMaxIterations(getIterationsNumber(fullScreen));
+    if (iterations > maxIterations){
+      setIterations(maxIterations);
+    }
+  }
+
+  function handleChangeViewIconClick(){
+    if(fullScreen){
+      setFullScreen(false)
+    } else {
+      setFullScreen(true);
+      document.documentElement.requestFullscreen();
+    }
+
   }
 
   useEffect(() => {
@@ -27,7 +41,7 @@ export function SierpinskiTriangle() {
       <FullScreenLayout
         draw={draw}
         parameters={{ iterations }}
-        handleClick={() => setFullScreen(false)}
+        handleClick={handleChangeViewIconClick}
         size={size}
         conrols={<Controls
           iterations={iterations}
@@ -43,7 +57,7 @@ export function SierpinskiTriangle() {
     <DefaultLayout
       draw={draw}
       parameters={{ iterations }}
-      handleClick={() => setFullScreen(true)}
+      handleClick={handleChangeViewIconClick}
       conrols={<Controls
         iterations={iterations}
         setIterations={setIterations}

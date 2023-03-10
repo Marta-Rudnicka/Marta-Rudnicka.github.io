@@ -20,7 +20,10 @@ type DefaultLayoutProps = {
 }
 
 export function DefaultLayout(props: DefaultLayoutProps) {
-  document.exitFullscreen();
+
+  if (!window.screenTop && !window.screenY) { // check if in full screen
+    document.exitFullscreen();
+  }
 
   return (
     <div className="default-layout">
