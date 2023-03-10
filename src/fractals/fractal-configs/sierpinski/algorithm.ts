@@ -1,4 +1,4 @@
-import { Point, Triangle } from "../../types";
+import { Point, Triangle } from "../../../types";
 
 export function equilateralTriangle(size: number): Triangle {
   const length = 0.9 * size;

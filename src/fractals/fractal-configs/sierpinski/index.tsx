@@ -1,9 +1,14 @@
 import { draw } from "./draw";
 import { description } from "./description";
 import { useState } from "react";
-import { getIterationsNumber } from "../../utils";
-import { SliderControlProps } from "../../components/SliderControl";
-import { FractalDisplay } from "../../components/FractalDisplay";
+import { SliderControlProps } from "../../SliderControl";
+import { FractalDisplay } from "../../FractalDisplay";
+import { getSize } from "../../../utils";
+
+function getIterationsNumber(fullScreen: boolean): number {
+  const size = getSize(fullScreen);
+  return Math.round((Math.log(size) / Math.log(2)) - 1);
+}
 
 export function SierpinskiTriangle() {
   const [fullScreen, setFullScreen] = useState(false);

@@ -1,8 +1,8 @@
 import { MouseEventHandler, ReactElement } from "react"
 import { DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Canvas";
-import { Footer } from "../Footer";
-import { Header } from "../Header";
+import { Footer } from "../../components/layout/Footer";
+import { Header } from "../../components/layout/Header";
 import { AppNav } from "./AppNav";
 import './default-view.css';
 

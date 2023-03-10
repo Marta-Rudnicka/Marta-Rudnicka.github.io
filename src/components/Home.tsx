@@ -1,4 +1,4 @@
-import { Layout } from "./Layout";
+import { Layout } from "./layout/Layout";
 
 export function Home(){
   const windowHeight = window.innerHeight;

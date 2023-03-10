@@ -1,6 +1,6 @@
 import { Button, Navbar } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
-import { fractals } from "../config/links";
+import { fractals } from "../../config/links";
 
 export function Header() {  
   return (

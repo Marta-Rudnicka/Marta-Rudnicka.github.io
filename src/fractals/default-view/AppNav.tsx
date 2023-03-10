@@ -1,5 +1,5 @@
-import { ChevronLeft } from "../icons/ChevronLeft";
-import { ChevronRight } from "../icons/ChevronRight";
+import { ChevronLeft } from "../../components/icons/ChevronLeft";
+import { ChevronRight } from "../../components/icons/ChevronRight";
 
 type FooterProps = {
   prevLink?: string,

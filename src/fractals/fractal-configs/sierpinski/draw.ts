@@ -1,4 +1,4 @@
-import { DrawFuncArgs } from "../../types";
+import { DrawFuncArgs } from "../../../types";
 import { generate, equilateralTriangle, fillFirstTriangle } from "./algorithm";
 
 type SierpinskiParameters = {

@@ -9,7 +9,7 @@ import { SliderControlProps } from "./SliderControl";
 type FractalDisplayProps = {
   fullScreen: boolean;
   setFullScreen: Dispatch<SetStateAction<boolean>>
-  getIterationsNumber: (fullScreen: boolean | undefined) => number;
+  getIterationsNumber: (fullScreen: boolean) => number;
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
   description: string[];

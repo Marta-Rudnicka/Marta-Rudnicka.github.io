@@ -5,8 +5,8 @@ import "@blueprintjs/core/lib/css/blueprint.css"
 import "@blueprintjs/icons/lib/css/blueprint-icons.css"
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
-import { SierpinskiTriangle } from './fractals/sierpinski';
-import { Dummy } from './components/Dummy';
+import { Dummy } from './components/layout/Dummy';
+import { SierpinskiTriangle } from './fractals/fractal-configs/sierpinski';
 
 function App() {
   return (

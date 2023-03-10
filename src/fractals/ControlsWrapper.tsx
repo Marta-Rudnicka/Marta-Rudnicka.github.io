@@ -2,7 +2,7 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { ReactNode, useEffect, useState } from "react";
 import { ChevronDown } from "../components/icons/ChevronDown";
 import { ChevronUp } from "../components/icons/ChevronUp";
-import { SliderControl, SliderControlProps } from "../components/SliderControl";
+import { SliderControl, SliderControlProps } from "./SliderControl";
 
 type ControlProps = {
   sliders: SliderControlProps[];
