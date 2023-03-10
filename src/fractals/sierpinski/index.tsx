@@ -1,10 +1,11 @@
 import { DefaultLayout } from "../../components/default-view/DefaultLayout";
 import { draw } from "./draw";
-import { Controls } from "./controls";
 import { description } from "./description";
 import { useEffect, useState } from "react";
 import { getIterationsNumber, getSize } from "../../utils";
 import { FullScreenLayout } from "../../components/full-screen-view/FullScreenLayout";
+import { SliderControlProps } from "../../components/SliderControl";
+import { ControlsWrapper } from "../../components/ControlsWrapper";
 
 export function SierpinskiTriangle() {
   const [iterations, setIterations] = useState(5)
@@ -30,6 +31,15 @@ export function SierpinskiTriangle() {
 
   }
 
+  const sliders:SliderControlProps[] = [{
+    defaultValue: 5,
+    info: "dummy info",
+    label: "iterations",
+    maxValue: maxIterations,
+    minValue: 1,
+    setValue: setIterations,
+  }];
+
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -43,10 +53,8 @@ export function SierpinskiTriangle() {
         parameters={{ iterations }}
         handleClick={handleChangeViewIconClick}
         canvasSize={size}
-        controls={<Controls
-          iterations={iterations}
-          setIterations={setIterations}
-          maxValue={maxIterations}
+        controls={<ControlsWrapper
+          sliders={sliders}
           fullScreen={fullScreen}
         />}
       />
@@ -58,10 +66,9 @@ export function SierpinskiTriangle() {
       draw={draw}
       parameters={{ iterations }}
       handleClick={handleChangeViewIconClick}
-      conrols={<Controls
-        iterations={iterations}
-        setIterations={setIterations}
-        maxValue={maxIterations}
+      conrols={<ControlsWrapper
+        sliders={sliders}
+        fullScreen={fullScreen}
       />}
       title="Sierpiński triangle - work in progress"
       description={description}

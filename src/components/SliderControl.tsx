@@ -2,13 +2,14 @@ import { Collapse, Slider } from "@blueprintjs/core";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Info } from "./icons/Info";
 
-type SliderControlProps = {
+export type SliderControlProps = {
   label: string;
   minValue: number;
   maxValue: number;
   defaultValue: number;
   info: string;
   setValue: Dispatch<SetStateAction<number>>
+  labelStepSize? : number
 }
 
 export function SliderControl(props: SliderControlProps){
@@ -35,7 +36,7 @@ export function SliderControl(props: SliderControlProps){
           min={props.minValue}
           max={props.maxValue}
           value={sliderValue}
-          labelStepSize={props.maxValue - props.minValue}
+          labelStepSize={props.labelStepSize || props.maxValue - props.minValue}
           onChange={handleChange}
         >
           Example text  

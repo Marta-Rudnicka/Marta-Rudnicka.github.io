@@ -1,13 +1,18 @@
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { useState } from "react";
-import { ChevronDown } from "../../components/icons/ChevronDown";
-import { ChevronUp } from "../../components/icons/ChevronUp";
-import { SliderControl } from "../../components/SliderControl";
+import { ReactNode, useState } from "react";
+import { ChevronDown } from "../components/icons/ChevronDown";
+import { ChevronUp } from "../components/icons/ChevronUp";
+import { SliderControl, SliderControlProps } from "../components/SliderControl";
+
+
+// {  iterations: number;
+//   setIterations: React.Dispatch<React.SetStateAction<number>>;
+// maxValue: number;
+
+// }
 
 type ControlProps = {
-  iterations: number;
-  setIterations: React.Dispatch<React.SetStateAction<number>>;
-  maxValue: number;
+  sliders: SliderControlProps[];
   fullScreen?: boolean;
 }
 
@@ -39,8 +44,24 @@ function ControlHeader(props: ControlHeaderProps) {
   )
 }
 
-export function Controls(props: ControlProps) {
+export function ControlsWrapper(props: ControlProps) {
   const [allVisible, setAllVisible] = useState(!props.fullScreen);
+
+  function renderControls(): ReactNode[] {
+    return props.sliders.map(slider => {
+      return (
+      <SliderControl
+        key={slider.label}
+        label={slider.label}
+        setValue={slider.setValue}
+        maxValue={slider.maxValue}
+        minValue={slider.minValue}
+        defaultValue={slider.defaultValue}
+        info={slider.info}
+      />
+    );}
+    );
+  }
   return (
     <>
       <div className="control-header-wrapper">
@@ -51,16 +72,8 @@ export function Controls(props: ControlProps) {
           />}
       </div>
       <div>
-        {(!props.fullScreen || allVisible) &&
-          <SliderControl
-            label="iterations"
-            setValue={props.setIterations}
-            maxValue={props.maxValue}
-            minValue={1}
-            defaultValue={props.iterations}
-            info="dummy info"
-          />
-        }
+        {(!props.fullScreen || allVisible) 
+        && renderControls()}
       </div>
     </>
   );
