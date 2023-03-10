@@ -14,7 +14,7 @@ type DefaultLayoutProps = {
   extraControls?: ReactElement;
   prevLink?: string;
   nextLink?: string;
-  parameters: Parameters;
+  drawParameters: Parameters;
   handleClick: MouseEventHandler;
   canvasSize: number;
 }
@@ -35,7 +35,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
             fullScreen={false}
             id="canvas"
             draw={props.draw}
-            parameters={props.parameters}
+            drawParameters={props.drawParameters}
             handleClick={props.handleClick}
             size={props.canvasSize}
           />

@@ -4,13 +4,6 @@ import { ChevronDown } from "../components/icons/ChevronDown";
 import { ChevronUp } from "../components/icons/ChevronUp";
 import { SliderControl, SliderControlProps } from "../components/SliderControl";
 
-
-// {  iterations: number;
-//   setIterations: React.Dispatch<React.SetStateAction<number>>;
-// maxValue: number;
-
-// }
-
 type ControlProps = {
   sliders: SliderControlProps[];
   fullScreen?: boolean;

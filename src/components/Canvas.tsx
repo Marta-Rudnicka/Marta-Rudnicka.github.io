@@ -10,7 +10,7 @@ type CanvasProps = {
   fullScreen?: boolean;
   size: number;
   draw: DrawFunc;
-  parameters: Parameters;
+  drawParameters: Parameters;
   handleClick: MouseEventHandler;
 }
 
@@ -25,7 +25,7 @@ export function Canvas(props: CanvasProps) {
     const drawArgs = {
       canvas,
       size,
-      parameters: props.parameters,
+      parameters: props.drawParameters,
     }
     props.draw(drawArgs);
   }, [props, size]);
