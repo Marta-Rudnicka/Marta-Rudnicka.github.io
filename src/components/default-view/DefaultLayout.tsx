@@ -44,7 +44,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           {props.conrols}
         </div>
         <div className="description floating-box">
-          {props.description.map(p => <p>{p}</p>)}
+          {props.description.map((p, index) => <p key={index}>{p}</p>)}
         </div>
         <div className="extra-controls">
           {props.extraControls &&
