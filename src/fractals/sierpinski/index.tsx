@@ -17,7 +17,7 @@ export function SierpinskiTriangle() {
     }
   }
   const sliders: SliderControlProps[] = [{
-    defaultValue: iterations,
+    value: iterations,
     info: "dummy info",
     label: "iterations",
     maxValue: getIterationsNumber(fullScreen),

@@ -6,7 +6,7 @@ export type SliderControlProps = {
   label: string;
   minValue: number;
   maxValue: number;
-  defaultValue: number;
+  value: number;
   info: string;
   setValue: Dispatch<SetStateAction<number>>
   labelStepSize? : number
@@ -14,7 +14,7 @@ export type SliderControlProps = {
 
 export function SliderControl(props: SliderControlProps){
   const [isOpen, setIsOpen] = useState(false);
-  const [sliderValue, setSliderValue] = useState(props.defaultValue)
+  
   function toggleIsOpen(){
     if (isOpen) {
       setIsOpen(false);
@@ -23,10 +23,6 @@ export function SliderControl(props: SliderControlProps){
     }
   }
 
-  function handleChange(input: number) {
-    setSliderValue(input);
-    props.setValue(input)
-  }
   return (
     <div className="slider-container">
       <label>{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
@@ -35,9 +31,9 @@ export function SliderControl(props: SliderControlProps){
           showTrackFill
           min={props.minValue}
           max={props.maxValue}
-          value={sliderValue}
+          value={props.value}
           labelStepSize={props.labelStepSize || props.maxValue - props.minValue}
-          onChange={handleChange}
+          onChange={e => props.setValue(e)}
         >
           Example text  
         </Slider>
