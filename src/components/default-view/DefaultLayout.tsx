@@ -10,13 +10,13 @@ type DefaultLayoutProps = {
   draw: DrawFunc;
   conrols: ReactElement;
   title: string;
-  description: string;
+  description: string[];
   extraControls?: ReactElement;
   prevLink?: string;
   nextLink?: string;
   parameters: Parameters;
   handleClick: MouseEventHandler;
-  size: number;
+  canvasSize: number;
 }
 
 export function DefaultLayout(props: DefaultLayoutProps) {
@@ -37,14 +37,14 @@ export function DefaultLayout(props: DefaultLayoutProps) {
             draw={props.draw}
             parameters={props.parameters}
             handleClick={props.handleClick}
-            size={props.size}
+            size={props.canvasSize}
           />
         </div>
         <div className="controls floating-box">
           {props.conrols}
         </div>
         <div className="description floating-box">
-          {props.description}
+          {props.description.map(p => <p>{p}</p>)}
         </div>
         <div className="extra-controls">
           {props.extraControls &&

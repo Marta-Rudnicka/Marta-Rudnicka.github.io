@@ -5,10 +5,10 @@ import './full-screen-view.css';
 
 type FullScreenLayoutProps = {
   draw: DrawFunc;
-  conrols: ReactElement;
+  controls: ReactElement;
   parameters: Parameters;
   handleClick: MouseEventHandler;
-  size: number;
+  canvasSize: number;
 }
 
 export function FullScreenLayout(props: FullScreenLayoutProps) {
@@ -22,11 +22,11 @@ export function FullScreenLayout(props: FullScreenLayoutProps) {
           draw={props.draw}
           parameters={props.parameters}
           handleClick={props.handleClick}
-          size={props.size}
+          size={props.canvasSize}
         />
       </div>
       <div className="controls">
-        {props.conrols}
+        {props.controls}
       </div>
     </div>
   );

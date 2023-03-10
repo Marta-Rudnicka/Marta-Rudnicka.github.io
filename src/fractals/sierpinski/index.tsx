@@ -42,8 +42,8 @@ export function SierpinskiTriangle() {
         draw={draw}
         parameters={{ iterations }}
         handleClick={handleChangeViewIconClick}
-        size={size}
-        conrols={<Controls
+        canvasSize={size}
+        controls={<Controls
           iterations={iterations}
           setIterations={setIterations}
           maxValue={maxIterations}
@@ -67,7 +67,7 @@ export function SierpinskiTriangle() {
       description={description}
       prevLink="/#/dummy"
       nextLink="/#/dummy"
-      size={size}
+      canvasSize={size}
     />
   );
 }
