@@ -21,7 +21,6 @@ export function draw (
       parameters["iterations"],
       ctx
     );
-    ctx.stroke();
     ctx.closePath();
   }
 }
