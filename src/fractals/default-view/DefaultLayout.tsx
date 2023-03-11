@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactElement } from "react"
-import { DrawFunc, Parameters } from "../../types";
+import { canvasInputs, DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Canvas";
 import { Footer } from "../../components/layout/Footer";
 import { Header } from "../../components/layout/Header";
@@ -17,6 +17,7 @@ type DefaultLayoutProps = {
   drawParameters: Parameters;
   handleClick: MouseEventHandler;
   canvasSize: number;
+  canvasInputs?: canvasInputs;
 }
 
 export function DefaultLayout(props: DefaultLayoutProps) {
@@ -32,6 +33,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
       <div className="default-layout-inner">
         <div className="canvas floating-box">
           <Canvas
+            canvasInputs={props.canvasInputs}
             fullScreen={false}
             id="canvas"
             draw={props.draw}

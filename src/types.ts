@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type DrawFuncArgs = {
   canvas: HTMLCanvasElement,
   size: number,
@@ -16,4 +18,20 @@ export type Triangle = {
   c: Point;
 }
 
-export type Parameters = Record<string, number>
+export type Parameters = Record<string, number|Point>
+
+type canvasInput = {
+  value: Point,
+  setValue?: Dispatch<SetStateAction<Point>>,
+  toggle?: () => void;
+}
+
+export type canvasInputs = {
+  onClick? : canvasInput,
+  onMouseMove?: canvasInput,
+  onMouseOver?: canvasInput,
+  onMouseUp?: canvasInput,
+  onMouseDown?: canvasInput,
+}
+
+export type eventHandlerString = "onMouseDown" | "onMouseUp" | "onMouseMove"

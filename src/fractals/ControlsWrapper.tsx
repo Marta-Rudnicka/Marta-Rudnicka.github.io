@@ -1,5 +1,5 @@
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { ChevronDown } from "../components/icons/ChevronDown";
 import { ChevronUp } from "../components/icons/ChevronUp";
 import { SliderControl, SliderControlProps } from "./SliderControl";
@@ -17,7 +17,6 @@ type ControlHeaderProps = {
 function renderControls(
   sliders: SliderControlProps[]
   ): ReactNode[] {
-    console.log('rendering controls: ', sliders.map(s => s.value))
   return sliders.map(slider => 
     <SliderControl
       key={slider.label}
@@ -56,9 +55,7 @@ function ControlHeader(props: ControlHeaderProps) {
 }
 
 export function ControlsWrapper(props: ControlProps) {
-  console.log('rerendering controls wrapper', props.sliders.map(s => s.value));
   const [allVisible, setAllVisible] = useState(!props.fullScreen);
-  // const [controls, setControls ] = useState(renderControls(props.sliders));
 
   const controls = renderControls(props.sliders)
 

@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactElement } from "react"
-import { DrawFunc, Parameters } from "../../types";
+import { canvasInputs, DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Canvas";
 import './full-screen-view.css';
 
@@ -9,6 +9,7 @@ type FullScreenLayoutProps = {
   controls: ReactElement;
   handleClick: MouseEventHandler;
   canvasSize: number;
+  canvasInputs?: canvasInputs;
 }
 
 export function FullScreenLayout(props: FullScreenLayoutProps) {
@@ -17,6 +18,7 @@ export function FullScreenLayout(props: FullScreenLayoutProps) {
     <div className="full-screen-layout">
       <div className="canvas">
         <Canvas
+          canvasInputs={props.canvasInputs}
           fullScreen={true}
           id="canvas"
           draw={props.draw}

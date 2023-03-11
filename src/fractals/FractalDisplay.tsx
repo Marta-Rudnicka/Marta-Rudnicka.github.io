@@ -2,7 +2,7 @@ import { DefaultLayout } from "./default-view/DefaultLayout";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getSize } from "../utils";
 import { FullScreenLayout } from "./full-screen-view/FullScreenLayout";
-import { DrawFuncArgs, Parameters } from "../types";
+import { canvasInputs, DrawFuncArgs, Parameters } from "../types";
 import { ControlsWrapper } from "./ControlsWrapper";
 import { SliderControlProps } from "./SliderControl";
 
@@ -16,6 +16,7 @@ type FractalDisplayProps = {
   prevLink?: string;
   nextLink?: string;
   sliders: SliderControlProps[];
+  canvasInputs: canvasInputs;
   title: string;
   adjustPropertiesToScreenSize?: () => void
 }
@@ -55,6 +56,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
         drawParameters={props.drawParameters}
         handleClick={handleChangeViewIconClick}
         canvasSize={canvasSize}
+        canvasInputs={props.canvasInputs}
         controls={controls}
       />
     );
@@ -71,6 +73,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
       prevLink={props.prevLink}
       nextLink={props.nextLink}
       canvasSize={canvasSize}
+      canvasInputs={props.canvasInputs}
     />
   );
 }

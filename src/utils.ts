@@ -1,3 +1,5 @@
+import { Point } from "./types";
+
 export function getSize(fullScreen: boolean | undefined): number {
   const windowHeight = window.innerHeight;
   const windowWidth = window.innerWidth;
@@ -17,4 +19,22 @@ export function getCanvasSize(
       : 0.75 * windowWidth;
   }
   return Math.round(size);
+}
+
+export function findAffectedPoint(
+  points: Record<string, Point>, 
+  cursorPosition: Point
+): string | null {
+  for (const point in points) {
+    if (withinRange(points[point], cursorPosition, 30)) return point;
+  }
+  return null;
+}
+
+export function withinRange(point: Point, cursorPosition: Point, range: number) {
+  if (point[0] > cursorPosition[0] + range) return false;
+  if (point[0] < cursorPosition[0] - range) return false;
+  if (point[1] > cursorPosition[1] + range) return false;
+  if (point[1] < cursorPosition[1] - range) return false;
+  return true  
 }

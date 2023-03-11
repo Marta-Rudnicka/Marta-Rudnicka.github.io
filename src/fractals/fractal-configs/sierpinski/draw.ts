@@ -1,17 +1,22 @@
-import { DrawFuncArgs } from "../../../types";
-import { generate, equilateralTriangle, fillFirstTriangle } from "./algorithm";
+import { DrawFuncArgs, Point } from "../../../types";
+import { generate, fillFirstTriangle } from "./algorithm";
 
 type SierpinskiParameters = {
   iterations: number;
+  a: Point,
+  b: Point,
+  c: Point,
 }
-export function draw (
+
+export function draw(
   args: DrawFuncArgs,
-  ): void {
+): void {
   const { canvas, size } = args;
-  const parameters = args.parameters  as SierpinskiParameters;
+  const parameters = args.parameters as SierpinskiParameters;
   const ctx = canvas.getContext("2d");
   canvas.style.background = "black";
-  const first = equilateralTriangle(size);
+  const first = { ...parameters}
+
   if (ctx) {
     ctx?.clearRect(0, 0, size, size);
     ctx.beginPath();
