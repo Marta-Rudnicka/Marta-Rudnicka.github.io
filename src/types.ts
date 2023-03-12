@@ -34,4 +34,6 @@ export type canvasInputs = {
   onMouseDown?: canvasInput,
 }
 
-export type eventHandlerString = "onMouseDown" | "onMouseUp" | "onMouseMove"
+export type eventHandlerString = "onMouseDown" | "onMouseUp" | "onMouseMove";
+
+export type ResizeHandler = (oldSize: number | null, newSize: number) => void;

@@ -91,6 +91,8 @@ export function SierpinskiTriangle() {
 
   return (<FractalDisplay
     adjustPropertiesToScreenSize={adjustPropertiesToScreenSize}
+    canvasInputs={canvasInputs}
+    canvasSize={canvasSize}
     description={description}
     draw={draw}
     drawParameters={
@@ -101,13 +103,13 @@ export function SierpinskiTriangle() {
         c: outerTriangle.c,
       }}
     fullScreen={fullScreen}
-    setFullScreen={setFullScreen}
     getIterationsNumber={getIterationsNumber}
-    sliders={sliders}
-    canvasInputs={canvasInputs}
-    title="Sierpiński triangle - demo"
     nextLink="/#/dummy"
+    prevCanvasSize={prevCanvasSize}
     prevLink="/#/dummy"
+    setFullScreen={setFullScreen}
+    sliders={sliders}
+    title="Sierpiński triangle - demo"
   />
   );
 }

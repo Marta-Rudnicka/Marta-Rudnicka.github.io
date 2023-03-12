@@ -2,27 +2,31 @@ import { DefaultLayout } from "./default-view/DefaultLayout";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getSize } from "../utils";
 import { FullScreenLayout } from "./full-screen-view/FullScreenLayout";
-import { canvasInputs, DrawFuncArgs, Parameters } from "../types";
+import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../types";
 import { ControlsWrapper } from "./ControlsWrapper";
 import { SliderControlProps } from "./SliderControl";
 
 type FractalDisplayProps = {
-  fullScreen: boolean;
-  setFullScreen: Dispatch<SetStateAction<boolean>>
-  getIterationsNumber: (fullScreen: boolean) => number;
+  adjustPropertiesToScreenSize?: ResizeHandler;
+  canvasInputs: canvasInputs;
+  canvasSize: number;
+  description: string[];
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
-  description: string[];
-  prevLink?: string;
+  fullScreen: boolean;
+  getIterationsNumber: (fullScreen: boolean) => number;
   nextLink?: string;
+  prevCanvasSize: number | null,
+  prevLink?: string;
+  setFullScreen: Dispatch<SetStateAction<boolean>>
   sliders: SliderControlProps[];
-  canvasInputs: canvasInputs;
   title: string;
-  adjustPropertiesToScreenSize?: () => void
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
   const [canvasSize, setCanvasSize] = useState(getSize(props.fullScreen))
+  const { fullScreen, adjustPropertiesToScreenSize } = props;
+
 
   function handleChangeViewIconClick() {
     if (props.fullScreen) {
@@ -32,11 +36,14 @@ export function FractalDisplay(props: FractalDisplayProps) {
       document.documentElement.requestFullscreen();
     }
   }
-  const { fullScreen, adjustPropertiesToScreenSize } = props;
+  
   useEffect(() => {
     function handleResize(): void {
       setCanvasSize(getSize(fullScreen));
-      adjustPropertiesToScreenSize && adjustPropertiesToScreenSize();
+      adjustPropertiesToScreenSize && adjustPropertiesToScreenSize(
+        props.prevCanvasSize,
+        props.canvasSize
+      );
     }
     handleResize();
     window.addEventListener("resize", handleResize);
