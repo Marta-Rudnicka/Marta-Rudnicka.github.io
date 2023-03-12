@@ -18,6 +18,13 @@ export type Triangle = {
   c: Point;
 }
 
+export type Rectangle = {
+  a: Point;
+  b: Point;
+  c: Point;
+  d: Point
+}
+
 export type Parameters = Record<string, number|Point>
 
 type canvasInput = {

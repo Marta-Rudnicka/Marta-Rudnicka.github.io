@@ -1,5 +1,5 @@
-import { Point, Triangle } from "../types";
-import { findAffectedPoint, getCanvasSize, rescale, withinRange } from "../utils"
+import { Point, Rectangle, Triangle } from "../types";
+import { calculateActiveArea, findAffectedPoint, getCanvasSize, rescale, withinRange } from "../utils"
 
 describe('getSize', () => {
   it('should return width if the width is smaller than height', () => {
@@ -95,24 +95,37 @@ describe('rescale', () => {
   });
 
   it('should correctly shrink a shape', () => {
-    const newShape = {
+    const expected = {
       a: [ 50, 100 ],
       b: [ 5, 40],
       c: [ 200, 400 ],
       d: [ 0, 50]
     };
     const output = rescale(2000, 1000, points);
-    expect(JSON.stringify(output)).toBe(JSON.stringify(newShape));
+    expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
   });
 
   it('should correctly expand a shape', () => {
-    const newShape= {
+    const expected= {
       a: [ 300, 600 ],
       b: [ 30, 240],
       c: [ 1200, 2400 ],
       d: [ 0, 300]
     };
     const output = rescale(500, 1500, points);
-    expect(JSON.stringify(output)).toBe(JSON.stringify(newShape));
+    expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
   });
 });;
+
+describe('calculateActiveArea', () => {
+  it.only('should calculate a square around a point', ()=> {
+    const expected = {
+      a: [70, 230],
+      b: [130, 230],
+      c: [130, 170],
+      d: [70, 170]
+    } as Rectangle;
+    const output = calculateActiveArea([100, 200], 30);
+    expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
+  })
+});

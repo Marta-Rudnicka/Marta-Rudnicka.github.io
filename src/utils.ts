@@ -1,4 +1,5 @@
-import { Point } from "./types";
+import { ACTIVE_AREA } from "./consts";
+import { Point, Rectangle } from "./types";
 
 export function getSize(fullScreen: boolean | undefined): number {
   const windowHeight = window.innerHeight;
@@ -26,7 +27,7 @@ export function findAffectedPoint(
   cursorPosition: Point
 ): string | null {
   for (const point in points) {
-    if (withinRange(points[point], cursorPosition, 30)) return point;
+    if (withinRange(points[point], cursorPosition, ACTIVE_AREA)) return point;
   }
   return null;
 }
@@ -54,4 +55,31 @@ export function rescale(
     newPoints[p] = newPoint;
   }
   return newPoints;
+}
+
+export function calculateActiveArea(point: Point, extent: number): Rectangle {
+  return {
+    a: [point[0] - extent, point[1] + extent],
+    b: [point[0] + extent, point[1] + extent],
+    c: [point[0] + extent, point[1] - extent],
+    d: [point[0] - extent, point[1] - extent],
+  }
+}
+
+export function highlightActiveArea(
+  point: Point, 
+  ctx: CanvasRenderingContext2D,
+  colour?: string
+  ): void {
+  const surroundingSquare = calculateActiveArea(point, ACTIVE_AREA)
+  ctx.beginPath();
+  const { a, b, c, d } = surroundingSquare;
+  ctx.moveTo(...a);
+  ctx.lineTo(...b);
+  ctx.lineTo(...c);
+  ctx.lineTo(...d);
+  ctx.lineTo(...a);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = colour || '#5d1a5d';
+  ctx.stroke();
 }
