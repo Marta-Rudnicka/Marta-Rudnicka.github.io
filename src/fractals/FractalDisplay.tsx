@@ -24,11 +24,6 @@ type FractalDisplayProps = {
 export function FractalDisplay(props: FractalDisplayProps) {
   const [canvasSize, setCanvasSize] = useState(getSize(props.fullScreen))
 
-  function handleResize(): void {
-    setCanvasSize(getSize(props.fullScreen));
-    props.adjustPropertiesToScreenSize && props.adjustPropertiesToScreenSize();
-  }
-
   function handleChangeViewIconClick() {
     if (props.fullScreen) {
       props.setFullScreen(false)
@@ -37,12 +32,16 @@ export function FractalDisplay(props: FractalDisplayProps) {
       document.documentElement.requestFullscreen();
     }
   }
-
+  const { fullScreen, adjustPropertiesToScreenSize } = props;
   useEffect(() => {
+    function handleResize(): void {
+      setCanvasSize(getSize(fullScreen));
+      adjustPropertiesToScreenSize && adjustPropertiesToScreenSize();
+    }
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  });
+  }, [fullScreen]);
 
   const controls = <ControlsWrapper
     sliders={props.sliders}

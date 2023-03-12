@@ -3,8 +3,8 @@ import { description } from "./description";
 import { useEffect, useState } from "react";
 import { SliderControlProps } from "../../SliderControl";
 import { FractalDisplay } from "../../FractalDisplay";
-import { findAffectedPoint, getSize } from "../../../utils";
-import { canvasInputs, Point } from "../../../types";
+import { findAffectedPoint, getSize, rescale } from "../../../utils";
+import { canvasInputs, Point, Triangle } from "../../../types";
 import { equilateralTriangle } from "./algorithm";
 
 function getIterationsNumber(fullScreen: boolean): number {
@@ -20,6 +20,8 @@ export function SierpinskiTriangle() {
   const [cursorPosition, setCursorPosition] = useState([0, 0] as Point);
   const [x, setX ] = useState([0, 0] as Point);
   const [outerTriangle, setOuterTriangle] = useState(equilateralTriangle(getSize(fullScreen)))
+  const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
+  const [prevCanvasSize, setPrevCanvasSize] = useState(null as number | null);
 
   function handleX(): void {
     if(trackingMouse){
@@ -35,11 +37,28 @@ export function SierpinskiTriangle() {
       setOuterTriangle(t);
     }
   }
-  useEffect(() => handleX);
-  useEffect(() => reshapeTriangle)
 
+  useEffect(() => handleX);
+  useEffect(() => reshapeTriangle);
+
+  useEffect(() => {
+    const func = () => {
+      const oldSize = canvasSize;
+      const newSize = getSize(fullScreen);
+      setPrevCanvasSize(oldSize);
+      setCanvasSize(newSize);
+      const newTriangle = rescale(oldSize, newSize, outerTriangle);
+      setOuterTriangle(newTriangle as Triangle);
+    };
+    window.addEventListener("resize", func);
+    return () => window.removeEventListener("resize", func);
+  }, [fullScreen, canvasSize]);
 
   function adjustPropertiesToScreenSize() {
+    if (prevCanvasSize && prevCanvasSize !== canvasSize){
+      const newTriangle = rescale(prevCanvasSize, canvasSize, outerTriangle) as Triangle;
+      setOuterTriangle(newTriangle);
+    }
     setMaxIterations(getIterationsNumber(fullScreen));
     if (iterations > maxIterations) {
       setIterations(maxIterations);
@@ -86,7 +105,7 @@ export function SierpinskiTriangle() {
     getIterationsNumber={getIterationsNumber}
     sliders={sliders}
     canvasInputs={canvasInputs}
-    title="Sierpiński triangle - work in progress"
+    title="Sierpiński triangle - demo"
     nextLink="/#/dummy"
     prevLink="/#/dummy"
   />

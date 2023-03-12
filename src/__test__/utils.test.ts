@@ -1,5 +1,5 @@
 import { Point, Triangle } from "../types";
-import { findAffectedPoint, getCanvasSize, withinRange } from "../utils"
+import { findAffectedPoint, getCanvasSize, rescale, withinRange } from "../utils"
 
 describe('getSize', () => {
   it('should return width if the width is smaller than height', () => {
@@ -8,10 +8,10 @@ describe('getSize', () => {
     expect(getCanvasSize(height, width, true)).toBe(870);
   });
 
-  it('should return height if the height is smaller than width', () => {
+  it('should return height - 10 if the height is smaller than width', () => {
     const height = 1024;
     const width = 1056;
-    expect(getCanvasSize(height, width, true)).toBe(1024);
+    expect(getCanvasSize(height, width, true)).toBe(1014);
   });
 
   it('should return 623', () => {
@@ -79,5 +79,40 @@ describe('findAffectedPoint', () => {
     const cursor = [100,300] as Point;
     expect(findAffectedPoint(points, cursor)).toBe(null);
   });
-
 });
+
+describe('rescale', () => {
+  const points= {
+    a: [ 100, 200 ] as Point,
+    b: [ 10, 80] as Point,
+    c: [ 400, 800 ] as Point,
+    d: [ 0, 100] as Point
+  };
+
+  it('should not affect the shape if previous size is null shape', () => {
+    const output = rescale(null, 1000, points);
+    expect(JSON.stringify(output)).toBe(JSON.stringify(points));
+  });
+
+  it('should correctly shrink a shape', () => {
+    const newShape = {
+      a: [ 50, 100 ],
+      b: [ 5, 40],
+      c: [ 200, 400 ],
+      d: [ 0, 50]
+    };
+    const output = rescale(2000, 1000, points);
+    expect(JSON.stringify(output)).toBe(JSON.stringify(newShape));
+  });
+
+  it('should correctly expand a shape', () => {
+    const newShape= {
+      a: [ 300, 600 ],
+      b: [ 30, 240],
+      c: [ 1200, 2400 ],
+      d: [ 0, 300]
+    };
+    const output = rescale(500, 1500, points);
+    expect(JSON.stringify(output)).toBe(JSON.stringify(newShape));
+  });
+});;

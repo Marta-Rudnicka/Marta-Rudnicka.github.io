@@ -1,4 +1,4 @@
-import { MouseEventHandler, MouseEvent, useEffect } from "react"
+import { MouseEventHandler, MouseEvent, useEffect, useState } from "react"
 import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../types";
 import { getSize } from "../utils";
 import { EnterFullScreen } from "../components/icons/EnterFullScreen";
@@ -16,26 +16,25 @@ type CanvasProps = {
 }
 
 export function Canvas(props: CanvasProps) {
-  const c = document.getElementById('canvas');
+  const [ c, setC ] = useState(document.getElementById(props.id) as HTMLCanvasElement)
   const offsetX = c?.getBoundingClientRect().left;
   const offsetY = c?.getBoundingClientRect().top;
 
   const size = getSize(props.fullScreen);
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
 
+  useEffect(() => setC(document.getElementById(props.id) as HTMLCanvasElement), [props]);
   useEffect(() => {
-    const canvas = document.getElementById(props.id) as HTMLCanvasElement;
-    canvas.style.background = "white";
     const drawArgs = {
-      canvas,
+      canvas: c,
       size,
       parameters: props.drawParameters,
     }
-    props.draw(drawArgs);
-  }, [props, size]);
+    c && props.draw(drawArgs);
+  }, [props, size, c]);
 
   function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point{
-    if (offsetX && offsetY) {
+    if (props.fullScreen || (offsetX && offsetY)) {
       return [
         Math.round(e.clientX - offsetX), 
         Math.round(e.clientY - offsetY)
@@ -54,8 +53,7 @@ export function Canvas(props: CanvasProps) {
     if (eventHandler.setValue) {
       eventHandler.setValue(getCursorPosition(e));
     }
-    if (eventHandler.toggle)
-      eventHandler?.toggle()
+    if (eventHandler.toggle) eventHandler?.toggle();
   }
 
   return (

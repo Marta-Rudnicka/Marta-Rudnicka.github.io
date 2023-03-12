@@ -31,6 +31,7 @@ body {
 
 .full-screen-layout {
   background-color: black;
+  padding-bottom: 4px;
 }
 
 .full-screen-layout h2 {
@@ -58,4 +59,9 @@ body {
 :focus {
   outline: #31cece solid 1px;
   outline-offset: 2px;
+}
+
+.full-screen-layout canvas {
+  box-shadow: 3px 3px 40px #5d1a5d;
+  border: solid 1px #5d1a5d;  /* border: #31cece solid 1px; */
 }
