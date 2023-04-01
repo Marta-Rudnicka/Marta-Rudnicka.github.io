@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactElement } from "react"
+import { MouseEventHandler, ReactElement, ReactNode } from "react"
 import { canvasInputs, DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Canvas";
 import { Footer } from "../../components/layout/Footer";
@@ -10,7 +10,7 @@ type DefaultLayoutProps = {
   draw: DrawFunc;
   conrols: ReactElement;
   title: string;
-  description: string[];
+  description: ReactNode;
   extraControls?: ReactElement;
   prevLink?: string;
   nextLink?: string;
@@ -45,7 +45,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           {props.conrols}
         </div>
         <div className="description floating-box">
-          {props.description.map((p, index) => <p key={index}>{p}</p>)}
+          {props.description}
         </div>
         <div className="extra-controls">
           {props.extraControls &&

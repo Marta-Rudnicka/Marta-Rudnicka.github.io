@@ -1,5 +1,5 @@
 import { DefaultLayout } from "./default-view/DefaultLayout";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { getSize } from "../utils";
 import { FullScreenLayout } from "./full-screen-view/FullScreenLayout";
 import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../types";
@@ -10,7 +10,7 @@ type FractalDisplayProps = {
   adjustPropertiesToScreenSize?: ResizeHandler;
   canvasInputs: canvasInputs;
   canvasSize: number;
-  description: string[];
+  description: ReactNode;
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
   fullScreen: boolean;

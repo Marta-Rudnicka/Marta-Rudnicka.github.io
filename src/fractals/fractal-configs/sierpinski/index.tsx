@@ -1,5 +1,5 @@
 import { draw } from "./draw";
-import { description } from "./description";
+import { Description } from "./description";
 import { useEffect, useState } from "react";
 import { SliderControlProps } from "../../SliderControl";
 import { FractalDisplay } from "../../FractalDisplay";
@@ -93,7 +93,7 @@ export function SierpinskiTriangle() {
     adjustPropertiesToScreenSize={adjustPropertiesToScreenSize}
     canvasInputs={canvasInputs}
     canvasSize={canvasSize}
-    description={description}
+    description={Description()}
     draw={draw}
     drawParameters={
       { 
