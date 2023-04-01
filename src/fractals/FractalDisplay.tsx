@@ -23,9 +23,7 @@ type FractalDisplayProps = {
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
-  const [canvasSize, setCanvasSize] = useState(getSize(props.fullScreen))
-  const { fullScreen, adjustPropertiesToScreenSize } = props;
-
+  const { fullScreen, adjustPropertiesToScreenSize, canvasSize } = props;
 
   function handleChangeViewIconClick() {
     if (props.fullScreen) {
@@ -38,7 +36,6 @@ export function FractalDisplay(props: FractalDisplayProps) {
   
   useEffect(() => {
     function handleResize(): void {
-      setCanvasSize(getSize(fullScreen));
       adjustPropertiesToScreenSize && adjustPropertiesToScreenSize(
         props.prevCanvasSize,
         props.canvasSize
