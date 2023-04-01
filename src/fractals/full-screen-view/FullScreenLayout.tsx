@@ -20,7 +20,6 @@ export function FullScreenLayout(props: FullScreenLayoutProps) {
         <Canvas
           canvasInputs={props.canvasInputs}
           fullScreen={true}
-          id="canvas"
           draw={props.draw}
           drawParameters={props.drawParameters}
           handleClick={props.handleClick}

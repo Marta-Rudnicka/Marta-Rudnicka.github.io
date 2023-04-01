@@ -1,4 +1,4 @@
-import { MouseEventHandler, MouseEvent, useEffect, useState } from "react"
+import { MouseEventHandler, MouseEvent, useEffect, useRef } from "react"
 import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../types";
 import { getSize } from "../utils";
 import { EnterFullScreen } from "../components/icons/EnterFullScreen";
@@ -6,7 +6,6 @@ import { ExitFullScreen } from "../components/icons/ExitFullScreen";
 import { Tooltip2 } from "@blueprintjs/popover2";
 
 type CanvasProps = {
-  id: string;
   fullScreen?: boolean;
   size: number;
   draw: DrawFunc;
@@ -16,28 +15,31 @@ type CanvasProps = {
 }
 
 export function Canvas(props: CanvasProps) {
-  const [ c, setC ] = useState(document.getElementById(props.id) as HTMLCanvasElement)
-  const offsetX = c?.getBoundingClientRect().left;
-  const offsetY = c?.getBoundingClientRect().top;
+  const c = useRef<HTMLCanvasElement>(null);
+  const offsetX = c?.current?.getBoundingClientRect().left;
+  const offsetY = c?.current?.getBoundingClientRect().top;
 
   const size = getSize(props.fullScreen);
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
 
-  useEffect(() => setC(document.getElementById(props.id) as HTMLCanvasElement), [props]);
   useEffect(() => {
+    if (c && c.current ) {
     const drawArgs = {
-      canvas: c,
+      canvas: c.current,
       size,
       parameters: props.drawParameters,
     }
-    c && props.draw(drawArgs);
+    
+      props.draw(drawArgs);
+    }
   }, [props, size, c]);
 
   function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point{
     if (props.fullScreen || (offsetX && offsetY)) {
+
       return [
-        Math.round(e.clientX - offsetX), 
-        Math.round(e.clientY - offsetY)
+        Math.round(e.clientX - ( offsetX || 0)), 
+        Math.round(e.clientY - ( offsetY || 0))
       ];
     }
     return [0, 0]
@@ -75,13 +77,13 @@ export function Canvas(props: CanvasProps) {
         </Tooltip2>
       </div>
       <canvas
+        ref={c}
         onMouseDown={(e) => manageEventHandler(e, "onMouseDown")}
         onMouseUp={(e) => manageEventHandler(e, "onMouseUp")}
         onMouseMove={(e) => manageEventHandler(e, "onMouseMove")}
         className="floating-box"
         height={props.size}
         width={props.size}
-        id={props.id}
       />
     </div>)
 }

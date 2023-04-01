@@ -35,7 +35,6 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           <Canvas
             canvasInputs={props.canvasInputs}
             fullScreen={false}
-            id="canvas"
             draw={props.draw}
             drawParameters={props.drawParameters}
             handleClick={props.handleClick}
