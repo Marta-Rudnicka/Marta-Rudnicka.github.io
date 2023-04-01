@@ -103,7 +103,6 @@ export function SierpinskiTriangle() {
         c: outerTriangle.c,
       }}
     fullScreen={fullScreen}
-    getIterationsNumber={getIterationsNumber}
     nextLink="/#/dummy"
     prevCanvasSize={prevCanvasSize}
     prevLink="/#/dummy"

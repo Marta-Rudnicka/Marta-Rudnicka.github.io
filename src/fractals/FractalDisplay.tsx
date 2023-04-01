@@ -14,7 +14,6 @@ type FractalDisplayProps = {
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
   fullScreen: boolean;
-  getIterationsNumber: (fullScreen: boolean) => number;
   nextLink?: string;
   prevCanvasSize: number | null,
   prevLink?: string;
