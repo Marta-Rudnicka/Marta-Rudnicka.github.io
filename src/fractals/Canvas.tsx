@@ -1,6 +1,5 @@
 import { MouseEventHandler, MouseEvent, useEffect, useRef } from "react"
 import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../types";
-import { getSize } from "../utils";
 import { EnterFullScreen } from "../components/icons/EnterFullScreen";
 import { ExitFullScreen } from "../components/icons/ExitFullScreen";
 import { Tooltip2 } from "@blueprintjs/popover2";
@@ -19,7 +18,7 @@ export function Canvas(props: CanvasProps) {
   const offsetX = c?.current?.getBoundingClientRect().left;
   const offsetY = c?.current?.getBoundingClientRect().top;
 
-  const size = getSize(props.fullScreen);
+  const { size } = props; //getSize(props.fullScreen);
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
 
   useEffect(() => {
@@ -32,11 +31,10 @@ export function Canvas(props: CanvasProps) {
     
       props.draw(drawArgs);
     }
-  }, [props, size, c]);
+  }, [props, size, c, props.drawParameters]);
 
   function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point{
     if (props.fullScreen || (offsetX && offsetY)) {
-
       return [
         Math.round(e.clientX - ( offsetX || 0)), 
         Math.round(e.clientY - ( offsetY || 0))
@@ -82,8 +80,8 @@ export function Canvas(props: CanvasProps) {
         onMouseUp={(e) => manageEventHandler(e, "onMouseUp")}
         onMouseMove={(e) => manageEventHandler(e, "onMouseMove")}
         className="floating-box"
-        height={props.size}
-        width={props.size}
+        height={size}
+        width={size}
       />
     </div>)
 }

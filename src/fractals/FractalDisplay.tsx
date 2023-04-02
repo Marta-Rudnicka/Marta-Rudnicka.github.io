@@ -1,6 +1,5 @@
 import { DefaultLayout } from "./default-view/DefaultLayout";
-import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
-import { getSize } from "../utils";
+import { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
 import { FullScreenLayout } from "./full-screen-view/FullScreenLayout";
 import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../types";
 import { ControlsWrapper } from "./ControlsWrapper";
