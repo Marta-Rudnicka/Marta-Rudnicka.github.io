@@ -3,18 +3,21 @@ import { Description } from "./description";
 import { useState } from "react";
 import { SliderControlProps } from "../../SliderControl";
 import { FractalDisplay } from "../../FractalDisplay";
-import { canvasInputs, Point } from "../../../types";
+// import { canvasInputs, Point } from "../../../types";
 import { } from "./algorithm";
 import { complex } from "mathjs";
+import { getSize } from "../../utils";
 
 export function MandelbrotSet() {
   const [fullScreen, setFullScreen] = useState(false);
-  const [trackingMouse, setTrackingMouse] = useState(false);
+  // const [trackingMouse, setTrackingMouse] = useState(false);
   // const [cursorPosition, setCursorPosition] = useState([0, 0] as Point);
-  const [startValue, setStartValue] = useState(complex(-2, -1.5))
-  const [range, setRange] = useState(3);
+  const [startValue, setStartValue] = useState(complex(-1.5, -1))
+  const [range, setRange] = useState(1);
   // const [x, setX ] = useState([0, 0] as Point);
-  const [canvasSize, setCanvasSize] = useState(500);
+  // const [canvasSize, setCanvasSize] = useState(500);
+  const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
+
 
   // const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   // const [prevCanvasSize, setPrevCanvasSize] = useState(null as number | null);

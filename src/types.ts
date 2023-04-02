@@ -48,9 +48,9 @@ export type ResizeHandler = (oldSize: number | null, newSize: number) => void;
 
 export type PixelValue = [number, number, number, number];
 
-export type PixelMap = Record<string, Record<string, PixelValue>>;
+export type PixelMap = Record<string, Record<string, PixelValue >>;
 export type TempPixelMap = Record<string, Record<string, PixelValue | null>>;
 
 export type ComplexPlane = Record<string, Record<string, Complex>>;
-export type NumberCache = Record<string, Record<string, boolean>>;
+export type NumberCache = Record<string, Record<string, PixelValue>>;
 

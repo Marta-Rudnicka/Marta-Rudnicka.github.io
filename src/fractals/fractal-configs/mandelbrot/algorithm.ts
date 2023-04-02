@@ -1,6 +1,7 @@
 import { Complex, complex, multiply, add } from "mathjs";
-import { ComplexPlane, NumberCache, PixelMap, PixelValue, Point, TempPixelMap } from "../../../types";
-import { getDistance, getInitialPixelMap, mapPixelsToComplexPlane } from "../../utils";
+import { PixelValue, Point } from "../../../types";
+import { getDistance } from "../../utils";
+import { ComplexPlaneMap } from "../../default-view/classes";
 
 export function xSqrPlusY(prevValue: Complex, c: Complex): Complex { 
   const squared = multiply(prevValue, prevValue);
@@ -15,103 +16,33 @@ export function escapeCriterion(val: Complex, c: Complex): boolean {
   return getDistance(valPoint, cPoint) > 2;
 }
 
-export function orbitIsBounded(c: Complex, iterations: number): boolean {
+export function orbitIsBounded(c: Complex, iterations: number): PixelValue {
   const seed = complex(0, 0);
   let val = xSqrPlusY(seed, c);
-  let i = 1;
-  while(i <= iterations ) {
+  for(let i = 0; i <= iterations; i++ ) {
     val = xSqrPlusY(val, c)
-    if (escapeCriterion(val, c)) return false;
-    i++;
+    if (escapeCriterion(val, c)) return [255, 255, 255, 255];
   }
-  return true;
+  return [0, 0, 0, 255] ;
 }
 
-export class MandelbrotPixelMap {
-    canvasSize: number;
-    startValue: Complex;
-    range: number;
-    map: PixelMap | TempPixelMap;
-    complexPlane: ComplexPlane;
-    cache: NumberCache;
-    numberList: Complex[];
+export class MandelbrotPixelMap extends ComplexPlaneMap {
 
-  constructor(
-    canvasSize: number,
-    startValue: Complex,
-    range: number,
-    cache?: NumberCache,
-  ) {
-    this.canvasSize = canvasSize;
-    this.startValue = startValue;
-    this.range = range;
-    this.map = getInitialPixelMap(canvasSize);
-    const { complexPlane, mappedNumbers } = mapPixelsToComplexPlane(
-      this.map, 
-      canvasSize,
-      startValue,
-      range
-    );
-    this.cache = cache ?? {};
-    this.numberList = mappedNumbers ;
-    this.complexPlane = complexPlane;
-  }
-
-  cacheNumbers(): void {
-    const lastCAche = this.cache;
-    this.numberList.forEach(num => {
-      if (! (lastCAche[num.re] && this.cache[num.re][num.im] !== undefined)) {
-        const val = orbitIsBounded(num, 100);
-        this.cache[num.re] = this.cache[num.re] || {};
-        this.cache[num.re][num.im] = val;
-      }
-    });
-  }
-
-  printCache(): void {
-    let count = 0;
-    Object.keys(this.cache).forEach(keyX => {
-      Object.keys(this.cache[keyX]).forEach(keyY => {
-        const val = this.cache[keyX][keyY]
-        if (val) console.log([keyX, keyY], val)
-        count ++;
-      });
-    });
-    console.log('cache count: ', count)
-  }
-
-  printMap(): void {
-    console.log('printing map');
-    let count = 0;
-    Object.keys(this.map).forEach(keyX => {
-      Object.keys(this.map[keyX]).forEach(keyY => {
-        const val = this.map[keyX][keyY]
-        console.log([keyX, keyY], val)
-        count ++;
-      });
-    });
-    console.log('count: ', count)
-  }
-
-  printComplexPlane(): void {
-    console.log('printing complex plane')
-    Object.keys(this.complexPlane).forEach(keyX => {
-      Object.keys(this.complexPlane[keyX]).forEach(keyY => {
-        const num = this.complexPlane[keyX][keyY]
-        console.log([keyX, keyY], [num.re, num.im])
-      });
-    });
-  }
-
-  addValuesToPixelMap(): void {
-    for (const keyX in this.map) {
-      for (const keyY in this.map[keyX]) {
-        const number = this.complexPlane[keyX][keyY];
-        const value: PixelValue = this.cache[number.re][number.im] 
-        ? [0, 0, 0, 255]
-        : [255, 255, 255, 255];
-        this.map[keyX][keyY] = value;
-      }
+  cacheNumber(num: Complex, val: PixelValue): void {
+    if (this.cache[num.re] && this.cache[num.re][num.im] !== undefined) {
+      return 
     }
+      this.cache[num.re] = this.cache[num.re] || {};
+      this.cache[num.re][num.im] = val;
+  }
+
+  processNumber(x: string, y: string, num: Complex): void {
+    if (this.cache[num.re] && this.cache[num.re][num.im]) {
+      this.map[x][y] = this.cache[num.re][num.im];
+      return;
+    }
+    const val: PixelValue = orbitIsBounded(num, 50);
+    this.cacheNumber(num, val);
+    this.map[x][y] = val;
   }
 }

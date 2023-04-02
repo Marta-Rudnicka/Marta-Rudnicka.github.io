@@ -32,23 +32,18 @@ export function draw(
     parameters.range
   );
 
-  map.cacheNumbers();
-  map.addValuesToPixelMap();
   const ctx = canvas.getContext("2d");
-  // canvas.style.background = "blue";
 
   const data = createImageData(map.map as PixelMap, size)
   for (let i = 0; i < arr.length; i += 1) {
     arr[i] = data[i];
   }
 
-  let imageData = new ImageData(arr, size);
-
+  const imageData = new ImageData(arr, size);
 
   if (ctx) {
     canvas.style.background = "yellow";
     ctx?.clearRect(0, 0, size, size);
     ctx.putImageData(imageData, 0, 0);
-
   }
 }

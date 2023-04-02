@@ -126,8 +126,10 @@ export function mapPixelsToComplexPlane(
   pixelMap: PixelMap | TempPixelMap,
   canvasSize: number,
   startValue: Complex,
-  range: number)
-  : { complexPlane: ComplexPlane, mappedNumbers: Array<Complex> } {
+  range: number,
+  addValue?: ( num: Complex, x: string, y: string )  => void,
+): { complexPlane: ComplexPlane, mappedNumbers: Array<Complex> } {
+
   const pixelIncrement = range / (canvasSize - 1);
   const complexPlane: ComplexPlane = {}
   const mappedNumbers: Array<Complex> = []
@@ -138,6 +140,9 @@ export function mapPixelsToComplexPlane(
       const val = getComplexValue(keyX, keyY, startValue, pixelIncrement);
       mappedNumbers.push(val);
       complexPlane[keyX][keyY] = val;
+      if (addValue) {
+        addValue(val, keyX, keyY);
+      }
     }
   }
   return  { complexPlane, mappedNumbers };

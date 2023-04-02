@@ -56,31 +56,31 @@ describe.only('orbitTendsToInfinity', () => {
   });
 });
 
-describe('cacheNumbers', () => {
-  const obj = new MandelbrotPixelMap(2, complex(0,0), 2)
-  const expectedCache: NumberCache = {
-    '-0.25': { 0.1: false },
-    '-1': { 0.5: true },
-  };
-  it('should create the first cache', () => {
-    obj.numberList = [
-      complex(-0.25, 0.1),
-      complex(-1, 0.5),
-    ];
+// describe('cacheNumbers', () => {
+//   const obj = new MandelbrotPixelMap(2, complex(0,0), 2)
+//   const expectedCache: NumberCache = {
+//     '-0.25': { 0.1: false },
+//     '-1': { 0.5: true },
+//   };
+//   it('should create the first cache', () => {
+//     obj.numberList = [
+//       complex(-0.25, 0.1),
+//       complex(-1, 0.5),
+//     ];
 
-    obj.cacheNumbers();
-    expect(obj.cache).toStrictEqual(expectedCache);
-  });
+//     obj.cacheNumbers();
+//     expect(obj.cache).toStrictEqual(expectedCache);
+//   });
 
-  it('should not add anything to the cache', () => {
-    const numbers = [
-      complex(-0.25, 0.1),
-      complex(-1, 0.5),
-    ];
-    obj.numberList.push(...numbers);
-    expect(obj.cache).toStrictEqual(expectedCache);
-  });
-});
+//   it('should not add anything to the cache', () => {
+//     const numbers = [
+//       complex(-0.25, 0.1),
+//       complex(-1, 0.5),
+//     ];
+//     obj.numberList.push(...numbers);
+//     expect(obj.cache).toStrictEqual(expectedCache);
+//   });
+// });
 
 
 export {};
