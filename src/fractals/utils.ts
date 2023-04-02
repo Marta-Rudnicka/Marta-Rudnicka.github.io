@@ -1,5 +1,6 @@
-import { ACTIVE_AREA } from "./consts";
-import { Point, Rectangle } from "./types";
+import { Complex, complex, sqrt } from "mathjs";
+import { ACTIVE_AREA } from "../consts";
+import { ComplexPlane, PixelMap, Point, Rectangle, TempPixelMap } from "../types";
 
 export function getSize(fullScreen: boolean | undefined): number {
   const windowHeight = window.innerHeight;

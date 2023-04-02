@@ -3,7 +3,7 @@ import { Description } from "./description";
 import { useEffect, useState } from "react";
 import { SliderControlProps } from "../../SliderControl";
 import { FractalDisplay } from "../../FractalDisplay";
-import { findAffectedPoint, getSize, rescale } from "../../../utils";
+import { findAffectedPoint, getSize, rescale } from "../../utils";
 import { canvasInputs, Point, Triangle } from "../../../types";
 import { equilateralTriangle } from "./algorithm";
 

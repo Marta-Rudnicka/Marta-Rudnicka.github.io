@@ -1,5 +1,5 @@
 import { DrawFuncArgs, Point, Triangle } from "../../../types";
-import { highlightActiveArea } from "../../../utils";
+import { highlightActiveArea } from "../../utils";
 import { generate, fillFirstTriangle } from "./algorithm";
 
 type SierpinskiParameters = {

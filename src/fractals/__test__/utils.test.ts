@@ -1,5 +1,5 @@
-import { Point, Rectangle, Triangle } from "../types";
-import { calculateActiveArea, findAffectedPoint, getCanvasSize, rescale, withinRange } from "../utils"
+import { ComplexPlane, Point, Rectangle, Triangle } from "../../types";
+import { calculateActiveArea, findAffectedPoint, getCanvasSize, getDistance, getInitialPixelMap, mapPixelsToComplexPlane, rescale, withinRange } from "../utils"
 
 describe('getSize', () => {
   it('should return width if the width is smaller than height', () => {
@@ -55,9 +55,9 @@ describe('withinRange', () => {
 
 describe('findAffectedPoint', () => {
   const points: Triangle = {
-    a: [ 334, 64 ],
+    a: [334, 64],
     b: [33, 656],
-    c: [ 656, 652 ]
+    c: [656, 652]
   };
 
   it('should return a', () => {
@@ -66,7 +66,7 @@ describe('findAffectedPoint', () => {
   });
 
   it('should return b', () => {
-    const cursor = [29,648] as Point;
+    const cursor = [29, 648] as Point;
     expect(findAffectedPoint(points, cursor)).toBe('b');
   });
 
@@ -76,17 +76,17 @@ describe('findAffectedPoint', () => {
   });
 
   it('should return null', () => {
-    const cursor = [100,300] as Point;
+    const cursor = [100, 300] as Point;
     expect(findAffectedPoint(points, cursor)).toBe(null);
   });
 });
 
 describe('rescale', () => {
-  const points= {
-    a: [ 100, 200 ] as Point,
-    b: [ 10, 80] as Point,
-    c: [ 400, 800 ] as Point,
-    d: [ 0, 100] as Point
+  const points = {
+    a: [100, 200] as Point,
+    b: [10, 80] as Point,
+    c: [400, 800] as Point,
+    d: [0, 100] as Point
   };
 
   it('should not affect the shape if previous size is null shape', () => {
@@ -96,21 +96,21 @@ describe('rescale', () => {
 
   it('should correctly shrink a shape', () => {
     const expected = {
-      a: [ 50, 100 ],
-      b: [ 5, 40],
-      c: [ 200, 400 ],
-      d: [ 0, 50]
+      a: [50, 100],
+      b: [5, 40],
+      c: [200, 400],
+      d: [0, 50]
     };
     const output = rescale(2000, 1000, points);
     expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
   });
 
   it('should correctly expand a shape', () => {
-    const expected= {
-      a: [ 300, 600 ],
-      b: [ 30, 240],
-      c: [ 1200, 2400 ],
-      d: [ 0, 300]
+    const expected = {
+      a: [300, 600],
+      b: [30, 240],
+      c: [1200, 2400],
+      d: [0, 300]
     };
     const output = rescale(500, 1500, points);
     expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
@@ -118,7 +118,7 @@ describe('rescale', () => {
 });;
 
 describe('calculateActiveArea', () => {
-  it.only('should calculate a square around a point', ()=> {
+  it('should calculate a square around a point', () => {
     const expected = {
       a: [70, 230],
       b: [130, 230],
@@ -129,3 +129,4 @@ describe('calculateActiveArea', () => {
     expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
   })
 });
+
