@@ -1,3 +1,4 @@
+import { Complex } from "mathjs";
 import { Dispatch, SetStateAction } from "react";
 
 export type DrawFuncArgs = {
@@ -25,7 +26,7 @@ export type Rectangle = {
   d: Point
 }
 
-export type Parameters = Record<string, number|Point>
+export type Parameters = Record<string, number|Point|Complex>
 
 type canvasInput = {
   value: Point,
@@ -44,3 +45,12 @@ export type canvasInputs = {
 export type eventHandlerString = "onMouseDown" | "onMouseUp" | "onMouseMove";
 
 export type ResizeHandler = (oldSize: number | null, newSize: number) => void;
+
+export type PixelValue = [number, number, number, number];
+
+export type PixelMap = Record<string, Record<string, PixelValue>>;
+export type TempPixelMap = Record<string, Record<string, PixelValue | null>>;
+
+export type ComplexPlane = Record<string, Record<string, Complex>>;
+export type NumberCache = Record<string, Record<string, boolean>>;
+

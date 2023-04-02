@@ -84,3 +84,61 @@ export function highlightActiveArea(
   ctx.strokeStyle = colour || '#5d1a5d';
   ctx.stroke();
 }
+
+export function getDistance(a: Point, b: Point): number {
+  const xDistance = a[0] - b[0];
+  const yDistance = a[1] - b[1];
+  return sqrt(xDistance * xDistance + yDistance * yDistance) as number;
+}
+
+export function getInitialPixelMap(canvasSize: number): TempPixelMap {
+  const pixelMap: TempPixelMap =  {};
+  let x = 1;
+  while (x <= canvasSize ) {
+    pixelMap[x] = {}
+    let y = 1;
+    while (y <= canvasSize) {
+      pixelMap[x][y] = null;      
+      y ++;
+    }
+    x ++;
+  }
+  return pixelMap;
+}
+
+function getComplexValue(
+  keyX: string,
+  keyY: string,
+  startValue: Complex,
+  inc: number
+): Complex {
+  const x = Number(keyX);
+  const y = Number(keyY);
+  if (x === 1 && y === 1) {
+    return startValue;
+  }
+  const re = startValue.re + (Number(x) - 1) * inc;
+  const im = startValue.im + (Number(y) - 1) * inc;
+  return complex(re, im);
+}
+
+export function mapPixelsToComplexPlane(
+  pixelMap: PixelMap | TempPixelMap,
+  canvasSize: number,
+  startValue: Complex,
+  range: number)
+  : { complexPlane: ComplexPlane, mappedNumbers: Array<Complex> } {
+  const pixelIncrement = range / (canvasSize - 1);
+  const complexPlane: ComplexPlane = {}
+  const mappedNumbers: Array<Complex> = []
+
+  for (const keyX in pixelMap) {
+    complexPlane[keyX] = {};
+    for (const keyY in pixelMap[keyX]) {
+      const val = getComplexValue(keyX, keyY, startValue, pixelIncrement);
+      mappedNumbers.push(val);
+      complexPlane[keyX][keyY] = val;
+    }
+  }
+  return  { complexPlane, mappedNumbers };
+}
