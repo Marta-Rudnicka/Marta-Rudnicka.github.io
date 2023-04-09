@@ -1,21 +1,19 @@
 import { draw } from "./draw";
 import { Description } from "./description";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SliderControlProps } from "../../SliderControl";
 import { FractalDisplay } from "../../FractalDisplay";
 // import { canvasInputs, Point } from "../../../types";
-import { } from "./algorithm";
-import { complex } from "mathjs";
+import { add, complex, round } from "mathjs";
 import { getSize } from "../../utils";
 
 export function MandelbrotSet() {
   const [fullScreen, setFullScreen] = useState(false);
   // const [trackingMouse, setTrackingMouse] = useState(false);
   // const [cursorPosition, setCursorPosition] = useState([0, 0] as Point);
-  const [startValue, setStartValue] = useState(complex(-1.5, -1))
-  const [range, setRange] = useState(1);
+  const [startValue, setStartValue] = useState(complex(-2, -1.5))
+  const [range, setRange] = useState(3);
   // const [x, setX ] = useState([0, 0] as Point);
-  // const [canvasSize, setCanvasSize] = useState(500);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
 
   useEffect(() => {
@@ -38,7 +36,34 @@ export function MandelbrotSet() {
     return null;
   }
 
+  function updateStartValue(increment: number) {
+    const startValueShift = complex(increment, increment)
+    const newValue = round(add(startValue, startValueShift), 4);
+    setStartValue(newValue);
+  }
+
+  function zoomIn() {
+    const increment = round(0.1 * range, 4)
+    updateStartValue(increment);
+    setRange(round(0.80 * range, 4));
+    console.log(startValue.re, startValue.im, range)
+  }
+
+  function zoomOut() {
+    const increment = round(-0.125 * range, 4)
+    updateStartValue(increment)
+    setRange(round(1.25 * range, 4));
+    console.log(startValue.re, startValue.im, range)
+  }
+
   const sliders: SliderControlProps[] = [];
+  const buttonPairs = [{
+      label1: 'zoom in',
+      label2: 'zoom out',
+      handleClick1: zoomIn,
+      handleClick2: zoomOut,
+      info: "zoom in or out"
+  }];
 
   const canvasInputs = {}
   // const canvasInputs: canvasInputs = {
@@ -72,6 +97,7 @@ export function MandelbrotSet() {
     prevLink="/#/example"
     setFullScreen={setFullScreen}
     sliders={sliders}
+    buttonPairs={buttonPairs}
     title="Mandelbrot Set - demo"
   />
   );

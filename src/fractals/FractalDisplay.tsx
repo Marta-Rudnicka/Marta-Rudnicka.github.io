@@ -4,6 +4,7 @@ import { FullScreenLayout } from "./full-screen-view/FullScreenLayout";
 import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../types";
 import { ControlsWrapper } from "./ControlsWrapper";
 import { SliderControlProps } from "./SliderControl";
+import { ButtonPairControlProps } from "./ButtonControlPair";
 
 type FractalDisplayProps = {
   adjustPropertiesToScreenSize?: ResizeHandler;
@@ -17,7 +18,8 @@ type FractalDisplayProps = {
   prevCanvasSize: number | null,
   prevLink?: string;
   setFullScreen: Dispatch<SetStateAction<boolean>>
-  sliders: SliderControlProps[];
+  sliders?: SliderControlProps[];
+  buttonPairs?: ButtonPairControlProps[];
   title: string;
 }
 
@@ -46,7 +48,8 @@ export function FractalDisplay(props: FractalDisplayProps) {
   }, [fullScreen]);
 
   const controls = <ControlsWrapper
-    sliders={props.sliders}
+    sliders={props.sliders || []}
+    buttonPairs={props.buttonPairs || []}
     fullScreen={props.fullScreen}
   />;
 

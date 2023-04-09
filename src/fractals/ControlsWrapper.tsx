@@ -3,9 +3,11 @@ import { ReactNode, useState } from "react";
 import { ChevronDown } from "../components/icons/ChevronDown";
 import { ChevronUp } from "../components/icons/ChevronUp";
 import { SliderControl, SliderControlProps } from "./SliderControl";
+import { BurronPairControl, ButtonPairControlProps } from "./ButtonControlPair";
 
 type ControlProps = {
   sliders: SliderControlProps[];
+  buttonPairs: ButtonPairControlProps[];
   fullScreen?: boolean;
 }
 
@@ -14,7 +16,7 @@ type ControlHeaderProps = {
   setAllVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function renderControls(
+function renderSliderControls(
   sliders: SliderControlProps[]
   ): ReactNode[] {
   return sliders.map(slider => 
@@ -30,6 +32,18 @@ function renderControls(
   );
 }
 
+function renderButtonPairs(buttonsPairs: ButtonPairControlProps[]): ReactNode[] {
+  return buttonsPairs.map(bp =>
+    <BurronPairControl
+      key={bp.info}
+      handleClick1={bp.handleClick1}
+      handleClick2={bp.handleClick2}
+      info={bp.info}
+      label1={bp.label1}
+      label2={bp.label2}
+    />
+  );
+}
 
 function ControlHeader(props: ControlHeaderProps) {
   const tooltipText = props.allVisible ? 'hide' : 'show';
@@ -57,7 +71,8 @@ function ControlHeader(props: ControlHeaderProps) {
 export function ControlsWrapper(props: ControlProps) {
   const [allVisible, setAllVisible] = useState(!props.fullScreen);
 
-  const controls = renderControls(props.sliders)
+  const sliders = renderSliderControls(props.sliders)
+  const buttons = renderButtonPairs(props.buttonPairs)
 
   return (
     <>
@@ -70,8 +85,11 @@ export function ControlsWrapper(props: ControlProps) {
       </div>
       <div>
         {(!props.fullScreen || allVisible) 
-        && controls}
+        && sliders}
+        {(!props.fullScreen || allVisible) 
+        && buttons }
       </div>
+      
     </>
   );
 }
