@@ -26,7 +26,7 @@ export type Rectangle = {
   d: Point
 }
 
-export type Parameters = Record<string, number|Point|Complex>
+export type Parameters = Record<string, number|Point|Complex|unknown>
 
 type canvasInput = {
   value: Point,

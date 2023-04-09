@@ -1,6 +1,5 @@
-import { Complex, complex, sqrt } from "mathjs";
 import { ACTIVE_AREA } from "../consts";
-import { ComplexPlane, PixelMap, Point, Rectangle, TempPixelMap } from "../types";
+import { Point, Rectangle, TempPixelMap } from "../types";
 
 export function getSize(fullScreen: boolean | undefined): number {
   const windowHeight = window.innerHeight;
@@ -85,12 +84,6 @@ export function highlightActiveArea(
   ctx.stroke();
 }
 
-export function getDistance(a: Point, b: Point): number {
-  const xDistance = a[0] - b[0];
-  const yDistance = a[1] - b[1];
-  return sqrt(xDistance * xDistance + yDistance * yDistance) as number;
-}
-
 export function getInitialPixelMap(canvasSize: number): TempPixelMap {
   const pixelMap: TempPixelMap =  {};
   let x = 1;
@@ -106,44 +99,3 @@ export function getInitialPixelMap(canvasSize: number): TempPixelMap {
   return pixelMap;
 }
 
-function getComplexValue(
-  keyX: string,
-  keyY: string,
-  startValue: Complex,
-  inc: number
-): Complex {
-  const x = Number(keyX);
-  const y = Number(keyY);
-  if (x === 1 && y === 1) {
-    return startValue;
-  }
-  const re = startValue.re + (Number(x) - 1) * inc;
-  const im = startValue.im + (Number(y) - 1) * inc;
-  return complex(re, im);
-}
-
-export function mapPixelsToComplexPlane(
-  pixelMap: PixelMap | TempPixelMap,
-  canvasSize: number,
-  startValue: Complex,
-  range: number,
-  addValue?: ( num: Complex, x: string, y: string )  => void,
-): { complexPlane: ComplexPlane, mappedNumbers: Array<Complex> } {
-
-  const pixelIncrement = range / (canvasSize - 1);
-  const complexPlane: ComplexPlane = {}
-  const mappedNumbers: Array<Complex> = []
-
-  for (const keyX in pixelMap) {
-    complexPlane[keyX] = {};
-    for (const keyY in pixelMap[keyX]) {
-      const val = getComplexValue(keyX, keyY, startValue, pixelIncrement);
-      mappedNumbers.push(val);
-      complexPlane[keyX][keyY] = val;
-      if (addValue) {
-        addValue(val, keyX, keyY);
-      }
-    }
-  }
-  return  { complexPlane, mappedNumbers };
-}

@@ -18,9 +18,15 @@ export function MandelbrotSet() {
   // const [canvasSize, setCanvasSize] = useState(500);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
 
+  useEffect(() => {
+    const func = () => {
+      const newSize = getSize(fullScreen);
+      setCanvasSize(newSize);
+    };
+    window.addEventListener("resize", func);
+    return () => window.removeEventListener("resize", func);
+  }, [fullScreen, canvasSize]);
 
-  // const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
-  // const [prevCanvasSize, setPrevCanvasSize] = useState(null as number | null);
 
   // function handleX(): void {
   //   if(trackingMouse){
