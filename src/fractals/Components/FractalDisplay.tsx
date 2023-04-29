@@ -2,7 +2,7 @@ import { DefaultLayout } from "../default-view/DefaultLayout";
 import { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
 import { FullScreenLayout } from "../full-screen-view/FullScreenLayout";
 import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../../types";
-import { ControlsWrapper } from "./Controls/ControlsWrapper";
+import { Controls } from "./Controls";
 import { SliderControlProps } from "./Controls/SliderControl";
 import { ButtonPairControlProps } from "./Controls/ButtonControlPair";
 
@@ -34,7 +34,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
       document.documentElement.requestFullscreen();
     }
   }
-  
+
   useEffect(() => {
     function handleResize(): void {
       adjustPropertiesToScreenSize && adjustPropertiesToScreenSize(
@@ -47,7 +47,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, [fullScreen]);
 
-  const controls = <ControlsWrapper
+  const controls = <Controls
     sliders={props.sliders || []}
     buttonPairs={props.buttonPairs || []}
     fullScreen={props.fullScreen}

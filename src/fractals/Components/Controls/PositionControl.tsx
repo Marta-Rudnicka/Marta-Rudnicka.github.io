@@ -6,7 +6,7 @@ import { ArrowUp } from "../../../components/icons/ArrowUp";
 import { Point } from "../../../types";
 import './controls.css';
 
-type PositionControlProps = {
+export type PositionControlProps = {
   x: number,
   y: number,
   inc: number,
