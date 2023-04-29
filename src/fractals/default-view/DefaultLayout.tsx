@@ -1,23 +1,17 @@
 import { ReactElement, ReactNode } from "react"
-import { canvasInputs, DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Components/Canvas";
 import { Footer } from "../../components/layout/Footer";
 import { Header } from "../../components/layout/Header";
 import { AppNav } from "./AppNav";
+import { FullScreenLayoutProps } from "../full-screen-view/FullScreenLayout";
 import './default-view.css';
 
-type DefaultLayoutProps = {
-  draw: DrawFunc;
-  conrols: ReactElement;
+type DefaultLayoutProps = FullScreenLayoutProps & {
   title: string;
   description: ReactNode;
   extraControls?: ReactElement;
   prevLink?: string;
   nextLink?: string;
-  drawParameters: Parameters;
-  handleClick: () => void;
-  canvasSize: number;
-  canvasInputs?: canvasInputs;
 }
 
 export function DefaultLayout(props: DefaultLayoutProps) {
@@ -42,7 +36,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           />
         </div>
         <div className="controls floating-box">
-          {props.conrols}
+          {props.controls}
         </div>
         <div className="description floating-box">
           {props.description}
