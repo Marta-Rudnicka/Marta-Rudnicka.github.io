@@ -8,6 +8,7 @@ import { ButtonPairControlProps } from "./Controls/ButtonControlPair";
 
 type FractalDisplayProps = {
   adjustPropertiesToScreenSize?: ResizeHandler;
+  altControls?: ReactNode;
   canvasInputs: canvasInputs;
   canvasSize: number;
   description: ReactNode;
@@ -50,6 +51,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
   const controls = <Controls
     sliders={props.sliders || []}
     buttonPairs={props.buttonPairs || []}
+    altControls={props.altControls}
     fullScreen={props.fullScreen}
   />;
 
@@ -62,6 +64,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
         canvasSize={canvasSize}
         canvasInputs={props.canvasInputs}
         controls={controls}
+        altControls={props.altControls}
       />
     );
   }
@@ -71,7 +74,8 @@ export function FractalDisplay(props: FractalDisplayProps) {
       draw={props.draw}
       drawParameters={props.drawParameters}
       handleClick={handleChangeViewIconClick}
-      conrols={controls}
+      controls={controls}
+      altControls={props.altControls}
       title={props.title}
       description={props.description}
       prevLink={props.prevLink}

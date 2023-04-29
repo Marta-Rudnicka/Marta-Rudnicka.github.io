@@ -1,15 +1,16 @@
-import { ReactElement } from "react"
+import { ReactElement, ReactNode } from "react"
 import { canvasInputs, DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Components/Canvas";
 import './full-screen-view.css';
 
-type FullScreenLayoutProps = {
+export type FullScreenLayoutProps = {
   draw: DrawFunc;
   drawParameters: Parameters;
   controls: ReactElement;
   handleClick: () => void;
   canvasSize: number;
   canvasInputs?: canvasInputs;
+  altControls?: ReactNode;
 }
 
 export function FullScreenLayout(props: FullScreenLayoutProps) {
