@@ -45,16 +45,28 @@ function renderButtonPairs(buttonsPairs: ButtonPairControlProps[]): ReactNode[] 
 function AltControls(props: AltControlProps) {
   const [show, setShow] = useState(false);
 
-  if (show) {
+  if (!show) {
     return (
       <div>
-        <button onClick={() => setShow(false)}>Show alternative keyboard-only controls<ChevronDown /></button>
+        <button
+          className='alt-button'
+          onClick={() => setShow(true)}
+        >
+          Show alternative keyboard-only controls
+          <ChevronDown />
+        </button>
       </div>
     )
   }
   return (
     <div>
-      <button onClick={() => setShow(true)}>Hide alternative keyboard-only controls<ChevronUp /></button>
+      <button
+        className='alt-button'
+        onClick={() => setShow(false)}
+      >
+        Hide alternative keyboard-only controls
+        <ChevronUp />
+      </button>
       {props.children}
     </div>
   );

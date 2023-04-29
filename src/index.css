@@ -89,3 +89,9 @@ code {
   outline: #31cece solid 2px;
   outline-offset: 2px;
 }
+.alt-button {
+  width: 100%;
+  background-color: #282c34;
+  color: #31cece;
+  margin-bottom: 10px;
+}
