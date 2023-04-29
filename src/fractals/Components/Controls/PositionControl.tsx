@@ -12,6 +12,9 @@ export type PositionControlProps = {
   inc: number,
   setPosition: (coords: Point) => void;
   id: string;
+  nextFocus?: HTMLElement | null;
+  prevFocus?: HTMLElement | null;
+
 }
 export function PositionControl(props: PositionControlProps) {
   const [xPosition, setXPosition] = useState(props.x);
@@ -61,19 +64,32 @@ export function PositionControl(props: PositionControlProps) {
   }
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
-    switch (e.key) {
-      case "ArrowLeft":
-        moveLeft();
-        break;
-      case "ArrowRight":
-        moveRight();
-        break;
-      case "ArrowUp":
-        moveUp();
-        break;
-      case "ArrowDown":
-        moveDown();
-        break;
+    if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
+      e.preventDefault(); // prevent scrolling
+      switch (e.key) {
+        case "ArrowLeft":
+          moveLeft();
+          break;
+        case "ArrowRight":
+          moveRight();
+          break;
+        case "ArrowUp":
+          moveUp();
+          break;
+        case "ArrowDown":
+          moveDown();
+          break;
+      }
+    }
+    if (props.nextFocus && ( e.key === "Tab" || e.key === "PageDown")) {
+      e.preventDefault(); // prevent scrolling
+      console.log('tab and next')
+      props.nextFocus.focus();
+    }
+    if (props.prevFocus && e.key === "PageUp") {
+      e.preventDefault(); // prevent scrolling
+      console.log('tab and next')
+      props.prevFocus.focus();
     }
   }
 
