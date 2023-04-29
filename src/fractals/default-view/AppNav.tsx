@@ -10,7 +10,7 @@ export function AppNav(props: FooterProps) {
   const { prevLink, nextLink } = props;
 
   return (
-    <div className="app-nav">
+    <div className="app-nav" id="app-nav">
       {prevLink && <div className="floating-box"><a href={prevLink}><ChevronLeft/>Previous fractal</a></div>}
       {nextLink && <div className="floating-box"><a href={nextLink}>Next fractal <ChevronRight/></a></div>}
     </div>

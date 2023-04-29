@@ -6,6 +6,7 @@ import { FractalDisplay } from "../../Components/FractalDisplay";
 import { findAffectedPoint, getSize, rescale } from "../../utils";
 import { canvasInputs, Point, Triangle } from "../../../types";
 import { equilateralTriangle } from "./algorithm";
+import { SierpinskiAltControls } from "./altControls";
 
 function getIterationsNumber(fullScreen: boolean): number {
   const size = getSize(fullScreen);
@@ -22,6 +23,12 @@ export function SierpinskiTriangle() {
   const [outerTriangle, setOuterTriangle] = useState(equilateralTriangle(getSize(fullScreen)))
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [prevCanvasSize, setPrevCanvasSize] = useState(null as number | null);
+
+  const altControls = <SierpinskiAltControls
+    outerTriangle={outerTriangle}
+    setOuterTriangle={setOuterTriangle}
+    canvasSize={getSize(fullScreen)}
+   />
 
   function handleX(): void {
     if (trackingMouse) {
@@ -91,6 +98,7 @@ export function SierpinskiTriangle() {
 
   return (<FractalDisplay
     adjustPropertiesToScreenSize={adjustPropertiesToScreenSize}
+    altControls={altControls}
     canvasInputs={canvasInputs}
     canvasSize={canvasSize}
     description={Description()}

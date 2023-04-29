@@ -1,0 +1,12 @@
+.triangle-alt-controls {
+    display: flex;
+    margin-top: 20px;
+}
+
+.bottom {
+    justify-content: space-between;
+}
+
+.top {
+    justify-content: center;
+}
