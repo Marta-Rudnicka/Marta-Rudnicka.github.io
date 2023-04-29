@@ -1,7 +1,7 @@
 import { MouseEventHandler, MouseEvent, useEffect, useRef } from "react"
-import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../types";
-import { EnterFullScreen } from "../components/icons/EnterFullScreen";
-import { ExitFullScreen } from "../components/icons/ExitFullScreen";
+import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../../types";
+import { EnterFullScreen } from "../../components/icons/EnterFullScreen";
+import { ExitFullScreen } from "../../components/icons/ExitFullScreen";
 import { Tooltip2 } from "@blueprintjs/popover2";
 
 type CanvasProps = {

@@ -1,6 +1,6 @@
 import { MouseEventHandler, ReactElement } from "react"
 import { canvasInputs, DrawFunc, Parameters } from "../../types";
-import { Canvas } from "../Canvas";
+import { Canvas } from "../Components/Canvas";
 import './full-screen-view.css';
 
 type FullScreenLayoutProps = {

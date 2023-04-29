@@ -1,6 +1,6 @@
 import { Button, Collapse,  } from "@blueprintjs/core";
 import { useState } from "react";
-import { Info } from "../components/icons/Info";
+import { Info } from "../../../components/icons/Info";
 
 export type ButtonPairControlProps = {
   label1: string;
@@ -10,9 +10,9 @@ export type ButtonPairControlProps = {
   handleClick2: () => void;
 }
 
-export function BurronPairControl(props: ButtonPairControlProps){
+export function ButtonPairControl(props: ButtonPairControlProps){
   const [isOpen, setIsOpen] = useState(false);
-  
+
   function toggleIsOpen(){
     if (isOpen) {
       setIsOpen(false);

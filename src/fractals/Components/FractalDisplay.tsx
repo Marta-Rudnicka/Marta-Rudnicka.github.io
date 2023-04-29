@@ -1,10 +1,10 @@
-import { DefaultLayout } from "./default-view/DefaultLayout";
+import { DefaultLayout } from "../default-view/DefaultLayout";
 import { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
-import { FullScreenLayout } from "./full-screen-view/FullScreenLayout";
-import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../types";
-import { ControlsWrapper } from "./ControlsWrapper";
-import { SliderControlProps } from "./SliderControl";
-import { ButtonPairControlProps } from "./ButtonControlPair";
+import { FullScreenLayout } from "../full-screen-view/FullScreenLayout";
+import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../../types";
+import { ControlsWrapper } from "./Controls/ControlsWrapper";
+import { SliderControlProps } from "./Controls/SliderControl";
+import { ButtonPairControlProps } from "./Controls/ButtonControlPair";
 
 type FractalDisplayProps = {
   adjustPropertiesToScreenSize?: ResizeHandler;

@@ -1,8 +1,8 @@
 import { draw } from "./draw";
 import { Description } from "./description";
 import { useEffect, useState } from "react";
-import { SliderControlProps } from "../../SliderControl";
-import { FractalDisplay } from "../../FractalDisplay";
+import { SliderControlProps } from "../../Components/Controls/SliderControl";
+import { FractalDisplay } from "../../Components/FractalDisplay";
 import { findAffectedPoint, getSize, rescale } from "../../utils";
 import { canvasInputs, Point, Triangle } from "../../../types";
 import { equilateralTriangle } from "./algorithm";

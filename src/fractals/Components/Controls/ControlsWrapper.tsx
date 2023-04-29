@@ -1,9 +1,9 @@
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { ReactNode, useState } from "react";
-import { ChevronDown } from "../components/icons/ChevronDown";
-import { ChevronUp } from "../components/icons/ChevronUp";
+import { ChevronDown } from "../../../components/icons/ChevronDown";
+import { ChevronUp } from "../../../components/icons/ChevronUp";
 import { SliderControl, SliderControlProps } from "./SliderControl";
-import { BurronPairControl, ButtonPairControlProps } from "./ButtonControlPair";
+import { ButtonPairControl, ButtonPairControlProps } from "./ButtonControlPair";
 
 type ControlProps = {
   sliders: SliderControlProps[];
@@ -18,8 +18,8 @@ type ControlHeaderProps = {
 
 function renderSliderControls(
   sliders: SliderControlProps[]
-  ): ReactNode[] {
-  return sliders.map(slider => 
+): ReactNode[] {
+  return sliders.map(slider =>
     <SliderControl
       key={slider.label}
       label={slider.label}
@@ -34,7 +34,7 @@ function renderSliderControls(
 
 function renderButtonPairs(buttonsPairs: ButtonPairControlProps[]): ReactNode[] {
   return buttonsPairs.map(bp =>
-    <BurronPairControl
+    <ButtonPairControl
       key={bp.info}
       handleClick1={bp.handleClick1}
       handleClick2={bp.handleClick2}
@@ -84,12 +84,11 @@ export function ControlsWrapper(props: ControlProps) {
           />}
       </div>
       <div>
-        {(!props.fullScreen || allVisible) 
-        && sliders}
-        {(!props.fullScreen || allVisible) 
-        && buttons }
+        {(!props.fullScreen || allVisible)
+          && sliders}
+        {(!props.fullScreen || allVisible)
+          && buttons}
       </div>
-      
     </>
   );
 }

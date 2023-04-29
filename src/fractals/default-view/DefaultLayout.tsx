@@ -1,6 +1,6 @@
 import { MouseEventHandler, ReactElement, ReactNode } from "react"
 import { canvasInputs, DrawFunc, Parameters } from "../../types";
-import { Canvas } from "../Canvas";
+import { Canvas } from "../Components/Canvas";
 import { Footer } from "../../components/layout/Footer";
 import { Header } from "../../components/layout/Header";
 import { AppNav } from "./AppNav";

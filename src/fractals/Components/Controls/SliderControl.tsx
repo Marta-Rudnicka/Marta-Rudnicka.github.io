@@ -1,6 +1,6 @@
 import { Collapse, Slider } from "@blueprintjs/core";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Info } from "../components/icons/Info";
+import { Info } from "../../../components/icons/Info";
 
 export type SliderControlProps = {
   label: string;
