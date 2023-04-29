@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactElement, ReactNode } from "react"
+import { ReactElement, ReactNode } from "react"
 import { canvasInputs, DrawFunc, Parameters } from "../../types";
 import { Canvas } from "../Components/Canvas";
 import { Footer } from "../../components/layout/Footer";
@@ -15,7 +15,7 @@ type DefaultLayoutProps = {
   prevLink?: string;
   nextLink?: string;
   drawParameters: Parameters;
-  handleClick: MouseEventHandler;
+  handleClick: () => void;
   canvasSize: number;
   canvasInputs?: canvasInputs;
 }

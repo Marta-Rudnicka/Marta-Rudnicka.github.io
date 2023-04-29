@@ -1,4 +1,4 @@
-import { MouseEventHandler, MouseEvent, useEffect, useRef } from "react"
+import { MouseEvent, useEffect, useRef } from "react"
 import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../../types";
 import { EnterFullScreen } from "../../components/icons/EnterFullScreen";
 import { ExitFullScreen } from "../../components/icons/ExitFullScreen";
@@ -9,7 +9,7 @@ type CanvasProps = {
   size: number;
   draw: DrawFunc;
   drawParameters: Parameters;
-  handleClick: MouseEventHandler;
+  handleClick: () => void;
   canvasInputs?: canvasInputs;
 }
 
@@ -21,6 +21,12 @@ export function Canvas(props: CanvasProps) {
   const { size } = props; //getSize(props.fullScreen);
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
 
+  function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Enter') {
+      props.handleClick();
+    }
+  }
+
   useEffect(() => {
     if (c && c.current ) {
     const drawArgs = {
@@ -28,7 +34,7 @@ export function Canvas(props: CanvasProps) {
       size,
       parameters: props.drawParameters,
     }
-    
+
       props.draw(drawArgs);
     }
   }, [props, size, c, props.drawParameters]);
@@ -36,7 +42,7 @@ export function Canvas(props: CanvasProps) {
   function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point{
     if (props.fullScreen || (offsetX && offsetY)) {
       return [
-        Math.round(e.clientX - ( offsetX || 0)), 
+        Math.round(e.clientX - ( offsetX || 0)),
         Math.round(e.clientY - ( offsetY || 0))
       ];
     }
@@ -66,6 +72,7 @@ export function Canvas(props: CanvasProps) {
           <div
             className="change-view-icon"
             onClick={props.handleClick}
+            onKeyDown={handleKeyboardInput}
           >
             {props.fullScreen
               ? <ExitFullScreen width={25} height={25} />
