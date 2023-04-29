@@ -18,20 +18,20 @@ export function SierpinskiTriangle() {
   const [iterations, setIterations] = useState(5);
   const [trackingMouse, setTrackingMouse] = useState(false);
   const [cursorPosition, setCursorPosition] = useState([0, 0] as Point);
-  const [x, setX ] = useState([0, 0] as Point);
+  const [x, setX] = useState([0, 0] as Point);
   const [outerTriangle, setOuterTriangle] = useState(equilateralTriangle(getSize(fullScreen)))
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [prevCanvasSize, setPrevCanvasSize] = useState(null as number | null);
 
   function handleX(): void {
-    if(trackingMouse){
+    if (trackingMouse) {
       setX(cursorPosition);
     }
   }
 
-  function reshapeTriangle(){
+  function reshapeTriangle() {
     const affectedPoint = findAffectedPoint(outerTriangle, x) as 'a' | 'b' | 'c';
-    if(affectedPoint){
+    if (affectedPoint) {
       const t = outerTriangle;
       t[affectedPoint] = x;
       setOuterTriangle(t);
@@ -55,7 +55,7 @@ export function SierpinskiTriangle() {
   }, [fullScreen, canvasSize]);
 
   function adjustPropertiesToScreenSize() {
-    if (prevCanvasSize && prevCanvasSize !== canvasSize){
+    if (prevCanvasSize && prevCanvasSize !== canvasSize) {
       const newTriangle = rescale(prevCanvasSize, canvasSize, outerTriangle) as Triangle;
       setOuterTriangle(newTriangle);
     }
@@ -96,8 +96,8 @@ export function SierpinskiTriangle() {
     description={Description()}
     draw={draw}
     drawParameters={
-      { 
-        iterations, 
+      {
+        iterations,
         a: outerTriangle.a,
         b: outerTriangle.b,
         c: outerTriangle.c,
