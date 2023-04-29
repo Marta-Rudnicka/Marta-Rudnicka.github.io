@@ -1,0 +1,21 @@
+.position-control {
+    display: flex;
+    flex-direction: column;
+}
+
+.position-control-row {
+    display: flex;
+    justify-content: center;
+}
+
+.position-control-row button {
+    width: 35px;
+    height: 35px;
+    margin-right: 35px;
+
+}
+
+.active {
+    box-shadow: 3px 3px 10px #31cece;
+    border: #31cece solid 1px;
+}
