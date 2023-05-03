@@ -1,3 +1,4 @@
+import { Complex } from "mathjs";
 import { PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 
@@ -87,4 +88,29 @@ export function getKernel(size: number): IKernelRunShortcut {
     return res;
   }).setOutput([size, size]);
   return kernel;
+}
+
+export function createImageData(
+  size: number,
+  startValue: Complex,
+  range: number
+) {
+  const inc = range / size;
+  const startReal = startValue.re;
+  const startImaginary = startValue.im;
+  const arr = new Uint8ClampedArray(size * size * 4);
+
+  const kernel = getKernel(size);
+
+  const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
+  const data = [];
+  for (let i = 0; i < kernelDump.length; i += 1) {
+    for (let j = 0; j < kernelDump[i].length; j += 1) {
+      data.push(...kernelDump[i][j])
+    }
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    arr[i] = data[i];
+  }
+  return new ImageData(arr, size);
 }

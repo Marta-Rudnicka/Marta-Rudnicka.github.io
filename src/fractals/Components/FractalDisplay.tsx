@@ -6,7 +6,7 @@ import { Controls } from "./Controls";
 import { SliderControlProps } from "./Controls/SliderControl";
 import { ButtonPairControlProps } from "./Controls/ButtonControlPair";
 
-type FractalDisplayProps = {
+export type FractalDisplayProps = {
   adjustPropertiesToScreenSize?: ResizeHandler;
   altControls?: ReactNode;
   canvasInputs: canvasInputs;
@@ -16,7 +16,7 @@ type FractalDisplayProps = {
   drawParameters: Parameters;
   fullScreen: boolean;
   nextLink?: string;
-  prevCanvasSize: number | null,
+  prevCanvasSize?: number | null,
   prevLink?: string;
   setFullScreen: Dispatch<SetStateAction<boolean>>
   sliders?: SliderControlProps[];
@@ -38,7 +38,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
 
   useEffect(() => {
     function handleResize(): void {
-      adjustPropertiesToScreenSize && adjustPropertiesToScreenSize(
+      adjustPropertiesToScreenSize && props.prevCanvasSize && adjustPropertiesToScreenSize(
         props.prevCanvasSize,
         props.canvasSize
       );

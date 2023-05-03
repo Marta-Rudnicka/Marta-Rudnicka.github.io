@@ -1,5 +1,4 @@
 import { Complex } from "mathjs";
-import { Dispatch, SetStateAction } from "react";
 
 export type DrawFuncArgs = {
   canvas: HTMLCanvasElement,
@@ -30,7 +29,7 @@ export type Parameters = Record<string, number|Point|Complex|unknown>
 
 type canvasInput = {
   value: Point,
-  setValue?: Dispatch<SetStateAction<Point>>,
+  setValue?: (val: Point) => void,
   toggle?: () => void;
 }
 
