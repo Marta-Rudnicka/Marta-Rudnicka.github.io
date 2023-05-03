@@ -82,12 +82,12 @@ export function PositionControl(props: PositionControlProps) {
       }
     }
     if (props.nextFocus && ( e.key === "Tab" || e.key === "PageDown")) {
-      e.preventDefault(); // prevent scrolling
+      e.preventDefault(); // prevent scrolling or focusing on the next key in the group
       console.log('tab and next')
       props.nextFocus.focus();
     }
     if (props.prevFocus && e.key === "PageUp") {
-      e.preventDefault(); // prevent scrolling
+      e.preventDefault(); // prevent scrolling or focusing on the next key in the group
       console.log('tab and next')
       props.prevFocus.focus();
     }

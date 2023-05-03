@@ -2,17 +2,17 @@ import { PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 
 export function getColor(i: number): PixelValue {
-  if (i < 20) return [255, 255, 255, 255];
-  if (i < 30) return [240, 240, 240, 255];
-  if (i < 40) return [225, 225, 225, 255];
-  if (i < 50) return [211, 211, 211, 255];
-  return [93, 26, 93, 255];
+  if (i < 20) return [0, 0, 0, 255];
+  if (i < 30) return [20, 20, 20, 255];
+  if (i < 40) return [40, 40, 40, 255];
+  if (i < 50) return [60, 60, 60, 255];
+  return  [80, 80, 80, 255];
 }
 
 export function xSqrPlusY(
-  prev: number[], 
+  prev: number[],
   c: number[]
-  ): number[] { 
+  ): number[] {
   const real = prev[0];
   const imaginary = prev[1];
   const squared =  [real**2 - imaginary ** 2, 2 * real * imaginary]
@@ -28,11 +28,11 @@ export function distanceSq(val: number[], c: number[]): number {
 function getComplexPartsForPixels(
     x: number,
     y: number,
-    startValueX: number, 
+    startValueX: number,
     startValueY: number,
     inc: number,
   ): number[] {
-  
+
   // to prevent GPU from rounding numbers
   inc = inc * 1000;
   let xInc = x * inc;
@@ -58,7 +58,7 @@ export function processPixel(
       return getColor(i);
     }
   }
-  return [0, 0, 0, 255];
+  return [255, 255, 255, 255];
 }
 
 export function getKernel(size: number): IKernelRunShortcut {
