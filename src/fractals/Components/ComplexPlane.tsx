@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { canvasInputs, DrawFuncArgs, Point } from "../../types";
-import { Complex, add, complex, round } from "mathjs";
+import { Complex, complex } from "mathjs";
 import { getSize } from "../utils";
 import { SliderControlProps } from "./Controls/SliderControl";
 import { FractalDisplay } from "./FractalDisplay";
@@ -11,7 +11,7 @@ type ComplexPlaneProps = {
   draw: (args: DrawFuncArgs) => void,
   nextLink: string,
   prevLink: string,
-  createImageData: (size: number, startValue: Complex, range: number ) => ImageData;
+  createImageData: (size: number, startValue: Complex, range: number) => ImageData;
   startValue: Complex,
   range: number,
   sliders: SliderControlProps[],
@@ -22,12 +22,12 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [trackingMouse, setTrackingMouse] = useState(false);
   const [cursorPosition, setCursorPosition] = useState([0, 0] as Point);
   const [startValue, setStartValue] = useState(props.startValue)
-  const startDragPosition = useRef([0, 0] as Point);
-  const offset = useRef([0, 0] as Point);
   const [range, setRange] = useState(props.range);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [pixelOffset, setPixelOffset] = useState([0, 0] as Point)
-  const imageData = useMemo(() => props.createImageData(canvasSize, startValue, range), [canvasSize, startValue, range, props]);
+  const imageData = useMemo(() => props.createImageData(canvasSize, startValue, range), [canvasSize, range, startValue, props]);
+  const startDragPosition = useRef([0, 0] as Point);
+  const offset = useRef([0, 0] as Point);
 
   useEffect(() => {
     const func = () => {
@@ -70,44 +70,44 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
 
   function handleMouseMove(val: Point): void {
     setCursorPosition(val)
-
-    if(trackingMouse ) {
-      moveImage()
+    if (trackingMouse) {
+      moveImage();
     }
   }
 
   function handleMouseUp() {
+    recalculateImage();
     setTrackingMouse(false);
     startDragPosition.current = [0, 0];
-    recalculateImage();
   }
 
-  function updateStartValue(increment: number) {
-    const startValueShift = complex(increment, increment)
-    const newValue = round(add(startValue, startValueShift), 4);
+  function updateStartValue(range: number) {
+    const increment = range / canvasSize;
+    let newValue = { ...startValue }
+    newValue.re = startValue.re + increment;
+    newValue.im = startValue.im + increment;
     setStartValue(newValue);
   }
 
   function zoomIn() {
-    const increment = round(0.1 * range, 4)
-    updateStartValue(increment);
-    setRange(round(0.80 * range, 4));
-    console.log(startValue.re, startValue.im, range)
+    const oldRange = range;
+    updateStartValue(oldRange);
+    setRange(oldRange * 0.8);
+
   }
 
   function zoomOut() {
-    const increment = round(-0.125 * range, 4)
-    updateStartValue(increment)
-    setRange(round(1.25 * range, 4));
-    console.log(startValue.re, startValue.im, range)
+    const oldRange = range;
+    updateStartValue(oldRange);
+    setRange(oldRange * 1.25);
   }
 
   const buttonPairs = [{
-      label1: 'zoom in',
-      label2: 'zoom out',
-      handleClick1: zoomIn,
-      handleClick2: zoomOut,
-      info: "zoom in or out"
+    label1: 'zoom in',
+    label2: 'zoom out',
+    handleClick1: zoomIn,
+    handleClick2: zoomOut,
+    info: "zoom in or out"
   }];
 
   const canvasInputs: canvasInputs = {
@@ -125,23 +125,26 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     }
   };
 
-  return (<FractalDisplay
-    canvasInputs={canvasInputs}
-    canvasSize={canvasSize}
-    description={props.description}
-    draw={props.draw}
-    drawParameters={{
-      imageData,
-      pixelOffset: pixelOffset,
-    }}
-    fullScreen={fullScreen}
-    nextLink={props.nextLink}
-    prevCanvasSize={100}
-    prevLink={props.prevLink}
-    setFullScreen={setFullScreen}
-    sliders={props.sliders}
-    buttonPairs={buttonPairs}
-    title={props.title}
-  />
+  return (
+    <>
+      <FractalDisplay
+        canvasInputs={canvasInputs}
+        canvasSize={canvasSize}
+        description={props.description}
+        draw={props.draw}
+        drawParameters={{
+          imageData,
+          pixelOffset: pixelOffset,
+        }}
+        fullScreen={fullScreen}
+        nextLink={props.nextLink}
+        prevCanvasSize={100}
+        prevLink={props.prevLink}
+        setFullScreen={setFullScreen}
+        sliders={props.sliders}
+        buttonPairs={buttonPairs}
+        title={props.title}
+      />
+    </>
   );
 }

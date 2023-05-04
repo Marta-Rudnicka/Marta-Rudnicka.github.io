@@ -14,8 +14,11 @@ export function draw(args: DrawFuncArgs): void {
   const ctx = canvas?.getContext('2d');
 
   if (ctx) {
-    ctx.fillStyle = "red";
+    ctx.beginPath();
     ctx.clearRect(0, 0, size, size);
+    ctx.rect(0, 0, size, size);
+    ctx.fillStyle = 'black';
+    ctx.fill();
     ctx.putImageData(parameters.imageData, offsetX, offsetY);
   }
 }
