@@ -37,7 +37,7 @@ export function withinRange(point: Point, cursorPosition: Point, range: number) 
   if (point[0] < cursorPosition[0] - range) return false;
   if (point[1] > cursorPosition[1] + range) return false;
   if (point[1] < cursorPosition[1] - range) return false;
-  return true  
+  return true;
 }
 
 export function rescale(
@@ -91,7 +91,7 @@ export function getInitialPixelMap(canvasSize: number): TempPixelMap {
     pixelMap[x] = {}
     let y = 1;
     while (y <= canvasSize) {
-      pixelMap[x][y] = null;      
+      pixelMap[x][y] = null;
       y ++;
     }
     x ++;
@@ -99,3 +99,13 @@ export function getInitialPixelMap(canvasSize: number): TempPixelMap {
   return pixelMap;
 }
 
+export function getMultiplier(input: number) {
+  /** finds the order of magnitude a number should be multiplied by to prevent
+   * rounding by he GPU
+   */
+  let multiplier = 1;
+  while(input * multiplier < 1 ) {
+    multiplier = multiplier * 10;
+  }
+  return multiplier;
+}

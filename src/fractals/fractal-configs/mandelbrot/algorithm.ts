@@ -1,6 +1,7 @@
 import { Complex } from "mathjs";
 import { PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
+import { getMultiplier } from "../../utils";
 
 export function getColor(i: number): PixelValue {
   if (i < 25) return [0, 0, 0, 255];
@@ -35,12 +36,13 @@ function getComplexPartsForPixels(
     inc: number,
   ): number[] {
 
-  // to prevent GPU from rounding numbers
-  inc = inc * 100000;
+  const multiplier = getMultiplier(inc) * 1000;
+  // to prevent GPU from rounding numbers; value establihed by trial and error
+  inc = inc * multiplier;
   let xInc = x * inc;
   let yInc = y * inc;
-  xInc = xInc / 100000;
-  yInc = yInc / 100000;
+  xInc = xInc / multiplier;
+  yInc = yInc / multiplier;
 
   const re = startValueX + xInc;
   const im = startValueY + yInc;
@@ -71,12 +73,12 @@ export function getKernel(size: number): IKernelRunShortcut {
   gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
   gpu.addFunction(getColor);
+  gpu.addFunction(getMultiplier);
 
   const kernel = gpu.createKernel(function (
     startValueX: number,
     startValueY: number,
     inc: number,
-    // // iterations: number
   ) {
     const values = getComplexPartsForPixels(
       this.thread.x,
