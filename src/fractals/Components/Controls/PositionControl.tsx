@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { ArrowDown } from "../../../components/icons/ArrowDown";
 import { ArrowLeft } from "../../../components/icons/ArrowLeft";
 import { ArrowRight } from "../../../components/icons/ArrowRight";
@@ -14,7 +14,8 @@ export type PositionControlProps = {
   id: string;
   nextFocus?: HTMLElement | null;
   prevFocus?: HTMLElement | null;
-
+  invisible?: boolean;
+  children?: ReactNode;
 }
 export function PositionControl(props: PositionControlProps) {
   const [xPosition, setXPosition] = useState(props.x);
@@ -93,6 +94,17 @@ export function PositionControl(props: PositionControlProps) {
     }
   }
 
+  if (props.invisible) {
+    return (
+      <div
+        className="position-control"
+        onKeyDown={(e) => handleKeyboardInput(e)}
+        onKeyUp={() => resetClasses()}
+      >
+        {props.children}
+      </div>
+    );
+  }
   return (
     <div
       className="position-control"

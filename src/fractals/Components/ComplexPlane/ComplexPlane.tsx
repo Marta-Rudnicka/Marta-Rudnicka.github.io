@@ -103,14 +103,6 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     setRange(oldRange * 1.25);
   }
 
-  const altControls = <ComplexPlaneAltControls
-    handleMouseUp={handleMouseUp}
-    handleMouseMove={handleMouseMove}
-    handleMouseDown={handleMouseDown}
-    canvasSize={canvasSize}
-    setCursorPosition={setCursorPosition}
-  />
-
   const buttonPairs = [{
     label1: 'zoom in',
     label2: 'zoom out',
@@ -135,9 +127,16 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   };
 
   return (
-    <>
+    <ComplexPlaneAltControls
+      handleMouseUp={handleMouseUp}
+      handleMouseMove={handleMouseMove}
+      handleMouseDown={handleMouseDown}
+      zoomIn={zoomIn}
+      zoomOut={zoomOut}
+      canvasSize={canvasSize}
+      setCursorPosition={setCursorPosition}
+    >
       <FractalDisplay
-        altControls={altControls}
         canvasInputs={canvasInputs}
         canvasSize={canvasSize}
         description={props.description}
@@ -155,6 +154,6 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
         buttonPairs={buttonPairs}
         title={props.title}
       />
-    </>
+    </ComplexPlaneAltControls>
   );
 }

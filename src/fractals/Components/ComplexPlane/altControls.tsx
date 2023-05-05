@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { PositionControl } from "../../Components/Controls/PositionControl";
 import { Point } from "../../../types";
 
@@ -6,8 +6,11 @@ type ComplexPlaneProps = {
   handleMouseUp: () => void;
   handleMouseDown: () => void;
   handleMouseMove: (p: Point) => void;
+  zoomIn: () => void;
+  zoomOut: () => void;
   canvasSize: number;
   setCursorPosition: Dispatch<SetStateAction<Point>>;
+  children: ReactNode;
 }
 export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
   const [tracking, setTracking] = useState(false);
@@ -16,19 +19,21 @@ export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
     if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
       e.preventDefault(); // prevent scrolling
+      props.handleMouseMove(position);
       if (!tracking) {
         startMovement();
-      } else {
-        props.handleMouseMove(position);
       }
     }
-    if (["Tab", "Enter"].includes(e.key)) {
-      setTracking(false);
-      endMovement();
+    if (e.key === '+') {
+      props.zoomIn();
+    }
+    if (e.key === '-') {
+      props.zoomOut();
     }
   }
 
   function startMovement() {
+    console.log('start movement')
     setTracking(true);
     props.handleMouseDown();
   }
@@ -45,21 +50,20 @@ export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
   })
 
   return (
-    <div className="alt-controls">
-      <p>Press and hold the arrows keys to move the image. Press 'Enter' when it is in he right position - this will show the missing parts of the image.</p>
-      <div
-        onKeyDown={(e) => handleKeyboardInput(e)}
-        onKeyUp={endMovement}
+    <div
+      onKeyDown={(e) => handleKeyboardInput(e)}
+      onKeyUp={endMovement}
+    >
+      <PositionControl
+        id="pan"
+        inc={inc}
+        setPosition={setPosition}
+        x={position[0]}
+        y={position[1]}
+        invisible
       >
-        <PositionControl
-          id="pan"
-          inc={inc}
-          setPosition={setPosition}
-          x={position[0]}
-          y={position[1]}
-          nextFocus={document.querySelector('.app-nav a') as HTMLElement | null}
-        />
-      </div>
+        {props.children}
+      </PositionControl>
     </div>
   );
 }
