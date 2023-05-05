@@ -3,7 +3,7 @@ import { Description } from "./description";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { complex } from "mathjs";
 import { createImageData } from "./algorithm";
-import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane";
+import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 
 export function MandelbrotSet() {
 

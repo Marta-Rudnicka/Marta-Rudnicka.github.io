@@ -10,7 +10,7 @@ export type PositionControlProps = {
   x: number,
   y: number,
   inc: number,
-  setPosition: (coords: Point) => void;
+  setPosition: (coords: Point | [number, number]) => void;
   id: string;
   nextFocus?: HTMLElement | null;
   prevFocus?: HTMLElement | null;

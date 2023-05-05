@@ -1,9 +1,10 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import { canvasInputs, DrawFuncArgs, Point } from "../../types";
+import { canvasInputs, DrawFuncArgs, Point } from "../../../types";
 import { Complex, complex } from "mathjs";
-import { getSize } from "../utils";
-import { SliderControlProps } from "./Controls/SliderControl";
-import { FractalDisplay } from "./FractalDisplay";
+import { getSize } from "../../utils";
+import { SliderControlProps } from "../Controls/SliderControl";
+import { FractalDisplay } from "../FractalDisplay";
+import { ComplexPlaneAltControls } from "./altControls";
 
 type ComplexPlaneProps = {
   title: string,
@@ -102,6 +103,14 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     setRange(oldRange * 1.25);
   }
 
+  const altControls = <ComplexPlaneAltControls
+    handleMouseUp={handleMouseUp}
+    handleMouseMove={handleMouseMove}
+    handleMouseDown={handleMouseDown}
+    canvasSize={canvasSize}
+    setCursorPosition={setCursorPosition}
+  />
+
   const buttonPairs = [{
     label1: 'zoom in',
     label2: 'zoom out',
@@ -128,6 +137,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   return (
     <>
       <FractalDisplay
+        altControls={altControls}
         canvasInputs={canvasInputs}
         canvasSize={canvasSize}
         description={props.description}
