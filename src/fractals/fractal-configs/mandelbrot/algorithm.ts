@@ -27,6 +27,29 @@ export function distanceSq(val: number[], c: number[]): number {
   // false if lies outside the circle with r=2 from the value
   return (val[0] - c[0])**2 + (val[1] - c[1])**2;
 }
+function cardioid(x: number, y: number) {
+  /* if res < 0.25, the point [x, y] lies within the main cardioid;
+  returns number because GPUJS has problem handling Booleans
+  */
+  const ySq = y**2;
+  const c = x - 0.25;
+  const res = ((c**2 + ySq)**2 + c*(c**2 + ySq))/ySq;
+  return res;
+}
+
+function checkKnownSolidShapes(c: number[]) {
+  let withinLimits = 0;
+  //main cardioid
+  if (cardioid(c[0], c[1]) < 0.25) {
+    withinLimits = 1;
+  }
+
+  // main bulb
+  if (distanceSq([-1, 0], c) < 0.0625) {
+    withinLimits = 1;
+  }
+  return withinLimits;
+}
 
 function getComplexPartsForPixels(
     x: number,
@@ -52,7 +75,12 @@ function getComplexPartsForPixels(
 export function processPixel(
     c: number[],
     iterations: number
-    ): number[] {
+    ): PixelValue {
+
+  if (checkKnownSolidShapes(c) === 1) {
+    return [255, 255, 255, 255];
+  }
+
   const seed = [0, 0];
   let val = xSqrPlusY(seed, c);
   for (let i = 0; i <= iterations; i++) {
@@ -74,6 +102,8 @@ export function getKernel(size: number): IKernelRunShortcut {
   gpu.addFunction(distanceSq);
   gpu.addFunction(getColor);
   gpu.addFunction(getMultiplier);
+  gpu.addFunction(cardioid);
+  gpu.addFunction(checkKnownSolidShapes);
 
   const kernel = gpu.createKernel(function (
     startValueX: number,
