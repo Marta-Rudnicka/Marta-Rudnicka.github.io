@@ -5,7 +5,7 @@ import { complex } from "mathjs";
 import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 
-export function MandelbrotSet() {
+export function JuliaSet() {
 
   const sliders: SliderControlProps[] = [];
 
@@ -15,7 +15,7 @@ export function MandelbrotSet() {
     startValue={complex(-2, -1.5)}
     description={Description()}
     draw={draw}
-    nextLink="/#/julia"
+    nextLink="/#/dummy"
     prevLink="/#/example"
     sliders={sliders}
     title="Mandelbrot Set - demo"
