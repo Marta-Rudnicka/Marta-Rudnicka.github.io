@@ -45,10 +45,6 @@ export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
 
   const inc = Math.round(props.canvasSize / 80);
 
-  useEffect(() => {
-    props.setCursorPosition(position);
-  })
-
   return (
     <div
       onKeyDown={(e) => handleKeyboardInput(e)}
