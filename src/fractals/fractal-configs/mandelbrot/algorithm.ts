@@ -38,11 +38,11 @@ function cardioid(x: number, y: number) {
   return res;
 }
 
-function checkKnownSolidShapes(c: number[]) {
+function checkKnownSolidShapes(c: number[], card: number) {
   let withinLimits = 0;
   //main cardioid
-  const cardioidValue = cardioid(c[0], c[1]);
-  if (cardioidValue < 0.25) {
+  // const cardioidValue = cardioid(c[0], c[1]);
+  if (card < 0.25) {
     withinLimits = 1;
   }
 
@@ -126,7 +126,7 @@ export function getKernel(size: number, multiplier: number): IKernelRunShortcut 
     const x = distanceSq([1,2],[3,4]);
     const y = cardioid(0,1);
     const z = xSqrPlusY([1, 2],[3,4])
-    const a = checkKnownSolidShapes([0, 1])
+    const a = checkKnownSolidShapes([0, 1], 0.5)
     const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
