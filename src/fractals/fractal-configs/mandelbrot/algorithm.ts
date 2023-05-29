@@ -114,12 +114,12 @@ export function getKernel(size: number): IKernelRunShortcut {
     startValueY: number,
     inc: number,
   ) {
-    const values = getComplexPartsForPixels(
-      this.thread.x,
-      this.thread.y,
-      startValueX,
-      startValueY,
-      inc);
+    // const values = getComplexPartsForPixels(
+    //   this.thread.x,
+    //   this.thread.y,
+    //   startValueX,
+    //   startValueY,
+    //   inc);
 
     const x = distanceSq([1,2],[3,4]);
     const res = [0,0,0,0] // processPixel(values, 200)
