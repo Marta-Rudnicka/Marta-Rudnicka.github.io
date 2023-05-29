@@ -27,6 +27,7 @@ export function distanceSq(val: number[], c: number[]): number {
   // false if lies outside the circle with r=2 from the value
   return (val[0] - c[0])**2 + (val[1] - c[1])**2;
 }
+
 function cardioid(x: number, y: number) {
   /* if res < 0.25, the point [x, y] lies within the main cardioid;
   returns number because GPUJS has problem handling Booleans
@@ -59,7 +60,8 @@ function getComplexPartsForPixels(
     inc: number,
   ): number[] {
 
-  const multiplier = getMultiplier(inc) * 1000;
+  const multiplier = 10000 // getMultiplier(inc) * 1000;
+
   // to prevent GPU from rounding numbers; value establihed by trial and error
   inc = inc * multiplier;
   let xInc = x * inc;
@@ -77,17 +79,19 @@ export function processPixel(
     iterations: number
     ): PixelValue {
 
-  if (checkKnownSolidShapes(c) === 1) {
-    return [255, 255, 255, 255];
-  }
+  // if (checkKnownSolidShapes(c) === 1) {
+  //   return [255, 255, 255, 255];
+  // }
 
   const seed = [0, 0];
   let val = xSqrPlusY(seed, c);
   for (let i = 0; i <= iterations; i++) {
     val = xSqrPlusY(val, c)
-    const cr = distanceSq(val, c);
+    // const cr = distanceSq(val, c);
+    const cr = 2;
     if (cr > 4) {
-      return getColor(i);
+      // return getColor(i);
+      return [0,0,0,0]
     }
   }
   return [255, 255, 255, 255];
@@ -97,13 +101,13 @@ export function getKernel(size: number): IKernelRunShortcut {
   const gpu = new GPU();
 
   gpu.addFunction(getComplexPartsForPixels);
-  gpu.addFunction(xSqrPlusY);
-  gpu.addFunction(processPixel);
-  gpu.addFunction(distanceSq);
-  gpu.addFunction(getColor);
-  gpu.addFunction(getMultiplier);
-  gpu.addFunction(cardioid);
-  gpu.addFunction(checkKnownSolidShapes);
+  // gpu.addFunction(xSqrPlusY);
+  // gpu.addFunction(processPixel);
+  // gpu.addFunction(distanceSq);
+  // gpu.addFunction(getColor);
+  // gpu.addFunction(getMultiplier);
+  // gpu.addFunction(cardioid);
+  // gpu.addFunction(checkKnownSolidShapes);
 
   const kernel = gpu.createKernel(function (
     startValueX: number,
@@ -117,7 +121,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       startValueY,
       inc);
 
-    const res = processPixel(values, 200)
+    const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
   return kernel;
@@ -133,8 +137,7 @@ export function createImageData(
   const startImaginary = startValue.im;
   const arr = new Uint8ClampedArray(size * size * 4);
   const kernel = getKernel(size);
-  // const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
-  const kernelDump = [[[0,0,0,0]]];
+  const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
   const data = [];
   for (let i = 0; i < kernelDump.length; i += 1) {
     for (let j = 0; j < kernelDump[i].length; j += 1) {
