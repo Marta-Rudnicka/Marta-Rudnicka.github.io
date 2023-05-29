@@ -40,18 +40,10 @@ function cardioid(x: number, y: number) {
 
 function checkKnownSolidShapes(c: number[]) {
   let withinLimits = 0;
-  //main cardioid
   const cardioidValue = cardioid(c[0], c[1]);
+  const mainBulb = distanceSq([-1, 0], c);
   withinLimits = 0.25 > cardioidValue ? 1 : 0;
-  // {
-  //   withinLimits = 1;
-  // }
-  
-
-  // main bulb
-  // if (distanceSq([-1, 0], c) < 0.0625) {
-  //   withinLimits = 1;
-  // }
+  withinLimits =  mainBulb < 0.0625 ? 1 : 0;
   return withinLimits;
 }
 
