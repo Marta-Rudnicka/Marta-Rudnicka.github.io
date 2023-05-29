@@ -60,8 +60,8 @@ function checkKnownSolidShapes(c: number[]) {
   let withinLimits = 0;
   const cardioidValue = cardioid(c[0], c[1]);
   const mainBulb = distanceSq([-1, 0], c);
-  withinLimits = 0.25 > cardioidValue ? 1 : 0;
-  withinLimits = mainBulb < 0.0625 ? 1 : 0 + withinLimits;
+  const card = 0.25 > cardioidValue ? 1 : 0;
+  withinLimits = mainBulb < 0.0625 ? 1 : 0 + card;
   return withinLimits;
 }
 
