@@ -76,9 +76,9 @@ export function processPixel(
     iterations: number
     ): PixelValue {
 
-  // if (checkKnownSolidShapes(c) === 1) {
-  //   return [255, 255, 255, 255];
-  // }
+  if (checkKnownSolidShapes(c) === 1) {
+    return [255, 255, 255, 255];
+  }
 
   const seed = [0, 0];
   let val = xSqrPlusY(seed, c);
@@ -87,17 +87,16 @@ export function processPixel(
     // const cr = distanceSq(val, c);
     const cr = 2;
     if (cr > 4) {
-      // return getColor(i);
-      return [0,0,0,0]
+      return getColour(i);
     }
   }
   return [255, 255, 255, 255];
 }
 
-export function getKernel(size: number, multiplier: number): IKernelRunShortcut {
+export function getKernel(size: number): IKernelRunShortcut {
   const gpu = new GPU();
 
-  // gpu.addFunction(getComplexPartsForPixels);
+  gpu.addFunction(getComplexPartsForPixels);
   gpu.addFunction(xSqrPlusY);
   // gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
@@ -109,14 +108,16 @@ export function getKernel(size: number, multiplier: number): IKernelRunShortcut 
     startValueX: number,
     startValueY: number,
     inc: number,
+    multiplier: number,
   ) {
-    // const values = getComplexPartsForPixels(
-    //   this.thread.x,
-    //   this.thread.y,
-    //   startValueX,
-    //   startValueY,
-    //   inc,
-    //   multiplier);
+    const values = getComplexPartsForPixels(
+      this.thread.x,
+      this.thread.y,
+      startValueX,
+      startValueY,
+      inc,
+      multiplier
+    );
 
     const x = distanceSq([1,2],[3,4]);
     const y = cardioid(0,1);
@@ -138,8 +139,8 @@ export function createImageData(
   const startReal = startValue.re;
   const startImaginary = startValue.im;
   const arr = new Uint8ClampedArray(size * size * 4);
-  const kernel = getKernel(size, getMultiplier(inc));
-  const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
+  const kernel = getKernel(size);
+  const kernelDump = kernel(startReal, startImaginary, inc, getMultiplier(inc)) as number[][][];
   const data = [];
   for (let i = 0; i < kernelDump.length; i += 1) {
     for (let j = 0; j < kernelDump[i].length; j += 1) {
