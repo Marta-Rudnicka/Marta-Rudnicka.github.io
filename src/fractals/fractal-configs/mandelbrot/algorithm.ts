@@ -53,16 +53,16 @@ function getComplexPartsForPixels(
     y: number,
     startValueX: number,
     startValueY: number,
-    inc: number,
+    baseInc: number,
     baseMultiplier: number,
   ): number[] {
 
   const multiplier = baseMultiplier * 10000;
 
-  // // to prevent GPU from rounding numbers; value establihed by trial and error
-  // inc = inc * multiplier;
-  // let xInc = x * inc;
-  // let yInc = y * inc;
+  // to prevent GPU from rounding numbers; value establihed by trial and error
+  const inc = baseInc * multiplier;
+  const xInc = x * inc / multiplier;
+  const yInc = y * inc / multiplier;
   // xInc = xInc / multiplier;
   // yInc = yInc / multiplier;
 
