@@ -106,7 +106,7 @@ export function getKernel(size: number): IKernelRunShortcut {
   gpu.addFunction(distanceSq);
   // gpu.addFunction(getColor);
   // gpu.addFunction(getMultiplier);
-  // gpu.addFunction(cardioid);
+  gpu.addFunction(cardioid);
   // gpu.addFunction(checkKnownSolidShapes);
 
   const kernel = gpu.createKernel(function (
@@ -122,6 +122,7 @@ export function getKernel(size: number): IKernelRunShortcut {
     //   inc);
 
     const x = distanceSq([1,2],[3,4]);
+    const y = cardioid(0,1);
     const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
