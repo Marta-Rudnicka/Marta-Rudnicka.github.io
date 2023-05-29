@@ -4,38 +4,55 @@ import { GPU, IKernelRunShortcut } from "gpu.js";
 import { getMultiplier } from "../../utils";
 
 export function getColour(i: number): PixelValue {
-  let colour: PixelValue = [200, 200, 200, 255];
-  colour = i < 25 ? [0, 0, 0, 255] : [200, 200, 200, 255];
+//  very stupid syntax not to get mangled by optimiser + gpu.js
+  let colour: PixelValue =  [200, 200, 200, 255];
+  colour = i < 25 ? [0, 0, 0, 255] : [50, 50, 50, 255];
+  if (colour[0] === 0) {
+    return colour;
+  }
   colour = i < 30 ? [50, 50, 50, 255] : [200, 200, 200, 255];
+  if (colour[0] === 50) {
+    return colour;
+  }
   colour = i < 40 ? [100, 100, 100, 255] : [200, 200, 200, 255];
+  if (colour[0] === 100) {
+    return colour;
+  }
   colour = i < 50 ? [150, 150, 150, 255] : [200, 200, 200, 255];
+  if (colour[0] === 150) {
+    return colour;
+  }
   colour = i < 100 ? [180, 180, 180, 255] : [200, 200, 200, 255];
+  if (colour[0] === 180) {
+    return colour;
+  }
+
   return colour;
 }
 
 export function xSqrPlusY(
   prev: number[],
   c: number[]
-  ): number[] {
+): number[] {
   const real = prev[0];
   const imaginary = prev[1];
-  const squared =  [real**2 - imaginary ** 2, 2 * real * imaginary]
+  const squared = [real ** 2 - imaginary ** 2, 2 * real * imaginary]
   return [squared[0] + c[0], squared[1] + c[1]];
 };
 
 export function distanceSq(val: number[], c: number[]): number {
   // treating complex numbers as ordinary coordinates on the plane
   // false if lies outside the circle with r=2 from the value
-  return (val[0] - c[0])**2 + (val[1] - c[1])**2;
+  return (val[0] - c[0]) ** 2 + (val[1] - c[1]) ** 2;
 }
 
 function cardioid(x: number, y: number) {
   /* if res < 0.25, the point [x, y] lies within the main cardioid;
   returns number because GPUJS has problem handling Booleans
   */
-  const ySq = y**2;
+  const ySq = y ** 2;
   const c = x - 0.25;
-  const res = ((c**2 + ySq)**2 + c*(c**2 + ySq))/ySq;
+  const res = ((c ** 2 + ySq) ** 2 + c * (c ** 2 + ySq)) / ySq;
   return res;
 }
 
@@ -44,25 +61,27 @@ function checkKnownSolidShapes(c: number[]) {
   const cardioidValue = cardioid(c[0], c[1]);
   const mainBulb = distanceSq([-1, 0], c);
   withinLimits = 0.25 > cardioidValue ? 1 : 0;
-  withinLimits =  mainBulb < 0.0625 ? 1 : 0;
+  withinLimits = mainBulb < 0.0625 ? 1 : 0 + withinLimits;
   return withinLimits;
 }
 
 function getComplexPartsForPixels(
-    x: number,
-    y: number,
-    startValueX: number,
-    startValueY: number,
-    baseInc: number,
-    baseMultiplier: number,
-  ): number[] {
+  x: number,
+  y: number,
+  startValueX: number,
+  startValueY: number,
+  baseInc: number,
+  baseMultiplier: number,
+): number[] {
 
   // to prevent GPU from rounding numbers; value establihed by trial and error
   const multiplier = baseMultiplier * 10000;
 
   const inc = baseInc * multiplier;
-  const xInc = x * inc / multiplier;
-  const yInc = y * inc / multiplier;
+  let xInc = x * inc;
+  let yInc = y * inc;
+  xInc = xInc / multiplier;
+  yInc = yInc / multiplier;
 
   const re = startValueX + xInc;
   const im = startValueY + yInc;
@@ -74,21 +93,19 @@ export function processPixel(
     iterations: number
     ): PixelValue {
 
+  let colour: PixelValue = [255, 255, 255, 255];
   if (checkKnownSolidShapes(c) === 1) {
-    return [255, 255, 255, 255];
+    return colour;
   }
 
   const seed = [0, 0];
   let val = xSqrPlusY(seed, c);
   for (let i = 0; i <= iterations; i++) {
     val = xSqrPlusY(val, c)
-    // const cr = distanceSq(val, c);
-    const cr = 2;
-    if (cr > 4) {
-      return getColour(i);
-    }
+    const cr = distanceSq(val, c);
+    colour = cr > 4 ? getColour(i) : colour;
   }
-  return [255, 255, 255, 255];
+  return colour;
 }
 
 export function getKernel(size: number): IKernelRunShortcut {
@@ -96,7 +113,7 @@ export function getKernel(size: number): IKernelRunShortcut {
 
   gpu.addFunction(getComplexPartsForPixels);
   gpu.addFunction(xSqrPlusY);
-  // gpu.addFunction(processPixel);
+  gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
   gpu.addFunction(getColour);
   gpu.addFunction(cardioid);
@@ -117,12 +134,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       multiplier
     );
 
-    const x = distanceSq([1,2],[3,4]);
-    const y = cardioid(0,1);
-    const z = xSqrPlusY([1, 2],[3,4])
-    const a = checkKnownSolidShapes([0, 1])
-    const b = getColour(15);
-    const res = [0,0,0,0] // processPixel(values, 200)
+    const res = processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
   return kernel;
