@@ -12,10 +12,18 @@ type ComplexPlaneProps = {
   draw: (args: DrawFuncArgs) => void,
   nextLink: string,
   prevLink: string,
-  createImageData: (size: number, startValue: Complex, range: number) => ImageData;
+  createImageData: (
+    size: number, 
+    startValue: Complex, 
+    range: number,
+    xReal: number,
+    xImaginary: number,
+  ) => ImageData;
   startValue: Complex,
   range: number,
   sliders: SliderControlProps[],
+  xReal: number,
+  xImaginary: number,
 }
 
 export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
@@ -26,7 +34,14 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [range, setRange] = useState(props.range);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [pixelOffset, setPixelOffset] = useState([0, 0] as Point)
-  const imageData = useMemo(() => props.createImageData(canvasSize, startValue, range), [canvasSize, range, startValue, props]);
+  const imageData = useMemo(() => 
+    props.createImageData(
+      canvasSize, 
+      startValue, 
+      range,
+      props.xReal,
+      props.xImaginary,
+    ), [canvasSize, range, startValue, props]);
   const startDragPosition = useRef([0, 0] as Point);
   const offset = useRef([0, 0] as Point);
 
@@ -144,6 +159,8 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
         drawParameters={{
           imageData,
           pixelOffset: pixelOffset,
+          xReal: props.xReal,
+          xImaginary: props.xImaginary,
         }}
         fullScreen={fullScreen}
         nextLink={props.nextLink}

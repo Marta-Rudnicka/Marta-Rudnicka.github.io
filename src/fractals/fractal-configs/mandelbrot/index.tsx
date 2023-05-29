@@ -19,6 +19,8 @@ export function MandelbrotSet() {
     prevLink="/#/example"
     sliders={sliders}
     title="Mandelbrot Set - demo"
+    xReal={0}
+    xImaginary={0}
   />
   );
 }
