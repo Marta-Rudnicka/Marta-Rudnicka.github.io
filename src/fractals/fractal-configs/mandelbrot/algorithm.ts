@@ -46,9 +46,9 @@ function checkKnownSolidShapes(c: number[]) {
   }
 
   // main bulb
-  if (distanceSq([-1, 0], c) < 0.0625) {
-    withinLimits = 1;
-  }
+  // if (distanceSq([-1, 0], c) < 0.0625) {
+  //   withinLimits = 1;
+  // }
   return withinLimits;
 }
 
