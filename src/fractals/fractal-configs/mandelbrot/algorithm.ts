@@ -123,7 +123,7 @@ export function getKernel(size: number): IKernelRunShortcut {
 
     const x = distanceSq([1,2],[3,4]);
     const y = cardioid(0,1);
-    z = getMultiplier(0.788);
+    const z = getMultiplier(0.788);
     const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
