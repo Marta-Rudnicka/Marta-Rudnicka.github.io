@@ -18,7 +18,7 @@ export function MandelbrotSet() {
     nextLink="/#/julia"
     prevLink="/#/example"
     sliders={sliders}
-    title="Mandelbrot Set - debug 8.13"
+    title="Mandelbrot Set - debug 8.14"
     xReal={0}
     xImaginary={0}
   />
