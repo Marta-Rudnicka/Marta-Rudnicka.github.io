@@ -100,7 +100,7 @@ export function processPixel(
 export function getKernel(size: number): IKernelRunShortcut {
   const gpu = new GPU();
 
-  gpu.addFunction(getComplexPartsForPixels);
+  // gpu.addFunction(getComplexPartsForPixels);
   // gpu.addFunction(xSqrPlusY);
   // gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
