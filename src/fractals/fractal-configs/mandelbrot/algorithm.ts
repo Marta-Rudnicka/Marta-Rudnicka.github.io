@@ -133,7 +133,8 @@ export function createImageData(
   const startImaginary = startValue.im;
   const arr = new Uint8ClampedArray(size * size * 4);
   const kernel = getKernel(size);
-  const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
+  // const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
+  const kernelDump = [[[0,0,0,0]]];
   const data = [];
   for (let i = 0; i < kernelDump.length; i += 1) {
     for (let j = 0; j < kernelDump[i].length; j += 1) {
