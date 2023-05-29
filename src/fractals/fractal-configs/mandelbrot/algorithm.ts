@@ -78,10 +78,10 @@ function getComplexPartsForPixels(
   const multiplier = baseMultiplier * 10000;
 
   const inc = baseInc * multiplier;
-  let xInc = x * inc;
-  let yInc = y * inc;
-  xInc = xInc / multiplier;
-  yInc = yInc / multiplier;
+  const xIncB = x * inc;
+  const yIncB = y * inc;
+  const xInc = xIncB / multiplier;
+  const yInc = yIncB / multiplier;
 
   const re = startValueX + xInc;
   const im = startValueY + yInc;
@@ -134,7 +134,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       multiplier
     );
 
-    const res = processPixel(values, 200)
+    const res = processPixel(values, 200);
     return res;
   }).setOutput([size, size]);
   return kernel;
