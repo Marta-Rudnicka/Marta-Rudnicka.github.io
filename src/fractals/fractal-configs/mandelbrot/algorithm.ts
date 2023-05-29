@@ -136,7 +136,7 @@ export function getKernel(size: number): IKernelRunShortcut {
     );
 
     const res = processPixel(values, 200) // processPixel(values, 200);
-    return res;
+    return [255,255,255,255];
   }).setOutput([size, size]);
   return kernel;
 }
