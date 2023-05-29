@@ -58,9 +58,10 @@ function getComplexPartsForPixels(
     startValueX: number,
     startValueY: number,
     inc: number,
+    baseMultiplier: number,
   ): number[] {
 
-  const multiplier = 10000 // getMultiplier(inc) * 1000;
+  const multiplier = baseMultiplier * 10000
 
   // to prevent GPU from rounding numbers; value establihed by trial and error
   inc = inc * multiplier;
@@ -97,7 +98,7 @@ export function processPixel(
   return [255, 255, 255, 255];
 }
 
-export function getKernel(size: number): IKernelRunShortcut {
+export function getKernel(size: number, multiplier: number): IKernelRunShortcut {
   const gpu = new GPU();
 
   // gpu.addFunction(getComplexPartsForPixels);
@@ -105,7 +106,6 @@ export function getKernel(size: number): IKernelRunShortcut {
   // gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
   // gpu.addFunction(getColor);
-  gpu.addFunction(getMultiplier);
   gpu.addFunction(cardioid);
   // gpu.addFunction(checkKnownSolidShapes);
 
@@ -119,11 +119,11 @@ export function getKernel(size: number): IKernelRunShortcut {
     //   this.thread.y,
     //   startValueX,
     //   startValueY,
-    //   inc);
+    //   inc,
+    //   multiplier);
 
     const x = distanceSq([1,2],[3,4]);
     const y = cardioid(0,1);
-    const z = getMultiplier(0.788);
     const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
@@ -139,7 +139,7 @@ export function createImageData(
   const startReal = startValue.re;
   const startImaginary = startValue.im;
   const arr = new Uint8ClampedArray(size * size * 4);
-  const kernel = getKernel(size);
+  const kernel = getKernel(size, getMultiplier(inc));
   const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
   const data = [];
   for (let i = 0; i < kernelDump.length; i += 1) {
