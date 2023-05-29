@@ -9,55 +9,32 @@ export function getColor(i: number): PixelValue {
   if (i < 40) return [100, 100, 100, 255];
   if (i < 50) return [150, 150, 150, 255];
   if (i < 100) return [180, 180, 180, 255];
-  return  [200, 200, 200, 255];
+  return [200, 200, 200, 255];
 }
 
 export function xSqrPlusY(
   prev: number[],
   c: number[]
-  ): number[] {
+): number[] {
   const real = prev[0];
   const imaginary = prev[1];
-  const squared =  [real**2 - imaginary ** 2, 2 * real * imaginary]
+  const squared = [real ** 2 - imaginary ** 2, 2 * real * imaginary]
   return [squared[0] + c[0], squared[1] + c[1]];
 };
 
 export function distanceSq(val: number[], c: number[]): number {
   // treating complex numbers as ordinary coordinates on the plane
   // false if lies outside the circle with r=2 from the value
-  return (val[0] - c[0])**2 + (val[1] - c[1])**2;
-}
-function cardioid(x: number, y: number) {
-  /* if res < 0.25, the point [x, y] lies within the main cardioid;
-  returns number because GPUJS has problem handling Booleans
-  */
-  const ySq = y**2;
-  const c = x - 0.25;
-  const res = ((c**2 + ySq)**2 + c*(c**2 + ySq))/ySq;
-  return res;
-}
-
-function checkKnownSolidShapes(c: number[]) {
-  let withinLimits = 0;
-  //main cardioid
-  if (cardioid(c[0], c[1]) < 0.25) {
-    withinLimits = 1;
-  }
-
-  // main bulb
-  if (distanceSq([-1, 0], c) < 0.0625) {
-    withinLimits = 1;
-  }
-  return withinLimits;
+  return (val[0] - c[0]) ** 2 + (val[1] - c[1]) ** 2;
 }
 
 function getComplexPartsForPixels(
-    x: number,
-    y: number,
-    startValueX: number,
-    startValueY: number,
-    inc: number,
-  ): number[] {
+  x: number,
+  y: number,
+  startValueX: number,
+  startValueY: number,
+  inc: number,
+): number[] {
 
   const multiplier = getMultiplier(inc) * 1000;
   // to prevent GPU from rounding numbers; value establihed by trial and error
@@ -73,19 +50,17 @@ function getComplexPartsForPixels(
 };
 
 export function processPixel(
-    c: number[],
-    iterations: number
-    ): PixelValue {
+  x: number[],
+  iterations: number,
+  cReal: number,
+  cImaginary: number,
 
-  if (checkKnownSolidShapes(c) === 1) {
-    return [255, 255, 255, 255];
-  }
+): PixelValue {
 
-  const seed = [0, 0];
-  let val = xSqrPlusY(seed, c);
+  let val = xSqrPlusY(x, [cReal, cImaginary]);
   for (let i = 0; i <= iterations; i++) {
-    val = xSqrPlusY(val, c)
-    const cr = distanceSq(val, c);
+    val = xSqrPlusY(val, [cReal, cImaginary])
+    const cr = distanceSq(val, x);
     if (cr > 4) {
       return getColor(i);
     }
@@ -93,7 +68,11 @@ export function processPixel(
   return [255, 255, 255, 255];
 }
 
-export function getKernel(size: number): IKernelRunShortcut {
+export function getKernel(
+  size: number,
+  xReal: number,
+  xImaginary: number,
+  ): IKernelRunShortcut {
   const gpu = new GPU();
 
   gpu.addFunction(getComplexPartsForPixels);
@@ -102,13 +81,13 @@ export function getKernel(size: number): IKernelRunShortcut {
   gpu.addFunction(distanceSq);
   gpu.addFunction(getColor);
   gpu.addFunction(getMultiplier);
-  gpu.addFunction(cardioid);
-  gpu.addFunction(checkKnownSolidShapes);
 
   const kernel = gpu.createKernel(function (
     startValueX: number,
     startValueY: number,
     inc: number,
+    xReal: number,
+    xImaginary: number,
   ) {
     const values = getComplexPartsForPixels(
       this.thread.x,
@@ -117,7 +96,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       startValueY,
       inc);
 
-    const res = processPixel(values, 200)
+    const res = processPixel(values, 200, xReal, xImaginary)
     return res;
   }).setOutput([size, size]);
   return kernel;
@@ -126,14 +105,16 @@ export function getKernel(size: number): IKernelRunShortcut {
 export function createImageData(
   size: number,
   startValue: Complex,
-  range: number
+  range: number,
+  xReal: number,
+  xImaginary: number,
 ) {
   const inc = range / size;
   const startReal = startValue.re;
   const startImaginary = startValue.im;
   const arr = new Uint8ClampedArray(size * size * 4);
-  const kernel = getKernel(size);
-  const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
+  const kernel = getKernel(size, xReal, xImaginary);
+  const kernelDump = kernel(startReal, startImaginary, inc, xReal, xImaginary) as number[][][];
   const data = [];
   for (let i = 0; i < kernelDump.length; i += 1) {
     for (let j = 0; j < kernelDump[i].length; j += 1) {

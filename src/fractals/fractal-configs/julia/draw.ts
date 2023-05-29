@@ -1,13 +1,13 @@
 import { DrawFuncArgs, Point } from "../../../types";
 
-type MandelbrotParameters = {
+type JuliaParameters = {
   imageData: ImageData;
   pixelOffset: Point;
 }
 
 export function draw(args: DrawFuncArgs): void {
   const { canvas, size } = args;
-  const parameters = args.parameters as MandelbrotParameters;
+  const parameters = args.parameters as JuliaParameters;
   const offsetX = parameters.pixelOffset[0] || 0;
   const offsetY = parameters.pixelOffset[1] || 0;
 

@@ -14,20 +14,22 @@ export function JuliaSet() {
     value: cReal,
     info: "Real part for c (position on the x axis)",
     label: "c real part",
-    maxValue: 2,
-    minValue: -2,
+    maxValue: 1,
+    minValue: -1,
     setValue: setCReal,
-    labelStepSize: 0.00001
+    stepSize: 0.00001,
+    labelPrecision: 5,
   },
-{
-  value: cImaginary,
-  info: "Imaginary part for c (position on the x axis)",
-  label: "c imaginary part",
-  maxValue: 2,
-  minValue: -2,
-  setValue: setCImaginary,
-  labelStepSize: 0.00001
-}];
+  {
+    value: cImaginary,
+    info: "Imaginary part for c (position on the x axis)",
+    label: "c imaginary part",
+    maxValue: 1,
+    minValue: -1,
+    setValue: setCImaginary,
+    stepSize: 0.00001,
+    labelPrecision: 5,
+  }];
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
@@ -38,7 +40,9 @@ export function JuliaSet() {
     nextLink="/#/dummy"
     prevLink="/#/example"
     sliders={sliders}
-    title="Mandelbrot Set - demo"
+    title="Julia Set - demo"
+    xReal={cReal}
+    xImaginary={cImaginary}
   />
   );
 }
