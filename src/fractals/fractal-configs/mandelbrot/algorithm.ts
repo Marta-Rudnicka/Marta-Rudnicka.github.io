@@ -113,7 +113,7 @@ export function getKernel(size: number): IKernelRunShortcut {
 
   gpu.addFunction(getComplexPartsForPixels);
   gpu.addFunction(xSqrPlusY);
-  // gpu.addFunction(processPixel);
+  gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
   gpu.addFunction(getColour);
   gpu.addFunction(cardioid);
