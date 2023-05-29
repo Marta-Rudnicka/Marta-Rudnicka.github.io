@@ -95,14 +95,15 @@ export function processPixel(
 
   // const knownShape = checkKnownSolidShapes(c);
   // const returnColour: PixelValue = knownShape === 1 ? [255, 255, 255, 255] : [0,0,0,255] ;
-  // const seed = [0, 0];
-  // let val = xSqrPlusY(seed, c);
-  // for (let i = 0; i <= iterations; i++) {
-  //   val = xSqrPlusY(val, c)
-  //   const cr = distanceSq(val, c);
-  //   colour = cr > 4 ? getColour(i) : colour;
-  // }
-  return [255, 255, 255, 255];
+  let colour: PixelValue = [255, 255, 255, 255];
+  const seed = [0, 0];
+  let val = xSqrPlusY(seed, c);
+  for (let i = 0; i <= iterations; i++) {
+    val = xSqrPlusY(val, c)
+    const cr = distanceSq(val, c);
+    colour = cr > 4 ? getColour(i) : colour;
+  }
+  return colour;
 }
 
 export function getKernel(size: number): IKernelRunShortcut {
