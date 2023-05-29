@@ -95,17 +95,17 @@ export function processPixel(
 
   // const knownShape = checkKnownSolidShapes(c);
   // const returnColour: PixelValue = knownShape === 1 ? [255, 255, 255, 255] : [0,0,0,255] ;
-  const seed = [0, 0];
-  let val = xSqrPlusY(seed, c);
-  for (let i = 0; i <= iterations; i++) {
-    val = xSqrPlusY(val, c)
-    const cr = distanceSq(val, c);
-    // const newColour =  getColour(i);
-    // const colour: PixelValue = cr > 4 ? newColour : [255, 255, 255, 255];
-    // if (colour[0] !== 255) {
-    //   return colour;
-    // }
-  }
+  // const seed = [0, 0];
+  // let val = xSqrPlusY(seed, c);
+  // for (let i = 0; i <= iterations; i++) {
+  //   val = xSqrPlusY(val, c)
+  //   const cr = distanceSq(val, c);
+  //   // const newColour =  getColour(i);
+  //   // const colour: PixelValue = cr > 4 ? newColour : [255, 255, 255, 255];
+  //   // if (colour[0] !== 255) {
+  //   //   return colour;
+  //   // }
+  // }
   return [255, 255, 255, 255];
 }
 
