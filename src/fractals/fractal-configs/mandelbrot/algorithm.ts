@@ -3,13 +3,14 @@ import { PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { getMultiplier } from "../../utils";
 
-export function getColor(i: number): PixelValue {
-  if (i < 25) return [0, 0, 0, 255];
-  if (i < 30) return [50, 50, 50, 255];
-  if (i < 40) return [100, 100, 100, 255];
-  if (i < 50) return [150, 150, 150, 255];
-  if (i < 100) return [180, 180, 180, 255];
-  return  [200, 200, 200, 255];
+export function getColour(i: number): PixelValue {
+  let colour: PixelValue = [200, 200, 200, 255];
+  colour = i < 25 ? [0, 0, 0, 255] : [200, 200, 200, 255];
+  colour = i < 30 ? [50, 50, 50, 255] : [200, 200, 200, 255];
+  colour = i < 40 ? [100, 100, 100, 255] : [200, 200, 200, 255];
+  colour = i < 50 ? [150, 150, 150, 255] : [200, 200, 200, 255];
+  colour = i < 100 ? [180, 180, 180, 255] : [200, 200, 200, 255];
+  return colour;
 }
 
 export function xSqrPlusY(
@@ -100,7 +101,7 @@ export function getKernel(size: number, multiplier: number): IKernelRunShortcut 
   gpu.addFunction(xSqrPlusY);
   // gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
-  // gpu.addFunction(getColor);
+  gpu.addFunction(getColour);
   gpu.addFunction(cardioid);
   gpu.addFunction(checkKnownSolidShapes);
 
@@ -121,6 +122,7 @@ export function getKernel(size: number, multiplier: number): IKernelRunShortcut 
     const y = cardioid(0,1);
     const z = xSqrPlusY([1, 2],[3,4])
     const a = checkKnownSolidShapes([0, 1])
+    const b = getColour(15);
     const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
