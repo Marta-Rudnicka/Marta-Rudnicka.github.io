@@ -98,13 +98,13 @@ export function processPixel(
     return colour;
   }
 
-  const seed = [0, 0];
-  let val = xSqrPlusY(seed, c);
-  for (let i = 0; i <= iterations; i++) {
-    val = xSqrPlusY(val, c)
-    const cr = distanceSq(val, c);
-    colour = cr > 4 ? getColour(i) : colour;
-  }
+  // const seed = [0, 0];
+  // let val = xSqrPlusY(seed, c);
+  // for (let i = 0; i <= iterations; i++) {
+  //   val = xSqrPlusY(val, c)
+  //   const cr = distanceSq(val, c);
+  //   colour = cr > 4 ? getColour(i) : colour;
+  // }
   return colour;
 }
 
@@ -134,6 +134,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       multiplier
     );
 
+    const x = processPixel(values, 200)
     const res = [1, 2, 3, 4] // processPixel(values, 200);
     return res;
   }).setOutput([size, size]);
