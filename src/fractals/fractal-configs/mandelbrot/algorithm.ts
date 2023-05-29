@@ -93,10 +93,10 @@ export function processPixel(
     iterations: number
     ): PixelValue {
 
-  let colour: PixelValue = [255, 255, 255, 255];
-  if (checkKnownSolidShapes(c) === 1) {
-    return colour;
-  }
+  const colour: PixelValue = [255, 255, 255, 255];
+  // if (checkKnownSolidShapes(c) === 1) {
+  //   return colour;
+  // }
 
   // const seed = [0, 0];
   // let val = xSqrPlusY(seed, c);
