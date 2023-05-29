@@ -93,10 +93,10 @@ export function processPixel(
     iterations: number
     ): PixelValue {
 
-  const colour: PixelValue = [255, 255, 255, 255];
-  // if (checkKnownSolidShapes(c) === 1) {
-  //   return colour;
-  // }
+  if (checkKnownSolidShapes(c) === 1) {
+    return [255, 255, 255, 255];
+  }
+    const colour: PixelValue = [255, 255, 255, 255];
 
   // const seed = [0, 0];
   // let val = xSqrPlusY(seed, c);
@@ -134,8 +134,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       multiplier
     );
 
-    const x = processPixel(values, 200)
-    const res = [1, 2, 3, 4] // processPixel(values, 200);
+    const res = processPixel(values, 200) // processPixel(values, 200);
     return res;
   }).setOutput([size, size]);
   return kernel;
