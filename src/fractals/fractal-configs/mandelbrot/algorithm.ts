@@ -42,13 +42,11 @@ function checkKnownSolidShapes(c: number[]) {
   let withinLimits = 0;
   //main cardioid
   const cardioidValue = cardioid(c[0], c[1]);
-  // if ( 0.25 > cardioidValue) {
+  withinLimits = 0.25 > cardioidValue ? 1 : 0;
+  // {
   //   withinLimits = 1;
   // }
-
-  if ( 2 > 1) {
-    withinLimits = 1;
-  }
+  
 
   // main bulb
   // if (distanceSq([-1, 0], c) < 0.0625) {
