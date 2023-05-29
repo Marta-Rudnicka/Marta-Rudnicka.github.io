@@ -25,6 +25,8 @@ function renderSliderControls(
       minValue={slider.minValue}
       value={slider.value}
       info={slider.info}
+      stepSize={slider.stepSize}
+      labelPrecision={slider.labelPrecision}
     />
   );
 }

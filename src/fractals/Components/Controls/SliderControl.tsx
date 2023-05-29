@@ -10,6 +10,8 @@ export type SliderControlProps = {
   info: string;
   setValue: Dispatch<SetStateAction<number>>
   labelStepSize? : number
+  labelPrecision?: number;
+  stepSize?: number
 }
 
 export function SliderControl(props: SliderControlProps){
@@ -34,6 +36,8 @@ export function SliderControl(props: SliderControlProps){
           value={props.value}
           labelStepSize={props.labelStepSize || props.maxValue - props.minValue}
           onChange={e => props.setValue(e)}
+          labelPrecision={props.labelPrecision || 1}
+          stepSize={props.stepSize || 1}  
         >
           Example text  
         </Slider>
