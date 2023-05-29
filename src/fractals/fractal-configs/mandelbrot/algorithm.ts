@@ -101,7 +101,8 @@ export function processPixel(
   for (let i = 0; i <= iterations; i++) {
     val = xSqrPlusY(val, c)
     const cr = distanceSq(val, c);
-    colour = cr > 4 ? getColour(i) : [255, 255, 255, 255];
+    const newColour =  getColour(i);
+    colour = cr > 4 ? newColour : [255, 255, 255, 255];
     if (colour[0] !== 255) {
       return colour;
     }
