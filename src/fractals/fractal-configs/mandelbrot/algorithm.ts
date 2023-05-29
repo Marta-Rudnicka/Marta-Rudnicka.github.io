@@ -104,7 +104,7 @@ export function getKernel(size: number): IKernelRunShortcut {
   // gpu.addFunction(xSqrPlusY);
   // gpu.addFunction(processPixel);
     gpu.addFunction(distanceSq);
-  // gpu.addFunction(getColor);
+    gpu.addFunction(getColor);
   // gpu.addFunction(getMultiplier);
   // gpu.addFunction(cardioid);
   // gpu.addFunction(checkKnownSolidShapes);
@@ -121,8 +121,7 @@ export function getKernel(size: number): IKernelRunShortcut {
       startValueY,
       inc);
 
-    const x = distanceSq([1, 2], [3, 4])
-    console.log(x)
+    const x = getColor(50)
     const res = [0,0,0,0] // processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
