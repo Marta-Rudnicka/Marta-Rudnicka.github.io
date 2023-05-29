@@ -93,11 +93,10 @@ export function processPixel(
     iterations: number
     ): PixelValue {
 
-  if (checkKnownSolidShapes(c) === 1) {
+  const knownShape = checkKnownSolidShapes(c);
+  if (knownShape === 1) {
     return [255, 255, 255, 255];
   }
-    const colour: PixelValue = [255, 255, 255, 255];
-
   // const seed = [0, 0];
   // let val = xSqrPlusY(seed, c);
   // for (let i = 0; i <= iterations; i++) {
@@ -105,7 +104,7 @@ export function processPixel(
   //   const cr = distanceSq(val, c);
   //   colour = cr > 4 ? getColour(i) : colour;
   // }
-  return colour;
+  return [0,0,0,255];
 }
 
 export function getKernel(size: number): IKernelRunShortcut {
