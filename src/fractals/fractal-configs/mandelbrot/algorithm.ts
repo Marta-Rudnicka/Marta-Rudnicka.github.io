@@ -3,14 +3,13 @@ import { PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { getMultiplier } from "../../utils";
 
-export function getColour(i: number): PixelValue {
-  let colour: PixelValue = [200, 200, 200, 255];
-  colour = i < 25 ? [0, 0, 0, 255] : [200, 200, 200, 255];
-  colour = i < 30 ? [50, 50, 50, 255] : [200, 200, 200, 255];
-  colour = i < 40 ? [100, 100, 100, 255] : [200, 200, 200, 255];
-  colour = i < 50 ? [150, 150, 150, 255] : [200, 200, 200, 255];
-  colour = i < 100 ? [180, 180, 180, 255] : [200, 200, 200, 255];
-  return colour;
+export function getColor(i: number): PixelValue {
+  if (i < 25) return [0, 0, 0, 255];
+  if (i < 30) return [50, 50, 50, 255];
+  if (i < 40) return [100, 100, 100, 255];
+  if (i < 50) return [150, 150, 150, 255];
+  if (i < 100) return [180, 180, 180, 255];
+  return  [200, 200, 200, 255];
 }
 
 export function xSqrPlusY(
@@ -41,10 +40,15 @@ function cardioid(x: number, y: number) {
 
 function checkKnownSolidShapes(c: number[]) {
   let withinLimits = 0;
-  const cardioidValue = cardioid(c[0], c[1]);
-  const mainBulb = distanceSq([-1, 0], c);
-  withinLimits = 0.25 > cardioidValue ? 1 : 0;
-  withinLimits =  mainBulb < 0.0625 ? 1 : 0;
+  //main cardioid
+  if (cardioid(c[0], c[1]) < 0.25) {
+    withinLimits = 1;
+  }
+
+  // main bulb
+  if (distanceSq([-1, 0], c) < 0.0625) {
+    withinLimits = 1;
+  }
   return withinLimits;
 }
 
@@ -53,16 +57,16 @@ function getComplexPartsForPixels(
     y: number,
     startValueX: number,
     startValueY: number,
-    baseInc: number,
-    baseMultiplier: number,
+    inc: number,
   ): number[] {
 
+  const multiplier = getMultiplier(inc) * 1000;
   // to prevent GPU from rounding numbers; value establihed by trial and error
-  const multiplier = baseMultiplier * 10000;
-
-  const inc = baseInc * multiplier;
-  const xInc = x * inc / multiplier;
-  const yInc = y * inc / multiplier;
+  inc = inc * multiplier;
+  let xInc = x * inc;
+  let yInc = y * inc;
+  xInc = xInc / multiplier;
+  yInc = yInc / multiplier;
 
   const re = startValueX + xInc;
   const im = startValueY + yInc;
@@ -82,10 +86,9 @@ export function processPixel(
   let val = xSqrPlusY(seed, c);
   for (let i = 0; i <= iterations; i++) {
     val = xSqrPlusY(val, c)
-    // const cr = distanceSq(val, c);
-    const cr = 2;
+    const cr = distanceSq(val, c);
     if (cr > 4) {
-      return getColour(i);
+      return getColor(i);
     }
   }
   return [255, 255, 255, 255];
@@ -96,9 +99,10 @@ export function getKernel(size: number): IKernelRunShortcut {
 
   gpu.addFunction(getComplexPartsForPixels);
   gpu.addFunction(xSqrPlusY);
-  // gpu.addFunction(processPixel);
+  gpu.addFunction(processPixel);
   gpu.addFunction(distanceSq);
-  gpu.addFunction(getColour);
+  gpu.addFunction(getColor);
+  gpu.addFunction(getMultiplier);
   gpu.addFunction(cardioid);
   gpu.addFunction(checkKnownSolidShapes);
 
@@ -106,23 +110,15 @@ export function getKernel(size: number): IKernelRunShortcut {
     startValueX: number,
     startValueY: number,
     inc: number,
-    multiplier: number,
   ) {
     const values = getComplexPartsForPixels(
       this.thread.x,
       this.thread.y,
       startValueX,
       startValueY,
-      inc,
-      multiplier
-    );
+      inc);
 
-    const x = distanceSq([1,2],[3,4]);
-    const y = cardioid(0,1);
-    const z = xSqrPlusY([1, 2],[3,4])
-    const a = checkKnownSolidShapes([0, 1])
-    const b = getColour(15);
-    const res = [0,0,0,0] // processPixel(values, 200)
+    const res = processPixel(values, 200)
     return res;
   }).setOutput([size, size]);
   return kernel;
@@ -138,7 +134,7 @@ export function createImageData(
   const startImaginary = startValue.im;
   const arr = new Uint8ClampedArray(size * size * 4);
   const kernel = getKernel(size);
-  const kernelDump = kernel(startReal, startImaginary, inc, getMultiplier(inc)) as number[][][];
+  const kernelDump = kernel(startReal, startImaginary, inc) as number[][][];
   const data = [];
   for (let i = 0; i < kernelDump.length; i += 1) {
     for (let j = 0; j < kernelDump[i].length; j += 1) {
