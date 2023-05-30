@@ -98,14 +98,3 @@ export function getInitialPixelMap(canvasSize: number): TempPixelMap {
   }
   return pixelMap;
 }
-
-export function getMultiplier(input: number) {
-  /** finds the order of magnitude a number should be multiplied by to prevent
-   * rounding by he GPU
-   */
-  let multiplier = 1;
-  while(input * multiplier < 1 ) {
-    multiplier = multiplier * 10;
-  }
-  return multiplier;
-}

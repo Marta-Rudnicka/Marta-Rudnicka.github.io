@@ -1,5 +1,15 @@
-import { xSqrPlusY } from "../algorithm";
-// import { processPixel } from "../algorithm";
+import { xSqrPlusY, getMultiplier } from "../gpu-utils";
+
+describe('getMultiplier', () => {
+  it('should return 1000', () => {
+    const input = 0.003;
+    expect(getMultiplier(input)).toBe(1000);
+  })
+  it('should return 1000000', () => {
+    const input = 0.000004;
+    expect(getMultiplier(input)).toBe(1000000);
+  })
+});
 
 describe('xSqrPlusY', () => {
   it('should calculate result for real numbers', () => {
@@ -21,5 +31,3 @@ describe('xSqrPlusY', () => {
     expect(xSqrPlusY(x, y)).toStrictEqual(expected);
   });
 });
-
-export {};

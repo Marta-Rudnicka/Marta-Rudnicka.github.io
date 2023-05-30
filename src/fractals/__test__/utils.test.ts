@@ -1,5 +1,5 @@
 import { Point, Rectangle, Triangle } from "../../types";
-import { calculateActiveArea, findAffectedPoint, getCanvasSize, getMultiplier, rescale, withinRange } from "../utils"
+import { calculateActiveArea, findAffectedPoint, getCanvasSize, rescale, withinRange } from "../utils"
 
 describe('getSize', () => {
   it('should return width if the width is smaller than height', () => {
@@ -127,16 +127,5 @@ describe('calculateActiveArea', () => {
     } as Rectangle;
     const output = calculateActiveArea([100, 200], 30);
     expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
-  })
-});
-
-describe('getMultiplier', () => {
-  it('should return 1000', () => {
-    const input = 0.003;
-    expect(getMultiplier(input)).toBe(1000);
-  })
-  it('should return 1000000', () => {
-    const input = 0.000004;
-    expect(getMultiplier(input)).toBe(1000000);
   })
 });
