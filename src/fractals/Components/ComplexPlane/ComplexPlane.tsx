@@ -1,17 +1,11 @@
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import { canvasInputs, DrawFuncArgs, Point } from "../../../types";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { canvasInputs, MainFractalControlProps, Point } from "../../../types";
 import { Complex, complex } from "mathjs";
 import { getSize } from "../../utils";
-import { SliderControlProps } from "../Controls/SliderControl";
 import { FractalDisplay } from "../FractalDisplay";
 import { ComplexPlaneAltControls } from "./altControls";
 
-type ComplexPlaneProps = {
-  title: string,
-  description: ReactNode,
-  draw: (args: DrawFuncArgs) => void,
-  nextLink: string,
-  prevLink: string,
+type ComplexPlaneProps = MainFractalControlProps & {
   createImageData: (
     size: number, 
     startValue: Complex, 
@@ -21,7 +15,6 @@ type ComplexPlaneProps = {
   ) => ImageData;
   startValue: Complex,
   range: number,
-  sliders: SliderControlProps[],
   xReal: number,
   xImaginary: number,
 }
@@ -169,6 +162,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
         setFullScreen={setFullScreen}
         sliders={props.sliders}
         buttonPairs={buttonPairs}
+        controlsChildren={props.controlsChildren}
         title={props.title}
       />
     </ComplexPlaneAltControls>

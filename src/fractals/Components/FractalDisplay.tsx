@@ -1,27 +1,17 @@
 import { DefaultLayout } from "../default-view/DefaultLayout";
-import { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { FullScreenLayout } from "../full-screen-view/FullScreenLayout";
-import { canvasInputs, DrawFuncArgs, Parameters, ResizeHandler } from "../../types";
+import { canvasInputs, DrawFuncArgs, MainFractalControlProps, Parameters } from "../../types";
 import { Controls } from "./Controls";
-import { SliderControlProps } from "./Controls/SliderControl";
-import { ButtonPairControlProps } from "./Controls/ButtonControlPair";
 
-export type FractalDisplayProps = {
-  adjustPropertiesToScreenSize?: ResizeHandler;
-  altControls?: ReactNode;
+export type FractalDisplayProps = MainFractalControlProps & {
   canvasInputs: canvasInputs;
   canvasSize: number;
-  description: ReactNode;
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
   fullScreen: boolean;
-  nextLink?: string;
   prevCanvasSize?: number | null,
-  prevLink?: string;
   setFullScreen: Dispatch<SetStateAction<boolean>>
-  sliders?: SliderControlProps[];
-  buttonPairs?: ButtonPairControlProps[];
-  title: string;
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
@@ -53,6 +43,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
     buttonPairs={props.buttonPairs || []}
     altControls={props.altControls}
     fullScreen={props.fullScreen}
+    children={props.controlsChildren}
   />;
 
   if (props.fullScreen) {
