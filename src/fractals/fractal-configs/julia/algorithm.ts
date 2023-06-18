@@ -14,8 +14,7 @@ export function processPixel(
   let val = xSqrPlusY(x, [cReal, cImaginary]);
   for (let i = 0; i <= iterations; i++) {
     val = xSqrPlusY(val, [cReal, cImaginary])
-    const cr = distanceSq(val, x);
-    if (cr > 4) {
+    if (distanceSq(val, x) > 4) {
       return getColor(i);
     }
   }
@@ -50,7 +49,7 @@ export function getKernel(
       startValueY,
       inc);
 
-    const res = processPixel(values, 200, xReal, xImaginary)
+    const res = processPixel(values, 100, xReal, xImaginary)
     return res;
   }).setOutput([size, size]);
   return kernel;

@@ -17,8 +17,8 @@ export function JuliaSet() {
     maxValue: 1,
     minValue: -1,
     setValue: setCReal,
-    stepSize: 0.00001,
-    labelPrecision: 5,
+    stepSize: 0.05,
+    labelPrecision: 2,
   },
   {
     value: cImaginary,
@@ -27,14 +27,14 @@ export function JuliaSet() {
     maxValue: 1,
     minValue: -1,
     setValue: setCImaginary,
-    stepSize: 0.00001,
-    labelPrecision: 5,
+    stepSize: 0.05,
+    labelPrecision: 2,
   }];
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
     range={3}
-    startValue={complex(-2, -1.5)}
+    startValue={complex(-1.5, -1.5)}
     description={Description()}
     draw={draw}
     nextLink="/#/dummy"
