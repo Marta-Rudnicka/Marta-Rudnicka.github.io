@@ -9,6 +9,7 @@ import { Dummy } from './components/layout/Dummy';
 import { SierpinskiTriangle } from './fractals/fractal-configs/sierpinski';
 import { MandelbrotSet } from './fractals/fractal-configs/mandelbrot';
 import { JuliaSet } from './fractals/fractal-configs/julia';
+import { Newton } from './fractals/fractal-configs/newton';
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
-        <Route path="/example" element={<SierpinskiTriangle />} />
+        <Route path="/sierpinski" element={<SierpinskiTriangle />} />
         <Route path="/mandelbrot" element={<MandelbrotSet />} />
         <Route path="/julia" element={<JuliaSet />} />
+        <Route path="/newton" element={<Newton />} />
         <Route path="/dummy" element={<Dummy />} />
 
       </Route>

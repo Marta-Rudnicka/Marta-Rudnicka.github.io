@@ -12,10 +12,18 @@ code {
     monospace;
 }
 
+section {
+  max-width: 600px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .footer {
   margin: 15px 0 0 0;
   height: 40px;
   padding: 10px;
+  position: fixed;
+  bottom: 0;
 }
 
 .app-nav {
@@ -94,4 +102,17 @@ code {
   background-color: #282c34;
   color: #31cece;
   margin-bottom: 10px;
+}
+
+.large-eq {
+  font-size: large;
+  text-align: center;
+  padding: 0.5rem;
+  border: solid 1px  #200920;
+}
+
+.three-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
 }
