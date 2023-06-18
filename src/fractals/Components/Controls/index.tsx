@@ -10,6 +10,7 @@ export type ControlProps = {
   altControls?: ReactNode;
   fullScreen?: boolean;
   accessible?: boolean;
+  children?: ReactNode;
 }
 
 export function Controls(props: ControlProps) {
@@ -24,6 +25,7 @@ export function Controls(props: ControlProps) {
             setAllVisible={setAllVisible}
           />}
       </div>
+      {props.children}
       <ControlsBody
         {...props}
         allVisible={allVisible}

@@ -1,4 +1,7 @@
 import { Complex } from "mathjs";
+import { ReactNode } from "react";
+import { SliderControlProps } from "./fractals/Components/Controls/SliderControl";
+import { ButtonPairControlProps } from "./fractals/Components/Controls/ButtonControlPair";
 
 export type DrawFuncArgs = {
   canvas: HTMLCanvasElement,
@@ -53,3 +56,14 @@ export type TempPixelMap = Record<string, Record<string, PixelValue | null>>;
 export type ComplexPlane = Record<string, Record<string, Complex>>;
 export type NumberCache = Record<string, Record<string, PixelValue>>;
 
+export type MainFractalControlProps = {
+  adjustPropertiesToScreenSize?: ResizeHandler;
+  altControls?: ReactNode;
+  description: ReactNode
+  draw: (args: DrawFuncArgs) => void;
+  nextLink?: string;
+  prevLink?: string;
+  sliders?: SliderControlProps[];
+  buttonPairs?: ButtonPairControlProps[];
+  controlsChildren?: ReactNode;  title: string;
+}
