@@ -47,6 +47,7 @@ export function SierpinskiTriangle() {
   }
 
   function animate() {
+    if(!animation) return;
     setTimeout(() => {
       const i = iterations;
       if (i < maxIterations) {
