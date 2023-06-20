@@ -10,6 +10,7 @@ import { SierpinskiTriangle } from './fractals/fractal-configs/sierpinski';
 import { MandelbrotSet } from './fractals/fractal-configs/mandelbrot';
 import { JuliaSet } from './fractals/fractal-configs/julia';
 import { Newton } from './fractals/fractal-configs/newton';
+import { CantorSet } from './fractals/fractal-configs/cantor';
 
 function App() {
   return (
@@ -18,11 +19,11 @@ function App() {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="/sierpinski" element={<SierpinskiTriangle />} />
+        <Route path="/cantor" element={<CantorSet />} />
+        <Route path="/newton" element={<Newton />} />
         <Route path="/mandelbrot" element={<MandelbrotSet />} />
         <Route path="/julia" element={<JuliaSet />} />
-        <Route path="/newton" element={<Newton />} />
         <Route path="/dummy" element={<Dummy />} />
-
       </Route>
     </Routes>
   </HashRouter>

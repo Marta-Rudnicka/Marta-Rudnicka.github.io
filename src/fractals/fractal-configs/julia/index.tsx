@@ -38,7 +38,7 @@ export function JuliaSet() {
     description={Description()}
     draw={draw}
     nextLink="/#/dummy"
-    prevLink="/#/example"
+    prevLink="/#/mandelbrot"
     sliders={sliders}
     title="Julia Set - demo"
     xReal={cReal}

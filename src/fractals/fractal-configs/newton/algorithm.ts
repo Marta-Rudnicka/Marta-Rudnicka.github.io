@@ -1,4 +1,3 @@
-import { Complex } from "mathjs";
 import { PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { convertKernelToImgData, distanceSq, getColor, getComplexPartsForPixels, getMultiplier, xSqrPlusY } from "../../gpu-utils";

@@ -93,7 +93,7 @@ export function Newton() {
     description={Description()}
     draw={draw}
     nextLink="/#/mandelbrot"
-    prevLink="/#/example"
+    prevLink="/#/cantor"
     sliders={sliders}
     controlsChildren={controlsChildren()}
     title="Newton's fractal- demo"

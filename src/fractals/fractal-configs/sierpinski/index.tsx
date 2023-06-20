@@ -136,7 +136,7 @@ export function SierpinskiTriangle() {
         c: outerTriangle.c,
       }}
     fullScreen={fullScreen}
-    nextLink="/#/mandelbrot"
+    nextLink="/#/cantor"
     prevCanvasSize={prevCanvasSize}
     setFullScreen={setFullScreen}
     sliders={sliders}

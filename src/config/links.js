@@ -5,6 +5,11 @@ export const fractals = [
     image: '',
   },
   {
+    label: "Cantor set",
+    url: '/cantor',
+    image: '',
+  },
+  {
     label: "Newton's fractal",
     url: '/newton',
     image: '',
