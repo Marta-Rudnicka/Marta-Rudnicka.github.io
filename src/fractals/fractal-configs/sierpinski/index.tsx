@@ -16,13 +16,14 @@ function getIterationsNumber(fullScreen: boolean): number {
 export function SierpinskiTriangle() {
   const [fullScreen, setFullScreen] = useState(false);
   const [maxIterations, setMaxIterations] = useState(getIterationsNumber(fullScreen));
-  const [iterations, setIterations] = useState(5);
+  const [iterations, setIterations] = useState(1);
   const [trackingMouse, setTrackingMouse] = useState(false);
   const [cursorPosition, setCursorPosition] = useState([0, 0] as Point);
   const [x, setX] = useState([0, 0] as Point);
   const [outerTriangle, setOuterTriangle] = useState(equilateralTriangle(getSize(fullScreen)))
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [prevCanvasSize, setPrevCanvasSize] = useState(null as number | null);
+  const [animation, setAnimation] = useState(true as boolean);
 
   const altControls = <SierpinskiAltControls
     outerTriangle={outerTriangle}
@@ -44,6 +45,29 @@ export function SierpinskiTriangle() {
       setOuterTriangle(t);
     }
   }
+
+  function animate() {
+    setTimeout(() => {
+      const i = iterations;
+      if (i < maxIterations) {
+        setIterations(i + 1)
+      } else {
+        setIterations(1);
+      }
+    }, 1000
+    );
+  }
+
+  function handleSliderInput(val: number) {
+    setIterations(val);
+    setAnimation(false);
+  }
+
+  useEffect(() => {
+    if (animation) {
+      animate();
+    }
+  });
 
   useEffect(() => handleX);
   useEffect(() => reshapeTriangle);
@@ -78,7 +102,7 @@ export function SierpinskiTriangle() {
     label: "iterations",
     maxValue: getIterationsNumber(fullScreen),
     minValue: 1,
-    setValue: setIterations,
+    setValue: (value) => handleSliderInput(value as number),
   }];
 
   const canvasInputs: canvasInputs = {
@@ -113,10 +137,9 @@ export function SierpinskiTriangle() {
     fullScreen={fullScreen}
     nextLink="/#/mandelbrot"
     prevCanvasSize={prevCanvasSize}
-    prevLink="/#/dummy"
     setFullScreen={setFullScreen}
     sliders={sliders}
-    title="Sierpiński triangle - demo"
+    title="Sierpiński triangle"
   />
   );
 }
