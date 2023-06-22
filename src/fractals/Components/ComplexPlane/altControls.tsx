@@ -33,7 +33,6 @@ export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
   }
 
   function startMovement() {
-    console.log('start movement')
     setTracking(true);
     props.handleMouseDown();
   }
