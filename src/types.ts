@@ -1,4 +1,3 @@
-import { Complex } from "mathjs";
 import { ReactNode } from "react";
 import { SliderControlProps } from "./fractals/Components/Controls/SliderControl";
 import { ButtonPairControlProps } from "./fractals/Components/Controls/ButtonControlPair";
@@ -27,6 +26,9 @@ export type Rectangle = {
   c: Point;
   d: Point
 }
+
+export type Complex = [number, number];
+// represents a complex number as an array: [realPart, imaginaryPart] - so GPU can use it
 
 export type Parameters = Record<string, number|Point|Complex|unknown>
 

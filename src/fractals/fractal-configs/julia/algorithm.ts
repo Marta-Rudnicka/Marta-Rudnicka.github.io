@@ -1,5 +1,4 @@
-import { Complex } from "mathjs";
-import { PixelValue } from "../../../types";
+import { Complex, PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { convertKernelToImgData, distanceSq, getColor, getComplexPartsForPixels, getMultiplier, xSqrPlusY } from "../../gpu-utils";
 
@@ -63,8 +62,8 @@ export function createImageData(
   xImaginary: number,
 ) {
   const inc = range / size;
-  const startReal = startValue.re;
-  const startImaginary = startValue.im;
+  const startReal = startValue[0];
+  const startImaginary = startValue[1];
   const kernel = getKernel(size, xReal, xImaginary);
   const kernelDump = kernel(startReal, startImaginary, inc, xReal, xImaginary) as number[][][];
   return convertKernelToImgData(kernelDump, size)

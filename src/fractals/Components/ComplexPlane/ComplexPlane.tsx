@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { canvasInputs, MainFractalControlProps, Point } from "../../../types";
-import { Complex, complex } from "mathjs";
+import { canvasInputs, Complex, MainFractalControlProps, Point } from "../../../types";
 import { getSize } from "../../utils";
 import { FractalDisplay } from "../FractalDisplay";
 import { ComplexPlaneAltControls } from "./altControls";
@@ -67,10 +66,10 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   function recalculateImage() {
     const pixelIncrement = range / canvasSize;
     if (offset.current[0] !== 0 || offset.current[1] !== 0) {
-      const newStartValue = complex(
-        startValue.re - offset.current[0] * pixelIncrement,
-        startValue.im - offset.current[1] * pixelIncrement
-      );
+      const newStartValue: Complex = [
+        startValue[0] - offset.current[0] * pixelIncrement,
+        startValue[1] - offset.current[1] * pixelIncrement
+      ];
       setPixelOffset([0, 0]);
       setStartValue(newStartValue);
       offset.current = [0, 0];
@@ -92,9 +91,9 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
 
   function updateStartValue(range: number) {
     const increment = range / canvasSize;
-    let newValue = { ...startValue }
-    newValue.re = startValue.re + increment;
-    newValue.im = startValue.im + increment;
+    let newValue: Complex = [ ...startValue ]
+    newValue[0] = startValue[0] + increment;
+    newValue[1] = startValue[1] + increment;
     setStartValue(newValue);
   }
 
