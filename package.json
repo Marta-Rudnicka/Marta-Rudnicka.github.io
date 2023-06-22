@@ -9,6 +9,7 @@
     "@blueprintjs/popover2": "^1.13.12",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
+    "algebrite": "^1.4.0",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",

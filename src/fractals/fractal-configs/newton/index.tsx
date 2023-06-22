@@ -1,7 +1,6 @@
 import { draw } from "./draw";
 import { Description } from "./description";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
-import { complex } from "mathjs";
 import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 import { useState } from "react";
@@ -35,50 +34,50 @@ function getInfo(m: string) {
   )
 }
 export function Newton() {
-  const [a5, setA5] = useState(0)
-  const [b4, setB4] = useState(0)
-  const [c3, setC3] = useState(2)
-  const [d2, setD2] = useState(0)
-  const [e1, setE1] = useState(0)
-  const [f, setF] = useState(27)
+  const [co5, setA5] = useState(0)
+  const [co4, setCo4] = useState(0)
+  const [co3, setCo3] = useState(2)
+  const [co2, setCo2] = useState(0)
+  const [co1, setCo1] = useState(0)
+  const [constant, setConstant] = useState(27)
 
   const sliders: SliderControlProps[] = [{
-    value: f,
+    value: constant,
     info: getInfo('f'),
     label: "f",
-    setValue: setF,
+    setValue: setConstant,
     ...sliderProps,
   },
   {
-    value: e1,
+    value: co1,
     info: getInfo('e'),
     label: "e",
-    setValue: setE1,
+    setValue: setCo1,
     ...sliderProps
   },
   {
-    value: d2,
+    value: co2,
     info:  getInfo("d"),
     label: "d",
-    setValue: setD2,
+    setValue: setCo2,
     ...sliderProps
   },
   {
-    value: c3,
+    value: co3,
     info:  getInfo("c"),
     label: "c",
-    setValue: setC3,
+    setValue: setCo3,
     ...sliderProps
   },
   {
-    value: b4,
+    value: co4,
     info:  getInfo("b"),
     label: "b",
-    setValue: setB4,
+    setValue: setCo4,
     ...sliderProps
   },
   {
-    value: a5,
+    value: co5,
     info:  getInfo("a"),
     label: "a",
     setValue: setA5,
@@ -89,7 +88,7 @@ export function Newton() {
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
     range={3}
-    startValue={complex(-2, -1.5)}
+    startValue={[-2, -1.5]}
     description={Description()}
     draw={draw}
     nextLink="/#/mandelbrot"
