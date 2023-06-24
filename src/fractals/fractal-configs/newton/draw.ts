@@ -19,6 +19,6 @@ export function draw(args: DrawFuncArgs): void {
     ctx.rect(0, 0, size, size);
     ctx.fillStyle = 'black';
     ctx.fill();
-    // ctx.putImageData(parameters.imageData, offsetX, offsetY);
+    ctx.putImageData(parameters.imageData, offsetX, offsetY);
   }
 }
