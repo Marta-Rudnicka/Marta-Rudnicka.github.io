@@ -21,7 +21,7 @@ function FractalMenu() {
   return (
     <Popover2 interactionKind="hover" content={
       <Menu>
-        {fractals.map(f => <Link to={f.url}> <MenuItem icon="new-object" text={f.label} /></Link>)}
+        {fractals.map(f => <Link to={f.url} key={f.url}> <MenuItem icon="new-object" text={f.label} /></Link>)}
         <MenuDivider />
       </Menu>
     }>
