@@ -7,18 +7,18 @@
 import { Complex } from "../../../types";
 import { FunctionCallback } from "./algorithm";
 import { cByC, rp, rxC, sumComplex } from "./maths-helpers";
-import { compareToAttractors, evaluateDerivative } from "./newton-algorithm";
+import { compareToAttractors, evaluateDerivative, evaluatePolynomial } from "./newton-algorithm";
 
 export function newtonIterationTestable(
   val: Complex,
-  evaluate: FunctionCallback, 
+  constant: number,
   co1: number,
   co2: number,
   co3: number,
   co4: number,
   co5: number,
 ): Complex {
-  const num = evaluate(val);
+  const num = evaluatePolynomial(val, constant, co1, co2, co3, co4, co5);
   const den = evaluateDerivative(val, co1, co2, co3, co4, co5);
   const div = rxC(-1, cByC(num, den));
   const [real, imaginary] = sumComplex([val, div]);
@@ -28,8 +28,8 @@ export function newtonIterationTestable(
 export function newtonRecursionTestable(
   attractors: Complex[],
   input: Complex,
-  evaluate: FunctionCallback,
   index: number,
+  constant: number,
   co1: number,
   co2: number,
   co3: number,
@@ -40,15 +40,15 @@ export function newtonRecursionTestable(
     return index;
   }
   let val = input;
-  val = newtonIterationTestable(input, evaluate, co1, co2, co3, co4, co5);
+  val = newtonIterationTestable(input, constant, co1, co2, co3, co4, co5);
   index = compareToAttractors(val, attractors);
-  return newtonRecursionTestable(attractors, val, evaluate, index, co1, co2, co3, co4, co5);
+  return newtonRecursionTestable(attractors, val, index, constant, co1, co2, co3, co4, co5);
 }
 
 export function findNewtonAttractorTestable(
   attractors: Complex[],
   input: Complex,
-  evaluate: FunctionCallback,
+  constant: number,
   co1: number,
   co2: number,
   co3: number,
@@ -56,6 +56,6 @@ export function findNewtonAttractorTestable(
   co5: number,
 ): number {
 
-  const res = newtonRecursionTestable(attractors, input, evaluate, -1, co1, co2, co3, co4, co5)
+  const res = newtonRecursionTestable(attractors, input, -1, constant, co1, co2, co3, co4, co5)
   return res;
 }

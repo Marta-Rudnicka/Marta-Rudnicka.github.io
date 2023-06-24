@@ -4,7 +4,6 @@ import { Solution, Solutions } from "../../../types-algebrite";
 import { c, pow2, pow3, pow4, pow5, rp, rxC, sumComplex } from "./maths-helpers";
 const Algebrite = require('algebrite');
 
-export type FunctionCallback = (x: Complex) => Complex;
 export type NewtonInputs = {
   constant: number,
   co1: number,
@@ -47,35 +46,35 @@ export function evaluateDerivative(
 };
 
 
-export function getPolyFunction(
+export function evaluatePolynomial(
+  x: Complex,
   constant: number,
   co1: number,
   co2: number,
   co3: number,
   co4: number,
   co5: number,
-): FunctionCallback {
+): Complex {
 
   // the obvious return vaue would be '(x) => d.evaluate({ 'x': x }) but this would not work on GPUjs'
   //  console.dir(d, {depth:10})
 
-  return (x: Complex) => {
-    const deg1 = rxC(co1, x);
-    const deg2 = rxC(co2, pow2(x));
-    const deg3 = rxC(co3, pow3(x));
-    const deg4 = rxC(co4, pow4(x));
-    const deg5 = rxC(co5, pow5(x));
+  const deg1 = rxC(co1, x);
+  const deg2 = rxC(co2, pow2(x));
+  const deg3 = rxC(co3, pow3(x));
+  const deg4 = rxC(co4, pow4(x));
+  const deg5 = rxC(co5, pow5(x));
 
-    return sumComplex([
-      c(constant),
-      deg1,
-      deg2,
-      deg3,
-      deg4,
-      deg5
-    ])
-  };
-}
+  return sumComplex([
+    c(constant),
+    deg1,
+    deg2,
+    deg3,
+    deg4,
+    deg5
+  ])
+};
+
 
 export function parseSolution(solutionObject: Solution): Complex {
   // real
