@@ -4,6 +4,7 @@ import { convertKernelToImgData, distanceSq, getColor, getComplexPartsForPixels,
 import { parse, simplify } from "mathjs";
 import { Solution, Solutions } from "../../../types-algebrite";
 import { c, cByC, pow2, pow3, pow4, pow5, rp, rxC, sumComplex } from "./maths-helpers";
+import { findNewtonAttractorTestable, newtonIterationTestable, newtonRecursionTestable } from "./duplicates";
 const Algebrite = require('algebrite');
 
 export function processPixel(
@@ -80,21 +81,10 @@ export function removeZeroMultipliers(polynomial: string): string {
 
 type FunctionCallback = (x: Complex) => Complex;
 
-export function getDerivativeAsCallback(
-  co1: number, 
-  co2: number, 
-  co3: number, 
-  co4: number, 
-  co5: number, 
-): FunctionCallback {
+    checkTestAreValid(newtonIteration.toString(), newtonIterationTestable.toString());
+    checkTestAreValid(newtonRecursion.toString(), newtonRecursionTestable.toString());
+    checkTestAreValid(findNewtonAttractor.toString(), findNewtonAttractorTestable.toString());
 
-  // the obvious return vaue would be '(x) => d.evaluate({ 'x': x }) but this would not work on GPUjs'
-//  console.dir(d, {depth:10})
-  return (x: Complex) => {
-    const deg2 = rxC(2 * co2, x);
-    const deg3 = rxC(3 * co3, pow2(x));
-    const deg4 = rxC(4 * co4, pow3(x));
-    const deg5 = rxC(5 * co5, pow4(x));
 
     // return 4* co4*Math.pow(x, 3) + 5*co5*Math.pow(x, 4);
     return sumComplex([
