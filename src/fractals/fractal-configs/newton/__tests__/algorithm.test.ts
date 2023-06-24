@@ -1,37 +1,48 @@
 import { Complex } from "../../../../types";
-import { findNewtonAttractor, getDerivativeAsCallback, getPolyFunction, newtonIteration, solve } from "../algorithm";
 import { c } from "../maths-helpers";
+import { 
+  newtonIterationTestable as newtonIteration,
+  findNewtonAttractorTestable as findNewtonAttractor
+ } from "../duplicates";
+import { evaluateDerivative, getPolyFunction, solve } from "../newton-algorithm";
 
-describe('getDerivativeAsCallback', () => {
+type DerivativeInput = [number, number, number, number, number]
+
+describe('evaluateDerivative', () => {
+  // x^5 + x^4 + x^3 + 3x^2 + 4x + c
+  const userInputs = [4, 3, 1, 1, 1] as DerivativeInput;
+  
+  // x^3 + 4x + c
+  const userInputsWithZeros = [4, 0, 1, 0, 0] as DerivativeInput;
+
+
   it('should return a callback that is the derivative of the original function (real numbers)', () => {
-    // x^5 + x^4 + x^3 + 3x^2 + 4x + c
-    const callback = getDerivativeAsCallback(4, 3, 1, 1, 1) // 4 + 6 x + 3 x^2 + 4 x^3 + 5x^4
-    expect(callback(c(1))).toStrictEqual(c(22));
-    expect(callback(c(2))).toStrictEqual(c(140));
-    expect(callback(c(4))).toStrictEqual(c(1612));
+    expect(evaluateDerivative(c(1), ...userInputs)).toStrictEqual(c(22));
+    expect(evaluateDerivative(c(2), ...userInputs)).toStrictEqual(c(140));
+    expect(evaluateDerivative(c(4), ...userInputs)).toStrictEqual(c(1612));
+
   })
 
   it('should handle imaginary numbers as argument', () => {
     // x^5 + x^4 + x^3 + 3x^2 + 4x + c
-    const callback = getDerivativeAsCallback(4, 3, 1, 1, 1) // 4 + 6 x + 3 x^2 + 4 x^3 + 5x^4
-    expect(callback([0, 1])).toStrictEqual([6, 2]);
+    // 4 + 6 x + 3 x^2 + 4 x^3 + 5x^4
+    const userInputs = [4, 3, 1, 1, 1] as DerivativeInput;
+
+    expect(evaluateDerivative([0, 1], ...userInputs)).toStrictEqual([6, 2]);
   })
 
   it('should handle complex numbers as argument', () => {
     // x^5 + x^4 + x^3 + 3x^2 + 4x + c
-    const callback = getDerivativeAsCallback(4, 3, 1, 1, 1) // 4 + 6 x + 3 x^2 + 4 x^3 + 5x^4
-    expect(callback([3, 1])).toStrictEqual([258, 608]);
+    expect(evaluateDerivative([3, 1], ...userInputs)).toStrictEqual([258, 608]);
   })
 
   it('should return a callback that is the derivative of the original function if some coefficients are 0', () => {
     // x^3 + 4x + c
-    const callback = getDerivativeAsCallback(4, 0, 1, 0, 0) // 4 + 3x^2
-    expect(callback(c(1))).toStrictEqual(c(7));
-    expect(callback(c(2))).toStrictEqual(c(16));
-    expect(callback(c(4))).toStrictEqual(c(52));
+    expect(evaluateDerivative(c(1), ...userInputsWithZeros)).toStrictEqual(c(7));
+    expect(evaluateDerivative(c(2), ...userInputsWithZeros)).toStrictEqual(c(16));
+    expect(evaluateDerivative(c(4), ...userInputsWithZeros)).toStrictEqual(c(52));
   })
 });
-
 
 describe('getPolyFunction', () => {
   it('should return a callback the original function (real numbers)', () => {
@@ -118,21 +129,20 @@ describe('solve', () => {
 
 describe('newtonIteration', () => {
   // to make sure the object produced by nroot is parsed correctly - couldn't find appropriate docs
-
   it('should perform one iteration of Newton method - simple example', () => {
     // x^2 - 5
+    const userInput = [0, 1, 0, 0, 0] as DerivativeInput;
     const poly = getPolyFunction(-5, 0, 1, 0, 0, 0);
-    const der = getDerivativeAsCallback(0, 1, 0, 0, 0)
-    expect(newtonIteration(poly, der, c(2.5))).toStrictEqual([2.25, 0]);
+    expect(newtonIteration(c(2.5), poly, ...userInput )).toStrictEqual([2.25, 0]);
   });
+
   it('should perform one iteration of Newton method - complicated example', () => {
     // x^5 - 2x^4 + 2x^3 + 6x^2 - 10x + 1
     const poly = getPolyFunction(1, -10, 6, 2, -2, 1);
-    const der = getDerivativeAsCallback(-10, 6, 2, -2, 1);
+    const userInput = [-10, 6, 2, -2, 1] as DerivativeInput;
     const input: Complex = [1.12, - 1.83];
-    
     const ex: Complex = [1.125, -1.832];
-    expect(newtonIteration(poly, der, input)).toStrictEqual(ex);
+    expect(newtonIteration(input, poly, ...userInput)).toStrictEqual(ex);
   });
 });
 
@@ -142,21 +152,21 @@ describe('findNewtonAttractor', () => {
   // x^3 + x^2 - 3x + 2
   const attractors: Complex[] = [[-2.512, 0], [0.7558, - 0.4745], [0.7558, 0.4745]];
   const poly = getPolyFunction(2, -3, 1, 1, 0, 0);
-  const der = getDerivativeAsCallback(-3, 1, 1, 0, 0)
+  const userInput = [-3, 1, 1, 0, 0] as DerivativeInput;
   it('should return the index of the right attractor for values close to the root', () => {
-    expect(findNewtonAttractor(attractors, [-2.5, 0], poly, der)).toStrictEqual(0);
-    expect(findNewtonAttractor(attractors, [0.7, -0.4], poly, der)).toStrictEqual(1);
-    expect(findNewtonAttractor(attractors, [0.7, 0.4], poly, der)).toStrictEqual(2);
+    expect(findNewtonAttractor(attractors, [-2.5, 0], poly, ...userInput)).toStrictEqual(0);
+    expect(findNewtonAttractor(attractors, [0.7, -0.4], poly, ...userInput)).toStrictEqual(1);
+    expect(findNewtonAttractor(attractors, [0.7, 0.4], poly, ...userInput)).toStrictEqual(2);
   });
 
   it('should return the index of the right attractor for values distant from the root', () => {
-    expect(findNewtonAttractor(attractors, [20, 0], poly, der)).toStrictEqual(0);
-    expect(findNewtonAttractor(attractors, [-60, 5], poly, der)).toStrictEqual(0);
+    expect(findNewtonAttractor(attractors, [20, 0], poly, ...userInput)).toStrictEqual(0);
+    expect(findNewtonAttractor(attractors, [-60, 5], poly, ...userInput)).toStrictEqual(0);
 
-    expect(findNewtonAttractor(attractors, [12, -40], poly, der)).toStrictEqual(1);
-    expect(findNewtonAttractor(attractors, [10.78, -20], poly, der)).toStrictEqual(1);
+    expect(findNewtonAttractor(attractors, [12, -40], poly, ...userInput)).toStrictEqual(1);
+    expect(findNewtonAttractor(attractors, [10.78, -20], poly, ...userInput)).toStrictEqual(1);
 
-    expect(findNewtonAttractor(attractors, [12, 5], poly, der)).toStrictEqual(2);
-    expect(findNewtonAttractor(attractors, [10.78, 80], poly, der)).toStrictEqual(2);
+    expect(findNewtonAttractor(attractors, [12, 5], poly, ...userInput)).toStrictEqual(2);
+    expect(findNewtonAttractor(attractors, [10.78, 80], poly, ...userInput)).toStrictEqual(2);
   });
 });
