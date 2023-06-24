@@ -1,7 +1,7 @@
 import { Complex } from "../../../types";
 import { parse, simplify } from "mathjs";
 import { Solution, Solutions } from "../../../types-algebrite";
-import { c, pow2, pow3, pow4, pow5, rp, rxC, sumComplex } from "./maths-helpers";
+import { c, pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
 const Algebrite = require('algebrite');
 
 export type NewtonInputs = {
@@ -35,16 +35,18 @@ export function evaluateDerivative(
   const deg4 = rxC(4 * co4, pow3(x));
   const deg5 = rxC(5 * co5, pow4(x));
 
-  // return 4* co4*Math.pow(x, 3) + 5*co5*Math.pow(x, 4);
-  return sumComplex([
-    c(co1),
-    deg2,
-    deg3,
-    deg4,
-    deg5
-  ])
+  const args1 = [co1, 0, deg2[0], deg2[1]];
+  const args2 = [deg3[0], deg3[1], deg4[0], deg4[1]];
+  const args3 = [deg5[0], deg5[1], 0, 0 ];
+  const sum1 = sum2Complex(args1);
+  const sum2 = sum2Complex(args2);
+  const sum3 = sum2Complex(args3);
+
+  let sum = sum2Complex([sum1[0], sum1[1], sum2[0], sum2[1]])
+  return sum2Complex([sum[0], sum[1], sum3[0], sum3[1]]);
 };
 
+export type FlatComplexRootArray = [number, number, number, number, number, number, number, number, number, number, ]
 
 export function evaluatePolynomial(
   x: Complex,
@@ -60,19 +62,21 @@ export function evaluatePolynomial(
   //  console.dir(d, {depth:10})
 
   const deg1 = rxC(co1, x);
-  const deg2 = rxC(co2, pow2(x));
+  const deg2 = [2, 3]// rxC(co2, pow2(x));
   const deg3 = rxC(co3, pow3(x));
   const deg4 = rxC(co4, pow4(x));
   const deg5 = rxC(co5, pow5(x));
 
-  return sumComplex([
-    c(constant),
-    deg1,
-    deg2,
-    deg3,
-    deg4,
-    deg5
-  ])
+  // because longer arrays are not accepted :-(
+  const args1 = [constant, 0, deg1[0], deg1[1]];
+  const args2 = [deg2[0], deg2[1], deg3[0], deg3[1]];
+  const args3 = [deg4[0], deg4[1], deg5[0], deg5[1]];
+  const sum1 = sum2Complex(args1);
+  const sum2 = sum2Complex(args2);
+  const sum3 = sum2Complex(args3);
+
+  let sum = sum2Complex([sum1[0], sum1[1], sum2[0], sum2[1]])
+  return sum2Complex([sum[0], sum[1], sum3[0], sum3[1]]);
 };
 
 
@@ -93,10 +97,21 @@ export function parseSolution(solutionObject: Solution): Complex {
   return [0, parseFloat(imaginary.toPrecision(4))];
 }
 
-export function solve(equation: string): Complex[] {
+export function solve(equation: string): FlatComplexRootArray {
+  let res = [];
   const eq = Algebrite.run(equation)
   const sol: Solutions = Algebrite.nroots(eq)
-  return sol.tensor.elem.map((e) => parseSolution(e));
+  const roots =  sol.tensor.elem.map((e) => parseSolution(e));
+  console.log(roots.flat())
+  res.push(...roots.flat())
+  console.log(res)
+  res.push(...[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  console.log(res)
+  res = res.slice(0, 10)
+  console.log('sliced: ', res)
+
+
+  return res as FlatComplexRootArray;
 }
 
 export function compareToAttractors(input: Complex, attractors: Complex[]): number {

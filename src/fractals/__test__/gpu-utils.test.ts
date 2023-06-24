@@ -1,4 +1,4 @@
-import { xSqrPlusY, getMultiplier } from "../gpu-utils";
+import { xSqrPlusY, getMultiplier, lengthNumArray } from "../gpu-utils";
 
 describe('getMultiplier', () => {
   it('should return 1000', () => {
@@ -29,5 +29,14 @@ describe('xSqrPlusY', () => {
     const y = [3, 2];
     const expected = [6, 6];
     expect(xSqrPlusY(x, y)).toStrictEqual(expected);
+  });
+});
+
+describe('lengthNumArray', () => {
+  it('should return the length of the array', () => {
+    expect(lengthNumArray([10, 0, 5, 0])).toStrictEqual(4);
+  });
+  it('should handle empty array', () => {
+    expect(lengthNumArray([])).toStrictEqual(0);
   });
 });

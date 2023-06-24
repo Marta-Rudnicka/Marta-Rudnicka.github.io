@@ -6,7 +6,7 @@
 
 import { Complex } from "../../../types";
 import { FunctionCallback } from "./algorithm";
-import { cByC, rp, rxC, sumComplex } from "./maths-helpers";
+import { cByC, rp, rxC, sum2Complex } from "./maths-helpers";
 import { compareToAttractors, evaluateDerivative, evaluatePolynomial } from "./newton-algorithm";
 
 export function newtonIterationTestable(
@@ -21,12 +21,12 @@ export function newtonIterationTestable(
   const num = evaluatePolynomial(val, constant, co1, co2, co3, co4, co5);
   const den = evaluateDerivative(val, co1, co2, co3, co4, co5);
   const div = rxC(-1, cByC(num, den));
-  const [real, imaginary] = sumComplex([val, div]);
-  return [rp(real, 4), rp(imaginary, 4)];
+  const sum = sum2Complex([val[0], val[1], div[0], div[1]]);
+  return [rp(sum[0], 4), rp(sum[1], 4)];
 }
 
-export function newtonRecursionTestable(
-  attractors: Complex[],
+export function findIndexOfAttractor(
+  // attractors: Complex[],
   input: Complex,
   index: number,
   constant: number,
@@ -36,17 +36,18 @@ export function newtonRecursionTestable(
   co4: number,
   co5: number,
 ): number {
-  if (index !== -1) {
-    return index;
-  }
+  // if (index !== -1) {
+  //   return i;
+  // }
   let val = input;
   val = newtonIterationTestable(input, constant, co1, co2, co3, co4, co5);
-  index = compareToAttractors(val, attractors);
-  return newtonRecursionTestable(attractors, val, index, constant, co1, co2, co3, co4, co5);
+  // i = compareToAttractors(val, attractors);
+  // return findIndexOfAttractor(attractors, val, i, constant, co1, co2, co3, co4, co5);
+  return 1;
 }
 
 export function findNewtonAttractorTestable(
-  attractors: Complex[],
+  // attractors: Complex[],
   input: Complex,
   constant: number,
   co1: number,
@@ -56,6 +57,9 @@ export function findNewtonAttractorTestable(
   co5: number,
 ): number {
 
-  const res = newtonRecursionTestable(attractors, input, -1, constant, co1, co2, co3, co4, co5)
-  return res;
+  let index = -1;
+  while (index === -1) {
+    index = findIndexOfAttractor(input, index, constant, co1, co2, co3, co4, co5);
+  }
+  return index;
 }

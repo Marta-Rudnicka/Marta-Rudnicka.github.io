@@ -25,7 +25,6 @@ export function distanceSq(val: number[], c: number[]): number {
   return (val[0] - c[0])**2 + (val[1] - c[1])**2;
 }
 
-
 export function getComplexPartsForPixels(
   x: number,
   y: number,
@@ -70,4 +69,12 @@ export function getMultiplier(input: number) {
     multiplier = multiplier * 10;
   }
   return multiplier;
+}
+
+export function lengthNumArray(array: number[]): number {
+  let i: number = 0;
+  while (array[i] !== undefined) {
+    i = i + 1
+  }
+  return i;
 }

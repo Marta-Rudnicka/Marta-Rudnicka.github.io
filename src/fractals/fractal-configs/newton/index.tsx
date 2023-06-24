@@ -5,6 +5,7 @@ import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 import { useState } from "react";
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
+import { Complex } from "../../../types";
 
 const sliderProps = {
   maxValue: 5,
