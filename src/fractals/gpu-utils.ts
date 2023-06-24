@@ -1,4 +1,4 @@
-import { PixelValue } from "../types";
+import { Complex, PixelValue } from "../types";
 
 export function getColor(i: number): PixelValue {
   if (i < 25) return [0, 0, 0, 255];
@@ -32,7 +32,7 @@ export function getComplexPartsForPixels(
   startValueX: number,
   startValueY: number,
   inc: number,
-): number[] {
+): Complex {
 
   const multiplier = getMultiplier(inc) * 1000;
   // to prevent GPU from rounding numbers; value establihed by trial and error
