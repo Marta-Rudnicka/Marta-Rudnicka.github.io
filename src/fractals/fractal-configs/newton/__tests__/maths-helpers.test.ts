@@ -1,4 +1,15 @@
-import { cByC, lengthNumArray, pow2, pow3, pow4, pow5, rxC, sum2Complex } from "../maths-helpers";
+import {
+  cByC,
+  getPolynomialStringForNroots,
+  lengthNumArray,
+  pow2,
+  pow3,
+  pow4,
+  pow5,
+  rxC,
+  sum2Complex
+} from "../maths-helpers";
+const Algebrite = require('algebrite');
 
 describe('should correctly evaluate powers of complex numbers in array notation', () => {
   it('should correctly evaluate x^2', () => {
@@ -95,5 +106,50 @@ describe('length', () => {
   });
   it('should handle empty array', () => {
     expect(lengthNumArray([])).toStrictEqual(0);
+  });
+});
+
+describe('getPolynomialString', () => {
+  it('should create a polynomial string understood by nroots', () => {
+    const constant = 13;
+    const co1 = 1;
+    const co2 = 2;
+    const co3 = 3;
+    const co4 = 4;
+    const co5 = 5;
+    const expected = '5x^5+4x^4+3x^3+2x^2+x+13';
+    const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
+    expect(equation).toBe(expected);
+    // solve to check if Algebrite throws errors
+    const eq = Algebrite.run(equation)
+    Algebrite.nroots(eq)
+  });
+
+  it('should handle zero coefficients', () => {
+    const constant = 7;
+    const co1 = 0;
+    const co2 = 6;
+    const co3 = 0;
+    const co4 = 0;
+    const co5 = 0;
+    const expected = '6x^2+7';
+    const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
+    expect(equation).toBe(expected);
+    const eq = Algebrite.run(equation)
+    Algebrite.nroots(eq)
+  });
+
+  it('should handle negative coefficients', () => {
+    const constant = 7;
+    const co1 = 0;
+    const co2 = -6;
+    const co3 = 3;
+    const co4 = 0;
+    const co5 = 0;
+    const expected = '3x^3-6x^2+7';
+    const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
+    expect(equation).toBe(expected);
+    const eq = Algebrite.run(equation)
+    Algebrite.nroots(eq)
   });
 });

@@ -93,9 +93,43 @@ export function lengthNumArray(array: number[]): number {
 
 export function sum2Complex(nums: number[]): Complex {
   // reduce or variable-lenghth arrays not compatible with gpu
-  let out: Complex = [0, 0];
-  for (let i = 0; i < 5; i = + 2) {
-    out = [out[0] + nums[i], out[1] + nums[i + 1] ];
+
+function addExpressionToPolynomial(poly: string, coefficient: number, degree: number): string {
+  let expr: string = '';
+  if (coefficient === 0) {
+    return poly + expr;
   }
-  return out;
+  if (poly && coefficient > 0) {
+    expr = '+';
+  }
+  if (coefficient !== 0 && coefficient !== 1) {
+    expr = expr + coefficient;
+  }
+  expr = expr + 'x';
+  if (degree !== 1) {
+    expr = expr + '^' + degree;
+  }
+  return poly + expr;
+}
+
+export function getPolynomialStringForNroots(
+  // assuming up to 5th degree polynomial
+  c: number,
+  co1: number,
+  co2: number,
+  co3: number,
+  co4: number,
+  co5: number,
+) : string {
+  let poly = '';
+  poly = addExpressionToPolynomial(poly, co5, 5);
+  poly = addExpressionToPolynomial(poly, co4, 4);
+  poly = addExpressionToPolynomial(poly, co3, 3);
+  poly = addExpressionToPolynomial(poly, co2, 2);
+  poly = addExpressionToPolynomial(poly, co1, 1);
+  if (c) {
+    const constantStr = c > 0 ? `+${c}` : c;
+    poly = poly + constantStr;
+  }
+  return poly;
 }
