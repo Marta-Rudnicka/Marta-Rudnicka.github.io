@@ -78,12 +78,12 @@ describe('test', () => {
 // });
 
 describe.only('solve', () => {
-  function compareFlattenedRoots(r: FlatComplexRootArray, e: Complex[]): boolean {
+  function compareFlattenedRoots(result: FlatComplexRootArray, e: Complex[]): void {
     const expected = e.sort();
+    const r = result;
     const parsedResult = [[r[0], r[1]], [r[2], r[3]], [r[4], r[5]], [r[6], r[7]], [r[8], r[9]]]
-    .slice(0, expected.length)
-    .sort();
-    expect(parsedResult.slice(0, expected.length)).toStrictEqual(expected);
+    const l = expected.length > 5 ? 5 : expected.length;
+    expect(parsedResult.slice(0, l)).toStrictEqual(expected.slice(0,l));
    ;
   }
   // to make sure the object produced by nroot is parsed correctly - couldn't find appropriate docs
@@ -100,49 +100,58 @@ describe.only('solve', () => {
   })
 
 
-  it.only('should provide roots for a polynomial with   and imaginary roots', () => {
+  it('should provide roots for a polynomial with and imaginary roots', () => {
     const expected: Complex[] = [[-5, -12], [-5, 12]];
     const result = solve('x^2 + 10x + 169');
     compareFlattenedRoots(result, expected)
-    // expect(solve('x^2 + 10x + 169').sort()).toStrictEqual([[-5, -12], [-5, 12] ]);
   })
 
   it('should provide roots for a polynomial with complex and imaginary roots', () => {
-    expect(solve('x^6 + 1')).toStrictEqual([
-      -0.866, -0.5,
-      -0.866, 0.5,
-      0.866, -0.5,
-      0, -1,
-      0, 1,
-      // 0.866, 0.5,
-    ]);
+    const result = solve('x^6 + 1');
+    const expected: Complex[] = [
+      [-0.866, -0.5],
+      [-0.866, 0.5],
+      [0, -1],
+      [0, 1],
+      [0.866, -0.5],
+      [0.866, 0.5],
+    ];
+    compareFlattenedRoots(result, expected);
   })
+
   it('should produce real and complex roots for a polynomial', () => {
-    expect(solve('x^3+9')).toStrictEqual([[-2.08, 0], [1.04, -1.801], [1.04, 1.801]]);
+    const result = solve('x^3+9');
+    const expected: Complex[] = [[-2.08, 0], [1.04, -1.801], [1.04, 1.801]];
+    compareFlattenedRoots(result, expected);
   })
 
   it('should produce all kinds of roots for a polynomial', () => {
-    expect(solve('x^8 - 1')).toStrictEqual([
-      -0.7071, -0.7071,
-      -0.7071, 0.7071,
-      -1, 0,
-      0, -1,
-      0, 1,
-      // [0.7071, -0.7071],
-      // [0.7071, 0.7071],
-      // [ 1, 0],
-    ]);    
+    const result = (solve('x^8 - 1'))
+    const expected: Complex[] = [
+      [-0.7071, -0.7071],
+      [-0.7071, 0.7071],
+      [-1, 0],
+      [0, -1],
+      [0, 1],
+      [0.7071, -0.7071],
+      [0.7071, 0.7071],
+      [ 1, 0],
+    ];
+    compareFlattenedRoots(result, expected);
+
   })
 
   it('should find roots for the most complex possible polynomial', () => {
-    const solutions = [
-     -0.9749, -1.237,
-     -0.9749,  1.237,
-     -1.212, 0,
-      1.081, -1.351,
-      1.081,  1.351,
-    ]
-    expect(solve('x^5+x^4+x^3+2*x^2+8*x+9').sort()).toStrictEqual(solutions);
+    const expected: Complex[] = [
+    [-0.9749, -1.237],
+    [-0.9749,  1.237],
+    [-1.212, 0],
+    [ 1.081, -1.351],
+    [ 1.081,  1.351],
+    ];
+    const result = solve('x^5+x^4+x^3+2*x^2+8*x+9');
+    compareFlattenedRoots(result, expected);
+
   })
 });
 

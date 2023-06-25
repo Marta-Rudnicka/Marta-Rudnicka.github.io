@@ -101,16 +101,10 @@ export function solve(equation: string): FlatComplexRootArray {
   let res = [];
   const eq = Algebrite.run(equation)
   const sol: Solutions = Algebrite.nroots(eq)
-  const roots =  sol.tensor.elem.map((e) => parseSolution(e));
-  console.log(roots.flat())
+  const roots =  sol.tensor.elem.map((e) => parseSolution(e)).sort();
   res.push(...roots.flat())
-  console.log(res)
   res.push(...[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  console.log(res)
   res = res.slice(0, 10)
-  console.log('sliced: ', res)
-
-
   return res as FlatComplexRootArray;
 }
 
