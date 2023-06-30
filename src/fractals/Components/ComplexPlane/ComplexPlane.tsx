@@ -3,17 +3,16 @@ import { canvasInputs, Complex, MainFractalControlProps, Point } from "../../../
 import { getSize } from "../../utils";
 import { FractalDisplay } from "../FractalDisplay";
 import { ComplexPlaneAltControls } from "./altControls";
-import { FunctionCallback } from "../../fractal-configs/newton/algorithm";
+import { NewtonInputs } from "../../fractal-configs/newton/newton-algorithm";
 
 type ComplexPlaneProps = MainFractalControlProps & {
   createImageData: (
-    size: number, 
-    startValue: Complex, 
+    size: number,
+    startValue: Complex,
     range: number,
     xReal: number,
     xImaginary: number,
-    callback1? :FunctionCallback,
-    callback2? :FunctionCallback,    
+    newtonInputs?: NewtonInputs,
   ) => ImageData;
   startValue: Complex,
   range: number,
@@ -31,8 +30,8 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [pixelOffset, setPixelOffset] = useState([0, 0] as Point)
   const imageData = useMemo(() => 
     props.createImageData(
-      canvasSize, 
-      startValue, 
+      canvasSize,
+      startValue,
       range,
       props.xReal,
       props.xImaginary,
