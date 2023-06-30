@@ -2,8 +2,7 @@ import { Complex, PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { convertKernelToImgData, getComplexPartsForPixels, getMultiplier } from "../../gpu-utils";
 import { c, cByC, getPolynomialStringForNroots, lengthNumArray, pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
-import { findNewtonAttractorTestable, newtonIterationTestable, findIndexOfAttractor, compareToKnownRoots } from "./duplicates";
-import { compareToAttractors, evaluateDerivative, evaluatePolynomial, solve } from "./newton-algorithm";
+import { compareToAttractors, compareToKnownRoots, evaluateDerivative, evaluatePolynomial, findIndexOfAttractor, findNewtonAttractor, newtonIteration, solve } from "./newton-algorithm";
 
 export type FunctionCallback = (x: Complex) => Complex;
 export type NewtonInputs = {
@@ -39,9 +38,9 @@ export function getKernel(
   gpu.addFunction(getMultiplier);
   gpu.addFunction(sum2Complex);
   gpu.addFunction(findIndexOfAttractor);
-  gpu.addFunction(newtonIterationTestable);
+  gpu.addFunction(newtonIteration);
   gpu.addFunction(compareToAttractors);
-  gpu.addFunction(findNewtonAttractorTestable);
+  gpu.addFunction(findNewtonAttractor);
   gpu.addFunction(evaluatePolynomial);
   gpu.addFunction(evaluateDerivative);
   gpu.addFunction(rxC);
@@ -91,7 +90,7 @@ export function getKernel(
       inc
     );
 
-    const index = findNewtonAttractorTestable(
+    const index = findNewtonAttractor(
       r0r, r0i,
       r1r, r1i,
       r2r, r2i,
