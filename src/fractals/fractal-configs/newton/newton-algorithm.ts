@@ -1,7 +1,7 @@
 import { Complex } from "../../../types";
 import { parse, simplify } from "mathjs";
 import { Solution, Solutions } from "../../../types-algebrite";
-import { c, pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
+import { pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
 const Algebrite = require('algebrite');
 
 export type NewtonInputs = {
@@ -10,7 +10,7 @@ export type NewtonInputs = {
   co2: number,
   co3: number,
   co4: number,
-  co5: number, 
+  co5: number,
 }
 
 export function removeZeroMultipliers(polynomial: string): string {
@@ -46,7 +46,13 @@ export function evaluateDerivative(
   return sum2Complex([sum[0], sum[1], sum3[0], sum3[1]]);
 };
 
-export type FlatComplexRootArray = [number, number, number, number, number, number, number, number, number, number, ]
+export type FlatComplexRootArray = [
+  number, number,
+  number, number,
+  number, number,
+  number, number,
+  number, number,
+]
 
 export function evaluatePolynomial(
   x: Complex,
@@ -62,12 +68,12 @@ export function evaluatePolynomial(
   //  console.dir(d, {depth:10})
 
   const deg1 = rxC(co1, x);
-  const deg2 = [2, 3]// rxC(co2, pow2(x));
+  const deg2 = rxC(co2, pow2(x));
   const deg3 = rxC(co3, pow3(x));
   const deg4 = rxC(co4, pow4(x));
   const deg5 = rxC(co5, pow5(x));
 
-  // because longer arrays are not accepted :-(
+  // // because longer arrays are not accepted :-(
   const args1 = [constant, 0, deg1[0], deg1[1]];
   const args2 = [deg2[0], deg2[1], deg3[0], deg3[1]];
   const args3 = [deg4[0], deg4[1], deg5[0], deg5[1]];
@@ -108,14 +114,19 @@ export function solve(equation: string): FlatComplexRootArray {
   return res as FlatComplexRootArray;
 }
 
-export function compareToAttractors(input: Complex, attractors: Complex[]): number {
-  for (const a of attractors) {
-    if (
-      rp(input[0], 4) === rp(a[0], 4)
-      && rp(input[1], 4) === rp(a[1], 4)
-    ) {
-      return attractors.indexOf(a)
-    }
+export function compareToAttractors(
+  input: Complex,
+  a0r: number,
+  a0i: number,
+  a1r: number,
+  a1i: number,
+  batch: number): number {
+
+  if (rp(input[0], 1) === rp(a0r, 1) && rp(input[1], 1) === rp(a0i, 1)) {
+    return 0 + 2 * batch;
+  }
+  if (rp(input[0], 1) === rp(a1r, 1) && rp(input[1], 1) === rp(a1i, 1)) {
+    return 1 + 2 * batch;
   }
   return -1;
 }

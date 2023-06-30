@@ -1,13 +1,5 @@
 import { Complex } from "../../../types";
 
-export function plusZero(n: number) {
-  //ensure there is no negative zero
-  if(n === -0) {
-    return 0;
-  }
-  return n;
-}
-
 export function c(r: number): Complex {
   //return a real number in array notation for complex numbers
   return [r, 0];
@@ -17,59 +9,72 @@ export function c(r: number): Complex {
 export function rp(n: number, p: number): number {
   const precision = Math.pow(10, p)
   let res = n * precision;
-  res = Math.floor(res) / precision;
+  res = Math.round(res) / precision;
   return res;
-
-  // return parseFloat(n.toPrecision(precision));
 }
 
 export function pow2(x: Complex): Complex {
-  const real =   (Math.pow(x[0], 2)) - Math.pow(x[1], 2);
-  const imaginary = 2 * x[0] * x[1]
-  return [ plusZero(real), plusZero(imaginary) ];
+  // fallback to 0 to avoid getting -0
+  let real = (Math.pow(x[0], 2)) - Math.pow(x[1], 2)
+  let imaginary = 2 * x[0] * x[1];
+  if (real === -0) {
+    real = 0;
+  }
+  if (imaginary === -0) {
+    imaginary = 0;
+  }
+  return [ real, imaginary ];
 }
 
 export function pow3(x: Complex): Complex {
-  const real = 
-    Math.pow(x[0], 3) 
-    - 3 * x[0] * Math.pow(x[1], 2)
-  ;
-  const imaginary = 
-    - Math.pow(x[1], 3) 
-    + 3 * Math.pow(x[0], 2) * x[1]
-    ;
-  // return [ plusZero(real), plusZero(imaginary) ];
-  return [ real, imaginary ];
+  let real =
+    Math.pow(x[0], 3)
+    - 3 * x[0] * Math.pow(x[1], 2);
+  let imaginary =
+    - Math.pow(x[1], 3)
+    + 3 * Math.pow(x[0], 2) * x[1];
+  if (real === -0) {
+    real = 0;
+  }
+  if (imaginary === -0) {
+    imaginary = 0;
+  }
+  return [real, imaginary];
 }
 
 export function pow4(x: Complex): Complex {
-  const real = 
-
-    Math.pow(x[0], 4) 
-    - 6 * Math.pow(x[0], 2 ) * Math.pow(x[1], 2 ) 
-    + Math.pow(x[1], 4) 
-  ;
-  const imaginary = 
-    4 * Math.pow(x[0], 3 ) * x[1] 
-    - 4 * x[0] * Math.pow(x[1], 3 )
-  ;
-  return [ real, imaginary ];
+  let real =
+    Math.pow(x[0], 4)
+    - 6 * Math.pow(x[0], 2) * Math.pow(x[1], 2)
+    + Math.pow(x[1], 4);
+  let imaginary =
+    4 * Math.pow(x[0], 3) * x[1]
+    - 4 * x[0] * Math.pow(x[1], 3);
+  if (real === -0) {
+    real = 0;
+  }
+  if (imaginary === -0) {
+    imaginary = 0;
+  }
+  return [real, imaginary];
 }
 
 export function pow5(x: Complex): Complex {
-  const real = 
+  let real =
     Math.pow(x[0], 5)
-    - 10 *  Math.pow(x[0], 3) * Math.pow(x[1], 2)
-    + 5 * x[0] * Math.pow(x[1], 4)
-
-  ;
-  const imaginary = 
-    + Math.pow(x[1], 5) 
-    + 5 *  Math.pow(x[0], 4) * x[1]
-    - 10 *  Math.pow(x[0], 2) * Math.pow(x[1], 3)
-
-  ;
-  return [ plusZero(real), plusZero(imaginary) ];
+    - 10 * Math.pow(x[0], 3) * Math.pow(x[1], 2)
+    + 5 * x[0] * Math.pow(x[1], 4);
+  let imaginary =
+    + Math.pow(x[1], 5)
+    + 5 * Math.pow(x[0], 4) * x[1]
+    - 10 * Math.pow(x[0], 2) * Math.pow(x[1], 3);
+  if (real === -0) {
+    real = 0;
+  }
+  if (imaginary === -0) {
+    imaginary = 0;
+  }
+  return [real, imaginary];
 }
 
 export function cByC(num: Complex, den: Complex): Complex {
@@ -93,6 +98,8 @@ export function lengthNumArray(array: number[]): number {
 
 export function sum2Complex(nums: number[]): Complex {
   // reduce or variable-lenghth arrays not compatible with gpu
+  return [nums[0] + nums[2], nums[1] + nums[3]]
+}
 
 function addExpressionToPolynomial(poly: string, coefficient: number, degree: number): string {
   let expr: string = '';

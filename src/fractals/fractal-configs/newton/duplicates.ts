@@ -5,7 +5,6 @@
 */
 
 import { Complex } from "../../../types";
-import { FunctionCallback } from "./algorithm";
 import { cByC, rp, rxC, sum2Complex } from "./maths-helpers";
 import { compareToAttractors, evaluateDerivative, evaluatePolynomial } from "./newton-algorithm";
 
@@ -25,29 +24,62 @@ export function newtonIterationTestable(
   return [rp(sum[0], 4), rp(sum[1], 4)];
 }
 
+export function compareToKnownRoots(
+  val: Complex,
+  r0r: number,
+  r0i: number,
+  r1r: number,
+  r1i: number,
+  r2r: number,
+  r2i: number,
+  r3r: number,
+  r3i: number,
+  r4r: number,
+  r4i: number,
+): number {
+  let i = compareToAttractors(val, r0r, r0i, r1r, r1i, 0);
+  if (i !== -1) return i;
+  i = compareToAttractors(val, r2r, r2i, r3r, r3i, 1);
+  if (i !== -1) return i;
+  return compareToAttractors(val, r4r, r4i, 0, 0, 2);
+}
+
 export function findIndexOfAttractor(
-  // attractors: Complex[],
+  r0r: number,
+  r0i: number,
+  r1r: number,
+  r1i: number,
+  r2r: number,
+  r2i: number,
+  r3r: number,
+  r3i: number,
+  r4r: number,
+  r4i: number,
   input: Complex,
-  index: number,
   constant: number,
   co1: number,
   co2: number,
   co3: number,
   co4: number,
   co5: number,
-): number {
-  // if (index !== -1) {
-  //   return i;
-  // }
+): number[] {
   let val = input;
   val = newtonIterationTestable(input, constant, co1, co2, co3, co4, co5);
-  // i = compareToAttractors(val, attractors);
-  // return findIndexOfAttractor(attractors, val, i, constant, co1, co2, co3, co4, co5);
-  return 1;
+  const i = compareToKnownRoots(val, r0r, r0i, r1r, r1i, r2r, r2i, r3r, r3i, r4r, r4i);
+  return [i, val[0], val[1]];
 }
 
 export function findNewtonAttractorTestable(
-  // attractors: Complex[],
+  r0r: number,
+  r0i: number,
+  r1r: number,
+  r1i: number,
+  r2r: number,
+  r2i: number,
+  r3r: number,
+  r3i: number,
+  r4r: number,
+  r4i: number,
   input: Complex,
   constant: number,
   co1: number,
@@ -58,8 +90,17 @@ export function findNewtonAttractorTestable(
 ): number {
 
   let index = -1;
+  let value = input;
   while (index === -1) {
-    index = findIndexOfAttractor(input, index, constant, co1, co2, co3, co4, co5);
+    const res = findIndexOfAttractor(
+      r0r, r0i,
+      r1r, r1i,
+      r2r, r2i,
+      r3r, r3i,
+      r4r, r4i,
+      value, constant, co1, co2, co3, co4, co5);
+      index = res[0]
+      value = [res[1], res[2]];
   }
   return index;
 }

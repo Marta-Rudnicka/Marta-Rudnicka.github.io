@@ -6,6 +6,7 @@ import {
   pow3,
   pow4,
   pow5,
+  rp,
   rxC,
   sum2Complex
 } from "../maths-helpers";
@@ -67,13 +68,13 @@ describe('should correctly multiply real number as comples number represented by
     expect(rxC(4, [0, -2])).toStrictEqual([0, -8])
   });
   it('should correctly multiply complex number', () => {
-    expect(rxC(3, [-1, 2 ])).toStrictEqual([-3, 6]);
+    expect(rxC(3, [-1, 2])).toStrictEqual([-3, 6]);
   });
 });
 
 describe.skip('should sum an array of number as complex number represented by array', () => {
   it('should correctly add real numbers', () => {
-    expect(sum2Complex([3, 0, 4, 0, 5, 0 ])).toStrictEqual([12, 0])
+    expect(sum2Complex([3, 0, 4, 0, 5, 0])).toStrictEqual([12, 0])
   });
 
   it('should correctly add imaginary numbers', () => {
@@ -81,7 +82,7 @@ describe.skip('should sum an array of number as complex number represented by ar
   });
 
   it('should correctly add complex numbers', () => {
-    expect(sum2Complex([1, 3, 2, 5, 3, 60 ])).toStrictEqual([6, 68])
+    expect(sum2Complex([1, 3, 2, 5, 3, 60])).toStrictEqual([6, 68])
   });
 });
 
@@ -151,5 +152,14 @@ describe('getPolynomialString', () => {
     expect(equation).toBe(expected);
     const eq = Algebrite.run(equation)
     Algebrite.nroots(eq)
+  });
+});
+
+describe('rp', () => {
+  it('should round a slightly larger number to desired precision', () => {
+    expect(rp(3.1234, 2)).toStrictEqual(3.12);
+  });
+  it('should round a slightly smaller number to desired precision', () => {
+    expect(rp(3.119, 2)).toStrictEqual(3.12);
   });
 });

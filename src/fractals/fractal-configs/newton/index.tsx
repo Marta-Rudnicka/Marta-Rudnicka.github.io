@@ -17,9 +17,9 @@ const sliderProps = {
 function controlsChildren() {
   return (
     <div className="large-eq">
-      <MathJaxContext>
+      {/* <MathJaxContext>
         <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex + f = 0 \\)'}</MathJax>
-      </MathJaxContext>
+      </MathJaxContext> */}
     </div >
   )
 }
@@ -28,9 +28,9 @@ function getInfo(m: string) {
   return (
     <div>
       {m} in  
-    <MathJaxContext>
+    {/* <MathJaxContext>
       <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex + f = 0 \\)'}</MathJax>
-    </MathJaxContext> 
+    </MathJaxContext>  */}
     </div>
   )
 }

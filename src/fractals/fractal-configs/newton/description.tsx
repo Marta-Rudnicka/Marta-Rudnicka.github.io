@@ -4,10 +4,10 @@ import { MathJaxContext, MathJax } from 'better-react-mathjax';
 export function Description() {
   return (
     <>
-    <MathJaxContext>
+    {/* <MathJaxContext>
     <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex +f = 0\\)'}</MathJax>
 
-    </MathJaxContext>
+    </MathJaxContext> */}
       <p>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar, ipsum eget consequat 
         porttitor, nisi erat lobortis arcu, bibendum molestie velit felis sed urna. Vestibulum ac libero 
         vulputate, bibendum sapien eu, aliquet neque. Duis aliquet congue pretium. Donec orci quam, 

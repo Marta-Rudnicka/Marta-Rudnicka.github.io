@@ -1,12 +1,9 @@
 import { Complex, PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { convertKernelToImgData, getComplexPartsForPixels, getMultiplier } from "../../gpu-utils";
-import { parse, simplify } from "mathjs";
-import { Solution, Solutions } from "../../../types-algebrite";
-import { c, cByC, lengthNumArray, plusZero, pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
-import { findNewtonAttractorTestable, newtonIterationTestable, findIndexOfAttractor } from "./duplicates";
+import { c, cByC, getPolynomialStringForNroots, lengthNumArray, pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
+import { findNewtonAttractorTestable, newtonIterationTestable, findIndexOfAttractor, compareToKnownRoots } from "./duplicates";
 import { compareToAttractors, evaluateDerivative, evaluatePolynomial, solve } from "./newton-algorithm";
-const Algebrite = require('algebrite');
 
 export type FunctionCallback = (x: Complex) => Complex;
 export type NewtonInputs = {
@@ -15,36 +12,28 @@ export type NewtonInputs = {
   co2: number,
   co3: number,
   co4: number,
-  co5: number, 
+  co5: number,
 }
+export type flattenedAttractorList = [number, number, number, number, number, number, number, number, number, number];
 
 function getNewtonColour(i: number): PixelValue {
-  if (i ===0 ) return [0, 250, 0, 255];
-  if (i ===1 ) return [250, 0, 0, 255];
+  if (i === 0) return [0, 250, 0, 255];
+  if (i === 1) return [250, 0, 0, 255];
   if (i === 2) return [0, 0, 250, 255];
   if (i === 3) return [250, 250, 0, 255];
   if (i === 4) return [250, 0, 250, 255];
   return [0, 0, 0, 0]
 };
 
-function checkTestAreValid(kernelFunction: string, duplicate: string): void {
-  if(kernelFunction !== duplicate.replaceAll('Testable', '')) {
-    throw new Error(`${kernelFunction} out of sync with the unit tests`);
-  }
-}
-
 export function getKernel(
-  size: number,
-  xReal: number,
-  xImaginary: number,
-  evaluate: FunctionCallback,
-  getDerivative: FunctionCallback,
+  complexPlaneArgs: number[],
+  userInputs: number[],
+  roots: number[],
 ): IKernelRunShortcut {
+
   const gpu = new GPU();
   gpu.addFunction(lengthNumArray);
   gpu.addFunction(getComplexPartsForPixels);
-  gpu.addFunction(evaluate);
-  gpu.addFunction(getDerivative);
   gpu.addFunction(compareToAttractors);
   gpu.addFunction(getNewtonColour);
   gpu.addFunction(getMultiplier);
@@ -61,24 +50,39 @@ export function getKernel(
   gpu.addFunction(pow3);
   gpu.addFunction(pow4);
   gpu.addFunction(pow5);
-  gpu.addFunction(plusZero);
   gpu.addFunction(c);
   gpu.addFunction(rp);
+  gpu.addFunction(compareToKnownRoots);
 
   const kernel = gpu.createKernel(function (
-    startValueX: number,
-    startValueY: number,
-    inc: number,
-    xReal: number,
-    xImaginary: number,
-    attractors: Complex[],
-    constant: number,
-    co1: number,
-    co2: number,
-    co3: number,
-    co4: number,
-    co5: number
+    complexPlaneArgs: number[],
+    userInputs: number[],
+    roots: number[],
   ) {
+    // passed as an array because GPU
+    const startValueX = complexPlaneArgs[1];
+    const startValueY = complexPlaneArgs[2];
+    const inc = complexPlaneArgs[3];
+
+    const constant = userInputs[0];
+    const co1 = userInputs[1];
+    const co2 = userInputs[2];
+    const co3 = userInputs[3];
+    const co4 = userInputs[4];
+    const co5 = userInputs[5];
+
+    const r0r = roots[0];
+    const r0i = roots[1];
+    const r1r = roots[2];
+    const r1i = roots[3];
+    const r2r = roots[4];
+    const r2i = roots[5];
+    const r3r = roots[6];
+    const r3i = roots[7];
+    const r4r = roots[8];
+    const r4i = roots[9];
+
+
     const values = getComplexPartsForPixels(
       this.thread.x,
       this.thread.y,
@@ -87,83 +91,30 @@ export function getKernel(
       inc
     );
 
-    // function newtonIteration(
-    //   // evaluate: FunctionCallback, 
-    //   // getDerivative: FunctionCallback, 
-    //   val: Complex
-    // ): Complex {
-    //   // const num = evaluate(val);
-    //   // const den = getDerivative(val);
-    //   // const div = rxC(-1, cByC(num, den));
-    //   console.log('val:', val)
-    //   // const res = sumComplex([[1, 2], div]);
-    //   // return [rp(real, 4), rp(imaginary, 4)];
-    //   return [666, 666]
-    // }
-
-    // newtonIteration([3, 0])
-
-    // function findNewtonAttractor(
-    //   attractors: Complex[],
-    //   input: Complex,
-    //   evaluate: FunctionCallback,
-    //   getDerivative: FunctionCallback
-    // ): number {
-
-    //   const res = newtonRecursion(attractors, input, evaluate, getDerivative, -1)
-    //   return res;
-    // }
-
-    // function newtonRecursion(
-    //   attractors: Complex[],
-    //   input: Complex,
-    //   evaluate: FunctionCallback,
-    //   getDerivative: FunctionCallback,
-    //   index: number
-    // ): number {
-    //   if (index !== -1) {
-    //     return index;
-    //   }
-    //   let val = input;
-    //   val = newtonIteration(evaluate, getDerivative, val);
-    //   index = compareToAttractors(val, attractors);
-    //   return newtonRecursion(attractors, val, evaluate, getDerivative, index);
-    // }
-
-    // checkTestAreValid(newtonIteration.toString(), newtonIterationTestable.toString());
-    // checkTestAreValid(newtonRecursion.toString(), newtonRecursionTestable.toString());
-    // checkTestAreValid(findNewtonAttractor.toString(), findNewtonAttractorTestable.toString());
-
-
     const index = findNewtonAttractorTestable(
-      // attractors,
+      r0r, r0i,
+      r1r, r1i,
+      r2r, r2i,
+      r3r, r3i,
+      r4r, r4i,
       values,
-      constant,
-      co1,
-      co2,
-      co3,
-      co4,
-      co5
+      constant, co1, co2, co3, co4, co5
     );
 
     const res = getNewtonColour(index);
     return res;
-  }).setOutput([size, size]);
+  }).setOutput([complexPlaneArgs[0], complexPlaneArgs[0]]);
   return kernel;
 }
 
-function placeholderCallback(input: Complex): Complex {
-  return input;
-}
-
-const placeholderInput = {
-    constant: 0,
-    co1: 0,
-    co2: 0,
-    co3: 0,
-    co4: 0,
-    co5: 1, 
-}
+// const placeholderInput = {
+//   constant: 0,
+//   co1: 1,
+//   co2: 3,
+//   co3: 0,
+//   co4: 0,
+//   co5: 1,
+// }
 
 export function createImageData(
   size: number,
@@ -171,30 +122,40 @@ export function createImageData(
   range: number,
   xReal: number,
   xImaginary: number,
-  polnoymialFunction?: FunctionCallback,
-  polynomialDerivative?: FunctionCallback,
-  input?: NewtonInputs,
+  i?: NewtonInputs,
 ) {
   // to make TypeScript happy
-  const poly = polnoymialFunction || placeholderCallback;
-  const der = polynomialDerivative || placeholderCallback;
-  const i = input || placeholderInput;
-  const spreadInput = [i.constant, i.co1, i.co2, i.co3, i.co4, i.co5];
+  // const i = input || placeholderInput;
+  // const spreadInput = [i.constant, i.co1, i.co2, i.co3, i.co4, i.co5];
   const inc = range / size;
-  const startReal = startValue[0];
-  const startImaginary = startValue[1];
-  const kernel = getKernel(size, xReal, xImaginary, poly, der);
-  const polynomialString = `${i.co5}x^5+${i.co4}x^4+${i.co3}x^3+${i.co2}x^2+${i.co1}x+${i.constant}`;
-  console.log({polynomialString})
+  const input: NewtonInputs = i ? {...i} : {
+    constant: 1,
+    co1: 1,
+    co2: 1,
+    co3: 1,
+    co4: 0,
+    co5: 0,
+  };
+  const polynomialString = getPolynomialStringForNroots(
+    input?.constant,
+    input?.co1,
+    input?.co2,
+    input?.co3,
+    input?.co4,
+    input?.co5,
+  );
+
   const attractors = solve(polynomialString);
+  const kernel = getKernel(
+    [ size, startValue[0], startValue[1], inc ],
+    [ input?.constant, input.co1, input.co2, input.co3, input.co4, input.co5 ],
+    [ ...attractors ],
+  );
+
   const kernelDump = kernel(
-    startValue[0],
-    startValue[1],
-    inc,
-    1,
-    2,
-    attractors,
-    ...spreadInput) as number[][][];
-  // const kernelDump = [[[0,0,0,0]]]
+    [ size, startValue[0], startValue[1], inc ],
+    [ input?.constant, input.co1, input.co2, input.co3, input.co4, input.co5 ],
+    [ ...attractors ],
+  ) as number[][][];
   return convertKernelToImgData(kernelDump, size)
 }
