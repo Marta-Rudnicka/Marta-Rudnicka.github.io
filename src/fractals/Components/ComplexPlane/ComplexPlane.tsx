@@ -4,7 +4,18 @@ import { getSize } from "../../utils";
 import { FractalDisplay } from "../FractalDisplay";
 import { ComplexPlaneAltControls } from "./altControls";
 import { NewtonInputs } from "../../fractal-configs/newton/newton-algorithm";
-
+type ComplexPlaneDrawParams = {
+  imageData: ImageData,
+  pixelOffset: Point,
+  xReal: number,
+  xImaginary: number,
+  constant?: number,
+  co1?: number,
+  co2?: number,
+  co3?: number,
+  co4?: number,
+  co5?: number,
+}
 type ComplexPlaneProps = MainFractalControlProps & {
   createImageData: (
     size: number,
@@ -18,6 +29,7 @@ type ComplexPlaneProps = MainFractalControlProps & {
   range: number,
   xReal: number,
   xImaginary: number,
+  drawParameters?: NewtonInputs,
 }
 
 export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
@@ -28,13 +40,15 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [range, setRange] = useState(props.range);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [pixelOffset, setPixelOffset] = useState([0, 0] as Point)
-  const imageData = useMemo(() => 
+
+  const imageData = useMemo(() =>
     props.createImageData(
       canvasSize,
       startValue,
       range,
       props.xReal,
       props.xImaginary,
+      props.drawParameters,
     ), [canvasSize, range, startValue, props]);
   const startDragPosition = useRef([0, 0] as Point);
   const offset = useRef([0, 0] as Point);
@@ -135,6 +149,13 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     }
   };
 
+  const complexDrawParameters: ComplexPlaneDrawParams = {
+    ...props.drawParameters,
+    imageData,
+    pixelOffset: pixelOffset,
+    xReal: props.xReal,
+    xImaginary: props.xImaginary,
+  }
   return (
     <ComplexPlaneAltControls
       handleMouseUp={handleMouseUp}
@@ -150,12 +171,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
         canvasSize={canvasSize}
         description={props.description}
         draw={props.draw}
-        drawParameters={{
-          imageData,
-          pixelOffset: pixelOffset,
-          xReal: props.xReal,
-          xImaginary: props.xImaginary,
-        }}
+        drawParameters={complexDrawParameters}
         fullScreen={fullScreen}
         nextLink={props.nextLink}
         prevCanvasSize={100}

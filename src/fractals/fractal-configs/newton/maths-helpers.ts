@@ -109,8 +109,8 @@ function addExpressionToPolynomial(poly: string, coefficient: number, degree: nu
   if (poly && coefficient > 0) {
     expr = '+';
   }
-  if (coefficient !== 0 && coefficient !== 1) {
-    expr = expr + coefficient;
+  if (coefficient !== 0) {
+    expr = expr + coefficient * 10;
   }
   expr = expr + 'x';
   if (degree !== 1) {
@@ -135,7 +135,7 @@ export function getPolynomialStringForNroots(
   poly = addExpressionToPolynomial(poly, co2, 2);
   poly = addExpressionToPolynomial(poly, co1, 1);
   if (c) {
-    const constantStr = c > 0 ? `+${c}` : c;
+    const constantStr = c > 0 ? `+${c*10}` : c*10;
     poly = poly + constantStr;
   }
   return poly;

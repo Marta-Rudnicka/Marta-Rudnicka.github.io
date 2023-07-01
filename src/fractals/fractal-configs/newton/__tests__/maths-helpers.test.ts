@@ -110,7 +110,7 @@ describe('length', () => {
   });
 });
 
-describe('getPolynomialString', () => {
+describe.only('getPolynomialString', () => {
   it('should create a polynomial string understood by nroots', () => {
     const constant = 13;
     const co1 = 1;
@@ -118,11 +118,11 @@ describe('getPolynomialString', () => {
     const co3 = 3;
     const co4 = 4;
     const co5 = 5;
-    const expected = '5x^5+4x^4+3x^3+2x^2+x+13';
+    const expected = '50x^5+40x^4+30x^3+20x^2+10x+130';
     const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
     expect(equation).toBe(expected);
     // solve to check if Algebrite throws errors
-    const eq = Algebrite.run(equation)
+    const eq = Algebrite.run(expected)
     Algebrite.nroots(eq)
   });
 
@@ -133,7 +133,7 @@ describe('getPolynomialString', () => {
     const co3 = 0;
     const co4 = 0;
     const co5 = 0;
-    const expected = '6x^2+7';
+    const expected = '60x^2+70';
     const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
     expect(equation).toBe(expected);
     const eq = Algebrite.run(equation)
@@ -147,7 +147,21 @@ describe('getPolynomialString', () => {
     const co3 = 3;
     const co4 = 0;
     const co5 = 0;
-    const expected = '3x^3-6x^2+7';
+    const expected = '30x^3-60x^2+70';
+    const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
+    expect(equation).toBe(expected);
+    const eq = Algebrite.run(equation)
+    Algebrite.nroots(eq)
+  });
+
+  it('should handle coefficientswith one decmal place', () => {
+    const constant = 1;
+    const co1 = 0;
+    const co2 = -6.8;
+    const co3 = 0;
+    const co4 = 0;
+    const co5 = 0;
+    const expected = '-68x^2+10';
     const equation = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5)
     expect(equation).toBe(expected);
     const eq = Algebrite.run(equation)

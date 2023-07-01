@@ -106,35 +106,20 @@ export function getKernel(
   return kernel;
 }
 
-// const placeholderInput = {
-//   constant: 0,
-//   co1: 1,
-//   co2: 3,
-//   co3: 0,
-//   co4: 0,
-//   co5: 1,
-// }
-
 export function createImageData(
   size: number,
   startValue: Complex,
   range: number,
   xReal: number,
   xImaginary: number,
-  i?: NewtonInputs,
+  input?: NewtonInputs,
 ) {
-  // to make TypeScript happy
-  // const i = input || placeholderInput;
-  // const spreadInput = [i.constant, i.co1, i.co2, i.co3, i.co4, i.co5];
   const inc = range / size;
-  const input: NewtonInputs = i ? {...i} : {
-    constant: 1,
-    co1: 1,
-    co2: 1,
-    co3: 1,
-    co4: 0,
-    co5: 0,
-  };
+  if(!input) {
+    const arr = new Uint8ClampedArray(size * size * 4);
+    return new ImageData(arr, size);
+  }
+
   const polynomialString = getPolynomialStringForNroots(
     input?.constant,
     input?.co1,
