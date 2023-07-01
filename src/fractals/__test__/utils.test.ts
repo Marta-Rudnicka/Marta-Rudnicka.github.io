@@ -1,4 +1,5 @@
 import { Point, Rectangle, Triangle } from "../../types";
+import { roundInput } from "../Components/Controls/SliderControl";
 import { calculateActiveArea, findAffectedPoint, getCanvasSize, rescale, withinRange } from "../utils"
 
 describe('getSize', () => {
@@ -127,5 +128,13 @@ describe('calculateActiveArea', () => {
     } as Rectangle;
     const output = calculateActiveArea([100, 200], 30);
     expect(JSON.stringify(output)).toBe(JSON.stringify(expected));
+  })
+});
+
+describe('roundInput', () => {
+  it('should round input according to step size', () => {
+    expect(roundInput(3.89798, 0.1)).toBe(3.9);
+    expect(roundInput(3.89798, 1)).toBe(4);
+    expect(roundInput(3.49798, 0.5)).toBe(3.5);
   })
 });

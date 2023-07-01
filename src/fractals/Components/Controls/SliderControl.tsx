@@ -14,9 +14,18 @@ export type SliderControlProps = {
   stepSize?: number
 }
 
+export function roundInput(i: number, stepSize: number) {
+  let fixedVal = 0;
+  const log = Math.log10(stepSize);
+  if (log < 0) {
+    fixedVal = Math.abs(log -1);
+  }
+  return parseFloat(i.toFixed(fixedVal));
+}
+
 export function SliderControl(props: SliderControlProps){
   const [isOpen, setIsOpen] = useState(false);
-  
+
   function toggleIsOpen(){
     if (isOpen) {
       setIsOpen(false);
@@ -35,11 +44,11 @@ export function SliderControl(props: SliderControlProps){
           max={props.maxValue}
           value={props.value}
           labelStepSize={props.labelStepSize || props.maxValue - props.minValue}
-          onChange={e => props.setValue(e)}
+          onChange={e => props.setValue(roundInput(e, props.stepSize || 1))}
           labelPrecision={props.labelPrecision || 1}
-          stepSize={props.stepSize || 1}  
+          stepSize={props.stepSize || 1}
         >
-          Example text  
+          Example text
         </Slider>
     </div>
   );
