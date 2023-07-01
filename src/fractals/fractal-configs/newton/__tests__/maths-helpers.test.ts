@@ -72,17 +72,17 @@ describe('should correctly multiply real number as comples number represented by
   });
 });
 
-describe.skip('should sum an array of number as complex number represented by array', () => {
+describe('should sum an array of number as complex number represented by array', () => {
   it('should correctly add real numbers', () => {
-    expect(sum2Complex([3, 0, 4, 0, 5, 0])).toStrictEqual([12, 0])
+    expect(sum2Complex([3, 0, 4, 0])).toStrictEqual([7, 0])
   });
 
   it('should correctly add imaginary numbers', () => {
-    expect(sum2Complex([0, 3, 0, 5, 0, 60])).toStrictEqual([0, 68])
+    expect(sum2Complex([0, 3, 0, 5])).toStrictEqual([0, 8])
   });
 
   it('should correctly add complex numbers', () => {
-    expect(sum2Complex([1, 3, 2, 5, 3, 60])).toStrictEqual([6, 68])
+    expect(sum2Complex([1, 3, 2, 5])).toStrictEqual([3, 8])
   });
 });
 

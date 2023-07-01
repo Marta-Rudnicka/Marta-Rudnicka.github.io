@@ -189,13 +189,13 @@ describe('findNewtonAttractor', () => {
 
   it('should return the index of the right attractor for values distant from the root', () => {
     expect(findNewtonAttractor(...attractors, [20, 0], ...userInput)).toStrictEqual(0);
-    // expect(findNewtonAttractor(...attractors, [-60, 5], ...userInput)).toStrictEqual(0);
+    expect(findNewtonAttractor(...attractors, [-60, 5], ...userInput)).toStrictEqual(0);
 
-    // expect(findNewtonAttractor(...attractors, [12, -40], ...userInput)).toStrictEqual(1);
-    // expect(findNewtonAttractor(...attractors, [10.78, -20], ...userInput)).toStrictEqual(1);
+    expect(findNewtonAttractor(...attractors, [12, -40], ...userInput)).toStrictEqual(1);
+    expect(findNewtonAttractor(...attractors, [10.78, -20], ...userInput)).toStrictEqual(1);
 
-    // expect(findNewtonAttractor(...attractors, [12, 5], ...userInput)).toStrictEqual(2);
-    // expect(findNewtonAttractor(...attractors, [10.78, 80], ...userInput)).toStrictEqual(2);
+    expect(findNewtonAttractor(...attractors, [12, 5], ...userInput)).toStrictEqual(2);
+    expect(findNewtonAttractor(...attractors, [10.78, 80], ...userInput)).toStrictEqual(2);
   });
 });
 
