@@ -18,6 +18,7 @@ export function JuliaSet() {
     setValue: setCReal,
     stepSize: 0.05,
     labelPrecision: 2,
+    tabIndex: 1,
   },
   {
     value: cImaginary,
@@ -28,6 +29,7 @@ export function JuliaSet() {
     setValue: setCImaginary,
     stepSize: 0.05,
     labelPrecision: 2,
+    tabIndex: 2,
   }];
 
   return (<ComplexPlaneFractalDisplay
@@ -42,6 +44,7 @@ export function JuliaSet() {
     title="Julia Set - demo"
     xReal={cReal}
     xImaginary={cImaginary}
+    descriptionTabIndex={7}
   />
   );
 }

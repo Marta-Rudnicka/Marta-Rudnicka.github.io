@@ -142,6 +142,7 @@ export function SierpinskiTriangle() {
     setFullScreen={setFullScreen}
     sliders={sliders}
     title="Sierpiński triangle"
+    descriptionTabIndex={12}
   />
   );
 }

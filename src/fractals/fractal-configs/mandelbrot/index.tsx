@@ -20,6 +20,7 @@ export function MandelbrotSet() {
     title="Mandelbrot Set"
     xReal={0}
     xImaginary={0}
+    descriptionTabIndex={7}
   />
   );
 }

@@ -7,6 +7,7 @@ import { ChevronUp } from "../../../components/icons/ChevronUp";
 
 type ControlsProps = ControlProps & {
   allVisible: boolean,
+  initTabIndex: number,
 }
 
 type AltControlProps = {
@@ -14,7 +15,8 @@ type AltControlProps = {
 }
 
 function renderSliderControls(
-  sliders: SliderControlProps[]
+  sliders: SliderControlProps[],
+  initTabIndex: number,
 ): ReactNode[] {
   return sliders.map(slider =>
     <SliderControl
@@ -27,11 +29,15 @@ function renderSliderControls(
       info={slider.info}
       stepSize={slider.stepSize}
       labelPrecision={slider.labelPrecision}
+      tabIndex={slider.tabIndex + initTabIndex}
     />
   );
 }
 
-function renderButtonPairs(buttonsPairs: ButtonPairControlProps[]): ReactNode[] {
+function renderButtonPairs(
+  buttonsPairs: ButtonPairControlProps[],
+  initTabIndex: number,
+  ): ReactNode[] {
   return buttonsPairs.map(bp =>
     <ButtonPairControl
       key={bp.info}
@@ -40,6 +46,7 @@ function renderButtonPairs(buttonsPairs: ButtonPairControlProps[]): ReactNode[] 
       info={bp.info}
       label1={bp.label1}
       label2={bp.label2}
+      tabIndex={initTabIndex + bp.tabIndex}
     />
   );
 }
@@ -78,8 +85,9 @@ export function ControlsBody(props: ControlsProps) {
   if (props.fullScreen! && props.allVisible) {
     return null;
   }
-  const sliders = renderSliderControls(props.sliders)
-  const buttons = renderButtonPairs(props.buttonPairs)
+  const initTabIndex = props.fullScreen ? 3 : 10;
+  const sliders = renderSliderControls(props.sliders, initTabIndex)
+  const buttons = renderButtonPairs(props.buttonPairs, initTabIndex)
 
   return (
     <div>

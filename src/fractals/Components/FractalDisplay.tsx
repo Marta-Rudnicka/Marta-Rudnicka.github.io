@@ -12,6 +12,7 @@ export type FractalDisplayProps = MainFractalControlProps & {
   fullScreen: boolean;
   prevCanvasSize?: number | null,
   setFullScreen: Dispatch<SetStateAction<boolean>>
+  descriptionTabIndex: number;
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
@@ -73,6 +74,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
       nextLink={props.nextLink}
       canvasSize={canvasSize}
       canvasInputs={props.canvasInputs}
+      descriptionTabIndex={props.descriptionTabIndex}
     />
   );
 }

@@ -20,6 +20,7 @@ export function Canvas(props: CanvasProps) {
 
   const { size } = props; //getSize(props.fullScreen);
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
+  const tabIndex = props.fullScreen ? 12 : 10
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter') {
@@ -73,6 +74,7 @@ export function Canvas(props: CanvasProps) {
             className="change-view-icon"
             onClick={props.handleClick}
             onKeyDown={handleKeyboardInput}
+            tabIndex={tabIndex}
           >
             {props.fullScreen
               ? <ExitFullScreen width={25} height={25} />

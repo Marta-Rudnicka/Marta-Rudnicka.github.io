@@ -12,6 +12,7 @@ type DefaultLayoutProps = FullScreenLayoutProps & {
   extraControls?: ReactElement;
   prevLink?: string;
   nextLink?: string;
+  descriptionTabIndex: number;
 }
 
 export function DefaultLayout(props: DefaultLayoutProps) {
@@ -27,7 +28,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
       <h1>{props.title}</h1>
       <div className="default-layout-inner">
         <div className="top-row" style={{ height:height}}>
-          <div className="canvas floating-box">
+          <div className="canvas floating-box" tabIndex={9}>
             <Canvas
               canvasInputs={props.canvasInputs}
               fullScreen={false}
@@ -37,10 +38,10 @@ export function DefaultLayout(props: DefaultLayoutProps) {
               size={props.canvasSize}
             />
           </div>
-          <div className="controls floating-box">
+          <div className="controls floating-box" tabIndex={10}>
             {props.controls}
           </div>
-          <div className="description floating-box">
+          <div className="description" tabIndex={props.descriptionTabIndex}>
             {props.description}
           </div>
         </div>
@@ -48,7 +49,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           {props.extraControls &&
             props.extraControls
           }
-          <AppNav
+          <AppNav descriptionTabIndex={props.descriptionTabIndex}
             prevLink={props.prevLink}
             nextLink={props.nextLink}
           />

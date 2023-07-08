@@ -19,6 +19,7 @@ export function CantorSet() {
     prevLink="/#/sierpinski"
     setFullScreen={setFullScreen}
     title="Cantor set - placeholder"
+    descriptionTabIndex={6}
   />
   );
 }

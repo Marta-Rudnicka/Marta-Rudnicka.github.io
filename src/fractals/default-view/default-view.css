@@ -38,6 +38,8 @@ body {
 
 .controls {
   grid-column: 2;
+  box-shadow: 3px 3px 40px #5d1a5d;
+  border: solid 1px #5d1a5d;  /* border: #31cece solid 1px; */
 }
 
 .description {
@@ -45,6 +47,8 @@ body {
   grid-row: 2/4;
   padding: 0 10px;
   overflow-y: scroll;
+  background-color: #282c34;
+  /* background-color: red; */
 }
 
 .app-nav {

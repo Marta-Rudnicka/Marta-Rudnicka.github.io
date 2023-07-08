@@ -15,7 +15,8 @@ export type ControlProps = {
 
 export function Controls(props: ControlProps) {
   const [allVisible, setAllVisible] = useState(!props.fullScreen);
-
+  const initTabIndex = props.fullScreen ? 3 : 10;
+  console.log({initTabIndex })
   return (
     <>
       <div className="control-header-wrapper">
@@ -28,6 +29,7 @@ export function Controls(props: ControlProps) {
       {props.children}
       <ControlsBody
         {...props}
+        initTabIndex={initTabIndex}
         allVisible={allVisible}
       />
     </>
