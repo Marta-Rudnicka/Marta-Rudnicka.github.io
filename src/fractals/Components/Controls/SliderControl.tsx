@@ -1,6 +1,7 @@
-import { Collapse, Slider } from "@blueprintjs/core";
+import { Slider as BlueprintSlider, Collapse } from "@blueprintjs/core";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { Info } from "../../../components/icons/Info";
+import { Slider } from "./Slider";
 
 export type SliderControlProps = {
   label: string;
@@ -11,7 +12,8 @@ export type SliderControlProps = {
   setValue: Dispatch<SetStateAction<number>>
   labelStepSize? : number
   labelPrecision?: number;
-  stepSize?: number
+  stepSize?: number;
+  tabIndex: number;
 }
 
 export function roundInput(i: number, stepSize: number) {
@@ -36,20 +38,18 @@ export function SliderControl(props: SliderControlProps){
 
   return (
     <div className="slider-container">
-      <label>{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
+      <label >{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
       <Collapse isOpen={isOpen}>{props.info}</Collapse>
+      <div tabIndex={props.tabIndex}>
         <Slider
-          showTrackFill
-          min={props.minValue}
-          max={props.maxValue}
+          minValue={props.minValue}
+          maxValue={props.maxValue}
           value={props.value}
-          labelStepSize={props.labelStepSize || props.maxValue - props.minValue}
-          onChange={e => props.setValue(roundInput(e, props.stepSize || 1))}
-          labelPrecision={props.labelPrecision || 1}
+          setValue={props.setValue}
           stepSize={props.stepSize || 1}
-        >
-          Example text
-        </Slider>
+          tabIndex={props.tabIndex}
+        />
+        </div>
     </div>
   );
 }

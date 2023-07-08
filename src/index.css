@@ -125,3 +125,16 @@ div:focus, section:focus, a:focus {
   box-shadow: 3px 3px 5px #31cece;
   border: #31cece solid 1px;
 }
+
+.slider-input {
+  width: 100%;
+}
+
+.slider-input-container {
+  width:100%;
+  display: flex;
+}
+
+.slider-input-container div {
+  width:25px;
+}

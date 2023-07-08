@@ -104,6 +104,7 @@ export function SierpinskiTriangle() {
     maxValue: getIterationsNumber(fullScreen),
     minValue: 1,
     setValue: (value) => handleSliderInput(value as number),
+    tabIndex: 1,
   }];
 
   const canvasInputs: canvasInputs = {
