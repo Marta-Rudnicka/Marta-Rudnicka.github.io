@@ -116,3 +116,12 @@ section {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
 }
+
+.iteration-table td {
+  width: 70px;
+}
+
+div:focus, section:focus, a:focus {
+  box-shadow: 3px 3px 5px #31cece;
+  border: #31cece solid 1px;
+}
