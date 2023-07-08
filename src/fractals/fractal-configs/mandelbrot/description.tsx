@@ -14,37 +14,37 @@ export function Description() {
         In case of Newton’t fractal, the orbits were observing sooner or later gravitated towards one of the solutions of the equation, and each solution was denoted by a colour. In Mandelbrot set we are following only two options: a cycle or escaping to infinity, which will be explained below.
         For every orbit, the seed, or the z in {`\\(z^2 + c \\)`}, is equal to 0. What changes is the value of c – each pixel represents one complex number that will be used as c.
         For example, to get through the first few steps in finding the orbit for c = 1:</p>
-      <ul>
-        <li>Step 1: {`\\(0^2 + 1 = 1 \\)`}</li>
-      </ul>
+      <table className="iteration-table">
+        <tr>
+          <td>Step 1</td><td>{`\\(0^2 + 1 = 1 \\)`}</td>
+        </tr>
+      </table>
       <p>Now, we’re taking result of the first iteration, and use it as z:</p>
-
-      <ul>
-        <li>Step 2:  {`\\(1^2 + 1 = 2 \\)`}</li>
-      </ul>
+      <table className="iteration-table">
+        <tr><td>Step 2</td><td>{`\\(1^2 + 1 = 2 \\)`}</td></tr>
+      </table>
       <p>And so on:</p>
-      <ul>
-        <li>Step 3: {`\\(2^2 + 1 = 5 \\)`}</li>
-        <li>Step 4: {`\\(5^2 + 1 = 26 \\)`}</li>
-        <li>Step 5: {`\\(26^2 + 1 = 677 \\)`}</li>
-      </ul>
+      <table className="iteration-table">
+        <tr><td>Step 3</td><td>{`\\(2^2 + 1 = 5 \\)`}</td></tr>
+        <tr><td>Step 4</td><td>{`\\(5^2 + 1 = 26 \\)`}</td></tr>
+        <tr><td>Step 5</td><td>{`\\(26^2 + 1 = 677 \\)`}</td></tr>
+      </table>
+      <p> So we know that the orbit starts with: 1, 2, 5, 26, 677.</p>
       <p>
-
-        So we know that the orbit starts with: 1, 2, 5, 26, 677.
-      </p><p>
         We can see tell that the following numbers will grow larger and larger, an if go through an infinite number of iteration, we will reach infinity. We can say that the orbit of {`\\(z^2 + 1 \\)`} under 0 tends to infinity.
-      </p><p>
+      </p>
+      <p>
         But let us try a different c, let’s say -1.</p>
-      <ol>
-        <li>{`\\(0^2 - 1 = -1 \\)`}</li>
-        <li>{`\\(-1^2 - 1 = 0 \\)`}</li>
-        <li>{`\\(0^2 - 1 = -1 \\)`}</li>
-        <li>{`\\(-1^2 - 1 = 0 \\)`}</li>
-        <li>{`\\(0^2 - 1 = -1 \\)`}</li>
-        <li>{`\\(-1^2 - 1 = 0 \\)`}</li>
-        <li>{`\\(0^2 - 1 = -1 \\)`}</li>
-        <li>{`\\(-1^2 - 1 = 0 \\)`}</li>
-      </ol>
+      <table className="iteration-table">
+        <tr><td>Step 1</td><td>{`\\(0^2 - 1 = -1 \\)`}</td></tr>
+        <tr><td>Step 2</td><td>{`\\(-1^2 - 1 = 0 \\)`}</td></tr>
+        <tr><td>Step 3</td><td>{`\\(0^2 - 1 = -1 \\)`}</td></tr>
+        <tr><td>Step 4</td><td>{`\\(-1^2 - 1 = 0 \\)`}</td></tr>
+        <tr><td>Step 5</td><td>{`\\(0^2 - 1 = -1 \\)`}</td></tr>
+        <tr><td>Step 6</td><td>{`\\(-1^2 - 1 = 0 \\)`}</td></tr>
+        <tr><td>Step 7</td><td>{`\\(0^2 - 1 = -1 \\)`}</td></tr>
+        <tr><td>Step 8</td><td>{`\\(-1^2 - 1 = 0 \\)`}</td></tr>
+      </table>
       <p>
         In this case, no matter how many iterations we go through, the orbit consists of two numbers repeating forever: -1, 0, -1, 0, -1, 0…
         This is a cyclical, or periodic orbit.
