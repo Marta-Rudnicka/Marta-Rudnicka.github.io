@@ -22,7 +22,7 @@ export function JuliaSet() {
   },
   {
     value: cImaginary,
-    info: "Imaginary part for c (position on the x axis)",
+    info: "Imaginary part for c (position on the y axis)",
     label: "c imaginary part",
     maxValue: 1,
     minValue: -1,

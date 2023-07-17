@@ -7,6 +7,7 @@ export type SliderProps = {
   setValue: Dispatch<SetStateAction<number>>
   stepSize?: number;
   tabIndex: number;
+  label: string;
 }
 
 export function roundInput(i: number, stepSize: number) {
@@ -36,6 +37,7 @@ export function Slider(props: SliderProps) {
           tabIndex={props.tabIndex}
           value={props.value}
           className="slider-input"
+          id={props.label}
         />
         <div>{props.maxValue}</div>
       </div>

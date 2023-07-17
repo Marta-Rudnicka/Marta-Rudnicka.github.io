@@ -38,7 +38,7 @@ export function SliderControl(props: SliderControlProps){
 
   return (
     <div className="slider-container">
-      <label >{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
+      <label htmlFor={props.label}>{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
       <Collapse isOpen={isOpen}>{props.info}</Collapse>
       <div tabIndex={props.tabIndex}>
         <Slider
@@ -48,6 +48,7 @@ export function SliderControl(props: SliderControlProps){
           setValue={props.setValue}
           stepSize={props.stepSize || 1}
           tabIndex={props.tabIndex}
+          label={props.label}
         />
         </div>
     </div>
