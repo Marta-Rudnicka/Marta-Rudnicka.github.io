@@ -104,7 +104,8 @@ export function sum2Complex(nums: number[]): Complex {
 function addExpressionToPolynomial(
   poly: string,
   coefficient: number,
-  degree: number
+  degree: number,
+  forView: boolean,
 ): string {
   let expr: string = '';
   if (coefficient === 0) {
@@ -114,7 +115,7 @@ function addExpressionToPolynomial(
     expr = '+';
   }
   if (coefficient !== 0) {
-    expr = expr + coefficient * 10;
+    expr = forView ? expr + coefficient : expr + coefficient * 10;
   }
   expr = expr + 'x';
   if (degree !== 1) {
@@ -131,17 +132,23 @@ export function getPolynomialStringForNroots(
   co3: number,
   co4: number,
   co5: number,
+  forView=false,
 ) : string {
   let poly = '';
-  poly = addExpressionToPolynomial(poly, co5, 5);
-  poly = addExpressionToPolynomial(poly, co4, 4);
-  poly = addExpressionToPolynomial(poly, co3, 3);
-  poly = addExpressionToPolynomial(poly, co2, 2);
-  poly = addExpressionToPolynomial(poly, co1, 1);
+  poly = addExpressionToPolynomial(poly, co5, 5, forView);
+  poly = addExpressionToPolynomial(poly, co4, 4, forView);
+  poly = addExpressionToPolynomial(poly, co3, 3, forView);
+  poly = addExpressionToPolynomial(poly, co2, 2, forView);
+  poly = addExpressionToPolynomial(poly, co1, 1, forView);
   if (c) {
     // multiply expressions by 10 because nroots only accepts integers
     // and the inputs have up to 1 decimal point
-    const constantStr = c > 0 ? `+${c*10}` : c*10;
+    let constantStr = '';
+    if(!forView) {
+      constantStr = c > 0 ? `+${c*10}` : String(c*10);
+    } else {
+      constantStr = c > 0 ? `+${c}` : String(c);
+    }
     poly = poly + constantStr;
   }
   return poly;

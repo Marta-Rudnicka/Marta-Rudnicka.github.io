@@ -5,6 +5,7 @@ import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 import { useState } from "react";
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
+import { getPolynomialStringForNroots } from "./maths-helpers";
 
 const sliderProps = {
   maxValue: 5,
@@ -13,11 +14,21 @@ const sliderProps = {
   labelPrecision: 0.1,
 }
 
-function controlsChildren() {
+function controlsChildren(
+  constant: number,
+  co1: number,
+  co2: number,
+  co3: number,
+  co4: number,
+  co5: number,
+) {
+  const poly = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5, true);
+
   return (
-    <div className="large-eq">
+    <div className="large-eq" key={`${co5}${co4}${co3}${co2}${co1}${constant}`}>
       <MathJaxContext>
-        <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex + f = 0 \\)'}</MathJax>
+        <MathJax> {`\\(${poly} = 0 \\)`}</MathJax>
+
       </MathJaxContext>
     </div >
   )
@@ -26,10 +37,10 @@ function controlsChildren() {
 function getInfo(m: string) {
   return (
     <div>
-      {m} in  
-    <MathJaxContext>
-      <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex + f = 0 \\)'}</MathJax>
-    </MathJaxContext> 
+      {m} in
+      <MathJaxContext>
+        <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex + f = 0 \\)'}</MathJax>
+      </MathJaxContext>
     </div>
   )
 }
@@ -59,7 +70,7 @@ export function Newton() {
   },
   {
     value: co2,
-    info:  getInfo("x^2"),
+    info: getInfo("x^2"),
     label: "x^2",
     setValue: setCo2,
     ...sliderProps,
@@ -67,7 +78,7 @@ export function Newton() {
   },
   {
     value: co3,
-    info:  getInfo("x^3"),
+    info: getInfo("x^3"),
     label: "x^3",
     setValue: setCo3,
     ...sliderProps,
@@ -75,7 +86,7 @@ export function Newton() {
   },
   {
     value: co4,
-    info:  getInfo("x^4"),
+    info: getInfo("x^4"),
     label: "x^4",
     setValue: setCo4,
     ...sliderProps,
@@ -83,13 +94,13 @@ export function Newton() {
   },
   {
     value: co5,
-    info:  getInfo("x^5"),
+    info: getInfo("x^5"),
     label: "x^5",
     setValue: setA5,
     ...sliderProps,
     tabIndex: 6,
   }
-];
+  ];
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
@@ -97,18 +108,11 @@ export function Newton() {
     startValue={[-2, -1.5]}
     description={Description()}
     draw={draw}
-    drawParameters={{
-      constant,
-      co1,
-      co2,
-      co3,
-      co4,
-      co5,
-    }}
+    drawParameters={{ constant, co1, co2, co3, co4, co5 }}
     nextLink="/#/mandelbrot"
     prevLink="/#/cantor"
     sliders={sliders}
-    controlsChildren={controlsChildren()}
+    controlsChildren={controlsChildren(constant, co1, co2, co3, co4, co5)}
     title="Newton's fractal- demo"
     xReal={0}
     xImaginary={0}
