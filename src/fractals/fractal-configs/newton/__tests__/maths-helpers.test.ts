@@ -110,7 +110,7 @@ describe('length', () => {
   });
 });
 
-describe.only('getPolynomialString', () => {
+describe('getPolynomialString', () => {
   it('should create a polynomial string understood by nroots', () => {
     const constant = 13;
     const co1 = 1;

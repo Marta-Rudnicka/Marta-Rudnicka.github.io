@@ -153,7 +153,7 @@ describe('newtonIteration', () => {
     // x^5 - 2x^4 + 2x^3 + 6x^2 - 10x + 1
     const userInput = [1, -10, 6, 2, -2, 1] as PolynomialInput;
     const input: Complex = [1.12, - 1.83];
-    const ex: Complex = [1.1247, -1.8317];
+    const ex: Complex = [1.12469335393556, -1.8316699565802588];
     expect(newtonIteration(input, ...userInput)).toStrictEqual(ex);
   });
 });
@@ -162,7 +162,7 @@ describe('findNewtonAttractor', () => {
   // find to which attractor from the array the orbit of the seed eventually tends
 
   // x^3 + x^2 - 3x + 2
-  const attractors: FlatComplexRootArray = [-2.512, 0, 0.7558, - 0.4745, 0.7558, 0.4745, 0, 0, 0, 0];
+  const attractors: FlatComplexRootArray = [-2.512, 0, 0.7558, - 0.4745, 0.7558, 0.4745, 0, 0, 0, 0, 3];
   const userInput = [2, -3, 1, 1, 0, 0] as PolynomialInput;
   it('should return the index of the right attractor for values close to the root', () => {
     let res = findNewtonAttractor(
@@ -171,6 +171,7 @@ describe('findNewtonAttractor', () => {
       0.7558, 0.4745,
       0, 0,
       0, 0,
+      3,
       [-2.5, 0],
       ...userInput
     );
@@ -189,28 +190,28 @@ describe('findNewtonAttractor', () => {
     expect(findNewtonAttractor(...attractors, [12, 5], ...userInput)).toStrictEqual(2);
     expect(findNewtonAttractor(...attractors, [10.78, 80], ...userInput)).toStrictEqual(2);
   });
+
+  it('should not mistake placeholder zeros for a root', () => {
+    const testAttractors: FlatComplexRootArray = [-0.8550, - 1.4809, 1.7100, 0, -0.8550, 1.4809, 0,0,0,0, 3]
+    const testUserInput: PolynomialInput = [0, 0, 2, 0, 0, 5];
+    expect(findNewtonAttractor(...testAttractors, [-1.565, -2.678], ...testUserInput)).not.toBe(3); // change to a correct value
+  });
 });
 
 describe('findIndexOfAttractor', () => {
   // find to which attractor from the array the orbit of the seed eventually tends
 
   // x^3 + x^2 - 3x + 2
-  const attractors: FlatComplexRootArray = [-2.512, 0, 0.7558, - 0.4745, 0.7558, 0.4745, 0, 0, 0, 0];
+  const attractors: FlatComplexRootArray = [-2.512, 0, 0.7558, - 0.4745, 0.7558, 0.4745, 0, 0, 0, 0, 3];
   const userInput = [2, -3, 1, 1, 0, 0] as PolynomialInput;
-  it.skip('should return the index of the right attractor for values close to the root', () => {
-    let res = findIndexOfAttractor(
-      -2.512, 0,
-      0.7558, -0.4745,
-      0.7558, 0.4745,
-      0, 0,
-      0, 0,
-      3,
-      [-2.5, 0],
-      ...userInput
-    );
-    expect(res).toStrictEqual(0);
-    expect(findNewtonAttractor(...attractors, [0.756, -0.474], ...userInput)).toStrictEqual(1);
-    expect(findNewtonAttractor(...attractors, [0.75583, 0.474], ...userInput)).toStrictEqual(2);
+  it('should return the index of the right attractor for values close to the root', () => {
+    expect(findIndexOfAttractor(...attractors,[-2.5, 0],...userInput)).toStrictEqual([0, -2.511627906976744, 0 ]);
+    expect(findIndexOfAttractor(...attractors, [0.756, -0.474], ...userInput)).toStrictEqual([1, 0.7557732808238844, -0.47447690644666407]);
+    expect(findIndexOfAttractor(...attractors, [0.75583, 0.474], ...userInput)).toStrictEqual([2, 0.7557734444675728, 0.4744770080203389]);
+  });
+
+  it('should return not include placeholder zeroes', () => {
+    expect(findIndexOfAttractor(...attractors,[-0.001, 0],...userInput)).toStrictEqual([-1, 0.6662228516550818, 0 ]);
   });
 });
 
@@ -276,5 +277,23 @@ describe('compareToKnownRoots', () => {
   it('should return the index of the correct root', () => {
     const val: Complex = [-87.877, 8.4781112];
     expect(compareToKnownRoots(val, ...roots)).toStrictEqual(2);
+  });
+
+  it('should not consider trailing zeros as a possible (4 roots)', () => {
+    const val: Complex = [0.0001, 0];
+    expect(compareToKnownRoots(val, ...roots)).toStrictEqual(-1);
+  });
+
+  it('should not consider trailing zeros as a possible (3 roots)', () => {
+    const roots3: FlatComplexRootArray = [1.234, 3.876, 8.987, 6.8768, -87.876898, 8.478, 0, 0, 0, 0, 3];
+    const val: Complex = [0.0001, 0];
+    expect(compareToKnownRoots(val, ...roots3)).toStrictEqual(-1);
+  });
+
+  it('should not consider trailing zeros as a possible (2 roots)', () => {
+    const roots2: FlatComplexRootArray = [1.234, 3.876, 8.987, 6.8768, 0, 0, 0, 0, 0, 0, 2];
+
+    const val: Complex = [0.0001, 0];
+    expect(compareToKnownRoots(val, ...roots2)).toStrictEqual(-1);
   });
 })

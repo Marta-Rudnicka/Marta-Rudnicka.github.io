@@ -123,7 +123,8 @@ export function compareToAttractors(
   a0i: number,
   a1r: number,
   a1i: number,
-  batch: number): number {
+  batch: number
+): number {
 
   if (rp(input[0], 1) === rp(a0r, 1) && rp(input[1], 1) === rp(a0i, 1)) {
     return 0 + 2 * batch;
@@ -147,7 +148,7 @@ export function newtonIteration(
   const den = evaluateDerivative(val, co1, co2, co3, co4, co5);
   const div = rxC(-1, cByC(num, den));
   const sum = sum2Complex([val[0], val[1], div[0], div[1]]);
-  return [rp(sum[0], 4), rp(sum[1], 4)];
+  return [sum[0], sum[1]];
 }
 
 export function compareToKnownRoots(
@@ -167,8 +168,13 @@ export function compareToKnownRoots(
   let i = compareToAttractors(val, r0r, r0i, r1r, r1i, 0);
   if (i !== -1) return i;
   i = compareToAttractors(val, r2r, r2i, r3r, r3i, 1);
-  if (i !== -1) return i;
-  return compareToAttractors(val, r4r, r4i, 0, 0, 2);
+  if (i > numOfRoots -1) return -1;
+  if (i !== -1) {
+    return i;
+  }
+  i = compareToAttractors(val, r4r, r4i, 0, 0, 2);
+  if (i > numOfRoots -1) return -1;
+  return i;
 }
 
 export function findIndexOfAttractor(
@@ -220,7 +226,9 @@ export function findNewtonAttractor(
 
   let index = -1;
   let value = input;
-  while (index === -1) {
+  let i = 0;
+
+  while (index === -1 && i < 200) {
     const res = findIndexOfAttractor(
       r0r, r0i,
       r1r, r1i,
@@ -233,6 +241,7 @@ export function findNewtonAttractor(
     );
       index = res[0]
       value = [res[1], res[2]];
+      i ++;
   }
   return index;
 }
