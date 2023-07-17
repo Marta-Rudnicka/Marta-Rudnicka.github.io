@@ -26,7 +26,7 @@ function controlsChildren(
 
   return (
     <div className="large-eq" key={`${co5}${co4}${co3}${co2}${co1}${constant}`} tabIndex={-1}>
-      <MathJaxContext>
+      <MathJaxContext config={{inTabOrder: false}}>
         <MathJax> {`\\(${poly} = 0 \\)`}</MathJax>
       </MathJaxContext>
     </div >
@@ -105,7 +105,7 @@ export function Newton() {
     title="Newton's fractal- demo"
     xReal={0}
     xImaginary={0}
-    descriptionTabIndex={7}
+    descriptionTabIndex={18}
   />
   );
 }

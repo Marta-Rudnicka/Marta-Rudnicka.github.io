@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useRef } from "react"
+import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef } from "react"
 import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../../types";
 import { EnterFullScreen } from "../../components/icons/EnterFullScreen";
 import { ExitFullScreen } from "../../components/icons/ExitFullScreen";
@@ -11,6 +11,7 @@ type CanvasProps = {
   drawParameters: Parameters;
   handleClick: () => void;
   canvasInputs?: canvasInputs;
+  setInFocus: Dispatch<SetStateAction<string | null>>
 }
 
 export function Canvas(props: CanvasProps) {
@@ -20,7 +21,6 @@ export function Canvas(props: CanvasProps) {
 
   const { size } = props; //getSize(props.fullScreen);
   const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
-  const tabIndex = props.fullScreen ? 12 : 10
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter') {
@@ -74,7 +74,7 @@ export function Canvas(props: CanvasProps) {
             className="change-view-icon"
             onClick={props.handleClick}
             onKeyDown={handleKeyboardInput}
-            tabIndex={tabIndex}
+            tabIndex={9}
           >
             {props.fullScreen
               ? <ExitFullScreen width={25} height={25} />
@@ -91,6 +91,8 @@ export function Canvas(props: CanvasProps) {
         className="floating-box"
         height={size}
         width={size}
+        tabIndex={8}
+        onFocus={() => props.setInFocus('canvas')}
       />
     </div>)
 }

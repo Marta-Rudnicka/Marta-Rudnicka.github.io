@@ -28,7 +28,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
       <h1>{props.title}</h1>
       <div className="default-layout-inner">
         <div className="top-row" style={{ height:height}}>
-          <div className="canvas floating-box" tabIndex={9}>
+          <div className="canvas floating-box" tabIndex={-1}>
             <Canvas
               canvasInputs={props.canvasInputs}
               fullScreen={false}
@@ -36,16 +36,17 @@ export function DefaultLayout(props: DefaultLayoutProps) {
               drawParameters={props.drawParameters}
               handleClick={props.handleClick}
               size={props.canvasSize}
+              setInFocus={props.setInFocus}
             />
           </div>
-          <div className="controls floating-box" tabIndex={10}>
+          <div className="controls floating-box" tabIndex={10} onFocus={() => props.setInFocus('controls')}>
             {props.controls}
           </div>
-          <div className="description" tabIndex={props.descriptionTabIndex}>
+          <div className="description" tabIndex={props.descriptionTabIndex} onFocus={() => props.setInFocus('description')}>
             {props.description}
           </div>
         </div>
-        <div className="extra-controls">
+        <div className="extra-controls" onFocus={() => props.setInFocus('extra-control')}>
           {props.extraControls &&
             props.extraControls
           }

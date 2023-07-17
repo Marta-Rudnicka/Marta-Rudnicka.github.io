@@ -1,4 +1,4 @@
-import { Slider as BlueprintSlider, Collapse } from "@blueprintjs/core";
+import { Collapse } from "@blueprintjs/core";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { Info } from "../../../components/icons/Info";
 import { Slider } from "./Slider";
@@ -40,7 +40,7 @@ export function SliderControl(props: SliderControlProps){
     <div className="slider-container">
       <label htmlFor={props.label}>{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
       <Collapse isOpen={isOpen}>{props.info}</Collapse>
-      <div tabIndex={props.tabIndex}>
+      <div>
         <Slider
           minValue={props.minValue}
           maxValue={props.maxValue}

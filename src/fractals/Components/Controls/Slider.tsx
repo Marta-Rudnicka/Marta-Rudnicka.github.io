@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 
 export type SliderProps = {
   minValue: number;
@@ -23,12 +23,38 @@ export function Slider(props: SliderProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newValue = parseFloat(e.currentTarget.value);
     props.setValue(newValue);
+    if (inputRef?.current) inputRef.current.focus();
   }
+
+  const inputRef = useRef(document.getElementById(props.label));
+
+  useEffect(() => {
+    if (inputRef?.current) inputRef.current.focus();
+  }, []);
+
+  function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (["ArrowRight", "+"].includes(e.key)) {
+      const step = props.stepSize || 1;
+      const newValue = props.value + step
+      e.preventDefault(); // prevent scrolling
+      props.setValue(newValue)
+      console.log('+')
+    }
+    if (["ArrowLeft", "-"].includes(e.key)) {
+      const step = props.stepSize || 1;
+      const newValue = props.value - step
+      e.preventDefault(); // prevent scrolling
+      props.setValue(newValue);
+      console.log('-')
+    }
+  }
+
   return (
-    <div key={props.value}>
-      <div className="slider-input-container">
-        <div>{props.minValue}</div>
+    <div key={props.value} tabIndex={-1}>
+      <div className="slider-input-container" tabIndex={-1}>
+        <div tabIndex={-1}>{props.minValue}</div>
         <input
+          onKeyDown={handleKeyboardInput}
           type="range"
           min={props.minValue}
           max={props.maxValue}
@@ -38,10 +64,10 @@ export function Slider(props: SliderProps) {
           value={props.value}
           className="slider-input"
           id={props.label}
+          name={props.label}
         />
-        <div>{props.maxValue}</div>
+        <div tabIndex={-1}>{props.maxValue}</div>
       </div>
-      <div className="slider-input-container">{props.value}</div>
     </div>
   );
 }

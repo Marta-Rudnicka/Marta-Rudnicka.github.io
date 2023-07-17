@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { ArrowDown } from "../../../components/icons/ArrowDown";
 import { ArrowLeft } from "../../../components/icons/ArrowLeft";
 import { ArrowRight } from "../../../components/icons/ArrowRight";
@@ -14,6 +14,8 @@ export type PositionControlProps = {
   id: string;
   nextFocus?: HTMLElement | null;
   prevFocus?: HTMLElement | null;
+  focused: boolean;
+  setInFocus?: Dispatch<SetStateAction<string | null>>
   invisible?: boolean;
   children?: ReactNode;
 }
@@ -65,6 +67,9 @@ export function PositionControl(props: PositionControlProps) {
   }
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (!props.focused) {
+      return;
+    }
     if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
       e.preventDefault(); // prevent scrolling
       switch (e.key) {
@@ -82,13 +87,19 @@ export function PositionControl(props: PositionControlProps) {
           break;
       }
     }
-    if (props.nextFocus && ( e.key === "Tab" || e.key === "PageDown")) {
+    if (props.nextFocus && (e.key === "Tab" || e.key === "PageDown")) {
       e.preventDefault(); // prevent scrolling or focusing on the next key in the group
       props.nextFocus.focus();
     }
     if (props.prevFocus && e.key === "PageUp") {
       e.preventDefault(); // prevent scrolling or focusing on the next key in the group
       props.prevFocus.focus();
+    }
+  }
+
+  function handleFocus() {
+    if (props.setInFocus) {
+      props.setInFocus(props.id)
     }
   }
 
@@ -108,6 +119,7 @@ export function PositionControl(props: PositionControlProps) {
       className="position-control"
       onKeyDown={(e) => handleKeyboardInput(e)}
       onKeyUp={() => resetClasses()}
+      onFocus={handleFocus}
     >
       <div className="position-control-row">
         <button onClick={moveUp} className={upClass} id={`${props.id}-arrow-up`}>

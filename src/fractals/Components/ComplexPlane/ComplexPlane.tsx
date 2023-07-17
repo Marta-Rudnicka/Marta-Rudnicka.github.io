@@ -41,6 +41,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [range, setRange] = useState(props.range);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [pixelOffset, setPixelOffset] = useState([0, 0] as Point)
+  const [inFocus, setInFocus] = useState(null as string | null)
 
   const imageData = useMemo(() =>
     props.createImageData(
@@ -167,6 +168,8 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
       zoomOut={zoomOut}
       canvasSize={canvasSize}
       setCursorPosition={setCursorPosition}
+      inFocus={inFocus}
+      setInFocus={setInFocus}
     >
       <FractalDisplay
         canvasInputs={canvasInputs}
@@ -184,6 +187,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
         controlsChildren={props.controlsChildren}
         title={props.title}
         descriptionTabIndex={props.descriptionTabIndex}
+        setInFocus={setInFocus}
       />
     </ComplexPlaneAltControls>
   );

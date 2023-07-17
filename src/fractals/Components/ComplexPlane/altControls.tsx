@@ -11,12 +11,17 @@ type ComplexPlaneProps = {
   canvasSize: number;
   setCursorPosition: Dispatch<SetStateAction<Point>>;
   children: ReactNode;
+  inFocus: null | string;
+  setInFocus?: Dispatch<SetStateAction<string | null>>
 }
 export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
   const [tracking, setTracking] = useState(false);
   const [position, setPosition] = useState([0, 0] as Point)
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (props.inFocus !== 'canvas') {
+      return;
+    }
     if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
       e.preventDefault(); // prevent scrolling
       props.handleMouseMove(position);
@@ -55,6 +60,7 @@ export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
         setPosition={setPosition}
         x={position[0]}
         y={position[1]}
+        focused={props.inFocus === 'canvas'}
         invisible
       >
         {props.children}

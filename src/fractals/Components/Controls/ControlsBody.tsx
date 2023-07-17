@@ -46,7 +46,7 @@ function renderButtonPairs(
       info={bp.info}
       label1={bp.label1}
       label2={bp.label2}
-      tabIndex={initTabIndex + bp.tabIndex}
+      tabIndex={initTabIndex}
     />
   );
 }
@@ -91,8 +91,8 @@ export function ControlsBody(props: ControlsProps) {
 
   return (
     <div>
-      {sliders}
       {buttons}
+      {sliders}
       {!!props.altControls &&
         <AltControls>
           {props.altControls}
