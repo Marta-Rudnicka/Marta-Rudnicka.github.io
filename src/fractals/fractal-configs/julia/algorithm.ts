@@ -1,6 +1,13 @@
 import { Complex, PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
-import { convertKernelToImgData, distanceSq, getColor, getComplexPartsForPixels, getMultiplier, xSqrPlusY } from "../../gpu-utils";
+import {
+  convertKernelToImgData,
+  distanceSq,
+  getColor,
+  getComplexPartsForPixels,
+  getMultiplier,
+  xSqrPlusY
+} from "../../gpu-utils";
 
 
 export function processPixel(

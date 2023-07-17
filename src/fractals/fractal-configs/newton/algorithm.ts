@@ -1,8 +1,29 @@
 import { Complex, PixelValue } from "../../../types";
 import { GPU, IKernelRunShortcut } from "gpu.js";
 import { convertKernelToImgData, getComplexPartsForPixels, getMultiplier } from "../../gpu-utils";
-import { c, cByC, getPolynomialStringForNroots, lengthNumArray, pow2, pow3, pow4, pow5, rp, rxC, sum2Complex } from "./maths-helpers";
-import { compareToAttractors, compareToKnownRoots, evaluateDerivative, evaluatePolynomial, findIndexOfAttractor, findNewtonAttractor, newtonIteration, solve } from "./newton-algorithm";
+import {
+  c,
+  cByC,
+  getPolynomialStringForNroots,
+  lengthNumArray,
+  pow2,
+  pow3,
+  pow4,
+  pow5,
+  rp,
+  rxC,
+  sum2Complex
+} from "./maths-helpers";
+import {
+  compareToAttractors,
+  compareToKnownRoots,
+  evaluateDerivative,
+  evaluatePolynomial,
+  findIndexOfAttractor,
+  findNewtonAttractor,
+  newtonIteration,
+  solve
+} from "./newton-algorithm";
 
 export type FunctionCallback = (x: Complex) => Complex;
 export type NewtonInputs = {

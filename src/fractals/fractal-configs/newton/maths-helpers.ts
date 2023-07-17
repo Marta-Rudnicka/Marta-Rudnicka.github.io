@@ -101,7 +101,11 @@ export function sum2Complex(nums: number[]): Complex {
   return [nums[0] + nums[2], nums[1] + nums[3]]
 }
 
-function addExpressionToPolynomial(poly: string, coefficient: number, degree: number): string {
+function addExpressionToPolynomial(
+  poly: string,
+  coefficient: number,
+  degree: number
+): string {
   let expr: string = '';
   if (coefficient === 0) {
     return poly + expr;
@@ -135,6 +139,8 @@ export function getPolynomialStringForNroots(
   poly = addExpressionToPolynomial(poly, co2, 2);
   poly = addExpressionToPolynomial(poly, co1, 1);
   if (c) {
+    // multiply expressions by 10 because nroots only accepts integers
+    // and the inputs have up to 1 decimal point
     const constantStr = c > 0 ? `+${c*10}` : c*10;
     poly = poly + constantStr;
   }

@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { PositionControl } from "../../Components/Controls/PositionControl";
 import { Point } from "../../../types";
 
