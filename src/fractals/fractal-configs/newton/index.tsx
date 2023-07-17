@@ -25,7 +25,7 @@ function controlsChildren(
   const poly = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5, true);
 
   return (
-    <div className="large-eq" key={`${co5}${co4}${co3}${co2}${co1}${constant}`}>
+    <div className="large-eq" key={`${co5}${co4}${co3}${co2}${co1}${constant}`} tabIndex={-1}>
       <MathJaxContext>
         <MathJax> {`\\(${poly} = 0 \\)`}</MathJax>
       </MathJaxContext>
@@ -33,16 +33,6 @@ function controlsChildren(
   )
 }
 
-function getInfo(m: string) {
-  return (
-    <div>
-      {m} in
-      <MathJaxContext>
-        <MathJax> {'\\(ax^5 + bx^4 + cx^3 + dx^2 +ex + f = 0 \\)'}</MathJax>
-      </MathJaxContext>
-    </div>
-  )
-}
 export function Newton() {
   const [co5, setA5] = useState(0)
   const [co4, setCo4] = useState(0)
@@ -53,7 +43,7 @@ export function Newton() {
 
   const sliders: SliderControlProps[] = [{
     value: constant,
-    info: getInfo('constant'),
+    info: 'constant',
     label: String(constant),
     setValue: setConstant,
     ...sliderProps,
@@ -61,7 +51,7 @@ export function Newton() {
   },
   {
     value: co1,
-    info: getInfo('x'),
+    info: 'coefficient for x',
     label: `${co1}x`,
     setValue: setCo1,
     ...sliderProps,
@@ -69,7 +59,7 @@ export function Newton() {
   },
   {
     value: co2,
-    info: getInfo("x^2"),
+    info: "coefficient for x^2",
     label: `${co2}x^2`,
     setValue: setCo2,
     ...sliderProps,
@@ -77,7 +67,7 @@ export function Newton() {
   },
   {
     value: co3,
-    info: getInfo("x^3"),
+    info: "coefficient for x^3",
     label: `${co3}x^3`,
     setValue: setCo3,
     ...sliderProps,
@@ -85,7 +75,7 @@ export function Newton() {
   },
   {
     value: co4,
-    info: getInfo("x^4"),
+    info: "coefficient for x^4",
     label: `${co4}x^4`,
     setValue: setCo4,
     ...sliderProps,
@@ -93,7 +83,7 @@ export function Newton() {
   },
   {
     value: co5,
-    info: getInfo("x^5"),
+    info: "coefficient for x^5",
     label:`${co5}x^5`,
     setValue: setA5,
     ...sliderProps,
