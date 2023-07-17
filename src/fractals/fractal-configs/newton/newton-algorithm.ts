@@ -47,11 +47,12 @@ export function evaluateDerivative(
 };
 
 export type FlatComplexRootArray = [
-  number, number,
-  number, number,
-  number, number,
-  number, number,
-  number, number,
+  number, number, // root 1
+  number, number, // root 2
+  number, number, // root 3
+  number, number, // root 4
+  number, number, // root 5
+  number // actual number of roots
 ]
 
 export function evaluatePolynomial(
@@ -108,9 +109,11 @@ export function solve(equation: string): FlatComplexRootArray {
   const eq = Algebrite.run(equation)
   const sol: Solutions = Algebrite.nroots(eq)
   const roots =  sol.tensor.elem.map((e) => parseSolution(e)).sort();
+  const numOfRoots = roots.length;
   res.push(...roots.flat())
   res.push(...[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   res = res.slice(0, 10)
+  res.push(numOfRoots)
   return res as FlatComplexRootArray;
 }
 
@@ -159,6 +162,7 @@ export function compareToKnownRoots(
   r3i: number,
   r4r: number,
   r4i: number,
+  numOfRoots: number,
 ): number {
   let i = compareToAttractors(val, r0r, r0i, r1r, r1i, 0);
   if (i !== -1) return i;
@@ -178,6 +182,7 @@ export function findIndexOfAttractor(
   r3i: number,
   r4r: number,
   r4i: number,
+  numOfRoots: number,
   input: Complex,
   constant: number,
   co1: number,
@@ -188,7 +193,7 @@ export function findIndexOfAttractor(
 ): number[] {
   let val = input;
   val = newtonIteration(input, constant, co1, co2, co3, co4, co5);
-  const i = compareToKnownRoots(val, r0r, r0i, r1r, r1i, r2r, r2i, r3r, r3i, r4r, r4i);
+  const i = compareToKnownRoots(val, r0r, r0i, r1r, r1i, r2r, r2i, r3r, r3i, r4r, r4i, numOfRoots);
   return [i, val[0], val[1]];
 }
 
@@ -203,6 +208,7 @@ export function findNewtonAttractor(
   r3i: number,
   r4r: number,
   r4i: number,
+  numOfRoots: number,
   input: Complex,
   constant: number,
   co1: number,
@@ -221,7 +227,10 @@ export function findNewtonAttractor(
       r2r, r2i,
       r3r, r3i,
       r4r, r4i,
-      value, constant, co1, co2, co3, co4, co5);
+      numOfRoots,
+      value,
+      constant, co1, co2, co3, co4, co5
+    );
       index = res[0]
       value = [res[1], res[2]];
   }

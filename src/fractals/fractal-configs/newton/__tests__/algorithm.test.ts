@@ -72,79 +72,71 @@ describe('getPolyFunction', () => {
 });
 
 describe('solve', () => {
-  function compareFlattenedRoots(result: FlatComplexRootArray, e: Complex[]): void {
-    const expected = e.sort();
-    const r = result;
-    const parsedResult = [[r[0], r[1]], [r[2], r[3]], [r[4], r[5]], [r[6], r[7]], [r[8], r[9]]]
-    const l = expected.length > 5 ? 5 : expected.length;
-    expect(parsedResult.slice(0, l)).toStrictEqual(expected.slice(0,l));
-   ;
-  }
   // to make sure the object produced by nroot is parsed correctly - couldn't find appropriate docs
   it('should provide roots for a polynomial with only real roots', () => {
-    const expected: Complex[] = [[-2, 0], [2, 0]];
+    const expected: FlatComplexRootArray = [-2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2]
     const result = solve('x^2 - 4');
-    compareFlattenedRoots(result, expected)
+    expect(result).toStrictEqual(expected)
   })
 
   it('should provide roots for a polynomial with only imaginary roots', () => {
-    const expected: Complex[] = [[0, -2], [0, 2]];
+    // const expected: Complex[] = [[0, -2], [0, 2]];
+    const expected: FlatComplexRootArray = [0, -2, 0, 2, 0, 0, 0, 0, 0, 0, 2]
     const result = solve('x^2 + 4');
-    compareFlattenedRoots(result, expected)
+    expect(result).toStrictEqual(expected)
   })
 
 
   it('should provide roots for a polynomial with and imaginary roots', () => {
-    const expected: Complex[] = [[-5, -12], [-5, 12]];
+    const expected: FlatComplexRootArray = [-5, -12, -5, 12, 0, 0, 0, 0, 0, 0, 2];
     const result = solve('x^2 + 10x + 169');
-    compareFlattenedRoots(result, expected)
+    expect(result).toStrictEqual(expected)
   })
 
   it('should provide roots for a polynomial with complex and imaginary roots', () => {
     const result = solve('x^6 + 1');
-    const expected: Complex[] = [
-      [-0.866, -0.5],
-      [-0.866, 0.5],
-      [0, -1],
-      [0, 1],
-      [0.866, -0.5],
-      [0.866, 0.5],
+    const expected: FlatComplexRootArray = [
+      -0.866, -0.5,
+      -0.866, 0.5,
+      0, -1,
+      0, 1,
+      0.866, -0.5,
+      6,
     ];
-    compareFlattenedRoots(result, expected);
+    expect(result).toStrictEqual(expected)
   })
 
   it('should produce real and complex roots for a polynomial', () => {
     const result = solve('x^3+9');
-    const expected: Complex[] = [[-2.08, 0], [1.04, -1.801], [1.04, 1.801]];
-    compareFlattenedRoots(result, expected);
+    const expected: FlatComplexRootArray = [-2.08, 0, 1.04, -1.801, 1.04, 1.801, 0, 0, 0, 0, 3];
+    expect(result).toStrictEqual(expected)
   })
 
   it('should produce all kinds of roots for a polynomial', () => {
     const result = (solve('x^8 - 1'))
-    const expected: Complex[] = [
-      [-0.7071, -0.7071],
-      [-0.7071, 0.7071],
-      [-1, 0],
-      [0, -1],
-      [0, 1],
-      [0.7071, -0.7071],
-      [0.7071, 0.7071],
-      [ 1, 0],
+    const expected: FlatComplexRootArray = [
+      -0.7071, -0.7071,
+      -0.7071, 0.7071,
+      -1, 0,
+      0, -1,
+      0, 1,
+      8
     ];
-    compareFlattenedRoots(result, expected);
-
+    expect(result).toStrictEqual(expected)
   })
 
   it('should find roots for the most complex possible polynomial', () => {
-    const expected: Complex[] = [
-    [-0.9749, -1.237],
-    [-0.9749,  1.237],
-    [-1.212, 0],
-    [ 1.081, -1.351],
-    [ 1.081,  1.351],
+    const expected: FlatComplexRootArray = [
+    -0.9749, -1.237,
+    -0.9749,  1.237,
+    -1.212, 0,
+     1.081, -1.351,
+     1.081,  1.351,
+     5
     ];
     const result = solve('x^5+x^4+x^3+2*x^2+8*x+9');
-    compareFlattenedRoots(result, expected);
+    expect(result).toStrictEqual(expected)
+
 
   })
 });
@@ -212,6 +204,7 @@ describe('findIndexOfAttractor', () => {
       0.7558, 0.4745,
       0, 0,
       0, 0,
+      3,
       [-2.5, 0],
       ...userInput
     );
@@ -264,7 +257,7 @@ describe('compareToAttractors', () => {
 })
 
 describe('compareToKnownRoots', () => {
-  const roots: FlatComplexRootArray = [1.234, 3.876, 8.987, 6.8768, -87.876898, 8.478, 5.9870, -7.987, 0, 0];
+  const roots: FlatComplexRootArray = [1.234, 3.876, 8.987, 6.8768, -87.876898, 8.478, 5.9870, -7.987, 0, 0, 4];
   it('should return -1 if the value is not closeto any roots', () => {
     const val: Complex = [-2, -9];
     expect(compareToKnownRoots(val, ...roots)).toStrictEqual(-1);

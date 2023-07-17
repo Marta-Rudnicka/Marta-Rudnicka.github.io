@@ -102,6 +102,8 @@ export function getKernel(
     const r4r = roots[8];
     const r4i = roots[9];
 
+    const numOfRoots = roots[10];
+
 
     const values = getComplexPartsForPixels(
       this.thread.x,
@@ -117,6 +119,7 @@ export function getKernel(
       r2r, r2i,
       r3r, r3i,
       r4r, r4i,
+      numOfRoots,
       values,
       constant, co1, co2, co3, co4, co5
     );
