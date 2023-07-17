@@ -25,7 +25,7 @@ export function Description() {
       </p>
       <h3>Newton’s method</h3>
       <p>
-        The overall process of finding root in most methods is more or less the same – you guess a number, square it to see if it is too little or too much, and then try to correct your guess accordingly.The main thing you can do to improve the process is to find a way to produce better guesses – and this is what Newton did in [].The method is very general and works for all kinds of roots, but you do not need to know the details to understand how Newton’s fractal works.If you are curious and know about function derivatives, you can read about it below.Here, we will only explain an example with a square root.
+        The overall process of finding root in most methods is more or less the same – you guess a number, square it to see if it is too little or too much, and then try to correct your guess accordingly.The main thing you can do to improve the process is to find a way to produce better guesses – and this is what Newton did in [].The method is very general and works for all kinds of roots, but you do not need to know the details to understand how Newton’s fractal works.If you are curious and know about function derivatives, you can read about it below. Here, we will only explain an example with a square root.
         Let us stay with the examples of {`\\(\\sqrt{5}\\)`}.
       </p>
       <p>
@@ -40,21 +40,19 @@ export function Description() {
         So far nothing new, we just wrote it a bit differently: the result is too much by 1.25. But now, we will use Newton’s method to make a much better guess. For a simple square root, when:
       </p>
       {`\\(\\sqrt{x} = c \\)`} or  {`\\(x ^ 2 – c = 0\\)`}
-      <p> You make x your first guess, and calculate:</p>
+      <p> you make x your first guess, and calculate:</p>
       <MathJax>
       {`\\[x - \\frac{x^2 - c}{2x}\\]`}</MathJax>
       <p> In our example, our c = 5, and our first guess x = 2.5, so we get:</p>
       {`\\[2.5 - \\frac{2.5^2 - 5}{2\\times2.5} = 2.25\\]`}
-      <p> But let’s say we want to know the root to four decimal places.What’s next ? We take new guess, 2.25, make it our x, and repeat the process:</p>
-      {`\\[2.25 - \\frac{2.25^2 - 5}{2\\times2.25} = 2.236(1)\\]`}
+      <p> But let’s say we want to know the root to four decimal places. What’s next? We take the new guess, 2.25, make it our x, and repeat the process:</p>
+      {`\\[2.25 - \\frac{2.25^2 - 5}{2\\times2.25} = 2.236\\overline{1}\\]`}
       <p>
-        OK so but how accurate is it.Let’s check:</p>
+        But how accurate is it? Let’s check:</p>
       {`\\(2.2361 ^ 2 = 5.00014321\\)`}
       <p>
-        That’s pretty close to 5, and we just went through two iterations! And what if we went through another one ? </p>
-      {`\\[2.236(1) - \\frac{2.5^2 - 5}{2\\times2.236(1)} = 2.236067977915804\\]`}
-
-
+        That’s pretty close to 5, and we just went through two iterations! And what if we went through another one? </p>
+      {`\\[2.236\\overline{1} - \\frac{2.5^2 - 5}{2\\times2.236\\overline{1}} = 2.236067977915804\\]`}
       <p>And to check accuracy:</p>
       {`\\(2.236067977915804 ^ 2 = 5.0000000018604736\\)`}
 
