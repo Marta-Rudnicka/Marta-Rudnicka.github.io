@@ -17,7 +17,6 @@ export function JuliaSet() {
     minValue: -1,
     setValue: setCReal,
     stepSize: 0.05,
-    labelPrecision: 2,
     tabIndex: 1,
   },
   {
@@ -28,7 +27,6 @@ export function JuliaSet() {
     minValue: -1,
     setValue: setCImaginary,
     stepSize: 0.05,
-    labelPrecision: 2,
     tabIndex: 2,
   }];
 

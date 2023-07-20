@@ -11,7 +11,6 @@ export type SliderControlProps = {
   info: string | ReactNode;
   setValue: Dispatch<SetStateAction<number>>
   labelStepSize? : number
-  labelPrecision?: number;
   stepSize?: number;
   tabIndex: number;
 }

@@ -28,7 +28,6 @@ function renderSliderControls(
       value={slider.value}
       info={slider.info}
       stepSize={slider.stepSize}
-      labelPrecision={slider.labelPrecision}
       tabIndex={slider.tabIndex + initTabIndex}
     />
   );

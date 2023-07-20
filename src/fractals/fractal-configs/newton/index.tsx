@@ -10,8 +10,7 @@ import { getPolynomialStringForNroots } from "./maths-helpers";
 const sliderProps = {
   maxValue: 5,
   minValue: -5,
-  stepSize: 0.1,
-  labelPrecision: 0.1,
+  stepSize: 0.2,
 }
 
 function controlsChildren(
