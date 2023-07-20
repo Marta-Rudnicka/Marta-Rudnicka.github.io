@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FullScreenLayout } from "../full-screen-view/FullScreenLayout";
 import { canvasInputs, DrawFuncArgs, MainFractalControlProps, Parameters } from "../../types";
 import { Controls } from "./Controls";
+import { MathJaxContext } from "better-react-mathjax";
 
 export type FractalDisplayProps = MainFractalControlProps & {
   canvasInputs: canvasInputs;
@@ -19,7 +20,7 @@ export type FractalDisplayProps = MainFractalControlProps & {
 
 export function FractalDisplay(props: FractalDisplayProps) {
   const { fullScreen, adjustPropertiesToScreenSize, canvasSize } = props;
-  const [inFocus, setInFocus ] = useState(null as null | string )
+  const [inFocus, setInFocus] = useState(null as null | string)
 
 
   function handleChangeViewIconClick() {
@@ -51,36 +52,46 @@ export function FractalDisplay(props: FractalDisplayProps) {
     children={props.controlsChildren}
   />;
 
+  // prevent focusing on MathJax equations
+  const equations = document.querySelectorAll('.MathJax');
+  equations.forEach(element => {
+    element.setAttribute('tabIndex', '-1');
+  });
+
   if (props.fullScreen) {
     return (
-      <FullScreenLayout
-        draw={props.draw}
-        drawParameters={props.drawParameters}
-        handleClick={handleChangeViewIconClick}
-        canvasSize={canvasSize}
-        canvasInputs={props.canvasInputs}
-        controls={controls}
-        altControls={props.altControls}
-        setInFocus={props.setInFocus || setInFocus}
-      />
+      <MathJaxContext key={props.title} config={{inTabOrder: false}}>
+        <FullScreenLayout
+          draw={props.draw}
+          drawParameters={props.drawParameters}
+          handleClick={handleChangeViewIconClick}
+          canvasSize={canvasSize}
+          canvasInputs={props.canvasInputs}
+          controls={controls}
+          altControls={props.altControls}
+          setInFocus={props.setInFocus || setInFocus}
+        />
+      </MathJaxContext>
     );
   }
 
   return (
-    <DefaultLayout
-      draw={props.draw}
-      drawParameters={props.drawParameters}
-      handleClick={handleChangeViewIconClick}
-      controls={controls}
-      altControls={props.altControls}
-      title={props.title}
-      description={props.description}
-      prevLink={props.prevLink}
-      nextLink={props.nextLink}
-      canvasSize={canvasSize}
-      canvasInputs={props.canvasInputs}
-      descriptionTabIndex={props.descriptionTabIndex}
-      setInFocus={props.setInFocus || setInFocus}
+    <MathJaxContext key={`${props.title}-full`} config={{inTabOrder: false}}>
+      <DefaultLayout
+        draw={props.draw}
+        drawParameters={props.drawParameters}
+        handleClick={handleChangeViewIconClick}
+        controls={controls}
+        altControls={props.altControls}
+        title={props.title}
+        description={props.description}
+        prevLink={props.prevLink}
+        nextLink={props.nextLink}
+        canvasSize={canvasSize}
+        canvasInputs={props.canvasInputs}
+        descriptionTabIndex={props.descriptionTabIndex}
+        setInFocus={props.setInFocus || setInFocus}
       />
+    </MathJaxContext>
   );
 }

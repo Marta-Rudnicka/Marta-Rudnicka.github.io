@@ -1,8 +1,6 @@
-import { MathJaxContext } from "better-react-mathjax";
-
 export function Description() {
   return (
-    <MathJaxContext key='description'>
+    <>
       <p>
         Just like in Newton’s fractal, the image on the left is created by repeating the same operation over and over again, and finding out what eventually happens depending on the number you start with. Again, we have a complex plane, where each number is a seed, and we are observing the orbit of a function under the seed. If you zoom in, you will see the image is very intricate, even more than the Newton’s fractal. What is the function that produces such a complicated image?
       </p>
@@ -58,7 +56,6 @@ export function Description() {
         Mandelbrot was also the person who coined the term fractal, and he spend a lot of his career on researching fractals and related subjects.
       </p>
       <h3>More on cycles.</h3>
-
-    </MathJaxContext>
+    </>
   );
 }

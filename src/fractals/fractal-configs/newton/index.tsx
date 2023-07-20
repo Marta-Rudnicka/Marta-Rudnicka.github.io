@@ -4,7 +4,6 @@ import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 import { useState } from "react";
-import { MathJaxContext, MathJax } from 'better-react-mathjax';
 import { getPolynomialStringForNroots } from "./maths-helpers";
 
 const sliderProps = {
@@ -25,9 +24,7 @@ function controlsChildren(
 
   return (
     <div className="large-eq" key={`${co5}${co4}${co3}${co2}${co1}${constant}`} tabIndex={-1}>
-      <MathJaxContext config={{inTabOrder: false}}>
-        <MathJax> {`\\(${poly} = 0 \\)`}</MathJax>
-      </MathJaxContext>
+      {`\\(${poly} = 0 \\)`}
     </div >
   )
 }

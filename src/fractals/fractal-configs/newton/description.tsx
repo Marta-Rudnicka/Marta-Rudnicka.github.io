@@ -1,9 +1,6 @@
-import { MathJaxContext, MathJax } from 'better-react-mathjax';
-
-
 export function Description() {
   return (
-    <MathJaxContext config={{inTabOrder: false}} key='description'>
+    <>
       <h2>Netwon’t Fractal</h2>
       <p>
         Drawing smaller and smaller self-similar shapes can make pictures pleasant to the eyes, but there is nothing surprising in the fact that it results in a fractal. The real interesting thing about fractals is that they tend to show up in rather unexpected places. If you plot the results of certain mathematical operations, the images you get turn out to be very intricate fractal shapes, and we will present three of them. The one on the left, for example, depicts what happens when you use Newton’s method of finding roots. It will take a moment to explain, but it’s worth it!
@@ -41,8 +38,7 @@ export function Description() {
       </p>
       {`\\(\\sqrt{x} = c \\)`} or  {`\\(x ^ 2 – c = 0\\)`}
       <p> you make x your first guess, and calculate:</p>
-      <MathJax>
-      {`\\[x - \\frac{x^2 - c}{2x}\\]`}</MathJax>
+        {`\\[x - \\frac{x^2 - c}{2x}\\]`}
       <p> In our example, our c = 5, and our first guess x = 2.5, so we get:</p>
       {`\\[2.5 - \\frac{2.5^2 - 5}{2\\times2.5} = 2.25\\]`}
       <p> But let’s say we want to know the root to four decimal places. What’s next? We take the new guess, 2.25, make it our x, and repeat the process:</p>
@@ -91,6 +87,6 @@ export function Description() {
 
         And if you zoom in deeper and deeper, you will see that the image is self - similar.Newton had no idea he accidentally created a formula for a fractal!
       </p>
-    </MathJaxContext >
+    </>
   );
 }
