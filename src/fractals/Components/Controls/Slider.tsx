@@ -8,6 +8,7 @@ export type SliderProps = {
   stepSize?: number;
   tabIndex: number;
   label: string;
+  inputRounding?: number
 }
 
 export function roundInput(i: number, stepSize: number) {
@@ -35,14 +36,14 @@ export function Slider(props: SliderProps) {
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
     if (["ArrowRight", "+"].includes(e.key)) {
       const step = props.stepSize || 1;
-      const newValue = props.value + step
+      const newValue = parseFloat((props.value + step).toFixed(props.inputRounding || 1));
       e.preventDefault(); // prevent scrolling
       props.setValue(newValue)
       console.log('+')
     }
     if (["ArrowLeft", "-"].includes(e.key)) {
       const step = props.stepSize || 1;
-      const newValue = props.value - step
+      const newValue = parseFloat((props.value - step).toFixed(props.inputRounding || 1));
       e.preventDefault(); // prevent scrolling
       props.setValue(newValue);
       console.log('-')
