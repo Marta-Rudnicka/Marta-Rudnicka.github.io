@@ -31,7 +31,15 @@ section {
 }
 
 .slider-container {
-  padding: 5px;
+  padding: 0;
+}
+
+.slider-label {
+  display: flex;
+}
+
+.slider-label span{
+  margin-right: 5px;
 }
 
 .canvas {
