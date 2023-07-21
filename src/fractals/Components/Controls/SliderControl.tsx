@@ -4,7 +4,7 @@ import { Info } from "../../../components/icons/Info";
 import { Slider } from "./Slider";
 
 export type SliderControlProps = {
-  label: string;
+  label: string | ReactNode;
   minValue: number;
   maxValue: number;
   value: number;
@@ -37,8 +37,11 @@ export function SliderControl(props: SliderControlProps){
 
   return (
     <div className="slider-container">
-      <label htmlFor={props.label}>{props.label} <span onClick={toggleIsOpen}><Info/></span></label>
-      <Collapse isOpen={isOpen}>{props.info}</Collapse>
+      <div className='slider-label'>
+        <span onClick={toggleIsOpen}><Info /></span>
+        <Collapse isOpen={isOpen}>{props.info}</Collapse>
+        <label htmlFor={props.label?.toString()}>{props.label}</label>
+      </div>
       <div>
         <Slider
           minValue={props.minValue}

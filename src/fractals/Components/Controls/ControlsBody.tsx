@@ -20,7 +20,7 @@ function renderSliderControls(
 ): ReactNode[] {
   return sliders.map(slider =>
     <SliderControl
-      key={slider.label}
+      key={slider.label?.toString()}
       label={slider.label}
       setValue={slider.setValue}
       maxValue={slider.maxValue}

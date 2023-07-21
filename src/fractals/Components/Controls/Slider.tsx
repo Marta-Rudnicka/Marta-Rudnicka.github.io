@@ -7,8 +7,7 @@ export type SliderProps = {
   setValue: Dispatch<SetStateAction<number>>
   stepSize?: number;
   tabIndex: number;
-  label: string;
-  inputRounding?: number
+  label: string | ReactNode;
 }
 
 export function roundInput(i: number, stepSize: number) {

@@ -5,6 +5,7 @@ import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
 import { useState } from "react";
 import { getPolynomialStringForNroots } from "./maths-helpers";
+import { MathJax } from "better-react-mathjax";
 
 const sliderProps = {
   maxValue: 5,
@@ -23,8 +24,8 @@ function controlsChildren(
   const poly = getPolynomialStringForNroots(constant, co1, co2, co3, co4, co5, true);
 
   return (
-    <div className="large-eq" key={`${co5}${co4}${co3}${co2}${co1}${constant}`} tabIndex={-1}>
-      {`\\(${poly} = 0 \\)`}
+    <div className="large-eq" tabIndex={-1}>
+      <MathJax key={`${co5}${co4}${co3}${co2}${co1}${constant}`}>{`\\(${poly} = 0 \\)`}</MathJax>
     </div >
   )
 }
@@ -40,7 +41,7 @@ export function Newton() {
   const sliders: SliderControlProps[] = [{
     value: constant,
     info: 'constant',
-    label: String(constant),
+    label: <MathJax>{`\\(${constant}\\)`}</MathJax>,
     setValue: setConstant,
     ...sliderProps,
     tabIndex: 1,
@@ -48,7 +49,7 @@ export function Newton() {
   {
     value: co1,
     info: 'coefficient for x',
-    label: `${co1}x`,
+    label: <MathJax>{`\\(${co1}x\\)`}</MathJax>,
     setValue: setCo1,
     ...sliderProps,
     tabIndex: 2,
@@ -56,7 +57,7 @@ export function Newton() {
   {
     value: co2,
     info: "coefficient for x^2",
-    label: `${co2}x^2`,
+    label: <MathJax>{`\\(${co2}x ^ 2\\)`}</MathJax>,
     setValue: setCo2,
     ...sliderProps,
     tabIndex: 3,
@@ -64,7 +65,7 @@ export function Newton() {
   {
     value: co3,
     info: "coefficient for x^3",
-    label: `${co3}x^3`,
+    label: <MathJax>{`\\(${co3}x ^ 3\\)`}</MathJax>,
     setValue: setCo3,
     ...sliderProps,
     tabIndex: 4,
@@ -72,7 +73,7 @@ export function Newton() {
   {
     value: co4,
     info: "coefficient for x^4",
-    label: `${co4}x^4`,
+    label: <MathJax>{`\\(${co4}x ^ 4\\)`}</MathJax>,
     setValue: setCo4,
     ...sliderProps,
     tabIndex: 5,
@@ -80,7 +81,7 @@ export function Newton() {
   {
     value: co5,
     info: "coefficient for x^5",
-    label:`${co5}x^5`,
+    label: <MathJax>{`\\(${co5}x ^ 5\\)`}</MathJax>,
     setValue: setA5,
     ...sliderProps,
     tabIndex: 6,
@@ -98,7 +99,7 @@ export function Newton() {
     prevLink="/#/cantor"
     sliders={sliders}
     controlsChildren={controlsChildren(constant, co1, co2, co3, co4, co5)}
-    title="Newton's fractal- demo"
+    title="Newton's fractal"
     xReal={0}
     xImaginary={0}
     descriptionTabIndex={18}
