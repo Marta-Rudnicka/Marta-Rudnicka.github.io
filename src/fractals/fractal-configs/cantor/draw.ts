@@ -1,9 +1,10 @@
 import { DrawFuncArgs } from "../../../types";
-import { drawLineSegment, generate, getFirstLine } from "./algorithm";
+import { drawLineSegment, generate, generateAll, getFirstLine } from "./algorithm";
 
 type CantorParameters = {
   iterations: number;
   dimensions: number;
+  showIntermediateStages: string;
 }
 
 const contextDict: Record<string, string> = {
@@ -16,9 +17,10 @@ export function draw2d(
 ): void {
   const { canvas, size } = args;
   const parameters = args.parameters as CantorParameters;
+  const showIntermediate = parameters.showIntermediateStages === "yes";
   const ctx = canvas.getContext("2d");
   canvas.style.background = "black";
-  let innerMarginVertical = size / 3;
+  const innerMarginVertical = showIntermediate ? undefined : Math.round(size / 3);
 
   if (ctx) {
     ctx?.clearRect(0, 0, size, size);
@@ -26,7 +28,11 @@ export function draw2d(
     ctx.lineWidth = 6;
     const first = getFirstLine(size, innerMarginVertical);
     drawLineSegment(first, ctx, 'white');
-    generate(first, parameters.iterations, ctx)
+    if(showIntermediate){
+      generateAll(first, parameters.iterations, ctx, size)
+    } else {
+      generate(first, parameters.iterations, ctx)
+    }
     ctx.closePath();
   }
 }

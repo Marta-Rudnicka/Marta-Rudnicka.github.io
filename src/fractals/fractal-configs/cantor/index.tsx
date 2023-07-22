@@ -12,6 +12,7 @@ export function CantorSet() {
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(3);
   const [dimensions, setDimensions] = useState(1);
+  const [showIntermediateStages, setShowIntermediateStages] = useState("yes");
 
   useEffect(() => {
     const func = () => {
@@ -25,20 +26,29 @@ export function CantorSet() {
   const sliders: SliderControlProps[] = [{
     value: iterations,
     label: "iterations",
-    maxValue: 6,// getIterationsNumber(fullScreen),
+    maxValue: 7,
     minValue: 1,
     setValue: setIterations,
     tabIndex: 0,
   },
   {
-    value: iterations,
+    value: dimensions,
     label: "dimensions",
     maxValue: 2,
     minValue: 1,
     setValue: setDimensions,
     tabIndex: 1,
-  }
+  },
   ];
+
+  const radio = [{
+      label: "Show intermediate steps",
+      info: "If selected, it will show all the previous iterations. For example, if you select 4 iterations, you will see the images for 1, 2, 3, and 4 iterations",
+      setValue: setShowIntermediateStages,
+      tabIndex: 10,
+      value: showIntermediateStages,
+      options: ["yes", "no"],
+  }];
 
   const navTabIndex = useContext(NavTabContext);
 
@@ -50,13 +60,13 @@ export function CantorSet() {
         description={Description()}
         descriptionTabIndex={navTabIndex + 11}
         draw={draw}
-        drawParameters={{ iterations, dimensions }}
+        drawParameters={{ iterations, dimensions, showIntermediateStages }}
         nextLink="/#/newton"
         prevLink="/#/sierpinski"
         setFullScreen={setFullScreen}
         title="Cantor set - placeholder"
         sliders={sliders}
-
+        radio={radio}
       />
     </FullScreenContext.Provider>
 
