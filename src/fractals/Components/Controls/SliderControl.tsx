@@ -1,14 +1,13 @@
-import { Collapse } from "@blueprintjs/core";
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
-import { Info } from "../../../components/icons/Info";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Slider } from "./Slider";
+import { InfoLabel } from "./InfoLabel";
 
 export type SliderControlProps = {
   label: string | ReactNode;
   minValue: number;
   maxValue: number;
   value: number;
-  info: string | ReactNode;
+  info?: string | ReactNode;
   setValue: Dispatch<SetStateAction<number>>
   labelStepSize? : number
   stepSize?: number;
@@ -20,8 +19,7 @@ export function SliderControl(props: SliderControlProps){
   return (
     <div className="slider-container">
       <div className='slider-label'>
-        <span onClick={toggleIsOpen}><Info /></span>
-        <Collapse isOpen={isOpen}>{props.info}</Collapse>
+        <InfoLabel info={props.info?.toString()} />
         <label htmlFor={props.id}>{props.label}</label>
       </div>
       <div>
