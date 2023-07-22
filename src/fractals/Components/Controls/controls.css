@@ -33,7 +33,8 @@ input[type="range"] {
     outline: none;
 }
 
-input[type="range"]:focus {
+input:focus {
+    border: solid black 1px;
     box-shadow: 3px 3px 5px #31cece;
 }
 
