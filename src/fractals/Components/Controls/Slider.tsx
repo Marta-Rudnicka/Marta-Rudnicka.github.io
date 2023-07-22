@@ -16,20 +16,16 @@ export function Slider(props: SliderProps) {
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement>,
     ) {
-    const newValue = parseFloat(e.currentTarget.value);
+    const newValue = parseFloat(parseFloat(e.currentTarget.value).toFixed(props.inputRounding || 1));
     props.setValue(newValue);
   }
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
-    console.log('handleKeyboardInput')
-
     if (["ArrowRight", "+"].includes(e.key)) {
       const step = props.stepSize || 1;
       const newValue = parseFloat((props.value + step).toFixed(props.inputRounding || 1));
       e.preventDefault();
       props.setValue(newValue);
-      console.log('+')
-
     }
     if (["ArrowLeft", "-"].includes(e.key)) {
       const step = props.stepSize || 1;
