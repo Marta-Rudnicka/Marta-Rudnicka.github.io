@@ -18,9 +18,10 @@ type AltControlProps = {
 }
 
 function renderSliderControls(
-  sliders: SliderControlProps[],
   initTabIndex: number,
+  sliders?: SliderControlProps[],
 ): ReactNode[] {
+  if (!sliders) return [];
   return sliders.map(slider => {
     const id = slider.id ? slider.id : slider.label?.toString();
     return (
@@ -41,9 +42,10 @@ function renderSliderControls(
 }
 
 function renderButtonPairs(
-  buttonsPairs: ButtonPairControlProps[],
   initTabIndex: number,
+  buttonsPairs?: ButtonPairControlProps[],
   ): ReactNode[] {
+  if (!buttonsPairs) return [];
   return buttonsPairs.map(bp =>
     <ButtonPairControl
       key={bp.info}
@@ -95,8 +97,8 @@ export function ControlsBody(props: ControlsProps) {
     return null;
   }
   const initTabIndex = fullScreen ? 3 : 10;
-  const sliders = renderSliderControls(props.sliders, initTabIndex)
-  const buttons = renderButtonPairs(props.buttonPairs, initTabIndex)
+  const sliders = renderSliderControls(initTabIndex, props.sliders)
+  const buttons = renderButtonPairs(initTabIndex, props.buttonPairs)
 
   return (
     <div>

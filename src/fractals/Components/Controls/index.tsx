@@ -6,8 +6,8 @@ import { ControlsBody } from "./ControlsBody";
 import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 
 export type ControlProps = {
-  sliders: SliderControlProps[];
-  buttonPairs: ButtonPairControlProps[];
+  sliders?: SliderControlProps[];
+  buttonPairs?: ButtonPairControlProps[];
   altControls?: ReactNode;
   altTabIndex?: number;
   children?: ReactNode;
