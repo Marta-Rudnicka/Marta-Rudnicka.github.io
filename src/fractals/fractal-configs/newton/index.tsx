@@ -40,7 +40,6 @@ export function Newton() {
 
   const sliders: SliderControlProps[] = [{
     value: constant,
-    info: 'constant',
     label: <MathJax>{`\\(${constant}\\)`}</MathJax>,
     setValue: setConstant,
     ...sliderProps,
@@ -49,7 +48,6 @@ export function Newton() {
   },
   {
     value: co1,
-    info: 'coefficient for x',
     label: <MathJax>{`\\(${co1}x\\)`}</MathJax>,
     setValue: setCo1,
     ...sliderProps,
@@ -58,7 +56,6 @@ export function Newton() {
   },
   {
     value: co2,
-    info: "coefficient for x^2",
     label: <MathJax>{`\\(${co2}x ^ 2\\)`}</MathJax>,
     setValue: setCo2,
     ...sliderProps,
@@ -68,7 +65,6 @@ export function Newton() {
   },
   {
     value: co3,
-    info: "coefficient for x^3",
     label: <MathJax>{`\\(${co3}x ^ 3\\)`}</MathJax>,
     setValue: setCo3,
     ...sliderProps,
@@ -77,7 +73,6 @@ export function Newton() {
   },
   {
     value: co4,
-    info: "coefficient for x^4",
     label: <MathJax>{`\\(${co4}x ^ 4\\)`}</MathJax>,
     setValue: setCo4,
     ...sliderProps,
@@ -86,7 +81,6 @@ export function Newton() {
   },
   {
     value: co5,
-    info: "coefficient for x^5",
     label: <MathJax>{`\\(${co5}x ^ 5\\)`}</MathJax>,
     setValue: setA5,
     ...sliderProps,

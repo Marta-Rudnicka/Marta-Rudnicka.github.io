@@ -133,7 +133,6 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     label2: 'zoom out',
     handleClick1: zoomIn,
     handleClick2: zoomOut,
-    info: "zoom in or out",
     tabIndex: 1,
   }];
 
