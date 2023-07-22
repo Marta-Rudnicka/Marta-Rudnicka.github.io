@@ -16,6 +16,7 @@ export type FractalDisplayProps = MainFractalControlProps & {
   descriptionTabIndex: number;
   inFocus?: boolean;
   setInFocus?: Dispatch<SetStateAction<string | null>>;
+  altTabIndex?: number;
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
@@ -50,6 +51,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
     buttonPairs={props.buttonPairs || []}
     altControls={props.altControls}
     children={props.controlsChildren}
+    altTabIndex={props.altTabIndex}
   />;
 
   // prevent focusing on MathJax equations

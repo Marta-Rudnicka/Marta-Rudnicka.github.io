@@ -18,6 +18,7 @@ export type PositionControlProps = {
   setInFocus?: Dispatch<SetStateAction<string | null>>
   invisible?: boolean;
   children?: ReactNode;
+  tabIndex?: number;
 }
 export function PositionControl(props: PositionControlProps) {
   const [xPosition, setXPosition] = useState(props.x);
@@ -120,22 +121,23 @@ export function PositionControl(props: PositionControlProps) {
       onKeyDown={(e) => handleKeyboardInput(e)}
       onKeyUp={() => resetClasses()}
       onFocus={handleFocus}
+      tabIndex={props.tabIndex}
     >
       <div className="position-control-row">
-        <button onClick={moveUp} className={upClass} id={`${props.id}-arrow-up`}>
+        <button onClick={moveUp} className={upClass} id={`${props.id}-arrow-up`} tabIndex={-1}>
           <ArrowUp />
         </button>
       </div>
       <div className="position-control-row">
-        <button onClick={moveLeft} className={leftClass} id={`${props.id}-arrow-left`}>
+        <button onClick={moveLeft} className={leftClass} id={`${props.id}-arrow-left`} tabIndex={-1}>
           <ArrowLeft />
         </button>
-        <button onClick={moveRight} className={rightClass} id={`${props.id}-arrow-right`}>
+        <button onClick={moveRight} className={rightClass} id={`${props.id}-arrow-right`} tabIndex={-1}>
           <ArrowRight />
         </button>
       </div>
       <div className="position-control-row">
-        <button onClick={moveDown} className={downClass} id={`${props.id}-arrow-down`}>
+        <button onClick={moveDown} className={downClass} id={`${props.id}-arrow-down`} tabIndex={-1}>
           <ArrowDown />
         </button>
       </div>

@@ -1,6 +1,6 @@
 import { draw } from "./draw";
 import { Description } from "./description";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { FractalDisplay } from "../../Components/FractalDisplay";
 import { findAffectedPoint, getSize, rescale } from "../../utils";
@@ -8,6 +8,7 @@ import { canvasInputs, Point, Triangle } from "../../../types";
 import { equilateralTriangle } from "./algorithm";
 import { SierpinskiAltControls } from "./altControls";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
+import { NavTabContext } from "../../../App";
 
 function getIterationsNumber(fullScreen: boolean): number {
   const size = getSize(fullScreen);
@@ -100,12 +101,11 @@ export function SierpinskiTriangle() {
 
   const sliders: SliderControlProps[] = [{
     value: iterations,
-    info: "number of iterations",
     label: "iterations",
     maxValue: getIterationsNumber(fullScreen),
     minValue: 1,
     setValue: (value) => handleSliderInput(value as number),
-    tabIndex: 1,
+    tabIndex: 0,
   }];
 
   const canvasInputs: canvasInputs = {
@@ -122,13 +122,15 @@ export function SierpinskiTriangle() {
       setValue: setCursorPosition,
     }
   };
+  const navTabIndex = useContext(NavTabContext);
+  const altTabIndex = fullScreen ? 6 : navTabIndex + 6;
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
-
       <FractalDisplay
         adjustPropertiesToScreenSize={adjustPropertiesToScreenSize}
         altControls={altControls}
+        altTabIndex={altTabIndex}
         canvasInputs={canvasInputs}
         canvasSize={canvasSize}
         description={Description()}
@@ -145,7 +147,7 @@ export function SierpinskiTriangle() {
         setFullScreen={setFullScreen}
         sliders={sliders}
         title="Sierpiński triangle"
-        descriptionTabIndex={12}
+        descriptionTabIndex={navTabIndex + 11}
       />
     </FullScreenContext.Provider>
   );

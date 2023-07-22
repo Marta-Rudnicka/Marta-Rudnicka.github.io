@@ -9,7 +9,7 @@ export type ControlProps = {
   sliders: SliderControlProps[];
   buttonPairs: ButtonPairControlProps[];
   altControls?: ReactNode;
-  accessible?: boolean;
+  altTabIndex?: number;
   children?: ReactNode;
 }
 
@@ -31,6 +31,7 @@ export function Controls(props: ControlProps) {
         {...props}
         initTabIndex={initTabIndex}
         allVisible={allVisible}
+        altTabIndex={props.altTabIndex}
       />
     </>
   );
