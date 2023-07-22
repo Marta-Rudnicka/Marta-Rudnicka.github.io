@@ -3,7 +3,7 @@ import { Description } from "./description";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { getPolynomialStringForNroots } from "./maths-helpers";
 import { MathJax } from "better-react-mathjax";
 
@@ -95,11 +95,13 @@ export function Newton() {
   }
   ];
 
+  const description = useMemo(() => Description(), []);
+
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
     range={3}
     startValue={[-2, -1.5]}
-    description={Description()}
+    description={description}
     draw={draw}
     drawParameters={{ constant, co1, co2, co3, co4, co5 }}
     nextLink="/#/mandelbrot"
