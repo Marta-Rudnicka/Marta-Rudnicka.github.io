@@ -4,6 +4,7 @@ import { EnterFullScreen } from "../../components/icons/EnterFullScreen";
 import { ExitFullScreen } from "../../components/icons/ExitFullScreen";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { FullScreenContext } from "./ComplexPlane/ComplexPlane";
+import { NavTabContext } from "../../App";
 
 type CanvasProps = {
   size: number;
@@ -18,7 +19,9 @@ export function Canvas(props: CanvasProps) {
   const c = useRef<HTMLCanvasElement>(null);
   const offsetX = c?.current?.getBoundingClientRect().left;
   const offsetY = c?.current?.getBoundingClientRect().top;
-  const fullScreen = useContext(FullScreenContext)
+  const fullScreen = useContext(FullScreenContext);
+  const navTabs = useContext(NavTabContext);
+  const tabIndex = fullScreen ? 1 : navTabs + 1;
 
   const { size } = props;
   const tooltipText = fullScreen ? 'exit full screen' : 'full screen view';
@@ -75,7 +78,7 @@ export function Canvas(props: CanvasProps) {
             className="change-view-icon"
             onClick={props.handleClick}
             onKeyDown={handleKeyboardInput}
-            tabIndex={9}
+            tabIndex={tabIndex + 1}
           >
             {fullScreen
               ? <ExitFullScreen width={25} height={25} />
@@ -92,7 +95,7 @@ export function Canvas(props: CanvasProps) {
         className="floating-box"
         height={size}
         width={size}
-        tabIndex={8}
+        tabIndex={tabIndex}
         onFocus={() => props.setInFocus('canvas')}
       />
     </div>)
