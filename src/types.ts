@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { SliderControlProps } from "./fractals/Components/Controls/SliderControl";
 import { ButtonPairControlProps } from "./fractals/Components/Controls/ButtonControlPair";
+import { RadioControlProps } from "./fractals/Components/Controls/RadioInput";
 
 export type DrawFuncArgs = {
   canvas: HTMLCanvasElement,
@@ -72,5 +73,6 @@ export type MainFractalControlProps = {
   prevLink?: string;
   sliders?: SliderControlProps[];
   buttonPairs?: ButtonPairControlProps[];
+  radio?: RadioControlProps[];
   controlsChildren?: ReactNode;  title: string;
 }

@@ -4,10 +4,12 @@ import { ControlHeader } from "./ControlsHeader";
 import { SliderControlProps } from "./SliderControl";
 import { ControlsBody } from "./ControlsBody";
 import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
+import { RadioControlProps } from "./RadioInput";
 
 export type ControlProps = {
   sliders?: SliderControlProps[];
   buttonPairs?: ButtonPairControlProps[];
+  radioInputs?: RadioControlProps[];
   altControls?: ReactNode;
   altTabIndex?: number;
   children?: ReactNode;

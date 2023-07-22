@@ -49,6 +49,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
   const controls = <Controls
     sliders={props.sliders}
     buttonPairs={props.buttonPairs}
+    radioInputs={props.radio}
     altControls={props.altControls}
     children={props.controlsChildren}
     altTabIndex={props.altTabIndex}
