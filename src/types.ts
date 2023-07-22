@@ -14,6 +14,11 @@ export type Point = [
   number, number,
 ]
 
+export type LineSegment = {
+  a: Point;
+  b: Point;
+}
+
 export type Triangle = {
   a: Point;
   b: Point;
