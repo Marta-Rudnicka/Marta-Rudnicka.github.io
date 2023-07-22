@@ -89,7 +89,7 @@ function AltControls(props: AltControlProps) {
 }
 
 export function ControlsBody(props: ControlsProps) {
-  if (props.fullScreen! && props.allVisible) {
+  if (props.fullScreen! && !props.allVisible) {
     return null;
   }
   const initTabIndex = props.fullScreen ? 3 : 10;

@@ -8,7 +8,7 @@ export type ControlProps = {
   sliders: SliderControlProps[];
   buttonPairs: ButtonPairControlProps[];
   altControls?: ReactNode;
-  fullScreen?: boolean;
+  fullScreen: boolean;
   accessible?: boolean;
   children?: ReactNode;
 }
@@ -16,7 +16,6 @@ export type ControlProps = {
 export function Controls(props: ControlProps) {
   const [allVisible, setAllVisible] = useState(!props.fullScreen);
   const initTabIndex = props.fullScreen ? 3 : 10;
-  console.log({initTabIndex })
   return (
     <>
       <div className="control-header-wrapper">
