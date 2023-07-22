@@ -12,14 +12,6 @@ export type SliderProps = {
   inputRounding?: number;
 }
 
-export function roundInput(i: number, stepSize: number) {
-  let fixedVal = 0;
-  const log = Math.log10(stepSize);
-  if (log < 0) {
-    fixedVal = Math.abs(log - 1);
-  }
-  return parseFloat(i.toFixed(fixedVal));
-}
 export function Slider(props: SliderProps) {
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement>,

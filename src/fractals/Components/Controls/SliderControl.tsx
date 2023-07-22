@@ -16,26 +16,7 @@ export type SliderControlProps = {
   id?: string;
 }
 
-export function roundInput(i: number, stepSize: number) {
-  let fixedVal = 0;
-  const log = Math.log10(stepSize);
-  if (log < 0) {
-    fixedVal = Math.abs(log -1);
-  }
-  return parseFloat(i.toFixed(fixedVal));
-}
-
 export function SliderControl(props: SliderControlProps){
-  const [isOpen, setIsOpen] = useState(false);
-
-  function toggleIsOpen(){
-    if (isOpen) {
-      setIsOpen(false);
-    } else {
-      setIsOpen(true);
-    }
-  }
-
   return (
     <div className="slider-container">
       <div className='slider-label'>
