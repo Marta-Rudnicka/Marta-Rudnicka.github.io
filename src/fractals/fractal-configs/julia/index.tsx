@@ -1,9 +1,10 @@
+import { useContext, useMemo, useState } from "react";
 import { draw } from "./draw";
 import { Description } from "./description";
-import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
-import { useState } from "react";
+import { SliderControlProps } from "../../Components/Controls/SliderControl";
+import { NavTabContext } from "../../../App";
 
 export function JuliaSet() {
   const [cReal, setCReal] = useState(-0.12256);
@@ -30,11 +31,14 @@ export function JuliaSet() {
     tabIndex: 2,
   }];
 
+  const description = useMemo(() => Description(), []);
+  const navTabIndex = useContext(NavTabContext);
+
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
     range={3}
     startValue={[-1.5, -1.5]}
-    description={Description()}
+    description={description}
     draw={draw}
     nextLink="/#/dummy"
     prevLink="/#/mandelbrot"
@@ -42,7 +46,7 @@ export function JuliaSet() {
     title="Julia Set - demo"
     xReal={cReal}
     xImaginary={cImaginary}
-    descriptionTabIndex={7}
+    descriptionTabIndex={navTabIndex+10}
   />
   );
 }
