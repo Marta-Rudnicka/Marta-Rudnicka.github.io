@@ -3,9 +3,10 @@ import { Description } from "./description";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { createImageData } from "./algorithm";
 import { ComplexPlaneFractalDisplay } from "../../Components/ComplexPlane/ComplexPlane";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { getPolynomialStringForNroots } from "./maths-helpers";
 import { MathJax } from "better-react-mathjax";
+import { NavTabContext } from "../../../App";
 
 const sliderProps = {
   maxValue: 5,
@@ -89,6 +90,7 @@ export function Newton() {
   }
   ];
 
+  const navTabIndex = useContext(NavTabContext);
   const description = useMemo(() => Description(), []);
 
   return (<ComplexPlaneFractalDisplay
@@ -105,7 +107,7 @@ export function Newton() {
     title="Newton's fractal"
     xReal={0}
     xImaginary={0}
-    descriptionTabIndex={24}
+    descriptionTabIndex={navTabIndex + 17}
   />
   );
 }
