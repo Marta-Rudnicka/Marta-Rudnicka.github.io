@@ -1,16 +1,16 @@
 import { DefaultLayout } from "../default-view/DefaultLayout";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { FullScreenLayout } from "../full-screen-view/FullScreenLayout";
 import { canvasInputs, DrawFuncArgs, MainFractalControlProps, Parameters } from "../../types";
 import { Controls } from "./Controls";
 import { MathJaxContext } from "better-react-mathjax";
+import { FullScreenContext } from "./ComplexPlane/ComplexPlane";
 
 export type FractalDisplayProps = MainFractalControlProps & {
   canvasInputs: canvasInputs;
   canvasSize: number;
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
-  fullScreen: boolean;
   prevCanvasSize?: number | null,
   setFullScreen: Dispatch<SetStateAction<boolean>>
   descriptionTabIndex: number;
@@ -19,12 +19,13 @@ export type FractalDisplayProps = MainFractalControlProps & {
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
-  const { fullScreen, adjustPropertiesToScreenSize, canvasSize } = props;
-  const [inFocus, setInFocus] = useState(null as null | string)
+  const { adjustPropertiesToScreenSize, canvasSize } = props;
+  const [inFocus, setInFocus] = useState(null as null | string);
+  const fullScreen = useContext(FullScreenContext);
 
 
   function handleChangeViewIconClick() {
-    if (props.fullScreen) {
+    if (fullScreen) {
       props.setFullScreen(false)
     } else {
       props.setFullScreen(true);
@@ -42,13 +43,12 @@ export function FractalDisplay(props: FractalDisplayProps) {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [fullScreen]);
+  }, []);
 
   const controls = <Controls
     sliders={props.sliders || []}
     buttonPairs={props.buttonPairs || []}
     altControls={props.altControls}
-    fullScreen={props.fullScreen}
     children={props.controlsChildren}
   />;
 
@@ -58,7 +58,7 @@ export function FractalDisplay(props: FractalDisplayProps) {
     element.setAttribute('tabIndex', '-1');
   });
 
-  if (props.fullScreen) {
+  if (fullScreen) {
     return (
       <MathJaxContext key={props.title} config={{inTabOrder: false}}>
         <FullScreenLayout

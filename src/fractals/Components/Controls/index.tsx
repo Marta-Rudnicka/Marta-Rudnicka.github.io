@@ -1,25 +1,26 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { ButtonPairControlProps } from "./ButtonControlPair";
 import { ControlHeader } from "./ControlsHeader";
 import { SliderControlProps } from "./SliderControl";
 import { ControlsBody } from "./ControlsBody";
+import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 
 export type ControlProps = {
   sliders: SliderControlProps[];
   buttonPairs: ButtonPairControlProps[];
   altControls?: ReactNode;
-  fullScreen: boolean;
   accessible?: boolean;
   children?: ReactNode;
 }
 
 export function Controls(props: ControlProps) {
-  const [allVisible, setAllVisible] = useState(!props.fullScreen);
-  const initTabIndex = props.fullScreen ? 3 : 10;
+  const fullScreen = useContext(FullScreenContext);
+  const [allVisible, setAllVisible] = useState(!fullScreen);
+  const initTabIndex = fullScreen ? 3 : 10;
   return (
     <>
       <div className="control-header-wrapper">
-        {props.fullScreen &&
+        {fullScreen &&
           <ControlHeader
             allVisible={allVisible}
             setAllVisible={setAllVisible}

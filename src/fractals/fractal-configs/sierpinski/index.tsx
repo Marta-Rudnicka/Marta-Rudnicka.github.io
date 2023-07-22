@@ -7,6 +7,7 @@ import { findAffectedPoint, getSize, rescale } from "../../utils";
 import { canvasInputs, Point, Triangle } from "../../../types";
 import { equilateralTriangle } from "./algorithm";
 import { SierpinskiAltControls } from "./altControls";
+import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 
 function getIterationsNumber(fullScreen: boolean): number {
   const size = getSize(fullScreen);
@@ -29,7 +30,7 @@ export function SierpinskiTriangle() {
     outerTriangle={outerTriangle}
     setOuterTriangle={setOuterTriangle}
     canvasSize={getSize(fullScreen)}
-   />
+  />
 
   function handleX(): void {
     if (trackingMouse) {
@@ -47,7 +48,7 @@ export function SierpinskiTriangle() {
   }
 
   function animate() {
-    if(!animation) return;
+    if (!animation) return;
     setTimeout(() => {
       const i = iterations;
       if (i < maxIterations) {
@@ -99,7 +100,7 @@ export function SierpinskiTriangle() {
 
   const sliders: SliderControlProps[] = [{
     value: iterations,
-    info: "dummy info",
+    info: "number of iterations",
     label: "iterations",
     maxValue: getIterationsNumber(fullScreen),
     minValue: 1,
@@ -122,27 +123,30 @@ export function SierpinskiTriangle() {
     }
   };
 
-  return (<FractalDisplay
-    adjustPropertiesToScreenSize={adjustPropertiesToScreenSize}
-    altControls={altControls}
-    canvasInputs={canvasInputs}
-    canvasSize={canvasSize}
-    description={Description()}
-    draw={draw}
-    drawParameters={
-      {
-        iterations,
-        a: outerTriangle.a,
-        b: outerTriangle.b,
-        c: outerTriangle.c,
-      }}
-    fullScreen={fullScreen}
-    nextLink="/#/cantor"
-    prevCanvasSize={prevCanvasSize}
-    setFullScreen={setFullScreen}
-    sliders={sliders}
-    title="Sierpiński triangle"
-    descriptionTabIndex={12}
-  />
+  return (
+    <FullScreenContext.Provider value={fullScreen} >
+
+      <FractalDisplay
+        adjustPropertiesToScreenSize={adjustPropertiesToScreenSize}
+        altControls={altControls}
+        canvasInputs={canvasInputs}
+        canvasSize={canvasSize}
+        description={Description()}
+        draw={draw}
+        drawParameters={
+          {
+            iterations,
+            a: outerTriangle.a,
+            b: outerTriangle.b,
+            c: outerTriangle.c,
+          }}
+        nextLink="/#/cantor"
+        prevCanvasSize={prevCanvasSize}
+        setFullScreen={setFullScreen}
+        sliders={sliders}
+        title="Sierpiński triangle"
+        descriptionTabIndex={12}
+      />
+    </FullScreenContext.Provider>
   );
 }

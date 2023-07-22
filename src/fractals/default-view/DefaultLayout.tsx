@@ -31,7 +31,6 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           <div className="canvas floating-box" tabIndex={-1}>
             <Canvas
               canvasInputs={props.canvasInputs}
-              fullScreen={false}
               draw={props.draw}
               drawParameters={props.drawParameters}
               handleClick={props.handleClick}

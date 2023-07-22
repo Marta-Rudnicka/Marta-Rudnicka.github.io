@@ -1,9 +1,10 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { SliderControl, SliderControlProps } from "./SliderControl";
 import { ButtonPairControl, ButtonPairControlProps } from "./ButtonControlPair";
 import { ControlProps } from "./index";
 import { ChevronDown } from "../../../components/icons/ChevronDown";
 import { ChevronUp } from "../../../components/icons/ChevronUp";
+import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 
 type ControlsProps = ControlProps & {
   allVisible: boolean,
@@ -89,10 +90,11 @@ function AltControls(props: AltControlProps) {
 }
 
 export function ControlsBody(props: ControlsProps) {
-  if (props.fullScreen! && !props.allVisible) {
+  const fullScreen = useContext(FullScreenContext);
+  if (fullScreen! && !props.allVisible) {
     return null;
   }
-  const initTabIndex = props.fullScreen ? 3 : 10;
+  const initTabIndex = fullScreen ? 3 : 10;
   const sliders = renderSliderControls(props.sliders, initTabIndex)
   const buttons = renderButtonPairs(props.buttonPairs, initTabIndex)
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useEffect, useMemo, useRef, useState } from "react";
 import { canvasInputs, Complex, MainFractalControlProps, Point } from "../../../types";
 import { getSize } from "../../utils";
 import { FractalDisplay } from "../FractalDisplay";
@@ -32,6 +32,7 @@ type ComplexPlaneProps = MainFractalControlProps & {
   drawParameters?: NewtonInputs,
   descriptionTabIndex: number,
 }
+export const FullScreenContext = createContext(false);
 
 export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [fullScreen, setFullScreen] = useState(false);
@@ -40,9 +41,8 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   const [startValue, setStartValue] = useState(props.startValue)
   const [range, setRange] = useState(props.range);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
-  const [pixelOffset, setPixelOffset] = useState([0, 0] as Point)
-  const [inFocus, setInFocus] = useState(null as string | null)
-
+  const [pixelOffset, setPixelOffset] = useState([0, 0] as Point);
+  const [inFocus, setInFocus] = useState(null as string | null);
   const imageData = useMemo(() =>
     props.createImageData(
       canvasSize,
@@ -109,7 +109,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
 
   function updateStartValue(range: number) {
     const increment = range / canvasSize;
-    let newValue: Complex = [ ...startValue ]
+    let newValue: Complex = [...startValue]
     newValue[0] = startValue[0] + increment;
     newValue[1] = startValue[1] + increment;
     setStartValue(newValue);
@@ -160,35 +160,36 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     xImaginary: props.xImaginary,
   }
   return (
-    <ComplexPlaneAltControls
-      handleMouseUp={handleMouseUp}
-      handleMouseMove={handleMouseMove}
-      handleMouseDown={handleMouseDown}
-      zoomIn={zoomIn}
-      zoomOut={zoomOut}
-      canvasSize={canvasSize}
-      setCursorPosition={setCursorPosition}
-      inFocus={inFocus}
-      setInFocus={setInFocus}
-    >
-      <FractalDisplay
-        canvasInputs={canvasInputs}
+    <FullScreenContext.Provider value={fullScreen} >
+      <ComplexPlaneAltControls
+        handleMouseUp={handleMouseUp}
+        handleMouseMove={handleMouseMove}
+        handleMouseDown={handleMouseDown}
+        zoomIn={zoomIn}
+        zoomOut={zoomOut}
         canvasSize={canvasSize}
-        description={props.description}
-        draw={props.draw}
-        drawParameters={complexDrawParameters}
-        fullScreen={fullScreen}
-        nextLink={props.nextLink}
-        prevCanvasSize={100}
-        prevLink={props.prevLink}
-        setFullScreen={setFullScreen}
-        sliders={props.sliders}
-        buttonPairs={buttonPairs}
-        controlsChildren={props.controlsChildren}
-        title={props.title}
-        descriptionTabIndex={props.descriptionTabIndex}
+        setCursorPosition={setCursorPosition}
+        inFocus={inFocus}
         setInFocus={setInFocus}
-      />
-    </ComplexPlaneAltControls>
+      >
+        <FractalDisplay
+          canvasInputs={canvasInputs}
+          canvasSize={canvasSize}
+          description={props.description}
+          draw={props.draw}
+          drawParameters={complexDrawParameters}
+          nextLink={props.nextLink}
+          prevCanvasSize={100}
+          prevLink={props.prevLink}
+          setFullScreen={setFullScreen}
+          sliders={props.sliders}
+          buttonPairs={buttonPairs}
+          controlsChildren={props.controlsChildren}
+          title={props.title}
+          descriptionTabIndex={props.descriptionTabIndex}
+          setInFocus={setInFocus}
+        />
+      </ComplexPlaneAltControls>
+    </FullScreenContext.Provider>
   );
 }

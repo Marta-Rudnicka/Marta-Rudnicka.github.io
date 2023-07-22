@@ -1,11 +1,11 @@
-import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef } from "react"
+import { Dispatch, MouseEvent, SetStateAction, useContext, useEffect, useRef } from "react"
 import { canvasInputs, DrawFunc, eventHandlerString, Parameters, Point } from "../../types";
 import { EnterFullScreen } from "../../components/icons/EnterFullScreen";
 import { ExitFullScreen } from "../../components/icons/ExitFullScreen";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import { FullScreenContext } from "./ComplexPlane/ComplexPlane";
 
 type CanvasProps = {
-  fullScreen?: boolean;
   size: number;
   draw: DrawFunc;
   drawParameters: Parameters;
@@ -18,9 +18,10 @@ export function Canvas(props: CanvasProps) {
   const c = useRef<HTMLCanvasElement>(null);
   const offsetX = c?.current?.getBoundingClientRect().left;
   const offsetY = c?.current?.getBoundingClientRect().top;
+  const fullScreen = useContext(FullScreenContext)
 
-  const { size } = props; //getSize(props.fullScreen);
-  const tooltipText = props.fullScreen ? 'exit full screen' : 'full screen view';
+  const { size } = props;
+  const tooltipText = fullScreen ? 'exit full screen' : 'full screen view';
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter') {
@@ -41,7 +42,7 @@ export function Canvas(props: CanvasProps) {
   }, [props, size, c, props.drawParameters]);
 
   function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point{
-    if (props.fullScreen || (offsetX && offsetY)) {
+    if (fullScreen || (offsetX && offsetY)) {
       return [
         Math.round(e.clientX - ( offsetX || 0)),
         Math.round(e.clientY - ( offsetY || 0))
@@ -76,7 +77,7 @@ export function Canvas(props: CanvasProps) {
             onKeyDown={handleKeyboardInput}
             tabIndex={9}
           >
-            {props.fullScreen
+            {fullScreen
               ? <ExitFullScreen width={25} height={25} />
               : <EnterFullScreen width={25} height={25} />
             }
