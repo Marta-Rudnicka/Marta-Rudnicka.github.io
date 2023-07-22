@@ -45,6 +45,7 @@ export function Newton() {
     setValue: setConstant,
     ...sliderProps,
     tabIndex: 1,
+    id: 'const',
   },
   {
     value: co1,
@@ -53,6 +54,7 @@ export function Newton() {
     setValue: setCo1,
     ...sliderProps,
     tabIndex: 2,
+    id: 'x1',
   },
   {
     value: co2,
@@ -61,6 +63,8 @@ export function Newton() {
     setValue: setCo2,
     ...sliderProps,
     tabIndex: 3,
+    id: 'x2',
+
   },
   {
     value: co3,
@@ -69,6 +73,7 @@ export function Newton() {
     setValue: setCo3,
     ...sliderProps,
     tabIndex: 4,
+    id: 'x3',
   },
   {
     value: co4,
@@ -77,6 +82,7 @@ export function Newton() {
     setValue: setCo4,
     ...sliderProps,
     tabIndex: 5,
+    id: 'x4',
   },
   {
     value: co5,
@@ -85,6 +91,7 @@ export function Newton() {
     setValue: setA5,
     ...sliderProps,
     tabIndex: 6,
+    id: 'x5',
   }
   ];
 
@@ -102,7 +109,7 @@ export function Newton() {
     title="Newton's fractal"
     xReal={0}
     xImaginary={0}
-    descriptionTabIndex={18}
+    descriptionTabIndex={24}
   />
   );
 }

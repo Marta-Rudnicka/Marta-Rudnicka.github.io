@@ -8,19 +8,23 @@ import { ChevronUp } from "../../../components/icons/ChevronUp";
 type ControlsProps = ControlProps & {
   allVisible: boolean,
   initTabIndex: number,
+  altTabIndex?: number,
 }
 
 type AltControlProps = {
-  children: ReactNode
+  children: ReactNode;
+  tabIndex: number;
 }
 
 function renderSliderControls(
   sliders: SliderControlProps[],
   initTabIndex: number,
 ): ReactNode[] {
-  return sliders.map(slider =>
+  return sliders.map(slider => {
+    const id = slider.id ? slider.id : slider.label?.toString();
+    return (
     <SliderControl
-      key={slider.label?.toString()}
+      key={id}
       label={slider.label}
       setValue={slider.setValue}
       maxValue={slider.maxValue}
@@ -28,8 +32,10 @@ function renderSliderControls(
       value={slider.value}
       info={slider.info}
       stepSize={slider.stepSize}
-      tabIndex={slider.tabIndex + initTabIndex}
-    />
+      tabIndex={2 * slider.tabIndex + initTabIndex}
+      id={id}
+    />);
+  }
   );
 }
 
@@ -59,6 +65,7 @@ function AltControls(props: AltControlProps) {
         <button
           className='alt-button'
           onClick={() => setShow(true)}
+          tabIndex={12}
         >
           Show alternative keyboard-only controls
           <ChevronDown />
@@ -71,6 +78,7 @@ function AltControls(props: AltControlProps) {
       <button
         className='alt-button'
         onClick={() => setShow(false)}
+        tabIndex={12}
       >
         Hide alternative keyboard-only controls
         <ChevronUp />
@@ -93,7 +101,7 @@ export function ControlsBody(props: ControlsProps) {
       {buttons}
       {sliders}
       {!!props.altControls &&
-        <AltControls>
+        <AltControls tabIndex={props.altTabIndex || -1}>
           {props.altControls}
         </AltControls>
       }

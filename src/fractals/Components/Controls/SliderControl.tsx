@@ -13,6 +13,7 @@ export type SliderControlProps = {
   labelStepSize? : number
   stepSize?: number;
   tabIndex: number;
+  id?: string;
 }
 
 export function roundInput(i: number, stepSize: number) {
@@ -40,7 +41,7 @@ export function SliderControl(props: SliderControlProps){
       <div className='slider-label'>
         <span onClick={toggleIsOpen}><Info /></span>
         <Collapse isOpen={isOpen}>{props.info}</Collapse>
-        <label htmlFor={props.label?.toString()}>{props.label}</label>
+        <label htmlFor={props.id}>{props.label}</label>
       </div>
       <div>
         <Slider
@@ -51,6 +52,7 @@ export function SliderControl(props: SliderControlProps){
           stepSize={props.stepSize || 1}
           tabIndex={props.tabIndex}
           label={props.label}
+          id={props.id}
         />
         </div>
     </div>

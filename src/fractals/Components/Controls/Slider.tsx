@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type SliderProps = {
   minValue: number;
@@ -8,6 +8,8 @@ export type SliderProps = {
   stepSize?: number;
   tabIndex: number;
   label: string | ReactNode;
+  id?: string;
+  inputRounding?: number;
 }
 
 export function roundInput(i: number, stepSize: number) {
@@ -18,53 +20,57 @@ export function roundInput(i: number, stepSize: number) {
   }
   return parseFloat(i.toFixed(fixedVal));
 }
-
 export function Slider(props: SliderProps) {
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    ) {
     const newValue = parseFloat(e.currentTarget.value);
     props.setValue(newValue);
-    if (inputRef?.current) inputRef.current.focus();
   }
 
-  const inputRef = useRef(document.getElementById(props.label));
-
-  useEffect(() => {
-    if (inputRef?.current) inputRef.current.focus();
-  }, []);
-
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
+    console.log('handleKeyboardInput')
+
     if (["ArrowRight", "+"].includes(e.key)) {
       const step = props.stepSize || 1;
       const newValue = parseFloat((props.value + step).toFixed(props.inputRounding || 1));
-      e.preventDefault(); // prevent scrolling
-      props.setValue(newValue)
+      e.preventDefault();
+      props.setValue(newValue);
       console.log('+')
+
     }
     if (["ArrowLeft", "-"].includes(e.key)) {
       const step = props.stepSize || 1;
       const newValue = parseFloat((props.value - step).toFixed(props.inputRounding || 1));
-      e.preventDefault(); // prevent scrolling
+      e.preventDefault();
       props.setValue(newValue);
-      console.log('-')
     }
   }
 
   return (
-    <div key={props.value} tabIndex={-1}>
-      <div className="slider-input-container" tabIndex={-1}>
-        <div tabIndex={-1}>{props.minValue}</div>
+    <div key={props.value} tabIndex={-1} >
+      <div className="slider-input-container slider-grid" tabIndex={-1}>
         <input
-          onKeyDown={handleKeyboardInput}
+          type="number"
+          value={props.value}
+          tabIndex={props.tabIndex}
+          onChange={(e) => handleChange(e)}
+          onKeyDown={(e) => handleKeyboardInput(e)}
+          step={props.stepSize}
+        />
+        <div tabIndex={-1} className="right">{props.minValue}</div>
+        <input
+          onKeyDown={(e) => handleKeyboardInput(e)}
           type="range"
           min={props.minValue}
           max={props.maxValue}
           step={props.stepSize}
-          onChange={handleChange}
-          tabIndex={props.tabIndex}
+          onChange={(e) => handleChange(e)}
+          tabIndex={props.tabIndex + 1}
           value={props.value}
           className="slider-input"
-          id={props.label}
-          name={props.label}
+          id={props.id}
+          name={props.id}
         />
         <div tabIndex={-1}>{props.maxValue}</div>
       </div>
