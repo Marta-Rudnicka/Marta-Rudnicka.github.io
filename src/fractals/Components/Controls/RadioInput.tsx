@@ -13,8 +13,8 @@ export type RadioControlProps = {
 
 
 export function RadioInput(props: RadioControlProps) {
-  const options = props.options.map(o => <Radio label={o} value={o} key={o}/>)
-
+  const options = props.options.map((o, index) => <Radio label={o} value={o} key={o} tabIndex={props.tabIndex + index}/>)
+  console.log(props.tabIndex)
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
     props.setValue(e.currentTarget.value)
 

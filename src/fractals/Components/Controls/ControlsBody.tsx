@@ -6,6 +6,7 @@ import { ChevronDown } from "../../../components/icons/ChevronDown";
 import { ChevronUp } from "../../../components/icons/ChevronUp";
 import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 import { RadioControlProps, RadioInput } from "./RadioInput";
+import { NavTabContext } from "../../../App";
 
 type ControlsProps = ControlProps & {
   allVisible: boolean,
@@ -61,7 +62,6 @@ function renderButtonPairs(
 }
 
 function renderRadioInputs(
-  initTabIndex: number,
   radioInputs?: RadioControlProps[],
 ): ReactNode[] {
   if (!radioInputs) return [];
@@ -72,7 +72,7 @@ function renderRadioInputs(
       label={r.label}
       options={r.options}
       setValue={r.setValue}
-      tabIndex={initTabIndex}
+      tabIndex={r.tabIndex}
       value={r.value}
     />
   );
@@ -112,13 +112,15 @@ function AltControls(props: AltControlProps) {
 
 export function ControlsBody(props: ControlsProps) {
   const fullScreen = useContext(FullScreenContext);
+  const navTabIndex = useContext(NavTabContext);
+
   if (fullScreen! && !props.allVisible) {
     return null;
   }
-  const initTabIndex = fullScreen ? 3 : 10;
+  const initTabIndex = fullScreen ? 3 : navTabIndex + 3;
   const sliders = renderSliderControls(initTabIndex, props.sliders)
   const buttons = renderButtonPairs(initTabIndex, props.buttonPairs)
-  const radio = renderRadioInputs(initTabIndex, props.radioInputs);
+  const radio = renderRadioInputs(props.radioInputs);
 
   return (
     <div>

@@ -24,6 +24,7 @@ export function CantorSet() {
   const [showIntermediateStages, setShowIntermediateStages] = useState("yes");
 
   const maxIterations = getMaxIterations(canvasSize);
+  const navTabIndex = useContext(NavTabContext);
 
   useEffect(() => {
     const func = () => {
@@ -49,7 +50,7 @@ export function CantorSet() {
       value: dimensions.toString(),
       label: "dimensions",
       setValue: setDimensions as Dispatch<SetStateAction<string>>,
-      tabIndex: 10,
+      tabIndex: navTabIndex + 5,
       options: ["1 dimension - Cantor set", "2 dimensions - Cantor dust"],
 
     }]
@@ -58,12 +59,11 @@ export function CantorSet() {
       label: "Show intermediate steps",
       info: "If selected, it will show all the previous iterations. For example, if you select 4 iterations, you will see the images for 1, 2, 3, and 4 iterations",
       setValue: setShowIntermediateStages,
-      tabIndex: 11,
+      tabIndex: navTabIndex + 6,
       value: showIntermediateStages,
       options: ["yes", "no"],
   })}
 
-  const navTabIndex = useContext(NavTabContext);
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
@@ -71,7 +71,7 @@ export function CantorSet() {
         canvasInputs={{}}
         canvasSize={canvasSize}
         description={Description()}
-        descriptionTabIndex={navTabIndex + 11}
+        descriptionTabIndex={navTabIndex + 13}
         draw={draw}
         drawParameters={{ iterations, dimensions, showIntermediateStages }}
         nextLink="/#/newton"
