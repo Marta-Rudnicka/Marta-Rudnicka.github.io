@@ -68,7 +68,6 @@ export function draw(
 ): void {
   const parameters = args.parameters as CantorParameters;
   const canvasContextType = contextDict[parameters.dimensions]
-  console.log({parameters})
   if (canvasContextType === "2d" && parameters.dimensions === "1 dimension - Cantor set") {
     draw1d(args);
   }
