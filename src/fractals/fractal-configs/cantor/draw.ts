@@ -2,16 +2,21 @@ import { DrawFuncArgs } from "../../../types";
 import { drawLineSegment, generate1d, generateAll1d, getFirstLine } from "./algorithm1d";
 import { drawRectangle, generate2d, getFirstSquare, getInnerMargin } from "./algorithm2d";
 
+export type CantorDimensionString =
+    "1 dimension - Cantor set"
+  | "2 dimensions - Cantor dust"
+  | "3 dimentions - 3D Cantor dust";
+
 type CantorParameters = {
   iterations: number;
-  dimensions: number;
+  dimensions: CantorDimensionString;
   showIntermediateStages: string;
 }
 
-const contextDict: Record<string, string> = {
-  "1": "2d",
-  "2": "2d",
-  "3": "webgl"
+const contextDict: Record<CantorDimensionString, string> = {
+  "1 dimension - Cantor set": "2d",
+  "2 dimensions - Cantor dust": "2d",
+  "3 dimentions - 3D Cantor dust": "webgl"
 }
 export function draw1d(
   args: DrawFuncArgs,
@@ -62,11 +67,12 @@ export function draw(
   args: DrawFuncArgs,
 ): void {
   const parameters = args.parameters as CantorParameters;
-  const canvasContextType = contextDict[parameters.dimensions.toString()]
-  if (canvasContextType === "2d" && parameters.dimensions === 1) {
+  const canvasContextType = contextDict[parameters.dimensions]
+  console.log({parameters})
+  if (canvasContextType === "2d" && parameters.dimensions === "1 dimension - Cantor set") {
     draw1d(args);
   }
-  if (canvasContextType === "2d" && parameters.dimensions === 2) {
+  if (canvasContextType === "2d" && parameters.dimensions === "2 dimensions - Cantor dust") {
     draw2d(args);
   }
 }

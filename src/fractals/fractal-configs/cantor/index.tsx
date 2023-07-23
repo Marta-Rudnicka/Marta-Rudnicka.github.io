@@ -1,11 +1,12 @@
-import { draw } from "./draw";
+import { CantorDimensionString, draw } from "./draw";
 import { Description } from "./description";
-import { useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { FractalDisplay } from "../../Components/FractalDisplay";
 import { getSize } from "../../utils";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
+import { RadioControlProps } from "../../Components/Controls/RadioInput";
 
 function getMaxIterations(size: number) {
   let iterations = 4;
@@ -19,7 +20,7 @@ export function CantorSet() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(4);
-  const [dimensions, setDimensions] = useState(2);
+  const [dimensions, setDimensions] = useState("1 dimension - Cantor set" as CantorDimensionString);
   const [showIntermediateStages, setShowIntermediateStages] = useState("yes");
 
   const maxIterations = getMaxIterations(canvasSize);
@@ -41,24 +42,26 @@ export function CantorSet() {
     setValue: setIterations,
     tabIndex: 0,
   },
-  {
-    value: dimensions,
-    label: "dimensions",
-    maxValue: 2,
-    minValue: 1,
-    setValue: setDimensions,
-    tabIndex: 1,
-  },
   ];
 
-  const radio = dimensions === 1 ? [{
+  const radio: RadioControlProps[] = [
+    {
+      value: dimensions.toString(),
+      label: "dimensions",
+      setValue: setDimensions as Dispatch<SetStateAction<string>>,
+      tabIndex: 10,
+      options: ["1 dimension - Cantor set", "2 dimensions - Cantor dust"],
+
+    }]
+  if (dimensions === "1 dimension - Cantor set") {
+    radio.push({
       label: "Show intermediate steps",
       info: "If selected, it will show all the previous iterations. For example, if you select 4 iterations, you will see the images for 1, 2, 3, and 4 iterations",
       setValue: setShowIntermediateStages,
-      tabIndex: 10,
+      tabIndex: 11,
       value: showIntermediateStages,
       options: ["yes", "no"],
-  }] : [];
+  })}
 
   const navTabIndex = useContext(NavTabContext);
 
