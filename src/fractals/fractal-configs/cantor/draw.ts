@@ -12,7 +12,7 @@ const contextDict: Record<string, string> = {
   "2": "2d",
   "3": "webgl"
 }
-export function draw2d(
+export function draw1d(
   args: DrawFuncArgs,
 ): void {
   const { canvas, size } = args;
@@ -29,9 +29,9 @@ export function draw2d(
     const first = getFirstLine(size, innerMarginVertical);
     drawLineSegment(first, ctx, 'white');
     if(showIntermediate){
-      generateAll(first, parameters.iterations, ctx, size)
+      generateAll1d(first, parameters.iterations, ctx, size)
     } else {
-      generate(first, parameters.iterations, ctx)
+      generate1d(first, parameters.iterations, ctx)
     }
     ctx.closePath();
   }
@@ -42,7 +42,7 @@ export function draw(
 ): void {
   const parameters = args.parameters as CantorParameters;
   const canvasContextType = contextDict[parameters.dimensions.toString()]
-  if (canvasContextType === "2d") {
-    draw2d(args);
+  if (canvasContextType === "2d" && parameters.dimensions === 1) {
+    draw1d(args);
   }
 }

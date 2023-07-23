@@ -58,7 +58,7 @@ export function divideSegment(
   ];
 }
 
-export function generate(
+export function generate1d(
   seg: LineSegment,
   iterations: number,
   ctx: CanvasRenderingContext2D,
@@ -67,11 +67,11 @@ export function generate(
   if (iterations === 1) { return };
   const leftovers = divideSegment(seg, ctx)
   leftovers.forEach(segment => {
-    generate(segment, iterations -1, ctx)
+    generate1d(segment, iterations -1, ctx)
   })
 }
 
-export function generateAll(
+export function generateAll1d(
   seg: LineSegment,
   iterations: number,
   ctx: CanvasRenderingContext2D,
@@ -82,7 +82,7 @@ export function generateAll(
   let segment = seg;
   while (i <= iterations) {
     ctx.beginPath()
-    generate(segment, i, ctx);
+    generate1d(segment, i, ctx);
     ctx.closePath()
     segment = {
       a: [segment.a[0], Math.round(segment.a[1] + distance)],
