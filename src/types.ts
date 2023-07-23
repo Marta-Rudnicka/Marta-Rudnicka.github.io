@@ -13,7 +13,7 @@ export type DrawFunc= (args: DrawFuncArgs) => void;
 
 export type Point = [
   number, number,
-]
+];
 
 export type LineSegment = {
   a: Point;
@@ -24,14 +24,16 @@ export type Triangle = {
   a: Point;
   b: Point;
   c: Point;
-}
+};
 
 export type Rectangle = {
   a: Point;
   b: Point;
   c: Point;
   d: Point
-}
+};
+
+export type RectangleParams = [number, number, number, number];
 
 export type Complex = [number, number];
 // represents a complex number as an array: [realPart, imaginaryPart] - so GPU can use it

@@ -7,12 +7,22 @@ import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
 
+function getMaxIterations(size: number) {
+  let iterations = 4;
+  while (Math.pow(3, iterations) <= size) {
+    iterations ++;
+  }
+  return iterations - 1;
+}
+
 export function CantorSet() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
-  const [iterations, setIterations] = useState(3);
-  const [dimensions, setDimensions] = useState(1);
+  const [iterations, setIterations] = useState(4);
+  const [dimensions, setDimensions] = useState(2);
   const [showIntermediateStages, setShowIntermediateStages] = useState("yes");
+
+  const maxIterations = getMaxIterations(canvasSize);
 
   useEffect(() => {
     const func = () => {
@@ -26,7 +36,7 @@ export function CantorSet() {
   const sliders: SliderControlProps[] = [{
     value: iterations,
     label: "iterations",
-    maxValue: 7,
+    maxValue: maxIterations,
     minValue: 1,
     setValue: setIterations,
     tabIndex: 0,
@@ -41,14 +51,14 @@ export function CantorSet() {
   },
   ];
 
-  const radio = [{
+  const radio = dimensions === 1 ? [{
       label: "Show intermediate steps",
       info: "If selected, it will show all the previous iterations. For example, if you select 4 iterations, you will see the images for 1, 2, 3, and 4 iterations",
       setValue: setShowIntermediateStages,
       tabIndex: 10,
       value: showIntermediateStages,
       options: ["yes", "no"],
-  }];
+  }] : [];
 
   const navTabIndex = useContext(NavTabContext);
 

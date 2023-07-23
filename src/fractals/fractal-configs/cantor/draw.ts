@@ -1,5 +1,6 @@
 import { DrawFuncArgs } from "../../../types";
-import { drawLineSegment, generate, generateAll, getFirstLine } from "./algorithm";
+import { drawLineSegment, generate1d, generateAll1d, getFirstLine } from "./algorithm1d";
+import { drawRectangle, generate2d, getFirstSquare, getInnerMargin } from "./algorithm2d";
 
 type CantorParameters = {
   iterations: number;
@@ -37,6 +38,26 @@ export function draw1d(
   }
 }
 
+export function draw2d(
+  args: DrawFuncArgs,
+): void {
+  const { canvas, size } = args;
+  const parameters = args.parameters as CantorParameters;
+  const ctx = canvas.getContext("2d");
+  canvas.style.background = "black";
+  const innerMargin = getInnerMargin(size);
+
+  if (ctx) {
+    ctx?.clearRect(0, 0, size, size);
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    const first = getFirstSquare(size, innerMargin);
+    drawRectangle(first, ctx, 'white');
+    generate2d(first, parameters.iterations, ctx);
+    ctx.closePath();
+  }
+}
+
 export function draw(
   args: DrawFuncArgs,
 ): void {
@@ -44,5 +65,8 @@ export function draw(
   const canvasContextType = contextDict[parameters.dimensions.toString()]
   if (canvasContextType === "2d" && parameters.dimensions === 1) {
     draw1d(args);
+  }
+  if (canvasContextType === "2d" && parameters.dimensions === 2) {
+    draw2d(args);
   }
 }
