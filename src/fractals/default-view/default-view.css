@@ -64,3 +64,20 @@ body {
   padding: 5px;
   font-size: 1.5em;
 }
+
+.def-phrase {
+  text-decoration: underline #31cece;
+  box-shadow: 1px 1px 3px #31cece;
+}
+
+.def-phrase:focus {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.def-definition {
+  background-color: #31cece;
+  color: #200920;
+  padding-left: 10px;
+  padding-right: 10px;
+}
