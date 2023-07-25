@@ -124,6 +124,7 @@ export function SierpinskiTriangle() {
   };
   const navTabIndex = useContext(NavTabContext);
   const altTabIndex = fullScreen ? 6 : navTabIndex + 6;
+  const description = <Description ti={navTabIndex + 11} />;
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
@@ -133,7 +134,7 @@ export function SierpinskiTriangle() {
         altTabIndex={altTabIndex}
         canvasInputs={canvasInputs}
         canvasSize={canvasSize}
-        description={Description()}
+        description={description}
         draw={draw}
         drawParameters={
           {

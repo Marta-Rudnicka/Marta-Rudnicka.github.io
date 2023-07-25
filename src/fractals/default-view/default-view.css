@@ -45,7 +45,7 @@ body {
 .description {
   grid-column: 2;
   grid-row: 2/4;
-  padding: 0 10px;
+  padding: 10px;
   overflow-y: scroll;
   background-color: #282c34;
   /* background-color: red; */
@@ -80,4 +80,12 @@ body {
   color: #200920;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.ex {
+  background-color: #200920;
+}
+
+.info {
+  background-color: #383e47;
 }
