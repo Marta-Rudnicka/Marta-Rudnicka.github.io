@@ -10,25 +10,29 @@ export function JuliaSet() {
   const [cReal, setCReal] = useState(-0.12256);
   const [cImaginary, setCImaginary] = useState(0.74486);
 
+  const sliderProps = {
+    maxValue: 1,
+    minValue: -1,
+    stepSize: 0.01,
+    delayed: true,
+    inputRounding: 2,
+  }
+
   const sliders: SliderControlProps[] = [{
     value: cReal,
     info: "Real part for c (position on the x axis)",
     label: "c real part",
-    maxValue: 1,
-    minValue: -1,
     setValue: setCReal,
-    stepSize: 0.05,
     tabIndex: 1,
+    ...sliderProps,
   },
   {
     value: cImaginary,
     info: "Imaginary part for c (position on the y axis)",
     label: "c imaginary part",
-    maxValue: 1,
-    minValue: -1,
     setValue: setCImaginary,
-    stepSize: 0.05,
     tabIndex: 2,
+    ...sliderProps,
   }];
 
   const description = useMemo(() => Description(), []);

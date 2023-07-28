@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { SliderControl, SliderControlProps } from "./SliderControl";
 import { ButtonPairControl, ButtonPairControlProps } from "./ButtonControlPair";
 import { ControlProps } from "./index";
@@ -22,6 +22,7 @@ type AltControlProps = {
 function renderSliderControls(
   initTabIndex: number,
   sliders?: SliderControlProps[],
+  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
 ): ReactNode[] {
   if (!sliders) return [];
   return sliders.map(slider => {
@@ -38,6 +39,9 @@ function renderSliderControls(
       stepSize={slider.stepSize}
       tabIndex={2 * slider.tabIndex + initTabIndex}
       id={id}
+      setShowSliderInfo={setShowSliderInfo}
+      delayed={slider.delayed}
+      inputRounding={slider.inputRounding}
     />);
   }
   );
@@ -113,12 +117,13 @@ function AltControls(props: AltControlProps) {
 export function ControlsBody(props: ControlsProps) {
   const fullScreen = useContext(FullScreenContext);
   const navTabIndex = useContext(NavTabContext);
+  const [showSliderInfo, setShowSliderInfo ] = useState(false);
 
   if (fullScreen! && !props.allVisible) {
     return null;
   }
   const initTabIndex = fullScreen ? 3 : navTabIndex + 3;
-  const sliders = renderSliderControls(initTabIndex, props.sliders)
+  const sliders = renderSliderControls(initTabIndex, props.sliders, setShowSliderInfo )
   const buttons = renderButtonPairs(initTabIndex, props.buttonPairs)
   const radio = renderRadioInputs(props.radioInputs);
 
@@ -126,6 +131,7 @@ export function ControlsBody(props: ControlsProps) {
     <div>
       {buttons}
       {sliders}
+      {showSliderInfo && <p className="slide-open">To set the desired value, release the mouse button or press 'Enter'.</p>}
       {radio}
       {!!props.altControls &&
         <AltControls tabIndex={props.altTabIndex || -1}>

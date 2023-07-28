@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 export type SliderProps = {
   minValue: number;
@@ -10,28 +10,71 @@ export type SliderProps = {
   label: string | ReactNode;
   id?: string;
   inputRounding?: number;
+  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
+  delayed?: boolean;
 }
 
 export function Slider(props: SliderProps) {
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement>,
-    ) {
+  const [localValue, setLocalValue ] = useState(props.value)
+  const step = props.stepSize || 1;
+
+  function getValidValue(operation: "+" | "-") {
+    const change = operation === "+" ? step : -step;
+    const val = parseFloat((localValue + change).toFixed(props.inputRounding || 1));
+    if (val > props.maxValue) {
+      return props.maxValue;
+    }
+    if (val < props.minValue) {
+      return props.minValue;
+    }
+    return val;
+  }
+
+  function acceptValue() {
+    props.setValue(localValue);
+    props.setShowSliderInfo && props.setShowSliderInfo(false);
+  }
+
+  function handleInput() {
+    if(props.delayed) {
+      props.setShowSliderInfo && props.setShowSliderInfo(true);
+    }
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newValue = parseFloat(parseFloat(e.currentTarget.value).toFixed(props.inputRounding || 1));
-    props.setValue(newValue);
+    setLocalValue(newValue);
+    handleInput();
   }
 
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (["ArrowRight", "+"].includes(e.key)) {
-      const step = props.stepSize || 1;
-      const newValue = parseFloat((props.value + step).toFixed(props.inputRounding || 1));
-      e.preventDefault();
-      props.setValue(newValue);
+    if (["ArrowRight", "ArrowUp", "+"].includes(e.key)) {
+      const newValue = getValidValue("+");
+      if (props.delayed) {
+        setLocalValue(newValue);
+        handleInput();
+      } else {
+        e.preventDefault();
+        setLocalValue(newValue);
+        props.setValue(newValue)
+      }
     }
-    if (["ArrowLeft", "-"].includes(e.key)) {
-      const step = props.stepSize || 1;
-      const newValue = parseFloat((props.value - step).toFixed(props.inputRounding || 1));
+    if (["ArrowLeft", "ArrowDown", "-"].includes(e.key)) {
+      const newValue = getValidValue('-');
+      if (props.delayed) {
+        setLocalValue(newValue);
+        handleInput();
+      } else {
+        e.preventDefault();
+        setLocalValue(newValue);
+        props.setValue(newValue)
+      }
+    }
+    if (e.key === 'Enter' && props.delayed) {
       e.preventDefault();
-      props.setValue(newValue);
+      acceptValue();
+    } else {
+      handleInput();
     }
   }
 
@@ -40,11 +83,15 @@ export function Slider(props: SliderProps) {
       <div className="slider-input-container slider-grid" tabIndex={-1}>
         <input
           type="number"
-          value={props.value}
+          value={localValue}
           tabIndex={props.tabIndex}
           onChange={(e) => handleChange(e)}
           onKeyDown={(e) => handleKeyboardInput(e)}
-          step={props.stepSize}
+          min={props.minValue}
+          max={props.maxValue}
+          step={step}
+          onMouseUp={acceptValue}
+          onBlur={() => setLocalValue(props.value)}
         />
         <div tabIndex={-1} className="right">{props.minValue}</div>
         <input
@@ -52,13 +99,15 @@ export function Slider(props: SliderProps) {
           type="range"
           min={props.minValue}
           max={props.maxValue}
-          step={props.stepSize}
+          step={step}
           onChange={(e) => handleChange(e)}
           tabIndex={props.tabIndex + 1}
-          value={props.value}
+          value={localValue}
           className="slider-input"
           id={props.id}
           name={props.id}
+          onMouseUp={acceptValue}
+          onBlur={() => setLocalValue(props.value)}
         />
         <div tabIndex={-1}>{props.maxValue}</div>
       </div>

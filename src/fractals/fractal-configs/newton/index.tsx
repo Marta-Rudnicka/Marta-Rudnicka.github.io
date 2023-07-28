@@ -9,9 +9,10 @@ import { MathJax } from "better-react-mathjax";
 import { NavTabContext } from "../../../App";
 
 const sliderProps = {
-  maxValue: 5,
-  minValue: -5,
+  maxValue: 8,
+  minValue: -8,
   stepSize: 0.2,
+  delayed: true,
 }
 
 function controlsChildren(
@@ -43,50 +44,50 @@ export function Newton() {
     value: constant,
     label: <MathJax>{`\\(${constant}\\)`}</MathJax>,
     setValue: setConstant,
-    ...sliderProps,
     tabIndex: 1,
     id: 'const',
+    ...sliderProps,
   },
   {
     value: co1,
     label: <MathJax>{`\\(${co1}x\\)`}</MathJax>,
     setValue: setCo1,
-    ...sliderProps,
     tabIndex: 2,
     id: 'x1',
+    ...sliderProps,
   },
   {
     value: co2,
     label: <MathJax>{`\\(${co2}x ^ 2\\)`}</MathJax>,
     setValue: setCo2,
-    ...sliderProps,
     tabIndex: 3,
     id: 'x2',
+    ...sliderProps,
 
   },
   {
     value: co3,
     label: <MathJax>{`\\(${co3}x ^ 3\\)`}</MathJax>,
     setValue: setCo3,
-    ...sliderProps,
     tabIndex: 4,
     id: 'x3',
+    ...sliderProps,
   },
   {
     value: co4,
     label: <MathJax>{`\\(${co4}x ^ 4\\)`}</MathJax>,
     setValue: setCo4,
-    ...sliderProps,
     tabIndex: 5,
     id: 'x4',
+    ...sliderProps,
   },
   {
     value: co5,
     label: <MathJax>{`\\(${co5}x ^ 5\\)`}</MathJax>,
     setValue: setA5,
-    ...sliderProps,
     tabIndex: 6,
     id: 'x5',
+    ...sliderProps,
   }
   ];
 

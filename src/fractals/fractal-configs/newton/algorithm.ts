@@ -37,10 +37,10 @@ export type NewtonInputs = {
 export type flattenedAttractorList = [number, number, number, number, number, number, number, number, number, number];
 
 function getNewtonColour(i: number): PixelValue {
-  if (i === 3) return [150, 184, 150, 255];
+  if (i === 0) return [252, 207, 210, 255];
   if (i === 1) return [139, 102, 110, 255];
   if (i === 2) return [254, 246, 225, 255];
-  if (i === 0) return [252, 207, 210, 255];
+  if (i === 3) return [150, 184, 150, 255];
   if (i === 4) return [231, 99, 123, 255];
   return [0, 0, 0, 255]
 };
@@ -80,6 +80,7 @@ export function getKernel(
     roots: number[],
   ) {
     // passed as an array because GPU
+    const size = complexPlaneArgs[0];
     const startValueX = complexPlaneArgs[1];
     const startValueY = complexPlaneArgs[2];
     const inc = complexPlaneArgs[3];
@@ -108,6 +109,7 @@ export function getKernel(
     const values = getComplexPartsForPixels(
       this.thread.x,
       this.thread.y,
+      size,
       startValueX,
       startValueY,
       inc

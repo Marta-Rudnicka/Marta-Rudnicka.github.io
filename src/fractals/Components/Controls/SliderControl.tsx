@@ -13,6 +13,9 @@ export type SliderControlProps = {
   stepSize?: number;
   tabIndex: number;
   id?: string;
+  inputRounding?: number,
+  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
+  delayed?: boolean;
 }
 
 export function SliderControl(props: SliderControlProps){
@@ -32,6 +35,9 @@ export function SliderControl(props: SliderControlProps){
           tabIndex={props.tabIndex}
           label={props.label}
           id={props.id}
+          inputRounding={props.inputRounding}
+          setShowSliderInfo={props.setShowSliderInfo}
+          delayed={props.delayed}
         />
         </div>
     </div>
