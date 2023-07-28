@@ -37,12 +37,12 @@ export type NewtonInputs = {
 export type flattenedAttractorList = [number, number, number, number, number, number, number, number, number, number];
 
 function getNewtonColour(i: number): PixelValue {
-  if (i === 0) return [0, 250, 0, 255];
-  if (i === 1) return [250, 0, 0, 255];
-  if (i === 2) return [0, 0, 250, 255];
-  if (i === 3) return [250, 250, 0, 255];
-  if (i === 4) return [250, 0, 250, 255];
-  return [0, 0, 0, 0]
+  if (i === 3) return [150, 184, 150, 255];
+  if (i === 1) return [139, 102, 110, 255];
+  if (i === 2) return [254, 246, 225, 255];
+  if (i === 0) return [252, 207, 210, 255];
+  if (i === 4) return [231, 99, 123, 255];
+  return [0, 0, 0, 255]
 };
 
 export function getKernel(
