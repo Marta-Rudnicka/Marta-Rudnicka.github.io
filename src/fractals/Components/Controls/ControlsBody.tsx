@@ -50,7 +50,7 @@ function renderButtonPairs(
   if (!buttonsPairs) return [];
   return buttonsPairs.map(bp =>
     <ButtonPairControl
-      key={bp.info}
+      key={bp.info || bp.label1}
       handleClick1={bp.handleClick1}
       handleClick2={bp.handleClick2}
       info={bp.info}

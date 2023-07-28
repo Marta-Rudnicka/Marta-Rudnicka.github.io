@@ -1,6 +1,5 @@
 import { ReactElement, ReactNode } from "react"
 import { Canvas } from "../Components/Canvas";
-import { Footer } from "../../components/layout/Footer";
 import { Header } from "../../components/layout/Header";
 import { AppNav } from "./AppNav";
 import { FullScreenLayoutProps } from "../full-screen-view/FullScreenLayout";
@@ -55,7 +54,6 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
