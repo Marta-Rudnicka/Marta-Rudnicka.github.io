@@ -1,88 +1,133 @@
 import { MathJax } from "better-react-mathjax";
+import { Def, Img } from "../../default-view/description-utils";
 
-export function Description() {
+type DescriptionProps = {
+  ti: number;
+}
+export function Description(props: DescriptionProps) {
+  const { ti } = props;
+
+  const degreeDef = <MathJax>Degree of an equation relates to the highest power of the {`\\(x\\)`}. For example {`\\(x^2 + 7 = 0\\)`} is an equation of the second degree (or quadratic equation), and {`\\(x^6 + 7x^5 + x = 32\\)`} is an equation of the sixth degree.</MathJax>;
+
+  const cubicEqDef = <MathJax>An equation of the third degree, or one with a {`\\(x ^ 3\\)`} as the highest power of {`\\(x\\)`}</MathJax>
+
   return (
     <MathJax>
-      <h2>Newton's Fractal</h2>
       <p>
-        Drawing smaller and smaller self-similar shapes can make pictures pleasant to the eyes, but there is nothing surprising in the fact that it results in a fractal. The real interesting thing about fractals is that they tend to show up in rather unexpected places. If you plot the results of certain mathematical operations, the images you get turn out to be very intricate fractal shapes, and we will present three of them. The one on the left, for example, depicts what happens when you use Newton’s method of finding roots. It will take a moment to explain, but it’s worth it!
-        Newton's Fractal
+        When we intentionally draw nested similar shapes, it's no surprise we get nested similar shapes - or a fractal. But the really interesting thing about fractals is that they also to show up in less obvious unexpected circumstances. We will explore three mathematical procedures that produce a fractals. The one on the left is created by solving equations of <Def phrase="at least the third degree" definitionObject={degreeDef} tabIndex={ti + 1} />. It will take a moment to explain, but it’s worth it!
       </p>
+      <p>The fractal you see is a plot. First, we will explain what process the plot illustrates. Then, we will explain what we are plotting on, and finally, we will explain what the colours mean.</p>
+      <h2>The process</h2>
+      <h3>The problem with finding roots</h3>
       <p>
-        Drawing smaller and smaller self-similar shapes can make pictures pleasant to the eyes, but there is nothing surprising in the fact that it results in a fractal. The real interesting thing about fractals is that they tend to show up in rather unexpected places. If you plot the results of certain mathematical operations, the images you get turn out to be very intricate fractal shapes, and we will present three of them. The one on the left, for example, depicts what happens when you use Newton’s method of finding roots. It will take a moment to explain, but it’s worth it!
-      </p>
-      <h3>What is finding roots about?</h3>
-      <p>
-        How much is {`\\(\\sqrt{5}\\)`}? We know that it is an irrational number, which means you cannot represent it as a simple fraction, and it has an infinite number of decimal places if you write it as a decimal. It is often just represented as {`\\(\\sqrt{5}\\)`}in mathematics, but sometimes you just need to know approximately, how much it is –for example, you can’t measure {`\\(\\sqrt{5}\\)`} inches of string. So, how could you go about finding out?
-        Well, we know that {`\\(2^2 = 4 \\)`}, so {`\\( 2\\)`} is too little, but {`\\(3^2 = 9 \\)`}, so {`\\( 3\\)`} is too much. So the number must be something between {`\\( 2\\)`} and {`\\( 3\\)`}three. Let’s try {`\\( 2.5\\)`}:
+        How much is {`\\(\\sqrt{5}\\)`}? We know that it is an <Def phrase="irrational number" definition="you cannot represent it as a simple fraction, and it has an infinite number of decimal places if you write it as a decimal" tabIndex={ti + 2} />, so our answer will never be completely precise. If mathematicians want to be exact, they just represent it as {`\\(\\sqrt{5}\\)`} in, but sometimes a less exact, but more understandable solution is needed. After all, measuring out {`\\(\\sqrt{5}\\)`} inches of string would be a puzzling task.</p>
+      <p>So, how can we go about finding out the approximate number?</p>
+      <p> We need {`\\(x^2 \\)`} to equal {`\\(5\\)`}.
+        We know that {`\\(2^2 = 4 \\)`}, and {`\\(3^2 = 9 \\)`}. This means that {`\\( 2\\)`} is too little, but {`\\( 3\\)`} is too much, so the answer is somewhere in between . Let’s try {`\\( 2.5\\)`}:
       </p>
       {`\\(2.5^2 = 6.25 \\)`}
       <p>It’s still too much, so maybe let’s try a bit less:</p>
       {`\\(2.2^2 = 4.84 \\)`}
       <p>
-        Now, it’s too little, so we need a larger number. We can go on like that until we find a number that is precise enough for our purpose – but this kind of guesswork is not too efficient.
+        Now, it’s too little, so we need something between {`\\(2.2\\)`} and {`\\(2.5\\)`} - and we'll keep doing the same thing all over again (recursion!), until it's precise enough for our purpose. It will eventually work, but guessing is not too efficient, is it?
       </p>
       <h3>Newton’s method</h3>
       <p>
-        The overall process of finding root in most methods is more or less the same – you guess a number, square it to see if it is too little or too much, and then try to correct your guess accordingly. The main thing you can do to improve the process is to find a way to produce better guesses – and this is what Newton did. The method is very general and works for all kinds of roots, but you do not need to know the details to understand how Newton’s fractal works. If you are curious and know about function derivatives, you can read about it below. Here, we will only explain an example with a square root.
-        Let us stay with the examples of {`\\(\\sqrt{5}\\)`}.
+        To make the process quicker, we need a way to produce better guesses – it will take fewer iterations to get the precision we need. Isaac Newton found it around 1670, and later Joseph Raphson, another mathematician, made it simpler to use. The method works for all kinds of roots, but here, we will only follow the example of a square root - enough to get the idea where the fractal comes from. There is a more detailed explanation below if you're familiar with function derivatives.</p>
+      <p>
+        We'll stay with {`\\(\\sqrt{5}\\)`}.
       </p>
       <p>
-        We know that {`\\(\\sqrt{5} = x\\)`} means the same as {`\\(x^2 = 5 \\)`}. But for the Newton’s method, we want all the xs and numbers on the left hand size, and a zero on the right - hand side, or:
+        We are trying to solve {`\\(x ^ 2 = 5 \\)`}, but now we want a zero on one side, and all the {`\\(x\\)`}s and other numbers on the other, so let's make it {`\\(x ^ 2 – 5 = 0 \\)`}.
       </p>
-      {`\\(x ^ 2 – 5 = 0 \\)`}.
       <p>
-        Again, we are starting with a reasonable guess that this is something around {`\\( 2.5\\)`}. So we substitute  {`\\( 2.5\\)`} for  {`\\( x\\)`} and get:
+        Again, we are starting with a reasonable guess of {`\\( 2.5\\)`}. We substitute  {`\\( 2.5\\)`} for  {`\\( x\\)`} and get:
+        {`\\(2.5^ 2 – 5 = 1.25 \\)`}
       </p>
-      {`\\(2.5^ 2 – 5 = 1.25 \\)`}
       <p>
-        So far nothing new, we just wrote it a bit differently: the result is too much by  {`\\( 1.25\\)`}. But now, we will use Newton’s method to make a much better guess. For a simple square root, when:
-      </p>
-      {`\\(\\sqrt{x} = c \\)`} or  {`\\(x ^ 2 – c = 0\\)`}
-      <p> you make x your first guess, and calculate:</p>
-        {`\\[x - \\frac{x^2 - c}{2x}\\]`}
+        So far nothing new, we only wrote it differently. But now, we will use Newton’s method to make a much better next guess. For a simple square root, when {`\\(x ^ 2 – c = 0\\)`} you use your first guess as the {`\\(x\\)`} and calculate:
+        {`\\[x - \\frac{x^2 - c}{2x}\\]`}</p>
       <p> In our example, our  {`\\( c = 5\\)`}, and our first guess  {`\\( x = 2.5\\)`}, so we get:</p>
       {`\\[2.5 - \\frac{2.5^2 - 5}{2\\times2.5} = 2.25\\]`}
-      <p> But let’s say we want to know the root to four decimal places. What’s next? We take the new guess,  {`\\( 2.5\\)`}, make it our  {`\\( x\\)`}, and repeat the process:</p>
-      {`\\[2.25 - \\frac{2.25^2 - 5}{2\\times2.25} = 2.236\\overline{1}\\]`}
+      <p>But let’s say we want to know the root to four decimal places. What’s next? We take the new guess,  {`\\( 2.5\\)`}, make it our  {`\\( x\\)`}, and repeat the process:</p>
+      {`\\[2.25 - \\frac{2.25^2 - 5}{2\\times2.25} = 2.236111...\\]`}
       <p>
         But how accurate is it? Let’s check:</p>
       {`\\(2.2361 ^ 2 = 5.00014321\\)`}
       <p>
         That’s pretty close to 5, and we just went through two iterations! And what if we went through another one? </p>
-      {`\\[2.236\\overline{1} - \\frac{2.5^2 - 5}{2\\times2.236\\overline{1}} = 2.236067977915804\\]`}
+      {`\\[2.236111... - \\frac{2.5^2 - 5}{2\\times2.236111...} = 2.236067977915804\\]`}
       <p>And to check accuracy:</p>
       {`\\(2.236067977915804 ^ 2 = 5.0000000018604736\\)`}
-
-
-      <h3>Orbits</h3>
-      <p>
-        We have just seen our first example of an orbit. Of course, we are not talking about planets revolving around the sun – we are talking about mathematics here.
-        If you take a number, perform some calculation on it, take the result, perform exactly the same calculation on it, then take the new results and perform this calculation again, the set of all the results will be the orbit of your number under whatever calculation you did. In our example, we had an initial number of {`\\( 2.5\\)`}, a function: {`\\[f(x)= x - \\frac{x^2 - c}{2x} \\]`} and we got:  {`\\( 2.5\\)`},  {`\\( 2.236(1)\\)`}, and  {`\\( 2.236067977915804\\)`}2.236067977915804 (and the next numbers would be []). In other words, the orbit of {`\\( 2.5\\)`} under {`\\x – ((x ^ 2 - c) / (2x))\\`} is {`\\( 2.5\\)`}, {`\\( 2.235(1)\\)`}, {`\\( 2.236067977915804\\)`}….
-        If there is something familiar about it, it is because we are using recursion here.
-        The first number you feed into the whole process is called seed. This will be very important in understanding the following two fractals.
-      </p>
-
+      <p>It is worth noting that the formula for finding a square root used above had been known since the ancient times. The new thing in Newton's method is creating a procedure to find similar formulae for different equations.</p>
+      <h2>What we are plotting on</h2>
       <h3>Complex numbers and complex plane</h3>
       <p>
-        The next piece of the puzzle to understand Newton’t fractal(and the next two fractals) are complex numbers. Complex numbers are very useful in physics, engineering and computer graphics, but they can’t really relate them to life experience – so don’t worry if it seems completely abstract – it is.
-        We know that {`\\(\\sqrt{1} = 1\\)`} or {`\\(- 1\\)`}, but how much is {`\\(\\sqrt{-1}\\)`}? Someone might have told you can’t have a square root of a negative number, but this is not exactly true. There is a square root of {`\\(- 1\\)`}, it’s just not a real number. It’s an imaginary number called {`\\( i\\)`}. There isn’t much more to {`\\( i\\)`} – you just need to accept that {`\\i = sqrt(-1)\\`}, and while you can eat {`\\( 3\\)`} apples, you can’t eat {`\\( i\\)`} apples because imaginary numbers don’t make any sense in everyday experience.
-        {`\\( i\\)`} is also used as a basic imaginary unit, so when {`\\(\\sqrt{4} = 2\\)`} or {`\\(- 2\\)`}, {`\\(\\sqrt{-4} = 2i\\)`} or {`\\(- 2i\\)`}.
-        But not all numbers are either real(the “normal numbers” familiar from real life), or imaginary. There are numbers that have both real and imaginary part: for example in {`\\(4 - 7i\\)`} , {`\\(4\\)`} is the real part, and {`\\(- 7i\\)`} is the imaginary part. Many high degree equations, which seem to not have solutions, actually have solutions which are complex numbers.
-        Now, imagine two - dimensional Cartesian coordinate system, that is, the normal boring one you see everywhere, with an x and y axis. Your x - axis denotes the real part, and the y - axis denotes the imaginary part, like this: [img]
-        This is called a complex plane, and this is where a few very interesting fractals live.
+        The next piece of the puzzle are complex numbers. They are used in physics, engineering and computer graphics, but we can’t really relate them to real life experience – so don’t worry if it seems too abstract.
+        We know that {`\\(\\sqrt{1} = 1\\)`} or {`\\(- 1\\)`}, but how much is {`\\(\\sqrt{-1}\\)`}? You might have heard negative numbers don't have square roots, but this is not exactly true. There is a square root of {`\\(- 1\\)`}, it’s just not a <em>real</em> number. It’s an <strong>imaginary</strong> number called {`\\( i\\)`}, and this is all you need to know to understand the image. While you can eat {`\\( 3\\)`} or even {`\\( 3.5\\)`} apples, you can’t eat {`\\( i\\)`} apples. Imaginary numbers won't make any if you try to apply them to everyday experience.</p>
+        <p>{`\\( i\\)`} is also used as a basic imaginary unit. We know that:</p>
+        {`\\(\\sqrt{4} = 2\\)`} or {`\\(- 2\\)`}
+        <p>and by analogy: </p>{`\\(\\sqrt{-4} = 2i\\)`} or {`\\(- 2i\\)`}.
+        <p>But not all numbers are either real or imaginary. There are numbers that have both real and imaginary part: for example in {`\\(4 - 7i\\)`} , {`\\(4\\)`} is the real part, and {`\\(- 7i\\)`} is the imaginary part. Many quadratic and higher degree equations, which seem to have no solutions, actually have complex solutions.</p>
+        <p>
+        Now, imagine two-dimensional Cartesian coordinate system (the most common boring one). Your {`\\(x\\)`}-axis show the real part of a number, and the {`\\(y\\)`}-axis shows the imaginary part, like this:</p>
+      <Img src={require('./images/complex-plane.png')} alt="Complex plane with examples of real, imaginary and complex numbers" tabIndex={ti+3}/>
+
+      <p>This is called a complex plane, and this is where a few very interesting fractals live.</p>
+      <h2>What the image means</h2>
+      <h3>Orbits</h3>
+      <p>Let's back to finding the square root of 5 using the Newton't method. We started with {`\\(2.5\\)`}, and with each iteration of the process we produced a number closer to the solution. These numbers formed the following sequence:</p>
+        <ul>
+          <li>{`\\(2.5\\)`}</li>
+          <li>{`\\(2.25\\)`}</li>
+          <li>{`\\(2.236111...\\)`}</li>
+          <li>{`\\(2.236067977915804\\)`}</li>
+          <li>{`\\(2.23606797749979\\)`}</li>
+          <li>...</li>
+        </ul>
+      <p>Such a sequence is called an orbit, in this case the orbit of {`\\( 2.5\\)`} under {`\\[f(x)= x - \\frac{x^2 - c}{2x} \\]`}</p>
+      <p>When you start with a number, perform an operation on it, then perform the same operation on the result you got, and so on, the orbit will be the sequence of all the results (we are dealing with recursion and iterations again). The first number you feed into the whole process is called <strong>the seed</strong>.
       </p>
+
+
       <h3>The image</h3>
       <p>
-        As mentioned above, Newton’s method can be used for approximating all kinds of roots. Our example was for {`\\(x ^ 2 = 5\\)`}, but the general method will also work for something like {`\\(x ^ 4 + 2x ^ 2 – 3x + 1 = 0\\)`}. To get a colourful fractal, we need to use Newton’s method for at least a cubic equation(one that has a {`\\x ^ 3\\)`} somewhere in it).
+        As mentioned above, Newton’s method can be used for approximating all kinds of roots. Our example was for {`\\(x ^ 2 = 5\\)`}, but the general method will also work for something like {`\\(x ^ 4 + 2x ^ 2 – 3x + 1 = 0\\)`}. To get a colourful fractal, we need to use Newton’s method for at least a <Def phrase="cubic equation" definitionObject={cubicEqDef} tabIndex={ti + 3}/>.
       </p>
       <p>
-        Newton’s method has one problem – when your seed(the starting guess) is reasonably close to the solution, with every iteration you get closer and closer to the solution and it’s fine. The orbit we observed for 2.5 could be drawn as [image]. However, it’s not easy to make an educated guess for something  {`\\(x ^ 4 + 2x ^ 2 – 3x + 1 = 0\\)`}, and for equations that have complex solutions, it’s even harder. With Newton’s method, you will eventually arrive close to one of the solutions, but if your seed is far away from any of the solutions, its seed will jump around before landing close enough to be “sucked into” one of the solutions. Also, it’s impossible to predict on which solution it will end.
+        Newton’s method has a problem. If your starting guess (seed) is reasonably close to the solution, every iteration gets you a better approximation. This is OK for a simple {`\\(x^2 = 5 \\)`}, but how would you even go about guessing a solution to something like {`\\(-3.05x ^ 4 + 2.78x ^ 2 – 3.16x + 1.94 = 0\\)`}? If you pick a random starting point, you will eventually approach a solutions, but if you pick wrong, you might follow a long winding orbit before finally getting “sucked into” an area close to a root. Also, if you start far from the solution, you can't predict which neighbourhood it will take you to.
       </p>
+      <p>Let's look what happens when we solve {`\\(x^3 - 8 = 0 \\)`} This is what the fractal on the screen is about, unless you've already played around with the sliders. You can get it back by reloading the page.</p>
+      <p>It has three solutions: {`\\(2\\)`} (that's the easy one), {`\\(-1 - i \\sqrt{3}\\)`}, and {`\\(-1 - i \\sqrt{3}\\)`}. The complex solutions can be approximated as {`\\(-1 - 1.73205080756888 i\\)`} and  {`\\(-1 - 1.73205080756888 i\\)`}.</p>
+      <p>To solve this equation with Newton's method, we need a different formula:</p>
+      {`\\[x - \\frac{x^3 - 8}{3x^2}\\]`}
       <p>
-        For example {`\\(x ^ 3 + 8 = 0\\)`} has three solutions: the real number {`\\( - 2\\)`}, and two complex numbers: 1 – i sqrt(3) and 1 – i sqrt(3). If we start with -2.5, we’ll be getting closer and closer to - 2. The orbit will be: [].
-        But what if we start with 13 + 6i, the orbit will be[] – that’s a long way before getting close to[].
-        And this is what Newton’s fractal illustrates. The image is a complex plane, which means every pixel represents a complex number. Each colour represents one solution to the equation – the solution that this number will end up on if you use it as a starting point for Newton’s method. In other words, all the complex number with the same colour will lead to the same solution.
+        Let's see how it goes when we start close to a solution. We'll pick a familiar real number for a beginning: {`\\(-2.5\\)`}. The orbit is approximately:
+        </p>
+        <ul>
+          <li>{`\\(2.5\\)`}</li>
+          <li>{`\\(2.09333...\\)`}</li>
+          <li>{`\\(2.004099512714061\\)`}</li>
+          <li>{`\\(2.0000083800954678\\)`}</li>
+          <li>{`\\(2.000000000035113\\)`}</li>
+          <li>{`\\(2\\)`}</li>
+          <li>{`\\(2\\)`}</li>
+          <li>...</li>
+        </ul>
+      <p>
+        Indeed, we started close, got closer with each step, and even landed on the exact solution.
+      </p>
+      <p>OK, so let's pick a complex number, say {`\\(5.53 - 0.74i\\)`}. This orbit will be easier to follow on the complex plane:</p>
+        <Img src={require('./images/r5_53in0_74.png')} alt="TODO" tabIndex={ti+4}/>
+      <p>Nothing special here - it's obviously approaching {`\\(2\\)`}, just like the previous one, only with fancier numbers on the way.</p>
+      <p>OK, so let's try {`\\(3.34 - 5.01i\\)`}. The orbit for this number is completely different on the complex plane:</p>
+        <Img src={require('./images/r_3_34_in5_01.png')} alt="TODO" tabIndex={ti+4}/>
+        <p>We marked the results of eight iterations, and we still can't even tell where it's going. It changes direction and even makes a loop.</p>
+      <p>And now the best part. We'll take the previous seed ({`\\(3.34 - 5.01i\\)`}) and only round it to the first decimal place: {`\\(3.3 - 5i\\)`}. Will the orbit be similar? Not really...</p>
+        <Img src={require('./images/r3_3i-5.png')} alt="TODO" tabIndex={ti+4}/>
+       <p>We changed the value only a little bit, and it followed a completely different path. This is how it's so hard to predict where an initial guess leads.</p>
+      <p>
+        Newton’s fractal illustrates which solution each number lands on. The image is a complex plane, where every pixel represents a complex number. Each colour represents one solution to the equation. In other words, all the number with the same colour in the image will lead to the same solution.
       </p>
       <p>
         You can zoom in and out of the image using the buttons, and drag the image to see another part of the plot. You can also use sliders to change  the equation – you can get a completely different fractal! You can also focus on the image and use + and – keys to zoom in and out, and arrow keys to move the image.

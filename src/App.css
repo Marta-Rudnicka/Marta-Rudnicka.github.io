@@ -24,6 +24,19 @@
   color: white;
 }
 
+@keyframes open {
+  0% { height: 0; }
+  100% { height: 3em; }
+}
+
+.slide-open {
+  animation: 1s open ease-out;
+  padding: 10px;
+  color: #61dafb;
+  border: solid 2px #5d1a5d;
+  box-shadow: 3px 3px 5px #31cece;
+}
+
 .App-link {
   color: #61dafb;
 }
