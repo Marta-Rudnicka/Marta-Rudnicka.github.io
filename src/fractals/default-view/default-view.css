@@ -60,14 +60,9 @@ body {
   list-style-type: none;
 }
 
-.description img {
-  width: -webkit-fill-available;
-  padding: 10px;
-  border: #5d1a5d solid 2px;
-}
-
 .dialog-img {
-  width: auto;
+  max-width: 85vw;
+  max-height: 85vh;
 }
 
 .dialog-info {
@@ -75,8 +70,15 @@ body {
   font-weight: 100;
 }
 
+.bp4-dialog-body {
+  max-width: 95vw;
+  max-height: 95vh;
+  background: #383e47;
+  overflow: unset;
+}
 .bp4-dialog {
   width: auto;
+  height: auto;
   background: #383e47;
 }
 .app-nav {
@@ -115,4 +117,31 @@ body {
 
 .info {
   background-color: #383e47;
+}
+
+.thumbnail-container {
+  position: relative;
+}
+
+.description img {
+  width: -webkit-fill-available;
+  padding: 10px;
+  border: #5d1a5d solid 2px;
+}
+
+.img-instruction {
+  position: absolute;
+  color: #282c34;
+  top: 0;
+  padding: 15px;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+
+}
+
+.thumbnail-container:hover .img-instruction {
+  display: block;
+  opacity: 1;
+  transition: opacity 1s ease-in;
 }

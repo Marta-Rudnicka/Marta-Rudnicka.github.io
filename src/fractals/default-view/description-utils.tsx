@@ -59,14 +59,17 @@ export function Img(props: ImageProps) {
   }
   return (
     <div className="image-container">
-      <img
-        alt={props.alt}
-        src={props.src}
-        className='img'
-        onClick={handleClick}
-        tabIndex={props.tabIndex}
-        onKeyDown={handleKeyboardInput}
-      />
+      <div className="thumbnail-container">
+        <div className="img-instruction">Click or press enter to better see the image</div>
+        <img
+          alt={props.alt}
+          src={props.src}
+          className='img'
+          onClick={handleClick}
+          tabIndex={props.tabIndex}
+          onKeyDown={handleKeyboardInput}
+        />
+      </div>
       <Dialog
         isOpen={dialogOpen}
         canOutsideClickClose={true}
