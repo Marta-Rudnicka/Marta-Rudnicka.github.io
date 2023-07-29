@@ -7,18 +7,18 @@ import { Point } from "../../../types";
 import './controls.css';
 
 export type PositionControlProps = {
-  x: number,
-  y: number,
-  inc: number,
-  setPosition: (coords: Point | [number, number]) => void;
+  children?: ReactNode;
+  focused: boolean;
   id: string;
+  inc: number,
+  invisible?: boolean;
   nextFocus?: HTMLElement | null;
   prevFocus?: HTMLElement | null;
-  focused: boolean;
   setInFocus?: Dispatch<SetStateAction<string | null>>
-  invisible?: boolean;
-  children?: ReactNode;
+  setPosition: (coords: Point | [number, number]) => void;
   tabIndex?: number;
+  x: number,
+  y: number,
 }
 export function PositionControl(props: PositionControlProps) {
   const [xPosition, setXPosition] = useState(props.x);

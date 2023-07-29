@@ -11,7 +11,7 @@ import { RadioControlProps } from "../../Components/Controls/RadioInput";
 function getMaxIterations(size: number) {
   let iterations = 4;
   while (Math.pow(3, iterations) <= size) {
-    iterations ++;
+    iterations++;
   }
   return iterations - 1;
 }
@@ -62,7 +62,8 @@ export function CantorSet() {
       tabIndex: navTabIndex + 6,
       value: showIntermediateStages,
       options: ["yes", "no"],
-  })}
+    })
+  }
 
 
   return (
@@ -76,10 +77,10 @@ export function CantorSet() {
         drawParameters={{ iterations, dimensions, showIntermediateStages }}
         nextLink="/#/newton"
         prevLink="/#/sierpinski"
-        setFullScreen={setFullScreen}
-        title="Cantor set - placeholder"
-        sliders={sliders}
         radio={radio}
+        setFullScreen={setFullScreen}
+        sliders={sliders}
+        title="Cantor set - placeholder"
       />
     </FullScreenContext.Provider>
 

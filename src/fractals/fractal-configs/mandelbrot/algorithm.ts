@@ -7,9 +7,9 @@ function cardioid(x: number, y: number) {
   /* if res < 0.25, the point [x, y] lies within the main cardioid;
   returns number because GPUJS has problem handling Booleans
   */
-  const ySq = y**2;
+  const ySq = y ** 2;
   const c = x - 0.25;
-  const res = ((c**2 + ySq)**2 + c*(c**2 + ySq))/ySq;
+  const res = ((c ** 2 + ySq) ** 2 + c * (c ** 2 + ySq)) / ySq;
   return res;
 }
 
@@ -28,9 +28,9 @@ function checkKnownSolidShapes(c: number[]) {
 }
 
 export function processPixel(
-    c: number[],
-    iterations: number
-    ): PixelValue {
+  c: number[],
+  iterations: number
+): PixelValue {
 
   if (checkKnownSolidShapes(c) === 1) {
     return [255, 255, 255, 255];

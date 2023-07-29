@@ -52,13 +52,13 @@ export function drawRectangle(
 }
 
 export function getInnerMargin(size: number): number {
-  const possibleMaxIter = [ 4, 5, 6, 7]; // 8 iterations would be more than ultraHD monitor can handle
+  const possibleMaxIter = [4, 5, 6, 7]; // 8 iterations would be more than ultraHD monitor can handle
   const powersOf3 = possibleMaxIter.map(i => Math.pow(3, i));
 
   if (size <= 81) return 0;
   let margin = 0;
   for (let pow of powersOf3) {
-    if ( size >= pow ) {
+    if (size >= pow) {
       margin = Math.round((size - pow) / 2);
     } else {
       return margin;
@@ -89,14 +89,14 @@ function getMiddleHorizontal(sq: CanvasRectangle): CanvasRectangle {
 export function removeRectangle(
   sq: CanvasRectangle,
   ctx: CanvasRenderingContext2D,
-  ) {
-    drawRectangle(sq, ctx, 'black');
+) {
+  drawRectangle(sq, ctx, 'black');
 }
 
 export function divideSquare(
   sq: CanvasRectangle,
   ctx: CanvasRenderingContext2D,
-  ): LeftoverSquares {
+): LeftoverSquares {
   const middleVertical = getMiddleVertical(sq);
   removeRectangle(middleVertical, ctx);
   const middleHorizontal = getMiddleHorizontal(sq);
@@ -126,7 +126,7 @@ export function divideSquare(
     middleVertical.width,
     middleHorizontal.height
   );
-  return [ topLeftSquare, topRightSquare, bottomLeftSquare, bottomRightSquare];
+  return [topLeftSquare, topRightSquare, bottomLeftSquare, bottomRightSquare];
 }
 
 export function generate2d(
@@ -134,10 +134,10 @@ export function generate2d(
   iterations: number,
   ctx: CanvasRenderingContext2D,
 ): void {
-    if (iterations === 1) { return };
+  if (iterations === 1) { return };
 
-    const leftovers = divideSquare(sq, ctx)
-    leftovers.forEach(smallSquare => {
-      generate2d(smallSquare, iterations - 1, ctx)
-    })
+  const leftovers = divideSquare(sq, ctx)
+  leftovers.forEach(smallSquare => {
+    generate2d(smallSquare, iterations - 1, ctx)
+  })
 }

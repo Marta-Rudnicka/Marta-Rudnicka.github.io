@@ -92,23 +92,23 @@ export function Newton() {
   ];
 
   const navTabIndex = useContext(NavTabContext);
-  const description = useMemo(() => <Description ti={navTabIndex + 17}/>, []);
+  const description = useMemo(() => <Description ti={navTabIndex + 17} />, [navTabIndex]);
 
   return (<ComplexPlaneFractalDisplay
+    controlsChildren={controlsChildren(constant, co1, co2, co3, co4, co5)}
     createImageData={createImageData}
-    range={3}
-    startValue={[-1.2, -1.5]}
     description={description}
+    descriptionTabIndex={navTabIndex + 17}
     draw={draw}
     drawParameters={{ constant, co1, co2, co3, co4, co5 }}
     nextLink="/#/mandelbrot"
     prevLink="/#/cantor"
+    range={3}
     sliders={sliders}
-    controlsChildren={controlsChildren(constant, co1, co2, co3, co4, co5)}
+    startValue={[-1.2, -1.5]}
     title="Newton's fractal"
-    xReal={0}
     xImaginary={0}
-    descriptionTabIndex={navTabIndex + 17}
+    xReal={0}
   />
   );
 }

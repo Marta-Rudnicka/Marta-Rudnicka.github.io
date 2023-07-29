@@ -38,7 +38,7 @@ section {
   display: flex;
 }
 
-.slider-label span{
+.slider-label span {
   margin-right: 5px;
 }
 
@@ -84,7 +84,8 @@ section {
   background-color: #31cece;
 }
 
-.bp4-button:not([class*=bp4-intent-]):active, .bp4-button:not([class*=bp4-intent-]).bp4-active {
+.bp4-button:not([class*=bp4-intent-]):active,
+.bp4-button:not([class*=bp4-intent-]).bp4-active {
   box-shadow: inset 0 0 0 1px rgba(17, 20, 24, 0.2), 0 1px 2px #31cece;
 }
 
@@ -105,6 +106,7 @@ section {
   outline: #31cece solid 2px;
   outline-offset: 2px;
 }
+
 .alt-button {
   width: 100%;
   background-color: #282c34;
@@ -116,7 +118,7 @@ section {
   font-size: large;
   text-align: center;
   padding: 0.5rem;
-  border: solid 1px  #200920;
+  border: solid 1px #200920;
 }
 
 .three-cols {
@@ -129,7 +131,9 @@ section {
   width: 70px;
 }
 
-div:focus, section:focus, a:focus {
+div:focus,
+section:focus,
+a:focus {
   box-shadow: 3px 3px 5px #31cece;
   border: #31cece solid 1px;
 }
@@ -139,10 +143,10 @@ div:focus, section:focus, a:focus {
 }
 
 .slider-input-container {
-  width:100%;
+  width: 100%;
   display: flex;
 }
 
 .slider-input-container div {
-  width:25px;
+  width: 25px;
 }

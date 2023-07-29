@@ -23,7 +23,7 @@ export function getCanvasSize(
 }
 
 export function findAffectedPoint(
-  points: Record<string, Point>, 
+  points: Record<string, Point>,
   cursorPosition: Point
 ): string | null {
   for (const point in points) {
@@ -46,7 +46,7 @@ export function rescale(
   points: Record<string, Point>
 ): Record<string, Point> {
 
-  if (oldSize === null ) return points;
+  if (oldSize === null) return points;
 
   let newPoints = {} as Record<string, Point>;
   const ratio = newSize / oldSize;
@@ -67,10 +67,10 @@ export function calculateActiveArea(point: Point, extent: number): Rectangle {
 }
 
 export function highlightActiveArea(
-  point: Point, 
+  point: Point,
   ctx: CanvasRenderingContext2D,
   colour?: string
-  ): void {
+): void {
   const surroundingSquare = calculateActiveArea(point, ACTIVE_AREA)
   ctx.beginPath();
   const { a, b, c, d } = surroundingSquare;
@@ -85,16 +85,16 @@ export function highlightActiveArea(
 }
 
 export function getInitialPixelMap(canvasSize: number): TempPixelMap {
-  const pixelMap: TempPixelMap =  {};
+  const pixelMap: TempPixelMap = {};
   let x = 1;
-  while (x <= canvasSize ) {
+  while (x <= canvasSize) {
     pixelMap[x] = {}
     let y = 1;
     while (y <= canvasSize) {
       pixelMap[x][y] = null;
-      y ++;
+      y++;
     }
-    x ++;
+    x++;
   }
   return pixelMap;
 }

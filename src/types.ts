@@ -9,7 +9,7 @@ export type DrawFuncArgs = {
   parameters: Parameters;
 };
 
-export type DrawFunc= (args: DrawFuncArgs) => void;
+export type DrawFunc = (args: DrawFuncArgs) => void;
 
 export type Point = [
   number, number,
@@ -38,7 +38,7 @@ export type RectangleParams = [number, number, number, number];
 export type Complex = [number, number];
 // represents a complex number as an array: [realPart, imaginaryPart] - so GPU can use it
 
-export type Parameters = Record<string, number|Point|Complex|unknown>
+export type Parameters = Record<string, number | Point | Complex | unknown>
 
 type canvasInput = {
   value: Point,
@@ -47,7 +47,7 @@ type canvasInput = {
 }
 
 export type canvasInputs = {
-  onClick? : canvasInput,
+  onClick?: canvasInput,
   onMouseMove?: canvasInput,
   onMouseOver?: canvasInput,
   onMouseUp?: canvasInput,
@@ -60,7 +60,7 @@ export type ResizeHandler = (oldSize: number | null, newSize: number) => void;
 
 export type PixelValue = [number, number, number, number];
 
-export type PixelMap = Record<string, Record<string, PixelValue >>;
+export type PixelMap = Record<string, Record<string, PixelValue>>;
 export type TempPixelMap = Record<string, Record<string, PixelValue | null>>;
 
 export type ComplexPlane = Record<string, Record<string, Complex>>;
@@ -76,5 +76,5 @@ export type MainFractalControlProps = {
   sliders?: SliderControlProps[];
   buttonPairs?: ButtonPairControlProps[];
   radio?: RadioControlProps[];
-  controlsChildren?: ReactNode;  title: string;
+  controlsChildren?: ReactNode; title: string;
 }

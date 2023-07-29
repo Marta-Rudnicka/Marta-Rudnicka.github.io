@@ -3,22 +3,22 @@ import { Slider } from "./Slider";
 import { InfoLabel } from "./InfoLabel";
 
 export type SliderControlProps = {
-  label: string | ReactNode;
-  minValue: number;
-  maxValue: number;
-  value: number;
+  delayed?: boolean;
+  id?: string;
   info?: string | ReactNode;
+  inputRounding?: number,
+  label: string | ReactNode;
+  labelStepSize?: number
+  maxValue: number;
+  minValue: number;
+  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
   setValue: Dispatch<SetStateAction<number>>
-  labelStepSize? : number
   stepSize?: number;
   tabIndex: number;
-  id?: string;
-  inputRounding?: number,
-  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
-  delayed?: boolean;
+  value: number;
 }
 
-export function SliderControl(props: SliderControlProps){
+export function SliderControl(props: SliderControlProps) {
   return (
     <div className="slider-container">
       <div className='slider-label'>
@@ -27,19 +27,19 @@ export function SliderControl(props: SliderControlProps){
       </div>
       <div>
         <Slider
-          minValue={props.minValue}
+          delayed={props.delayed}
+          id={props.id}
+          inputRounding={props.inputRounding}
+          label={props.label}
           maxValue={props.maxValue}
-          value={props.value}
+          minValue={props.minValue}
+          setShowSliderInfo={props.setShowSliderInfo}
           setValue={props.setValue}
           stepSize={props.stepSize || 1}
           tabIndex={props.tabIndex}
-          label={props.label}
-          id={props.id}
-          inputRounding={props.inputRounding}
-          setShowSliderInfo={props.setShowSliderInfo}
-          delayed={props.delayed}
+          value={props.value}
         />
-        </div>
+      </div>
     </div>
   );
 }

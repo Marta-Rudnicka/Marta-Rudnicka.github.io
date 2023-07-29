@@ -13,7 +13,7 @@ export function Description(props: DescriptionProps) {
         What is a fractal? Instead of using a formal definition, we will start with a simple example: Sierpiński triangle.
       </p>
       <p>
-        Let's look at the big<Def phrase=" equilateral triangle" definition="a triangle where all the sides are the same length" tabIndex={ti +1}/>on the left. If we join up the the midpoints of its sides, we get a smaller equilateral triangle. When we “cut” it out like in the image, we are left with three small equilateral triangles and a “hole” in the middle. We can then cut out a middle triangle from each of those triangles we have left, and end up with twelve even smaller triangles. And then, we can cut out the middles from those twelve triangles, and so on…
+        Let's look at the big<Def phrase=" equilateral triangle" definition="a triangle where all the sides are the same length" tabIndex={ti + 1} />on the left. If we join up the the midpoints of its sides, we get a smaller equilateral triangle. When we “cut” it out like in the image, we are left with three small equilateral triangles and a “hole” in the middle. We can then cut out a middle triangle from each of those triangles we have left, and end up with twelve even smaller triangles. And then, we can cut out the middles from those twelve triangles, and so on…
       </p>
       <p>
         Here, it would be useful to introduce a few terms.
@@ -24,7 +24,7 @@ export function Description(props: DescriptionProps) {
       <p>Creating any fractal involves iterative processes.</p>
       <p>
         <strong>Recursion</strong> - you have probably noticed that every smaller triangle inside the Sierpiński is also a Sierpiński triangle. We could say that to make a Sierpiński triangle, you need to put four Sierpiński triangles together in a pyramid shape. This sounds similar to the old programming joke: "to understand recursion, you need to understand recursion".
-        If an <Def phrase="algorithm" definition="a sequence of instructions one needs to follow to achieve a specific outcome, e.g. a recipe - a list of things a human needs to do to cook a particular meal, or a computer program - a set of instructions for a computer to follow for anything a computer is supposed to do" tabIndex={ti +2}/> involves invoking itself, it is recursive. Recursion is also known for being confusing to beginners.
+        If an <Def phrase="algorithm" definition="a sequence of instructions one needs to follow to achieve a specific outcome, e.g. a recipe - a list of things a human needs to do to cook a particular meal, or a computer program - a set of instructions for a computer to follow for anything a computer is supposed to do" tabIndex={ti + 2} /> involves invoking itself, it is recursive. Recursion is also known for being confusing to beginners.
       </p>
       <h3>Sierpiński triangle
       </h3>
@@ -40,11 +40,11 @@ export function Description(props: DescriptionProps) {
       </p>
       <p className="ex">
         Drag the corners of the outer triangle to change its shape (or use keyboard controls). All the inner triangles will become its smaller copies, and make a different self-similar fractal.</p>
-      <p className="info"> Click on the <EnterFullScreen/> icon to get a full screen view with no extra text and links. You can exit the full screen mode by using <ExitFullScreen/> icon.
+      <p className="info"> Click on the <EnterFullScreen /> icon to get a full screen view with no extra text and links. You can exit the full screen mode by using <ExitFullScreen /> icon.
       </p>
       <h3>More facts about Sierpiński triangle</h3>
       <li>
-          The area of a (true) Sierpiński triangle is 0. If you cut out an infinite number of holes out of a triangle, you have no area left.</li>
+        The area of a (true) Sierpiński triangle is 0. If you cut out an infinite number of holes out of a triangle, you have no area left.</li>
       <li>There are many alternative ways of constructing a Sierpiński triangle; we only showed the simplest one.</li>
       <li>In the original paper, Sierpiński triangle was described as a curve that branches out on its every point. Still, it's probably easier to understand it in terms of removing triangles from a larger triangle</li>
     </>

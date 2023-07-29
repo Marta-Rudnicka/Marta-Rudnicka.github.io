@@ -135,6 +135,7 @@ export function SierpinskiTriangle() {
         canvasInputs={canvasInputs}
         canvasSize={canvasSize}
         description={description}
+        descriptionTabIndex={navTabIndex + 11}
         draw={draw}
         drawParameters={
           {
@@ -148,7 +149,6 @@ export function SierpinskiTriangle() {
         setFullScreen={setFullScreen}
         sliders={sliders}
         title="Sierpiński triangle"
-        descriptionTabIndex={navTabIndex + 11}
       />
     </FullScreenContext.Provider>
   );

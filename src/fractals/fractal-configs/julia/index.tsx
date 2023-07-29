@@ -40,17 +40,17 @@ export function JuliaSet() {
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
-    range={3}
-    startValue={[-1.5, -1.5]}
+    descriptionTabIndex={navTabIndex + 10}
     description={description}
     draw={draw}
     nextLink="/#/dummy"
     prevLink="/#/mandelbrot"
+    range={3}
     sliders={sliders}
+    startValue={[-1.5, -1.5]}
     title="Julia Set - demo"
-    xReal={cReal}
     xImaginary={cImaginary}
-    descriptionTabIndex={navTabIndex+10}
+    xReal={cReal}
   />
   );
 }

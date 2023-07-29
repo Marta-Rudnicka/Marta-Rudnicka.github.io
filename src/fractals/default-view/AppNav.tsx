@@ -13,8 +13,8 @@ export function AppNav(props: FooterProps) {
   const nextTabIndex = prevTabIndex + 1;
   return (
     <div className="app-nav" id="app-nav">
-      {prevLink && <div className="floating-box"><a href={prevLink} tabIndex={prevTabIndex}><ChevronLeft/>Previous fractal</a></div>}
-      {nextLink && <div className="floating-box"><a href={nextLink} tabIndex={nextTabIndex}>Next fractal <ChevronRight/></a></div>}
+      {prevLink && <div className="floating-box"><a href={prevLink} tabIndex={prevTabIndex}><ChevronLeft />Previous fractal</a></div>}
+      {nextLink && <div className="floating-box"><a href={nextLink} tabIndex={nextTabIndex}>Next fractal <ChevronRight /></a></div>}
     </div>
   );
 }

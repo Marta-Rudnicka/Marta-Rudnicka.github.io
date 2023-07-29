@@ -4,13 +4,13 @@ import { Canvas } from "../Components/Canvas";
 import './full-screen-view.css';
 
 export type FullScreenLayoutProps = {
+  altControls?: ReactNode;
+  canvasInputs?: canvasInputs;
+  canvasSize: number;
+  controls: ReactElement;
   draw: DrawFunc;
   drawParameters: Parameters;
-  controls: ReactElement;
   handleClick: () => void;
-  canvasSize: number;
-  canvasInputs?: canvasInputs;
-  altControls?: ReactNode;
   setInFocus: Dispatch<SetStateAction<string | null>>
 }
 
@@ -24,8 +24,8 @@ export function FullScreenLayout(props: FullScreenLayoutProps) {
           draw={props.draw}
           drawParameters={props.drawParameters}
           handleClick={props.handleClick}
-          size={props.canvasSize}
           setInFocus={props.setInFocus}
+          size={props.canvasSize}
         />
       </div>
       <div className="controls">

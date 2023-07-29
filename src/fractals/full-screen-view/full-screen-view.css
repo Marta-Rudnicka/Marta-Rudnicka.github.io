@@ -11,10 +11,11 @@ body {
   width: 25%;
   opacity: 0.7;
   border: none;
-  background-color:  aliceblue;
+  background-color: aliceblue;
 }
 
-.full-screen-layout .canvas, .full-screen-layout {
+.full-screen-layout .canvas,
+.full-screen-layout {
   border: none;
   padding: 0;
 }
@@ -35,7 +36,7 @@ body {
 }
 
 .full-screen-layout h2 {
-  margin:0 0 5px 0;
+  margin: 0 0 5px 0;
   color: black;
   display: inline-flex;
   align-items: end;
@@ -63,5 +64,5 @@ body {
 
 .full-screen-layout canvas {
   box-shadow: 3px 3px 40px #5d1a5d;
-  border: solid 1px #5d1a5d;  /* border: #31cece solid 1px; */
+  border: solid 1px #5d1a5d;
 }

@@ -1,45 +1,45 @@
 .position-control {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .position-control-row {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .position-control-row button {
-    width: 35px;
-    height: 35px;
-    margin-right: 35px;
+  width: 35px;
+  height: 35px;
+  margin-right: 35px;
 }
 
 .active {
-    box-shadow: 3px 3px 10px #31cece;
-    border: #31cece solid 1px;
+  box-shadow: 3px 3px 10px #31cece;
+  border: #31cece solid 1px;
 }
 
 .slider-grid {
-    display: grid;
-    grid-template-columns: 7ch 3ch 1fr 3ch;
+  display: grid;
+  grid-template-columns: 7ch 3ch 1fr 3ch;
 }
 
 input[type="range"] {
-    -webkit-appearance: none;
-    background: transparent;
-    appearance: none;
-    width: 100%;
-    cursor: pointer;
-    outline: none;
+  -webkit-appearance: none;
+  background: transparent;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
 }
 
 input:focus {
-    border: solid black 1px;
-    box-shadow: 3px 3px 5px #31cece;
+  border: solid black 1px;
+  box-shadow: 3px 3px 5px #31cece;
 }
 
 .right {
-    text-align: right;
+  text-align: right;
 }
 
 /* Track: webkit browsers */
@@ -62,7 +62,8 @@ input[type="range"]::-moz-range-track {
 input[type="range"]::-webkit-slider-thumb {
   /* removing default appearance */
   -webkit-appearance: none;
-  appearance: none; /*
+  appearance: none;
+  /*
   /* creating a custom design */
   height: 20px;
   width: 12px;

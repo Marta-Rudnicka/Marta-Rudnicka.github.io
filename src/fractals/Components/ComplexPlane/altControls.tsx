@@ -3,16 +3,16 @@ import { PositionControl } from "../../Components/Controls/PositionControl";
 import { Point } from "../../../types";
 
 type ComplexPlaneProps = {
+  canvasSize: number;
+  children: ReactNode;
   handleMouseUp: () => void;
   handleMouseDown: () => void;
   handleMouseMove: (p: Point) => void;
+  inFocus: null | string;
+  setCursorPosition: Dispatch<SetStateAction<Point>>;
+  setInFocus?: Dispatch<SetStateAction<string | null>>
   zoomIn: () => void;
   zoomOut: () => void;
-  canvasSize: number;
-  setCursorPosition: Dispatch<SetStateAction<Point>>;
-  children: ReactNode;
-  inFocus: null | string;
-  setInFocus?: Dispatch<SetStateAction<string | null>>
 }
 export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
   const [tracking, setTracking] = useState(false);
@@ -55,13 +55,13 @@ export function ComplexPlaneAltControls(props: ComplexPlaneProps) {
       onKeyUp={endMovement}
     >
       <PositionControl
+        focused={props.inFocus === 'canvas'}
         id="pan"
         inc={inc}
+        invisible
         setPosition={setPosition}
         x={position[0]}
         y={position[1]}
-        focused={props.inFocus === 'canvas'}
-        invisible
       >
         {props.children}
       </PositionControl>

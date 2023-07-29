@@ -3,9 +3,9 @@ import { drawLineSegment, generate1d, generateAll1d, getFirstLine } from "./algo
 import { drawRectangle, generate2d, getFirstSquare, getInnerMargin } from "./algorithm2d";
 
 export type CantorDimensionString =
-    "1 dimension - Cantor set"
+  "1 dimension - Cantor set"
   | "2 dimensions - Cantor dust"
-  | "3 dimentions - 3D Cantor dust";
+  | "3 dimensions - 3D Cantor dust";
 
 type CantorParameters = {
   iterations: number;
@@ -16,7 +16,7 @@ type CantorParameters = {
 const contextDict: Record<CantorDimensionString, string> = {
   "1 dimension - Cantor set": "2d",
   "2 dimensions - Cantor dust": "2d",
-  "3 dimentions - 3D Cantor dust": "webgl"
+  "3 dimensions - 3D Cantor dust": "webgl"
 }
 export function draw1d(
   args: DrawFuncArgs,
@@ -34,7 +34,7 @@ export function draw1d(
     ctx.lineWidth = 6;
     const first = getFirstLine(size, innerMarginVertical);
     drawLineSegment(first, ctx, 'white');
-    if(showIntermediate){
+    if (showIntermediate) {
       generateAll1d(first, parameters.iterations, ctx, size)
     } else {
       generate1d(first, parameters.iterations, ctx)

@@ -27,8 +27,7 @@ export function evaluateDerivative(
   co5: number,
 ): Complex {
 
-  // the obvious return vaue would be '(x) => d.evaluate({ 'x': x }) but this would not work on GPUjs'
-  //  console.dir(d, {depth:10})
+  // the obvious return value would be '(x) => d.evaluate({ 'x': x }) but this would not work on GPUjs'
 
   const deg2 = rxC(2 * co2, x);
   const deg3 = rxC(3 * co3, pow2(x));
@@ -37,7 +36,7 @@ export function evaluateDerivative(
 
   const args1 = [co1, 0, deg2[0], deg2[1]];
   const args2 = [deg3[0], deg3[1], deg4[0], deg4[1]];
-  const args3 = [deg5[0], deg5[1], 0, 0 ];
+  const args3 = [deg5[0], deg5[1], 0, 0];
   const sum1 = sum2Complex(args1);
   const sum2 = sum2Complex(args2);
   const sum3 = sum2Complex(args3);
@@ -65,8 +64,7 @@ export function evaluatePolynomial(
   co5: number,
 ): Complex {
 
-  // the obvious return vaue would be '(x) => d.evaluate({ 'x': x }) but this would not work on GPUjs'
-  //  console.dir(d, {depth:10})
+  // the obvious return value would be '(x) => d.evaluate({ 'x': x }) but this would not work on GPUjs'
 
   const deg1 = rxC(co1, x);
   const deg2 = rxC(co2, pow2(x));
@@ -108,7 +106,7 @@ export function solve(equation: string): FlatComplexRootArray {
   let res = [];
   const eq = Algebrite.run(equation)
   const sol: Solutions = Algebrite.nroots(eq)
-  const roots =  sol.tensor.elem.map((e) => parseSolution(e)).sort();
+  const roots = sol.tensor.elem.map((e) => parseSolution(e)).sort();
   const numOfRoots = roots.length;
   res.push(...roots.flat())
   res.push(...[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -168,12 +166,12 @@ export function compareToKnownRoots(
   let i = compareToAttractors(val, r0r, r0i, r1r, r1i, 0);
   if (i !== -1) return i;
   i = compareToAttractors(val, r2r, r2i, r3r, r3i, 1);
-  if (i > numOfRoots -1) return -1;
+  if (i > numOfRoots - 1) return -1;
   if (i !== -1) {
     return i;
   }
   i = compareToAttractors(val, r4r, r4i, 0, 0, 2);
-  if (i > numOfRoots -1) return -1;
+  if (i > numOfRoots - 1) return -1;
   return i;
 }
 
@@ -239,9 +237,9 @@ export function findNewtonAttractor(
       value,
       constant, co1, co2, co3, co4, co5
     );
-      index = res[0]
-      value = [res[1], res[2]];
-      i ++;
+    index = res[0]
+    value = [res[1], res[2]];
+    i++;
   }
   return index;
 }

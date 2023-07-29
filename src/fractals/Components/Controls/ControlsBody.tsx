@@ -28,21 +28,21 @@ function renderSliderControls(
   return sliders.map(slider => {
     const id = slider.id ? slider.id : slider.label?.toString();
     return (
-    <SliderControl
-      key={id}
-      label={slider.label}
-      setValue={slider.setValue}
-      maxValue={slider.maxValue}
-      minValue={slider.minValue}
-      value={slider.value}
-      info={slider.info}
-      stepSize={slider.stepSize}
-      tabIndex={2 * slider.tabIndex + initTabIndex}
-      id={id}
-      setShowSliderInfo={setShowSliderInfo}
-      delayed={slider.delayed}
-      inputRounding={slider.inputRounding}
-    />);
+      <SliderControl
+        delayed={slider.delayed}
+        inputRounding={slider.inputRounding}
+        id={id}
+        info={slider.info}
+        key={id}
+        label={slider.label}
+        maxValue={slider.maxValue}
+        minValue={slider.minValue}
+        setShowSliderInfo={setShowSliderInfo}
+        setValue={slider.setValue}
+        stepSize={slider.stepSize}
+        tabIndex={2 * slider.tabIndex + initTabIndex}
+        value={slider.value}
+      />);
   }
   );
 }
@@ -50,14 +50,14 @@ function renderSliderControls(
 function renderButtonPairs(
   initTabIndex: number,
   buttonsPairs?: ButtonPairControlProps[],
-  ): ReactNode[] {
+): ReactNode[] {
   if (!buttonsPairs) return [];
   return buttonsPairs.map(bp =>
     <ButtonPairControl
-      key={bp.info || bp.label1}
-      handleClick1={bp.handleClick1}
       handleClick2={bp.handleClick2}
+      handleClick1={bp.handleClick1}
       info={bp.info}
+      key={bp.info || bp.label1}
       label1={bp.label1}
       label2={bp.label2}
       tabIndex={initTabIndex}
@@ -117,13 +117,13 @@ function AltControls(props: AltControlProps) {
 export function ControlsBody(props: ControlsProps) {
   const fullScreen = useContext(FullScreenContext);
   const navTabIndex = useContext(NavTabContext);
-  const [showSliderInfo, setShowSliderInfo ] = useState(false);
+  const [showSliderInfo, setShowSliderInfo] = useState(false);
 
   if (fullScreen! && !props.allVisible) {
     return null;
   }
   const initTabIndex = fullScreen ? 3 : navTabIndex + 3;
-  const sliders = renderSliderControls(initTabIndex, props.sliders, setShowSliderInfo )
+  const sliders = renderSliderControls(initTabIndex, props.sliders, setShowSliderInfo)
   const buttons = renderButtonPairs(initTabIndex, props.buttonPairs)
   const radio = renderRadioInputs(props.radioInputs);
 

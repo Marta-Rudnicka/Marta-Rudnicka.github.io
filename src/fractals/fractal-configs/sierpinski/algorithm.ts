@@ -11,32 +11,32 @@ export function equilateralTriangle(size: number): Triangle {
 }
 
 function middle(a: Point, b: Point): Point {
-  const xmax = Math.max(a[0], b[0])
-  const xmin = Math.min(a[0], b[0])
+  const xMax = Math.max(a[0], b[0])
+  const xMin = Math.min(a[0], b[0])
 
-  const ymax = Math.max(a[1], b[1])
-  const ymin = Math.min(a[1], b[1])
-  const x = xmin + (xmax - xmin)/2
-  const y = ymin + (ymax - ymin)/2
-      
+  const yMax = Math.max(a[1], b[1])
+  const yMin = Math.min(a[1], b[1])
+  const x = xMin + (xMax - xMin) / 2
+  const y = yMin + (yMax - yMin) / 2
+
   return [x, y]
 }
 
 function getNewTriangles(points: Triangle): Triangle[] {
   const { a, b, c } = points;
   return [
-    {a, b: middle(a, b), c: middle(a, c)},
-    {a: b, b: middle(b, c), c: middle(a, b)},
-    {a: c, b: middle(c, b), c: middle(c, a)},
+    { a, b: middle(a, b), c: middle(a, c) },
+    { a: b, b: middle(b, c), c: middle(a, b) },
+    { a: c, b: middle(c, b), c: middle(c, a) },
   ];
 }
 
 function cutOutMiddleTriangle(
   points: Triangle,
-  ctx: CanvasRenderingContext2D  
-  ): void {
+  ctx: CanvasRenderingContext2D
+): void {
   const { a, b, c } = points;
-  const newPoints = {a: middle(a, b), b: middle(b, c), c: middle(c, a)}
+  const newPoints = { a: middle(a, b), b: middle(b, c), c: middle(c, a) }
   ctx.fillStyle = "black";
   ctx.beginPath();
   drawTriangle(newPoints, ctx);
@@ -46,8 +46,8 @@ function cutOutMiddleTriangle(
 
 function drawTriangle(
   points: Triangle,
-  ctx: CanvasRenderingContext2D  
-  ): void {
+  ctx: CanvasRenderingContext2D
+): void {
   const { a, b, c } = points;
   ctx.moveTo(...a);
   ctx.lineTo(...b);
@@ -75,6 +75,6 @@ export function generate(
   cutOutMiddleTriangle(points, ctx);
   const newTriangles = getNewTriangles(points);
   newTriangles.forEach(triangle => {
-    generate(triangle, iterations-1, ctx)
+    generate(triangle, iterations - 1, ctx)
   });
 }

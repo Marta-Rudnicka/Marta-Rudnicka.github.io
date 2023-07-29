@@ -12,16 +12,16 @@ export function MandelbrotSet() {
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
-    range={3}
-    startValue={[-2, -1.5]}
     description={description}
+    descriptionTabIndex={navTabIndex + 6}
     draw={draw}
     nextLink="/#/julia"
     prevLink="/#/newton"
+    range={3}
+    startValue={[-2, -1.5]}
     title="Mandelbrot Set"
-    xReal={0}
     xImaginary={0}
-    descriptionTabIndex={navTabIndex + 6}
+    xReal={0}
   />
   );
 }

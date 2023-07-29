@@ -6,16 +6,16 @@ import { Controls } from "./Controls";
 import { FullScreenContext } from "./ComplexPlane/ComplexPlane";
 
 export type FractalDisplayProps = MainFractalControlProps & {
+  altTabIndex?: number;
   canvasInputs: canvasInputs;
   canvasSize: number;
+  descriptionTabIndex: number;
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
+  inFocus?: boolean;
   prevCanvasSize?: number | null,
   setFullScreen: Dispatch<SetStateAction<boolean>>
-  descriptionTabIndex: number;
-  inFocus?: boolean;
   setInFocus?: Dispatch<SetStateAction<string | null>>;
-  altTabIndex?: number;
 }
 
 export function FractalDisplay(props: FractalDisplayProps) {
@@ -77,19 +77,19 @@ export function FractalDisplay(props: FractalDisplayProps) {
 
   return (
     <DefaultLayout
+      altControls={props.altControls}
+      canvasInputs={props.canvasInputs}
+      canvasSize={canvasSize}
+      controls={controls}
+      description={props.description}
+      descriptionTabIndex={props.descriptionTabIndex}
       draw={props.draw}
       drawParameters={props.drawParameters}
       handleClick={handleChangeViewIconClick}
-      controls={controls}
-      altControls={props.altControls}
-      title={props.title}
-      description={props.description}
-      prevLink={props.prevLink}
       nextLink={props.nextLink}
-      canvasSize={canvasSize}
-      canvasInputs={props.canvasInputs}
-      descriptionTabIndex={props.descriptionTabIndex}
+      prevLink={props.prevLink}
       setInFocus={props.setInFocus || setInFocus}
+      title={props.title}
     />
   );
 }

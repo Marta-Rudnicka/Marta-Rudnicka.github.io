@@ -31,7 +31,7 @@ export function getKernel(
   size: number,
   xReal: number,
   xImaginary: number,
-  ): IKernelRunShortcut {
+): IKernelRunShortcut {
   const gpu = new GPU();
 
   gpu.addFunction(getComplexPartsForPixels);

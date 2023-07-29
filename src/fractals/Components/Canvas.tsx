@@ -7,12 +7,12 @@ import { FullScreenContext } from "./ComplexPlane/ComplexPlane";
 import { NavTabContext } from "../../App";
 
 type CanvasProps = {
-  size: number;
+  canvasInputs?: canvasInputs;
   draw: DrawFunc;
   drawParameters: Parameters;
   handleClick: () => void;
-  canvasInputs?: canvasInputs;
   setInFocus: Dispatch<SetStateAction<string | null>>
+  size: number;
 }
 
 export function Canvas(props: CanvasProps) {
@@ -33,22 +33,22 @@ export function Canvas(props: CanvasProps) {
   }
 
   useEffect(() => {
-    if (c && c.current ) {
-    const drawArgs = {
-      canvas: c.current,
-      size,
-      parameters: props.drawParameters,
-    }
+    if (c && c.current) {
+      const drawArgs = {
+        canvas: c.current,
+        size,
+        parameters: props.drawParameters,
+      }
 
       props.draw(drawArgs);
     }
   }, [props, size, c, props.drawParameters]);
 
-  function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point{
+  function getCursorPosition(e: MouseEvent<HTMLCanvasElement>): Point {
     if (fullScreen || (offsetX && offsetY)) {
       return [
-        Math.round(e.clientX - ( offsetX || 0)),
-        Math.round(e.clientY - ( offsetY || 0))
+        Math.round(e.clientX - (offsetX || 0)),
+        Math.round(e.clientY - (offsetY || 0))
       ];
     }
     return [0, 0]
@@ -88,15 +88,15 @@ export function Canvas(props: CanvasProps) {
         </Tooltip2>
       </div>
       <canvas
-        ref={c}
-        onMouseDown={(e) => manageEventHandler(e, "onMouseDown")}
-        onMouseUp={(e) => manageEventHandler(e, "onMouseUp")}
-        onMouseMove={(e) => manageEventHandler(e, "onMouseMove")}
         className="floating-box"
         height={size}
-        width={size}
-        tabIndex={tabIndex}
         onFocus={() => props.setInFocus('canvas')}
+        onMouseDown={(e) => manageEventHandler(e, "onMouseDown")}
+        onMouseMove={(e) => manageEventHandler(e, "onMouseMove")}
+        onMouseUp={(e) => manageEventHandler(e, "onMouseUp")}
+        ref={c}
+        tabIndex={tabIndex}
+        width={size}
       />
     </div>)
 }

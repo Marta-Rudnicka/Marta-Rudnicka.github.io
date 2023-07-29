@@ -1,21 +1,21 @@
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 export type SliderProps = {
-  minValue: number;
+  delayed?: boolean;
+  id?: string;
+  inputRounding?: number;
+  label: string | ReactNode;
   maxValue: number;
-  value: number;
+  minValue: number;
+  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
   setValue: Dispatch<SetStateAction<number>>
   stepSize?: number;
   tabIndex: number;
-  label: string | ReactNode;
-  id?: string;
-  inputRounding?: number;
-  setShowSliderInfo?: Dispatch<SetStateAction<boolean>>,
-  delayed?: boolean;
+  value: number;
 }
 
 export function Slider(props: SliderProps) {
-  const [localValue, setLocalValue ] = useState(props.value)
+  const [localValue, setLocalValue] = useState(props.value)
   const step = props.stepSize || 1;
 
   function getValidValue(operation: "+" | "-") {
@@ -36,7 +36,7 @@ export function Slider(props: SliderProps) {
   }
 
   function handleInput() {
-    if(props.delayed) {
+    if (props.delayed) {
       props.setShowSliderInfo && props.setShowSliderInfo(true);
     }
   }
@@ -82,32 +82,32 @@ export function Slider(props: SliderProps) {
     <div key={props.value} tabIndex={-1} >
       <div className="slider-input-container slider-grid" tabIndex={-1}>
         <input
-          type="number"
-          value={localValue}
-          tabIndex={props.tabIndex}
+          max={props.maxValue}
+          min={props.minValue}
+          onBlur={() => setLocalValue(props.value)}
           onChange={(e) => handleChange(e)}
           onKeyDown={(e) => handleKeyboardInput(e)}
-          min={props.minValue}
-          max={props.maxValue}
-          step={step}
           onMouseUp={acceptValue}
-          onBlur={() => setLocalValue(props.value)}
+          tabIndex={props.tabIndex}
+          type="number"
+          step={step}
+          value={localValue}
         />
         <div tabIndex={-1} className="right">{props.minValue}</div>
         <input
-          onKeyDown={(e) => handleKeyboardInput(e)}
-          type="range"
-          min={props.minValue}
-          max={props.maxValue}
-          step={step}
-          onChange={(e) => handleChange(e)}
-          tabIndex={props.tabIndex + 1}
-          value={localValue}
           className="slider-input"
           id={props.id}
+          max={props.maxValue}
+          min={props.minValue}
           name={props.id}
-          onMouseUp={acceptValue}
           onBlur={() => setLocalValue(props.value)}
+          onChange={(e) => handleChange(e)}
+          onKeyDown={(e) => handleKeyboardInput(e)}
+          onMouseUp={acceptValue}
+          step={step}
+          tabIndex={props.tabIndex + 1}
+          type="range"
+          value={localValue}
         />
         <div tabIndex={-1}>{props.maxValue}</div>
       </div>

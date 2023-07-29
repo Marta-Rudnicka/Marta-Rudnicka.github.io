@@ -40,8 +40,8 @@ export function Def(props: DefProps) {
 }
 
 type ImageProps = {
-  src: string;
   alt: string;
+  src: string;
   tabIndex: number;
 }
 
@@ -50,7 +50,6 @@ export function Img(props: ImageProps) {
 
   function handleClick() {
     setDialogOpen(true);
-    console.log('click!');
   }
   function handleKeyboardInput(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter') {
@@ -63,19 +62,19 @@ export function Img(props: ImageProps) {
         <div className="img-instruction">Click or press enter to better see the image</div>
         <img
           alt={props.alt}
-          src={props.src}
           className='img'
           onClick={handleClick}
-          tabIndex={props.tabIndex}
           onKeyDown={handleKeyboardInput}
+          src={props.src}
+          tabIndex={props.tabIndex}
         />
       </div>
       <Dialog
-        isOpen={dialogOpen}
-        canOutsideClickClose={true}
-        canEscapeKeyClose={true}
-        onClose={() => setDialogOpen(false)}
         autoFocus={true}
+        canEscapeKeyClose={true}
+        canOutsideClickClose={true}
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
       >
         <DialogBody>
           <p className="dialog-info">Press 'Esc' or click outside to close</p>

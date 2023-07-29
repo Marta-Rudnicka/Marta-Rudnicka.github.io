@@ -7,12 +7,12 @@ import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 import { RadioControlProps } from "./RadioInput";
 
 export type ControlProps = {
-  sliders?: SliderControlProps[];
-  buttonPairs?: ButtonPairControlProps[];
-  radioInputs?: RadioControlProps[];
   altControls?: ReactNode;
   altTabIndex?: number;
+  buttonPairs?: ButtonPairControlProps[];
   children?: ReactNode;
+  radioInputs?: RadioControlProps[];
+  sliders?: SliderControlProps[];
 }
 
 export function Controls(props: ControlProps) {
@@ -31,9 +31,9 @@ export function Controls(props: ControlProps) {
       {props.children}
       <ControlsBody
         {...props}
-        initTabIndex={initTabIndex}
         allVisible={allVisible}
         altTabIndex={props.altTabIndex}
+        initTabIndex={initTabIndex}
       />
     </>
   );

@@ -2,11 +2,11 @@ import { Button } from "@blueprintjs/core";
 import { InfoLabel } from "./InfoLabel";
 
 export type ButtonPairControlProps = {
-  label1: string;
-  label2: string;
-  info?: string;
   handleClick1: () => void;
   handleClick2: () => void;
+  info?: string;
+  label1: string;
+  label2: string;
   tabIndex: number;
 }
 

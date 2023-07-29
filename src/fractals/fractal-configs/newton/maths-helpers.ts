@@ -23,7 +23,7 @@ export function pow2(x: Complex): Complex {
   if (imaginary === -0) {
     imaginary = 0;
   }
-  return [ real, imaginary ];
+  return [real, imaginary];
 }
 
 export function pow3(x: Complex): Complex {
@@ -80,13 +80,13 @@ export function pow5(x: Complex): Complex {
 export function cByC(num: Complex, den: Complex): Complex {
   const constDiv = den[0] * den[0] + den[1] * den[1];
 
-  const real = (num[0]*den[0] + num[1] * den[1]) / constDiv;
-  const imaginary = (num[1]*den[0] - num[0]*den[1]) / constDiv;
+  const real = (num[0] * den[0] + num[1] * den[1]) / constDiv;
+  const imaginary = (num[1] * den[0] - num[0] * den[1]) / constDiv;
   return [real, imaginary]
 }
 
 export function rxC(r: number, c: Complex): Complex {
-  return [r* c[0], r * c[1]];
+  return [r * c[0], r * c[1]];
 }
 export function lengthNumArray(array: number[]): number {
   let i = 0;
@@ -97,7 +97,7 @@ export function lengthNumArray(array: number[]): number {
 }
 
 export function sum2Complex(nums: number[]): Complex {
-  // reduce or variable-lenghth arrays not compatible with gpu
+  // reduce or variable-length arrays not compatible with gpu
   return [nums[0] + nums[2], nums[1] + nums[3]]
 }
 
@@ -132,8 +132,8 @@ export function getPolynomialStringForNroots(
   co3: number,
   co4: number,
   co5: number,
-  forView=false,
-) : string {
+  forView = false,
+): string {
   let poly = '';
   poly = addExpressionToPolynomial(poly, co5, 5, forView);
   poly = addExpressionToPolynomial(poly, co4, 4, forView);
@@ -144,8 +144,8 @@ export function getPolynomialStringForNroots(
     // multiply expressions by 10 because nroots only accepts integers
     // and the inputs have up to 1 decimal point
     let constantStr = '';
-    if(!forView) {
-      constantStr = c > 0 ? `+${c*10}` : String(c*10);
+    if (!forView) {
+      constantStr = c > 0 ? `+${c * 10}` : String(c * 10);
     } else {
       constantStr = c > 0 ? `+${c}` : String(c);
     }

@@ -25,12 +25,12 @@ type ComplexPlaneProps = MainFractalControlProps & {
     xImaginary: number,
     newtonInputs?: NewtonInputs,
   ) => ImageData;
-  startValue: Complex,
+  descriptionTabIndex: number,
+  drawParameters?: NewtonInputs,
   range: number,
+  startValue: Complex,
   xReal: number,
   xImaginary: number,
-  drawParameters?: NewtonInputs,
-  descriptionTabIndex: number,
 }
 export const FullScreenContext = createContext(false);
 
@@ -161,32 +161,32 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
   return (
     <FullScreenContext.Provider value={fullScreen} >
       <ComplexPlaneAltControls
+        canvasSize={canvasSize}
         handleMouseUp={handleMouseUp}
         handleMouseMove={handleMouseMove}
         handleMouseDown={handleMouseDown}
+        inFocus={inFocus}
+        setCursorPosition={setCursorPosition}
+        setInFocus={setInFocus}
         zoomIn={zoomIn}
         zoomOut={zoomOut}
-        canvasSize={canvasSize}
-        setCursorPosition={setCursorPosition}
-        inFocus={inFocus}
-        setInFocus={setInFocus}
       >
         <FractalDisplay
+          buttonPairs={buttonPairs}
           canvasInputs={canvasInputs}
+          controlsChildren={props.controlsChildren}
           canvasSize={canvasSize}
           description={props.description}
+          descriptionTabIndex={props.descriptionTabIndex}
           draw={props.draw}
           drawParameters={complexDrawParameters}
           nextLink={props.nextLink}
           prevCanvasSize={100}
           prevLink={props.prevLink}
           setFullScreen={setFullScreen}
-          sliders={props.sliders}
-          buttonPairs={buttonPairs}
-          controlsChildren={props.controlsChildren}
-          title={props.title}
-          descriptionTabIndex={props.descriptionTabIndex}
           setInFocus={setInFocus}
+          sliders={props.sliders}
+          title={props.title}
         />
       </ComplexPlaneAltControls>
     </FullScreenContext.Provider>

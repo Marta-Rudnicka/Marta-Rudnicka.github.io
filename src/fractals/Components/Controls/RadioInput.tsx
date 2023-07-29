@@ -3,18 +3,17 @@ import { InfoLabel } from "./InfoLabel";
 import { Dispatch, SetStateAction } from "react";
 
 export type RadioControlProps = {
-  label: string;
   info?: string;
+  label: string;
+  options: string[]
   setValue: Dispatch<SetStateAction<string>>;
   tabIndex: number;
   value: string,
-  options: string[]
 }
 
 
 export function RadioInput(props: RadioControlProps) {
-  const options = props.options.map((o, index) => <Radio label={o} value={o} key={o} tabIndex={props.tabIndex + index}/>)
-  console.log(props.tabIndex)
+  const options = props.options.map((o, index) => <Radio label={o} value={o} key={o} tabIndex={props.tabIndex + index} />)
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
     props.setValue(e.currentTarget.value)
 

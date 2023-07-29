@@ -22,7 +22,7 @@ export function xSqrPlusY(
 export function distanceSq(val: number[], c: number[]): number {
   // treating complex numbers as ordinary coordinates on the plane
   // false if lies outside the circle with r=2 from the value
-  return (val[0] - c[0])**2 + (val[1] - c[1])**2;
+  return (val[0] - c[0]) ** 2 + (val[1] - c[1]) ** 2;
 }
 
 export function getComplexPartsForPixels(
@@ -67,7 +67,7 @@ export function getMultiplier(input: number) {
    * rounding by he GPU
    */
   let multiplier = 1;
-  while(input * multiplier < 1 ) {
+  while (input * multiplier < 1) {
     multiplier = multiplier * 10;
   }
   return multiplier;

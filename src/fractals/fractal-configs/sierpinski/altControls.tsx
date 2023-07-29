@@ -60,7 +60,7 @@ export function SierpinskiAltControls(props: SierpinskiAltControlsProps) {
           setPosition={setB}
           x={b[0]}
           y={b[1]}
-          nextFocus={document.querySelector('.app-nav a')  as HTMLElement | null}
+          nextFocus={document.querySelector('.app-nav a') as HTMLElement | null}
           prevFocus={document.getElementById('a-arrow-up')}
           focused={inFocus === 'b'}
           setInFocus={setInFocus}

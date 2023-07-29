@@ -32,6 +32,7 @@ body {
   max-width: 100vw;
   display: grid;
 }
+
 .canvas {
   grid-column: 1;
   grid-row: 1/3;
@@ -44,7 +45,8 @@ body {
 .controls {
   grid-column: 2;
   box-shadow: 3px 3px 40px #5d1a5d;
-  border: solid 1px #5d1a5d;  /* border: #31cece solid 1px; */
+  border: solid 1px #5d1a5d;
+  /* border: #31cece solid 1px; */
 }
 
 .description {
@@ -76,16 +78,20 @@ body {
   background: #383e47;
   overflow: unset;
 }
+
 .bp4-dialog {
   width: auto;
   height: auto;
   background: #383e47;
 }
+
 .app-nav {
   display: flex;
   justify-content: space-between;
 }
-.app-nav a:link, .app-nav a:visited {
+
+.app-nav a:link,
+.app-nav a:visited {
   color: #31cece;
 }
 
