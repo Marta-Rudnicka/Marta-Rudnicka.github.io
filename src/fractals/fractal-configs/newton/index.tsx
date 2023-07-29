@@ -35,10 +35,10 @@ function controlsChildren(
 export function Newton() {
   const [co5, setA5] = useState(0)
   const [co4, setCo4] = useState(0)
-  const [co3, setCo3] = useState(2)
+  const [co3, setCo3] = useState(1)
   const [co2, setCo2] = useState(0)
   const [co1, setCo1] = useState(0)
-  const [constant, setConstant] = useState(5)
+  const [constant, setConstant] = useState(8)
 
   const sliders: SliderControlProps[] = [{
     value: constant,
@@ -92,12 +92,12 @@ export function Newton() {
   ];
 
   const navTabIndex = useContext(NavTabContext);
-  const description = useMemo(() => Description(), []);
+  const description = useMemo(() => <Description ti={navTabIndex + 17}/>, []);
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
     range={3}
-    startValue={[-2, -1.5]}
+    startValue={[-1.2, -1.5]}
     description={description}
     draw={draw}
     drawParameters={{ constant, co1, co2, co3, co4, co5 }}

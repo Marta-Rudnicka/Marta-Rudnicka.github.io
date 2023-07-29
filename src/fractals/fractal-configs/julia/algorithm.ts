@@ -44,6 +44,7 @@ export function getKernel(
   const kernel = gpu.createKernel(function (
     startValueX: number,
     startValueY: number,
+    size: number,
     inc: number,
     xReal: number,
     xImaginary: number,
@@ -51,6 +52,7 @@ export function getKernel(
     const values = getComplexPartsForPixels(
       this.thread.x,
       this.thread.y,
+      size,
       startValueX,
       startValueY,
       inc);
@@ -72,6 +74,6 @@ export function createImageData(
   const startReal = startValue[0];
   const startImaginary = startValue[1];
   const kernel = getKernel(size, xReal, xImaginary);
-  const kernelDump = kernel(startReal, startImaginary, inc, xReal, xImaginary) as number[][][];
+  const kernelDump = kernel(startReal, startImaginary, size, inc, xReal, xImaginary) as number[][][];
   return convertKernelToImgData(kernelDump, size)
 }

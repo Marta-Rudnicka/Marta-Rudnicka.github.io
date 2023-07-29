@@ -27,14 +27,16 @@ export function distanceSq(val: number[], c: number[]): number {
 
 export function getComplexPartsForPixels(
   x: number,
-  y: number,
+  canvasY: number,
+  size: number,
   startValueX: number,
   startValueY: number,
   inc: number,
 ): Complex {
 
+  const y = size - canvasY;
   const multiplier = getMultiplier(inc) * 1000;
-  // to prevent GPU from rounding numbers; value establihed by trial and error
+  // to prevent GPU from rounding numbers; value established by trial and error
   inc = inc * multiplier;
   let xInc = x * inc;
   let yInc = y * inc;
