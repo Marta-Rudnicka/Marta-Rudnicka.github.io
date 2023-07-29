@@ -11,6 +11,8 @@ export function Description(props: DescriptionProps) {
 
   const cubicEqDef = <MathJax>An equation of the third degree, or one with a {`\\(x ^ 3\\)`} as the highest power of {`\\(x\\)`}</MathJax>
 
+  const coefficientDef = <MathJax>In the expression {`\\(3x^5 + 4x ^ 3 -2x\\)`}, {`\\(3\\)`} is the coefficient for {`\\(x^5\\)`}, {`\\(4\\)`} is the coefficient for {`\\(x^3\\)`}, and {`\\(-2\\)`} is the coefficient for {`\\(x\\)`} </MathJax>
+
   return (
     <MathJax>
       <p>
@@ -117,22 +119,25 @@ export function Description(props: DescriptionProps) {
       <p>
         Indeed, we started close, got closer with each step, and even landed on the exact solution.
       </p>
-      <p>OK, so let's pick a complex number, say {`\\(5.53 - 0.74i\\)`}. This orbit will be easier to follow on the complex plane:</p>
-        <Img src={require('./images/r5_53in0_74.png')} alt="TODO" tabIndex={ti+4}/>
+      <p>OK, so let's pick a complex number, say {`\\(5.5 - 0.2i\\)`}. This orbit will be easier to follow on the complex plane:</p>
+        <Img src={require('./images/r5_5in0_2.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 5.5 -0.2i, 3.7545 -0.1269i, 2.6915 -0.0719i, 2.1617 -0.0283i, 2.0115 -0.0039i, 2" tabIndex={ti+4}/>
       <p>Nothing special here - it's obviously approaching {`\\(2\\)`}, just like the previous one, only with fancier numbers on the way.</p>
       <p>OK, so let's try {`\\(3.34 - 5.01i\\)`}. The orbit for this number is completely different on the complex plane:</p>
-        <Img src={require('./images/r_3_34_in5_01.png')} alt="TODO" tabIndex={ti+4}/>
+        <Img src={require('./images/r_3_34_in5_01.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.34 -5.01i, 2.1984 -3.2721i, 1.4007 -2.0225i, 0.7789 -0.9359i, 0.1925 +1.1448i, -1.7416 +0.1159i, -0.2935 +0.1933i, 8.3287 +19.9635i, 5.5485 +13.305i, 3.69 +8.860i" tabIndex={ti+4}/>
         <p>We marked the results of eight iterations, and we still can't even tell where it's going. It changes direction and even makes a loop.</p>
       <p>And now the best part. We'll take the previous seed ({`\\(3.34 - 5.01i\\)`}) and only round it to the first decimal place: {`\\(3.3 - 5i\\)`}. Will the orbit be similar? Not really...</p>
-        <Img src={require('./images/r3_3i-5.png')} alt="TODO" tabIndex={ti+4}/>
+        <Img src={require('./images/r3_3i-5.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.3, -5.0, 2.1708 -3.265, 1.3801 -2.0167, 0.7583 -0.9282, 0.1354 +1.2, -1.6924 +0.3925,-0.3351 +0.6506, -1.4742 +2.2291,-2.1075 +3.0753, -3.1144 +4.4873" tabIndex={ti+4}/>
        <p>We changed the value only a little bit, and it followed a completely different path. This is how it's so hard to predict where an initial guess leads.</p>
       <p>
         Newton’s fractal illustrates which solution each number lands on. The image is a complex plane, where every pixel represents a complex number. Each colour represents one solution to the equation. In other words, all the number with the same colour in the image will lead to the same solution.
       </p>
-      <p>
-        You can zoom in and out of the image using the buttons, and drag the image to see another part of the plot. You can also use sliders to change  the equation – you can get a completely different fractal! You can also focus on the image and use + and – keys to zoom in and out, and arrow keys to move the image.
-
-        And if you zoom in deeper and deeper, you will see that the image is self - similar. Newton had no idea he accidentally created a formula for a fractal!
+      <p>{`\\(5.5 - 0.2i\\)`} and {`\\(2.5\\)`}, the numbers with relatively straight orbits, lie in the middle of a patch of the same colour:</p>
+      <Img src={require('./images/simple-orbit-seeds.png')} alt="2.5 and 5.5 -0.2i marked as black dots on the fractal" tabIndex={ti+5}/>
+      <p>The numbers with more complicated orbits tend to lie near the borders between colours: both {`\\(3.34 - 5.01i\\)`} and {`\\(3.3 - 5i\\)`} lie somewhere within the black dot:</p>
+      <Img src={require('./images/chaotic-orbit-seeds.png')} alt="Black dot on them fractal representing the area within which 3.34-5.01i and 3.3-5i lie" tabIndex={ti+6}/>
+      <p className="ex">
+        Zoom in and out of the fractal image to see the how the structures look in different scales. You can either use the buttons, or you can focus on the image and use "+" and '-' keys. Drag the image to see another part of the plot or use arrow keys to do it.</p>
+      <p className="ex">Use the sliders or number inputs to change the equation - you can get very different images. At the moment it is an only a 3rd degree equation - try the fourth and fifth degrees by changing the <Def phrase="coefficients" definitionObject={coefficientDef} tabIndex={ti+6} /> for {`\\(x^4\\)`} and {`\\(x^5\\)`} to something else than zero.
       </p>
     </MathJax>
   );
