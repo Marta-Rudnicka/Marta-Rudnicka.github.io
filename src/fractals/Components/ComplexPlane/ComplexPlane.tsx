@@ -86,7 +86,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
     if (offset.current[0] !== 0 || offset.current[1] !== 0) {
       const newStartValue: Complex = [
         startValue[0] - offset.current[0] * pixelIncrement,
-        startValue[1] - offset.current[1] * pixelIncrement
+        startValue[1] + offset.current[1] * pixelIncrement
       ];
       setPixelOffset([0, 0]);
       setStartValue(newStartValue);
