@@ -12,6 +12,7 @@ export type FractalDisplayProps = MainFractalControlProps & {
   descriptionTabIndex: number;
   draw: (args: DrawFuncArgs) => void;
   drawParameters: Parameters;
+  footerTabIndex?: number;
   inFocus?: boolean;
   prevCanvasSize?: number | null,
   setFullScreen: Dispatch<SetStateAction<boolean>>

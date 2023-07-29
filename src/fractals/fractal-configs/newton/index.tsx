@@ -98,9 +98,10 @@ export function Newton() {
     controlsChildren={controlsChildren(constant, co1, co2, co3, co4, co5)}
     createImageData={createImageData}
     description={description}
-    descriptionTabIndex={navTabIndex + 17}
+    descriptionTabIndex={navTabIndex + 18}
     draw={draw}
     drawParameters={{ constant, co1, co2, co3, co4, co5 }}
+    footerTabIndex={navTabIndex + 26}
     nextLink="/#/mandelbrot"
     prevLink="/#/cantor"
     range={3}

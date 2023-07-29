@@ -9,6 +9,7 @@ type DefaultLayoutProps = FullScreenLayoutProps & {
   description: ReactNode;
   descriptionTabIndex: number;
   extraControls?: ReactElement;
+  footerTabIndex?: number;
   nextLink?: string;
   prevLink?: string;
   title: string;
@@ -48,7 +49,8 @@ export function DefaultLayout(props: DefaultLayoutProps) {
           {props.extraControls &&
             props.extraControls
           }
-          <AppNav descriptionTabIndex={props.descriptionTabIndex}
+          <AppNav
+            footerTabIndex={props.footerTabIndex || props.descriptionTabIndex}
             prevLink={props.prevLink}
             nextLink={props.nextLink}
           />

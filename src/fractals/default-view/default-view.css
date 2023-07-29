@@ -146,7 +146,8 @@ body {
 
 }
 
-.thumbnail-container:hover .img-instruction {
+.thumbnail-container:hover .img-instruction,
+.thumbnail-container:focus .img-instruction {
   display: block;
   opacity: 1;
   transition: opacity 1s ease-in;

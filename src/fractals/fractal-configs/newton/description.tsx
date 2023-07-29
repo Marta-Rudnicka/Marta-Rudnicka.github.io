@@ -5,7 +5,7 @@ type DescriptionProps = {
   ti: number;
 }
 export function Description(props: DescriptionProps) {
-  const { ti } = props;
+  const ti = props.ti + 1;
 
   const degreeDef = <MathJax>Degree of an equation relates to the highest power of the {`\\(x\\)`}. For example {`\\(x^2 + 7 = 0\\)`} is an equation of the second degree (or quadratic equation), and {`\\(x^6 + 7x^5 + x = 32\\)`} is an equation of the sixth degree.</MathJax>;
 
@@ -16,13 +16,13 @@ export function Description(props: DescriptionProps) {
   return (
     <MathJax>
       <p>
-        When we intentionally draw nested similar shapes, it's no surprise we get nested similar shapes - or a fractal. But the really interesting thing about fractals is that they also to show up in less obvious unexpected circumstances. We will explore three mathematical procedures that produce a fractals. The one on the left is created by solving equations of <Def phrase="at least the third degree" definitionObject={degreeDef} tabIndex={ti + 1} />. It will take a moment to explain, but it’s worth it!
+        When we intentionally draw nested similar shapes, it's no surprise we get nested similar shapes - or a fractal. But the really interesting thing about fractals is that they also to show up in less obvious unexpected circumstances. We will explore three mathematical procedures that produce a fractals. The one on the left is created by solving equations of <Def phrase="at least the third degree" definitionObject={degreeDef} tabIndex={ti} />. It will take a moment to explain, but it’s worth it!
       </p>
       <p>The fractal you see is a plot. First, we will explain what process the plot illustrates. Then, we will explain what we are plotting on, and finally, we will explain what the colours mean.</p>
       <h2>The process</h2>
       <h3>The problem with finding roots</h3>
       <p>
-        How much is {`\\(\\sqrt{5}\\)`}? We know that it is an <Def phrase="irrational number" definition="you cannot represent it as a simple fraction, and it has an infinite number of decimal places if you write it as a decimal" tabIndex={ti + 2} />, so our answer will never be completely precise. If mathematicians want to be exact, they just represent it as {`\\(\\sqrt{5}\\)`} in, but sometimes a less exact, but more understandable solution is needed. After all, measuring out {`\\(\\sqrt{5}\\)`} inches of string would be a puzzling task.</p>
+        How much is {`\\(\\sqrt{5}\\)`}? We know that it is an <Def phrase="irrational number" definition="you cannot represent it as a simple fraction, and it has an infinite number of decimal places if you write it as a decimal" tabIndex={ti} />, so our answer will never be completely precise. If mathematicians want to be exact, they just represent it as {`\\(\\sqrt{5}\\)`} in, but sometimes a less exact, but more understandable solution is needed. After all, measuring out {`\\(\\sqrt{5}\\)`} inches of string would be a puzzling task.</p>
       <p>So, how can we go about finding out the approximate number?</p>
       <p> We need {`\\(x^2 \\)`} to equal {`\\(5\\)`}.
         We know that {`\\(2^2 = 4 \\)`}, and {`\\(3^2 = 9 \\)`}. This means that {`\\( 2\\)`} is too little, but {`\\( 3\\)`} is too much, so the answer is somewhere in between . Let’s try {`\\( 2.5\\)`}:
@@ -73,7 +73,7 @@ export function Description(props: DescriptionProps) {
         <p>But not all numbers are either real or imaginary. There are numbers that have both real and imaginary part: for example in {`\\(4 - 7i\\)`} , {`\\(4\\)`} is the real part, and {`\\(- 7i\\)`} is the imaginary part. Many quadratic and higher degree equations, which seem to have no solutions, actually have complex solutions.</p>
         <p>
         Now, imagine two-dimensional Cartesian coordinate system (the most common boring one). Your {`\\(x\\)`}-axis show the real part of a number, and the {`\\(y\\)`}-axis shows the imaginary part, like this:</p>
-      <Img src={require('./images/complex-plane.png')} alt="Complex plane with examples of real, imaginary and complex numbers" tabIndex={ti+3}/>
+      <Img src={require('./images/complex-plane.png')} alt="Complex plane with examples of real, imaginary and complex numbers" tabIndex={ti}/>
 
       <p>This is called a complex plane, and this is where a few very interesting fractals live.</p>
       <h2>What the image means</h2>
@@ -94,7 +94,7 @@ export function Description(props: DescriptionProps) {
 
       <h3>The image</h3>
       <p>
-        As mentioned above, Newton’s method can be used for approximating all kinds of roots. Our example was for {`\\(x ^ 2 = 5\\)`}, but the general method will also work for something like {`\\(x ^ 4 + 2x ^ 2 – 3x + 1 = 0\\)`}. To get a colourful fractal, we need to use Newton’s method for at least a <Def phrase="cubic equation" definitionObject={cubicEqDef} tabIndex={ti + 3}/>.
+        As mentioned above, Newton’s method can be used for approximating all kinds of roots. Our example was for {`\\(x ^ 2 = 5\\)`}, but the general method will also work for something like {`\\(x ^ 4 + 2x ^ 2 – 3x + 1 = 0\\)`}. To get a colourful fractal, we need to use Newton’s method for at least a <Def phrase="cubic equation" definitionObject={cubicEqDef} tabIndex={ti}/>.
       </p>
       <p>
         Newton’s method has a problem. If your starting guess (seed) is reasonably close to the solution, every iteration gets you a better approximation. This is OK for a simple {`\\(x^2 = 5 \\)`}, but how would you even go about guessing a solution to something like {`\\(-3.05x ^ 4 + 2.78x ^ 2 – 3.16x + 1.94 = 0\\)`}? If you pick a random starting point, you will eventually approach a solutions, but if you pick wrong, you might follow a long winding orbit before finally getting “sucked into” an area close to a root. Also, if you start far from the solution, you can't predict which neighbourhood it will take you to.
@@ -120,24 +120,24 @@ export function Description(props: DescriptionProps) {
         Indeed, we started close, got closer with each step, and even landed on the exact solution.
       </p>
       <p>OK, so let's pick a complex number, say {`\\(5.5 - 0.2i\\)`}. This orbit will be easier to follow on the complex plane:</p>
-        <Img src={require('./images/r5_5in0_2.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 5.5 -0.2i, 3.7545 -0.1269i, 2.6915 -0.0719i, 2.1617 -0.0283i, 2.0115 -0.0039i, 2" tabIndex={ti+4}/>
+        <Img src={require('./images/r5_5in0_2.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 5.5 -0.2i, 3.7545 -0.1269i, 2.6915 -0.0719i, 2.1617 -0.0283i, 2.0115 -0.0039i, 2" tabIndex={ti}/>
       <p>Nothing special here - it's obviously approaching {`\\(2\\)`}, just like the previous one, only with fancier numbers on the way.</p>
       <p>OK, so let's try {`\\(3.34 - 5.01i\\)`}. The orbit for this number is completely different on the complex plane:</p>
-        <Img src={require('./images/r_3_34_in5_01.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.34 -5.01i, 2.1984 -3.2721i, 1.4007 -2.0225i, 0.7789 -0.9359i, 0.1925 +1.1448i, -1.7416 +0.1159i, -0.2935 +0.1933i, 8.3287 +19.9635i, 5.5485 +13.305i, 3.69 +8.860i" tabIndex={ti+4}/>
+        <Img src={require('./images/r_3_34_in5_01.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.34 -5.01i, 2.1984 -3.2721i, 1.4007 -2.0225i, 0.7789 -0.9359i, 0.1925 +1.1448i, -1.7416 +0.1159i, -0.2935 +0.1933i, 8.3287 +19.9635i, 5.5485 +13.305i, 3.69 +8.860i" tabIndex={ti}/>
         <p>We marked the results of eight iterations, and we still can't even tell where it's going. It changes direction and even makes a loop.</p>
       <p>And now the best part. We'll take the previous seed ({`\\(3.34 - 5.01i\\)`}) and only round it to the first decimal place: {`\\(3.3 - 5i\\)`}. Will the orbit be similar? Not really...</p>
-        <Img src={require('./images/r3_3i-5.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.3, -5.0, 2.1708 -3.265, 1.3801 -2.0167, 0.7583 -0.9282, 0.1354 +1.2, -1.6924 +0.3925,-0.3351 +0.6506, -1.4742 +2.2291,-2.1075 +3.0753, -3.1144 +4.4873" tabIndex={ti+4}/>
+        <Img src={require('./images/r3_3i-5.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.3, -5.0, 2.1708 -3.265, 1.3801 -2.0167, 0.7583 -0.9282, 0.1354 +1.2, -1.6924 +0.3925,-0.3351 +0.6506, -1.4742 +2.2291,-2.1075 +3.0753, -3.1144 +4.4873" tabIndex={ti}/>
        <p>We changed the value only a little bit, and it followed a completely different path. This is how it's so hard to predict where an initial guess leads.</p>
       <p>
         Newton’s fractal illustrates which solution each number lands on. The image is a complex plane, where every pixel represents a complex number. Each colour represents one solution to the equation. In other words, all the number with the same colour in the image will lead to the same solution.
       </p>
       <p>{`\\(5.5 - 0.2i\\)`} and {`\\(2.5\\)`}, the numbers with relatively straight orbits, lie in the middle of a patch of the same colour:</p>
-      <Img src={require('./images/simple-orbit-seeds.png')} alt="2.5 and 5.5 -0.2i marked as black dots on the fractal" tabIndex={ti+5}/>
+      <Img src={require('./images/simple-orbit-seeds.png')} alt="2.5 and 5.5 -0.2i marked as black dots on the fractal" tabIndex={ti}/>
       <p>The numbers with more complicated orbits tend to lie near the borders between colours: both {`\\(3.34 - 5.01i\\)`} and {`\\(3.3 - 5i\\)`} lie somewhere within the black dot:</p>
-      <Img src={require('./images/chaotic-orbit-seeds.png')} alt="Black dot on them fractal representing the area within which 3.34-5.01i and 3.3-5i lie" tabIndex={ti+6}/>
+      <Img src={require('./images/chaotic-orbit-seeds.png')} alt="Black dot on them fractal representing the area within which 3.34-5.01i and 3.3-5i lie" tabIndex={ti}/>
       <p className="ex">
         Zoom in and out of the fractal image to see the how the structures look in different scales. You can either use the buttons, or you can focus on the image and use "+" and '-' keys. Drag the image to see another part of the plot or use arrow keys to do it.</p>
-      <p className="ex">Use the sliders or number inputs to change the equation - you can get very different images. At the moment it is an only a 3rd degree equation - try the fourth and fifth degrees by changing the <Def phrase="coefficients" definitionObject={coefficientDef} tabIndex={ti+6} /> for {`\\(x^4\\)`} and {`\\(x^5\\)`} to something else than zero.
+      <p className="ex">Use the sliders or number inputs to change the equation - you can get very different images. At the moment it is an only a 3rd degree equation - try the fourth and fifth degrees by changing the <Def phrase="coefficients" definitionObject={coefficientDef} tabIndex={ti} /> for {`\\(x^4\\)`} and {`\\(x^5\\)`} to something else than zero.
       </p>
     </MathJax>
   );

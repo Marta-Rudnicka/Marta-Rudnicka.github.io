@@ -27,6 +27,7 @@ type ComplexPlaneProps = MainFractalControlProps & {
   ) => ImageData;
   descriptionTabIndex: number,
   drawParameters?: NewtonInputs,
+  footerTabIndex?: number;
   range: number,
   startValue: Complex,
   xReal: number,
@@ -178,6 +179,7 @@ export function ComplexPlaneFractalDisplay(props: ComplexPlaneProps) {
           canvasSize={canvasSize}
           description={props.description}
           descriptionTabIndex={props.descriptionTabIndex}
+          footerTabIndex={props.footerTabIndex}
           draw={props.draw}
           drawParameters={complexDrawParameters}
           nextLink={props.nextLink}

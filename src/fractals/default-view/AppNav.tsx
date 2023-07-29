@@ -4,12 +4,12 @@ import { ChevronRight } from "../../components/icons/ChevronRight";
 type FooterProps = {
   prevLink?: string,
   nextLink?: string;
-  descriptionTabIndex: number;
+  footerTabIndex: number;
 }
 
 export function AppNav(props: FooterProps) {
   const { prevLink, nextLink } = props;
-  const prevTabIndex = prevLink ? props.descriptionTabIndex + 1 : props.descriptionTabIndex;
+  const prevTabIndex = prevLink ? props.footerTabIndex + 1 : props.footerTabIndex;
   const nextTabIndex = prevTabIndex + 1;
   return (
     <div className="app-nav" id="app-nav">
