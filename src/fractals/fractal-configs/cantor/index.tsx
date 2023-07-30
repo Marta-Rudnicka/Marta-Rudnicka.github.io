@@ -1,6 +1,6 @@
 import { CantorDimensionString, draw } from "./draw";
 import { Description } from "./description";
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 import { FractalDisplay } from "../../Components/FractalDisplay";
 import { getSize } from "../../utils";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
@@ -45,15 +45,7 @@ export function CantorSet() {
   },
   ];
 
-  const radio: RadioControlProps[] = [
-    {
-      value: dimensions.toString(),
-      label: "dimensions",
-      setValue: setDimensions as Dispatch<SetStateAction<string>>,
-      tabIndex: navTabIndex + 5,
-      options: ["1 dimension - Cantor set", "2 dimensions - Cantor dust"],
-
-    }]
+  const radio: RadioControlProps[] = [];
   if (dimensions === "1 dimension - Cantor set") {
     radio.push({
       label: "Show intermediate steps",
@@ -65,13 +57,24 @@ export function CantorSet() {
     })
   }
 
+  radio.push({
+      value: dimensions.toString(),
+      label: "dimensions",
+      setValue: setDimensions as Dispatch<SetStateAction<string>>,
+      tabIndex: navTabIndex + 5,
+      options: ["1 dimension - Cantor set", "2 dimensions - Cantor dust"],
+
+    })
+
+
+  const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
       <FractalDisplay
         canvasInputs={{}}
         canvasSize={canvasSize}
-        description={Description()}
+        description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
         drawParameters={{ iterations, dimensions, showIntermediateStages }}
