@@ -53,8 +53,11 @@ body {
   grid-column: 2;
   grid-row: 2/4;
   padding: 10px;
+  margin-bottom: 20px;;
   overflow-y: scroll;
   background-color: #282c34;
+  box-shadow: 8px 8px 5px #200920;
+
   /* background-color: red; */
 }
 
