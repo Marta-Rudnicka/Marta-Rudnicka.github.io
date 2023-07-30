@@ -129,7 +129,7 @@ export function Description(props: DescriptionProps) {
         <Img src={require('./images/r3_3i-5.png')} alt="Orbit plotted on the complex plane with the approximate numbers: 3.3, -5.0, 2.1708 -3.265, 1.3801 -2.0167, 0.7583 -0.9282, 0.1354 +1.2, -1.6924 +0.3925,-0.3351 +0.6506, -1.4742 +2.2291,-2.1075 +3.0753, -3.1144 +4.4873" tabIndex={ti}/>
        <p>We changed the value only a little bit, and it followed a completely different path. This is how it's so hard to predict where an initial guess leads.</p>
       <p>
-        Newton’s fractal illustrates which solution each number lands on. The image is a complex plane, where every pixel represents a complex number. Each colour represents one solution to the equation. In other words, all the number with the same colour in the image will lead to the same solution.
+        Newton’s fractal illustrates which solution each number lands on. The image is a complex plane, where every pixel represents a complex number. Each colour represents one solution to the equation. In other words, all the number with the same colour in the image will lead to the same solution. Of course, Newton and Raphson had no idea that the images that are produced like that - imagine trying to make it without a computer or even a calculator!
       </p>
       <p>{`\\(5.5 - 0.2i\\)`} and {`\\(2.5\\)`}, the numbers with relatively straight orbits, lie in the middle of a patch of the same colour:</p>
       <Img src={require('./images/simple-orbit-seeds.png')} alt="2.5 and 5.5 -0.2i marked as black dots on the fractal" tabIndex={ti}/>
@@ -139,6 +139,12 @@ export function Description(props: DescriptionProps) {
         Zoom in and out of the fractal image to see the how the structures look in different scales. You can either use the buttons, or you can focus on the image and use "+" and '-' keys. Drag the image to see another part of the plot or use arrow keys to do it.</p>
       <p className="ex">Use the sliders or number inputs to change the equation - you can get very different images. At the moment it is an only a 3rd degree equation - try the fourth and fifth degrees by changing the <Def phrase="coefficients" definitionObject={coefficientDef} tabIndex={ti} /> for {`\\(x^4\\)`} and {`\\(x^5\\)`} to something else than zero.
       </p>
+      <hr />
+      <h2>Newton's method - the details</h2>
+      <p>This is an extra section for more advanced readers who want to learn or brush up the details of the Newton's method - it is not necessary to understand the idea behind the fractal.</p>
+      <p>The general process is described above, but what was not explained is how we arrive at the main formula we use for each iteration. The answer is:</p>
+      {`\\[x_{n+1} = 1 - \\frac{f(x_n)}{f'(x_n)}\\]`}
+      <p>When we are looking for roots of the polynomial,we start with the yhe number {`\\(x_n\\)`} a to find our next (hopefully closer) approximation {`\\(x_{n+1}\\)`} we are using the formula above, where {`\\(f(x)\\)`} is our polynomial evaluated for {`\\(x_n\\)`}, and {`\\(f'(x)\\)`} is the derivative of our polynomial evaluated for {`\\(x_n\\)`}.</p>
     </MathJax>
   );
 }
