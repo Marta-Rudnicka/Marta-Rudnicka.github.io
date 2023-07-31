@@ -83,7 +83,7 @@ export function CantorSet() {
         radio={radio}
         setFullScreen={setFullScreen}
         sliders={sliders}
-        title="Cantor set - placeholder"
+        title="Cantor set"
       />
     </FullScreenContext.Provider>
 
