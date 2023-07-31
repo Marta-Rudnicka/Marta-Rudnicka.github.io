@@ -4,16 +4,16 @@ export function Description() {
   return (
     <MathJax>
       <p>
-        Just like in Newton’s fractal, the image on the left is created by repeating the same operation over and over again, and finding out what eventually happens depending on the number you start with. Again, we have a complex plane, where each number is a seed, and we are observing the orbit of a function under the seed. If you zoom in, you will see the image is very intricate, even more than the Newton’s fractal. What is the function that produces such a complicated image?
-      </p>
+        This image has a few things in common with Newton's fractal. It also represents a complex plane, and the colours also show what happens to the orbit if the number on the plane if the seed of a function. The image might not look the most impressive at the first glance, but if you zoom in on one of the edges of the white shape, you will discover how complex it is.</p>
+        <p className="ex">Spend some time exploring the patters by zooming and panning (using the same methods as in the previous image)</p>
+        <p>This is even more complicated that Newton't fractal. So what is the function that produces such a complicated image?</p>
       <p>
         {`\\(z^2 + c \\)`}
       </p>
-      <h3>What exactly are we plotting?</h3>
+      <h3>What exactly is plotted in the image</h3>
       <p>
-        In case of Newton’t fractal, the orbits were observing sooner or later gravitated towards one of the solutions of the equation, and each solution was denoted by a colour. In Mandelbrot set we are following only two options: a cycle or escaping to infinity, which will be explained below.
-        For every orbit, the seed, or the z in {`\\(z^2 + c \\)`}, is equal to 0. What changes is the value of c – each pixel represents one complex number that will be used as c.
-        For example, to get through the first few steps in finding the orbit for c = 1:</p>
+        In case of Newton’t fractal, the orbits gravitated towards one of the solutions of the equation. The higher the degree of the equation, the more solutions and more colours the fractal has Here, we are following only two options: the orbit creating a cycle, or the orbit escaping to infinity.</p>
+      <p>In the orbits we're following here, the seed, or the {`\\(z\\)`} in {`\\(z^2 + c \\)`}, is equal to {`\\(0\\)`}. What changes is the value of {`\\(c\\)`} – each pixel represents a number that becomes the {`\\(c\\)`}. To illustrate what happens, we will follow the beginning of the orbit for {`\\(c = 1\\)`}:</p>
       <table className="iteration-table">
         <tr>
           <td>Step 1</td><td>{`\\(0^2 + 1 = 1 \\)`}</td>
@@ -29,12 +29,10 @@ export function Description() {
         <tr><td>Step 4</td><td>{`\\(5^2 + 1 = 26 \\)`}</td></tr>
         <tr><td>Step 5</td><td>{`\\(26^2 + 1 = 677 \\)`}</td></tr>
       </table>
-      <p> So we know that the orbit starts with: 1, 2, 5, 26, 677.</p>
-      <p>
-        We can see tell that the following numbers will grow larger and larger, an if go through an infinite number of iteration, we will reach infinity. We can say that the orbit of {`\\(z^2 + 1 \\)`} under 0 tends to infinity.
+      <p> This gives us an orbit starting with {`\\( 1, 2, 5, 26, 677\\)`}. We can easily tell that the following numbers will only grow larger and larger; in other words, the orbit of {`\\(z^2 + 1 \\)`} under  {`\\(0\\)`} tends to infinity.
       </p>
       <p>
-        But let us try a different c, let’s say -1.</p>
+        But let's try a different c:  {`\\(-1\\)`}.</p>
       <table className="iteration-table">
         <tr><td>Step 1</td><td>{`\\(0^2 - 1 = -1 \\)`}</td></tr>
         <tr><td>Step 2</td><td>{`\\(-1^2 - 1 = 0 \\)`}</td></tr>
@@ -46,18 +44,22 @@ export function Description() {
         <tr><td>Step 8</td><td>{`\\(-1^2 - 1 = 0 \\)`}</td></tr>
       </table>
       <p>
-        In this case, no matter how many iterations we go through, the orbit consists of two numbers repeating forever: -1, 0, -1, 0, -1, 0…
-        This is a cyclical, or periodic orbit.
-      </p><p>
-        In the image on the left, if the number produces a periodic orbit when used as c in z^2 + c, it is white. If the orbit escapes, or tends to infinity, it is black.
+        This one loops, with two numbers repeating forever:  {`\\( 1, 0, -1, 0, -1, 0...\\)`}. This is called a cyclical, or periodic orbit.
+      </p>
+      <p>
+        In the image on the left, if the number produces a periodic orbit when used as  {`\\(c\\)`} in {`\\(z^2 + 1 \\)`}, it is white. If the orbit escapes, or tends to infinity, it is black.
       </p>
       <h3>The discovery of Mandelbrot set</h3>
       <p>
-        The mathematical operations needed to generate this image are very simple, even performed on complex numbers but the sheer number of calculations needed is overwhelming. No wonder a computer was needed to discover it.</p><p>
-        In 1979, in an IBM research centre, a mathematician called Benoit Mandelbrot tried using the latest technology to investigate iterative functions – the computer was a perfect tool to speed up repeated calculations. As he investigated in z^2 + c, he discovered how intricate patterns appear of you zoom on the edge of the shape.
+        The mathematical operations needed for this image are simple, even with complex numbers, but the sheer number of calculations is overwhelming. Just like with Newton's fractal, it would be really tedious to plot it by hand. No wonder it was discovered with the help of computers.</p><p>
+        In 1979, in an IBM research centre, a mathematician called Benoit Mandelbrot tried using the latest technology to investigate iterative functions – the computer was a perfect tool to speed up repeated calculations. As he investigated into
+         {`\\(z^2 + 1 \\)`}, he discovered how intricate patterns appear of you zoom on the edge of the shape.
         Mandelbrot was also the person who coined the term fractal, and he spend a lot of his career on researching fractals and related subjects.
       </p>
-      <h3>More on cycles.</h3>
+      <h3>More on cycles and escaping orbits.</h3>
+      <p>The example orbits described above are fairly simple, but there can always be more complicated cases. Firstly, the cycles can have different length: the one above is a 2-cycle, becaus the are two numbers repeating. In the Newton's fractal page, we saw a 2-cycle - there was an orbit that was approaching  {`\\(2\\)`}, and once it reached  {`\\(2\\)`}, every next step produced another  {`\\^2\\)`}. The orbit can also meander through different values before is starts cycling.</p>
+      <p>With escaping to infinity, it may not always be that obvious that an orbit is going there. Fortunately, in Mandelbrot set it is easy to tell - if any number on the orbit is further from the seed than {`\\(2\\)`}, it will eventually escape and we can mark it with the appropriate colour as soon as it happens. To explain it more visually, if you drew a circle with the radius of {`\\(2\\)`} around the seed, wherever the orbit leaves the circle, we know it will tend to infinity. </p>
+      <p>You might find very colourful images of the Mandelbrot set on the Internet and wonder what the colours mean. Most likely they show how soon th orbit starts cycling or moves far enough from the seed to know it would eventually escape.</p>
     </MathJax>
   );
 }
