@@ -1,21 +1,31 @@
 {
   "files": {
-    "main.css": "/static/css/main.7caeff48.css",
-    "main.js": "/static/js/main.a1e1c6ae.js",
+    "main.css": "/static/css/main.8dd115f8.css",
+    "main.js": "/static/js/main.640c7d03.js",
+    "static/media/mandel-julia.png": "/static/media/mandel-julia.e8573f1eb6806a475e17.png",
+    "static/media/bulbs.png": "/static/media/bulbs.f30df08413c4749de7df.png",
+    "static/media/fractal-dimensions.png": "/static/media/fractal-dimensions.3bb06d9bbc7bfa6500e4.png",
+    "static/media/chaotic-orbit-seeds.png": "/static/media/chaotic-orbit-seeds.0e34b985a9316b8c0335.png",
+    "static/media/simple-orbit-seeds.png": "/static/media/simple-orbit-seeds.d4e1425be862712ce7f1.png",
+    "static/media/dimensions.png": "/static/media/dimensions.4ec658a9db4ce50d7b38.png",
     "static/media/blueprint-icons-20.eot?": "/static/media/blueprint-icons-20.bffd23e04c9d82b1df2a.eot",
     "static/media/blueprint-icons-20.ttf?": "/static/media/blueprint-icons-20.a36deb14ebebc58471c0.ttf",
     "static/media/blueprint-icons-16.eot?": "/static/media/blueprint-icons-16.fde8cacb8868288ed9d1.eot",
     "static/media/blueprint-icons-16.ttf?": "/static/media/blueprint-icons-16.eb652aad9a929d252b80.ttf",
     "static/media/blueprint-icons-20.woff?": "/static/media/blueprint-icons-20.d0a17caff38cb32c7131.woff",
     "static/media/blueprint-icons-16.woff?": "/static/media/blueprint-icons-16.869b8978b3bcfa884f8e.woff",
+    "static/media/r5_5in0_2.png": "/static/media/r5_5in0_2.13094fc72b7610b38c51.png",
+    "static/media/r_3_34_in5_01.png": "/static/media/r_3_34_in5_01.d88e94adb20eec370ff6.png",
+    "static/media/r3_3i-5.png": "/static/media/r3_3i-5.df4699dc9905e8cfe097.png",
     "static/media/blueprint-icons-20.woff2?": "/static/media/blueprint-icons-20.5dc21856f85f91c945a1.woff2",
     "static/media/blueprint-icons-16.woff2?": "/static/media/blueprint-icons-16.5a0658c2b025e421ebc2.woff2",
+    "static/media/complex-plane.png": "/static/media/complex-plane.353aeebca6a843c5087b.png",
     "index.html": "/index.html",
-    "main.7caeff48.css.map": "/static/css/main.7caeff48.css.map",
-    "main.a1e1c6ae.js.map": "/static/js/main.a1e1c6ae.js.map"
+    "main.8dd115f8.css.map": "/static/css/main.8dd115f8.css.map",
+    "main.640c7d03.js.map": "/static/js/main.640c7d03.js.map"
   },
   "entrypoints": [
-    "static/css/main.7caeff48.css",
-    "static/js/main.a1e1c6ae.js"
+    "static/css/main.8dd115f8.css",
+    "static/js/main.640c7d03.js"
   ]
 }
