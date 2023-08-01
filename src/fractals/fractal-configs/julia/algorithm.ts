@@ -57,7 +57,7 @@ export function getKernel(
       startValueY,
       inc);
 
-    const res = processPixel(values, 100, xReal, xImaginary)
+    const res = processPixel(values, 1000, xReal, xImaginary)
     return res;
   }).setOutput([size, size]);
   return kernel;

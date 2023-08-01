@@ -35,8 +35,8 @@ export function JuliaSet() {
     ...sliderProps,
   }];
 
-  const description = useMemo(() => Description(), []);
   const navTabIndex = useContext(NavTabContext);
+  const description = useMemo(() => <Description ti={navTabIndex + 10} />, [navTabIndex]);
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
