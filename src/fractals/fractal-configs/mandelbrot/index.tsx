@@ -7,8 +7,8 @@ import { NavTabContext } from "../../../App";
 
 export function MandelbrotSet() {
 
-  const description = useMemo(() => Description(), []);
   const navTabIndex = useContext(NavTabContext);
+  const description = useMemo(() => <Description ti={navTabIndex + 6}/>, [navTabIndex]);
 
   return (<ComplexPlaneFractalDisplay
     createImageData={createImageData}
