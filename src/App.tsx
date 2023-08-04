@@ -13,6 +13,7 @@ import { Newton } from './fractals/fractal-configs/newton';
 import { CantorSet } from './fractals/fractal-configs/cantor';
 import { fractals } from './config/links';
 import { MathJaxContext } from 'better-react-mathjax';
+import { HeighwayDragon } from './fractals/fractal-configs/dragon';
 
 export const NavTabContext = createContext(0);
 const EXTRA_BUTTONS = 2;
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/newton" element={<Newton />} />
                 <Route path="/mandelbrot" element={<MandelbrotSet />} />
                 <Route path="/julia" element={<JuliaSet />} />
+                <Route path="/dragon" element={<HeighwayDragon />} />
                 <Route path="/dummy" element={<Dummy />} />
               </Route>
             </Routes>

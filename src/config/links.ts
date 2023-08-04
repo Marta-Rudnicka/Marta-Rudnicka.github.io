@@ -24,4 +24,9 @@ export const fractals = [
     url: '/julia',
     image: '',
   },
+  {
+    label: "Heighway dragon",
+    url: '/dragon',
+    image: '',
+  },
 ];
