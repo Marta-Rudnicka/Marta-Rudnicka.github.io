@@ -1,6 +1,6 @@
 import { LineSegment, Point } from "../../../types";
 
-type Direction = 'N' | 'E' | 'S' | 'W';
+export type Direction = 'N' | 'E' | 'S' | 'W';
 
 type NextDir = { left: Direction, right: Direction };
 type NextDirList = Record<Direction, NextDir>;
@@ -13,30 +13,67 @@ export function getDirection(line: LineSegment): Direction {
 }
 
 export function addIteration(turns: boolean[]): boolean[] {
-  const end = turns.map(t => !t).reverse();
-  return [true, ...end];
+  return [true, ...turns.map(t => !t).reverse()];
+}
+
+function withinBounds(
+  edges: Record<Direction, number>,
+  size: number,
+): boolean {
+  if (edges.N < 0 || edges.W < 0 || edges.E > size || edges.S > size) {
+    return false;
+  }
+  return true;
+}
+
+export function centreImageCoords(
+  edges: Record<Direction, number>,
+  size: number,
+): { x: number, y: number } {
+  let x = 0;
+  let y = 0;
+  if (withinBounds(edges, size)) {
+    return {x, y};
+  }
+  if ( edges.S > size ){
+    y = size - edges.S - 2;
+  }
+  if ( edges.E > size ){
+    x = size - edges.E - 2;
+  }
+  if ( edges.N < 0 ){
+    y = - edges.N + 2;
+  }
+  if ( edges.W < 0 ){
+    x = - edges.W + 2;
+  }
+
+  return {x, y};
 }
 
 export class Dragon {
+  ctx: CanvasRenderingContext2D;
   iterations: number;
   length: number;
   lastLine: LineSegment;
   path: Path2D;
   turns: boolean[];
   size: number;
-  excess: Record<Direction, number>;
+  edges: Record<Direction, number>;
 
   constructor(
+    ctx: CanvasRenderingContext2D,
     i: number,
     length: number,
     start: Point,
     firstDirection: Direction,
     size: number,
   ) {
+    this.ctx = ctx;
     this.iterations = i;
     this.length = length;
     this.size = size;
-    this.excess = { 'E': 0, 'N': 0, "S": 0, 'W': 0 }
+    this.edges = { 'E': 0, 'N': 0, "S": 0, 'W': 0 }
     this.lastLine = ({ a: start, b: start });
     this.turns = this.getTurns();
     this.path = new Path2D();
@@ -70,24 +107,16 @@ export class Dragon {
 
     if (direction === "E") {
       end = [start[0] + this.length, start[1]];
-      if (end[0] > this.size) {
-        this.excess.E = Math.max(end[0] - this.size, this.excess.E)
-      }
+      this.edges.E = Math.max(end[0], this.edges.E)
     } else if (direction === "W") {
       end = [start[0] - this.length, start[1]];
-      if (end[0] < 0) {
-        this.excess.W = Math.max(-end[0], this.excess.W);
-      }
+      this.edges.W = Math.min(end[0], this.edges.W);
     } else if (direction === "S") {
       end = [start[0], start[1] + this.length];
-      if(end[1] > this.size) {
-        this.excess.S = Math.max(end[1] - this.size, this.excess.S)
-      }
+      this.edges.S = Math.max(end[1], this.edges.S)
     } else {
       end = [start[0], start[1] - this.length];
-      if(end[1] < 0) {
-        this.excess.N = Math.max(-end[1], this.excess.S)
-      }
+      this.edges.N = Math.min(end[1], this.edges.N)
     }
     return end;
   }
@@ -109,51 +138,50 @@ export class Dragon {
   getTranslationCoords() {
     let x = 0;
     let y = 0;
-    if (this.excess.E && ! this.excess.W) {
-      x = Math.floor(-this.excess.E) - 2;
+    if (this.edges.E && ! this.edges.W) {
+      x = Math.floor(-this.edges.E) - 2;
     }
-    if (this.excess.W && ! this.excess.E) {
-      x = Math.floor(this.excess.W) + 2;
+    if (this.edges.W && ! this.edges.E) {
+      x = Math.floor(this.edges.W) + 2;
     }
-    if (this.excess.N && ! this.excess.S) {
-      y = Math.floor(this.excess.N) + 2;
+    if (this.edges.N && ! this.edges.S) {
+      y = Math.floor(this.edges.N) + 2;
     }
-    if (this.excess.S && ! this.excess.N) {
-      y = Math.floor(-this.excess.S) - 2;
+    if (this.edges.S && ! this.edges.N) {
+      y = Math.floor(-this.edges.S) - 2;
     }
     return {x, y};
   }
 }
 
+function getLength(size: number, iterations: number) {
+  let length = Math.floor(size * 0.6);
+  length = length / Math.pow(2, iterations/2);
+
+
+  if (length < 0) {
+    length = 1
+  }
+  return length;
+}
+
+function getLineWidth(iterations: number) {
+  if (iterations < 5) return 3;
+  if (iterations < 10) return 2;
+  return 1;
+}
 export function drawDragon(
   ctx: CanvasRenderingContext2D,
   size: number,
   iterations: number,
 ) {
-
-  const length = Math.floor(size/ ((10 * iterations)));
-  const start: Point = [size/2, size/2];
-
-  const dragon = new Dragon(iterations, length, start, 'N', size);
+  const length = getLength(size, iterations);
+  const start: Point = [Math.floor(0.5 * size), Math.floor(0.5 * size)];
+  const dragon = new Dragon(ctx, iterations, length, start, 'N', size);
   ctx.strokeStyle = "white";
-  ctx.lineWidth = 1;
+  ctx.lineWidth = getLineWidth(iterations);
   ctx?.clearRect(0, 0, size, size);
-  const trans = dragon.getTranslationCoords();
+  const trans = centreImageCoords(dragon.edges, size);
   ctx.translate(trans.x, trans.y);
   ctx.stroke(dragon.path);
 }
-
-
-
-// export function generate(
-//   sq: CanvasRectangle,
-//   iterations: number,
-//   ctx: CanvasRenderingContext2D,
-// ): void {
-//   if (iterations === 1) { return };
-
-//   const leftovers = divideSquare(sq, ctx)
-//   leftovers.forEach(smallSquare => {
-//     generate2d(smallSquare, iterations - 1, ctx)
-//   })
-// }

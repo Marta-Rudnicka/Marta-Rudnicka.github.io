@@ -8,7 +8,7 @@ import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
 
 function getMaxIterations(size: number) {
-  return 17;
+  return 22;
 }
 
 export function HeighwayDragon() {
