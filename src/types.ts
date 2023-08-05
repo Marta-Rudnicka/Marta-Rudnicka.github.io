@@ -52,6 +52,7 @@ export type canvasInputs = {
   onMouseOver?: canvasInput,
   onMouseUp?: canvasInput,
   onMouseDown?: canvasInput,
+  key?: string,
 }
 
 export type eventHandlerString = "onMouseDown" | "onMouseUp" | "onMouseMove";

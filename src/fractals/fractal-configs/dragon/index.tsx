@@ -1,6 +1,6 @@
 import { draw } from "./draw";
 import { Description } from "./description";
-import { Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { FractalDisplay } from "../../Components/FractalDisplay";
 import { getSize } from "../../utils";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
@@ -14,7 +14,7 @@ function getMaxIterations(size: number) {
 export function HeighwayDragon() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
-  const [iterations, setIterations] = useState(4);
+  const [iterations, setIterations] = useState(11);
 
   const maxIterations = getMaxIterations(canvasSize);
   const navTabIndex = useContext(NavTabContext);
@@ -42,7 +42,7 @@ export function HeighwayDragon() {
   return (
     <FullScreenContext.Provider value={fullScreen} >
       <FractalDisplay
-        canvasInputs={{}}
+        canvasInputs={{ key: iterations.toString() }}
         canvasSize={canvasSize}
         description={description}
         descriptionTabIndex={navTabIndex + 13}

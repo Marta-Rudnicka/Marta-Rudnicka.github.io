@@ -23,10 +23,20 @@ export class Dragon {
   lastLine: LineSegment;
   path: Path2D;
   turns: boolean[];
+  size: number;
+  excess: Record<Direction, number>;
 
-  constructor(i: number, length: number, start: Point, firstDirection: Direction) {
+  constructor(
+    i: number,
+    length: number,
+    start: Point,
+    firstDirection: Direction,
+    size: number,
+  ) {
     this.iterations = i;
     this.length = length;
+    this.size = size;
+    this.excess = { 'E': 0, 'N': 0, "S": 0, 'W': 0 }
     this.lastLine = ({ a: start, b: start });
     this.turns = this.getTurns();
     this.path = new Path2D();
@@ -50,22 +60,36 @@ export class Dragon {
     };
     for(let i = 1; i < this.iterations; i++) {
       const newTurns = addIteration(turns);
-      console.log({turns, newTurns})
       turns = turns.concat(newTurns);
     }
     return turns;
   }
 
   getEnd(start: Point, direction: Direction): Point {
+    let end: Point = [0, 0];
+
     if (direction === "E") {
-      return [start[0] + this.length, start[1]];
+      end = [start[0] + this.length, start[1]];
+      if (end[0] > this.size) {
+        this.excess.E = Math.max(end[0] - this.size, this.excess.E)
+      }
     } else if (direction === "W") {
-      return [start[0] - this.length, start[1]];
+      end = [start[0] - this.length, start[1]];
+      if (end[0] < 0) {
+        this.excess.W = Math.max(-end[0], this.excess.W);
+      }
     } else if (direction === "S") {
-      return [start[0], start[1] + this.length];
+      end = [start[0], start[1] + this.length];
+      if(end[1] > this.size) {
+        this.excess.S = Math.max(end[1] - this.size, this.excess.S)
+      }
     } else {
-      return [start[0], start[1] - this.length];
+      end = [start[0], start[1] - this.length];
+      if(end[1] < 0) {
+        this.excess.N = Math.max(-end[1], this.excess.S)
+      }
     }
+    return end;
   }
 
   addLine(direction: Direction) {
@@ -75,13 +99,29 @@ export class Dragon {
   }
 
   getFullPath() {
-    console.log(this.turns);
     for (let turn of this.turns) {
       const last = getDirection(this.lastLine);
       const currentTurn = turn ? 'right' : 'left';
       const next = this.nextDir[last][currentTurn];
       this.addLine(next);
     }
+  }
+  getTranslationCoords() {
+    let x = 0;
+    let y = 0;
+    if (this.excess.E && ! this.excess.W) {
+      x = Math.floor(-this.excess.E) - 2;
+    }
+    if (this.excess.W && ! this.excess.E) {
+      x = Math.floor(this.excess.W) + 2;
+    }
+    if (this.excess.N && ! this.excess.S) {
+      y = Math.floor(this.excess.N) + 2;
+    }
+    if (this.excess.S && ! this.excess.N) {
+      y = Math.floor(-this.excess.S) - 2;
+    }
+    return {x, y};
   }
 }
 
@@ -94,10 +134,12 @@ export function drawDragon(
   const length = Math.floor(size/ ((10 * iterations)));
   const start: Point = [size/2, size/2];
 
-  const dragon = new Dragon(iterations, length, start, 'N')
+  const dragon = new Dragon(iterations, length, start, 'N', size);
   ctx.strokeStyle = "white";
   ctx.lineWidth = 1;
   ctx?.clearRect(0, 0, size, size);
+  const trans = dragon.getTranslationCoords();
+  ctx.translate(trans.x, trans.y);
   ctx.stroke(dragon.path);
 }
 

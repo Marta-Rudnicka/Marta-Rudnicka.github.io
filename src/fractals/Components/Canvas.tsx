@@ -97,6 +97,7 @@ export function Canvas(props: CanvasProps) {
         ref={c}
         tabIndex={tabIndex}
         width={size}
+        key={props.canvasInputs?.key}
       />
     </div>)
 }
