@@ -1,3 +1,4 @@
+import { c } from "../../../config/colours";
 import { LineSegment, Point } from "../../../types";
 
 export type Direction = 'N' | 'E' | 'S' | 'W';
@@ -106,7 +107,7 @@ export class Dragon {
     'S': { left: 'E', right: 'W' },
     'W': { left: 'S', right: 'N' },
   }
-  colours = ['rgb(252, 207, 210)', 'rgb(139, 102, 110)', 'rgb(231, 99, 123)', 'rgb(254, 246, 225)', 'rgb(150, 184, 150)'];
+  colours = [c.CREAM, c.BROWN, c.PINK, c.GREEN, c.CORAL];
 
   addIterationImage(i: number) {
     const newTurns = i === 1 ? [true] : addIteration(this.turns)
