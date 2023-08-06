@@ -79,7 +79,6 @@ class Tree {
   addIteration(branches: startBranch[]) {
     const newBranches = branches.map(b => this.addBranches(b)).flat();
     this.iterations.push(newBranches.map(b=>b.path));
-    // this.draw(newBranches.map(b => b.path));
     return newBranches;
   }
 
@@ -103,10 +102,11 @@ class Tree {
 
 export function generate(
   iterations: number,
+  angle: number,
   size: number,
   ctx: CanvasRenderingContext2D,
 ): void {
-  const tree = new Tree(ctx, 20, 0.8, size);
+  const tree = new Tree(ctx, angle, 0.8, size);
   const trunk = tree.drawTrunk()
   if (iterations === 0) return ;
   let branches = [trunk];

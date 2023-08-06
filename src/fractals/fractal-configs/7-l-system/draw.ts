@@ -4,6 +4,7 @@ import { generate } from "./algorithm";
 
 type LSystemParameters = {
   iterations: number;
+  angle: number;
 }
 
 
@@ -20,7 +21,7 @@ export function draw(
     ctx.lineWidth = 2;
     ctx.strokeStyle = c.GREEN;
     ctx.beginPath();
-    generate(parameters.iterations, size, ctx);
+    generate(parameters.iterations, parameters.angle, size, ctx);
     ctx.closePath();
   }
 }

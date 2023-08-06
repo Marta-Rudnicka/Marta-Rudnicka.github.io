@@ -12,6 +12,7 @@ export function LSystem() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(14);
+  const [angle, setAngle] = useState(15)
   const navTabIndex = useContext(NavTabContext);
 
   useEffect(() => {
@@ -31,6 +32,14 @@ export function LSystem() {
     setValue: setIterations,
     tabIndex: 0,
   },
+  {
+    value: angle,
+    label: "angle between branches (degrees)",
+    maxValue: 45,
+    minValue: 1,
+    setValue: setAngle,
+    tabIndex: 1,
+  }
   ];
 
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
@@ -43,7 +52,7 @@ export function LSystem() {
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations }}
+        drawParameters={{ iterations, angle }}
         nextLink="/#/dummy"
         prevLink="/#/dragon"
         setFullScreen={setFullScreen}
