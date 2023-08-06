@@ -6,14 +6,14 @@ import "@blueprintjs/icons/lib/css/blueprint-icons.css"
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Dummy } from './components/layout/Dummy';
-import { SierpinskiTriangle } from './fractals/fractal-configs/sierpinski';
-import { MandelbrotSet } from './fractals/fractal-configs/mandelbrot';
-import { JuliaSet } from './fractals/fractal-configs/julia';
-import { Newton } from './fractals/fractal-configs/newton';
-import { CantorSet } from './fractals/fractal-configs/cantor';
+import { SierpinskiTriangle } from './fractals/fractal-configs/1-sierpinski';
+import { MandelbrotSet } from './fractals/fractal-configs/4-mandelbrot';
+import { JuliaSet } from './fractals/fractal-configs/5-julia';
+import { Newton } from './fractals/fractal-configs/3-newton';
+import { CantorSet } from './fractals/fractal-configs/2-cantor';
 import { fractals } from './config/links';
 import { MathJaxContext } from 'better-react-mathjax';
-import { HeighwayDragon } from './fractals/fractal-configs/dragon';
+import { HeighwayDragon } from './fractals/fractal-configs/6-dragon';
 
 export const NavTabContext = createContext(0);
 const EXTRA_BUTTONS = 2;

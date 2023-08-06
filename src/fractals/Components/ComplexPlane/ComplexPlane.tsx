@@ -3,7 +3,7 @@ import { canvasInputs, Complex, MainFractalControlProps, Point } from "../../../
 import { getSize } from "../../utils";
 import { FractalDisplay } from "../FractalDisplay";
 import { ComplexPlaneAltControls } from "./altControls";
-import { NewtonInputs } from "../../fractal-configs/newton/newton-algorithm";
+import { NewtonInputs } from "../../fractal-configs/3-newton/newton-algorithm";
 type ComplexPlaneDrawParams = {
   imageData: ImageData,
   pixelOffset: Point,

@@ -1,5 +1,4 @@
 import { MathJax } from "better-react-mathjax";
-import { Def, Img } from "../../default-view/description-utils";
 
 type DescriptionProps = {
   ti: number;
