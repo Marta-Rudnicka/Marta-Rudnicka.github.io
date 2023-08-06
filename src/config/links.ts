@@ -1,32 +1,47 @@
-export const fractals = [
+import { ReactNode } from "react";
+import { SierpinskiTriangle } from "../fractals/fractal-configs/1-sierpinski";
+import { CantorSet } from "../fractals/fractal-configs/2-cantor";
+import { Newton } from "../fractals/fractal-configs/3-newton";
+import { MandelbrotSet } from "../fractals/fractal-configs/4-mandelbrot";
+import { JuliaSet } from "../fractals/fractal-configs/5-julia";
+import { HeighwayDragon } from "../fractals/fractal-configs/6-dragon";
+
+type FractalConfig = {
+  label: string,
+  url: string,
+  component: () => JSX.Element,
+  c?: ReactNode,
+}
+
+export const fractals: FractalConfig[] = [
   {
     label: "Sierpiński triangle",
     url: '/sierpinski',
-    image: '',
+    component: SierpinskiTriangle,
   },
   {
     label: "Cantor set",
     url: '/cantor',
-    image: '',
+    component: CantorSet,
   },
   {
     label: "Newton's fractal",
     url: '/newton',
-    image: '',
+    component: Newton,
   },
   {
     label: "Mandelbrot set",
     url: '/mandelbrot',
-    image: '',
+    component: MandelbrotSet,
   },
   {
     label: "Julia set",
     url: '/julia',
-    image: '',
+    component: JuliaSet,
   },
   {
     label: "Heighway dragon",
     url: '/dragon',
-    image: '',
+    component: HeighwayDragon,
   },
 ];
