@@ -6,15 +6,17 @@ import { getSize } from "../../utils";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
+import { RadioControlProps } from "../../Components/Controls/RadioInput";
 
 function getMaxIterations(size: number) {
-  return 22;
+  return 20;
 }
 
 export function HeighwayDragon() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(11);
+  const [animate, setAnimate] = useState("on");
 
   const maxIterations = getMaxIterations(canvasSize);
   const navTabIndex = useContext(NavTabContext);
@@ -35,8 +37,15 @@ export function HeighwayDragon() {
     minValue: 0,
     setValue: setIterations,
     tabIndex: 0,
-  },
-  ];
+  }];
+
+  const radio: RadioControlProps[] = [{
+    label: "Add each iteration with a delay (animate)",
+    options: ["on", "off"],
+    setValue: setAnimate,
+    tabIndex: 2,
+    value: animate,
+  }]
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
 
   return (
@@ -47,9 +56,10 @@ export function HeighwayDragon() {
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations }}
+        drawParameters={{ iterations, animate }}
         nextLink="/#/julia"
         prevLink="/#/dummy"
+        radio={radio}
         setFullScreen={setFullScreen}
         sliders={sliders}
         title="Heighway dragon"
