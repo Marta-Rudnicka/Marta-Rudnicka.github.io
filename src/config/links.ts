@@ -5,6 +5,7 @@ import { Newton } from "../fractals/fractal-configs/3-newton";
 import { MandelbrotSet } from "../fractals/fractal-configs/4-mandelbrot";
 import { JuliaSet } from "../fractals/fractal-configs/5-julia";
 import { HeighwayDragon } from "../fractals/fractal-configs/6-dragon";
+import { LSystem } from "../fractals/fractal-configs/7-l-system";
 
 type FractalConfig = {
   label: string,
@@ -43,5 +44,10 @@ export const fractals: FractalConfig[] = [
     label: "Heighway dragon",
     url: '/dragon',
     component: HeighwayDragon,
+  },
+  {
+    label: "L-system tree",
+    url: '/l-system',
+    component: LSystem,
   },
 ];

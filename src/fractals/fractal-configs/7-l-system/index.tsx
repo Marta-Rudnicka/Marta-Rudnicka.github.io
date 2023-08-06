@@ -6,19 +6,12 @@ import { getSize } from "../../utils";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
-import { RadioControlProps } from "../../Components/Controls/RadioInput";
 
-function getMaxIterations(size: number) {
-  return 20;
-}
 
-export function HeighwayDragon() {
+export function LSystem() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
-  const [iterations, setIterations] = useState(11);
-  const [animate, setAnimate] = useState("on");
-
-  const maxIterations = getMaxIterations(canvasSize);
+  const [iterations, setIterations] = useState(14);
   const navTabIndex = useContext(NavTabContext);
 
   useEffect(() => {
@@ -33,38 +26,30 @@ export function HeighwayDragon() {
   const sliders: SliderControlProps[] = [{
     value: iterations,
     label: "iterations",
-    maxValue: maxIterations,
-    minValue: 0,
+    maxValue: 16,
+    minValue: 1,
     setValue: setIterations,
     tabIndex: 0,
-  }];
+  },
+  ];
 
-  const radio: RadioControlProps[] = [{
-    label: "Add each iteration with a delay (animate)",
-    options: ["on", "off"],
-    setValue: setAnimate,
-    tabIndex: 2,
-    value: animate,
-  }]
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
       <FractalDisplay
-        canvasInputs={{ key: iterations.toString() }}
+        canvasInputs={{key: iterations.toString()}}
         canvasSize={canvasSize}
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations, animate }}
-        nextLink="/#/julia"
-        prevLink="/#/l-system"
-        radio={radio}
+        drawParameters={{ iterations }}
+        nextLink="/#/dummy"
+        prevLink="/#/dragon"
         setFullScreen={setFullScreen}
         sliders={sliders}
-        title="Heighway dragon"
+        title="L-system demo"
       />
     </FullScreenContext.Provider>
-
   );
 }
