@@ -6,6 +6,7 @@ import { getSize } from "../../utils";
 import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
+import { RadioControlProps } from "../../Components/Controls/RadioInput";
 
 
 export function LSystem() {
@@ -13,6 +14,8 @@ export function LSystem() {
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(14);
   const [angle, setAngle] = useState(15)
+  const [animate, setAnimate] = useState("on");
+
   const navTabIndex = useContext(NavTabContext);
 
   useEffect(() => {
@@ -41,6 +44,13 @@ export function LSystem() {
     tabIndex: 1,
   }
   ];
+  const radio: RadioControlProps[] = [{
+    label: "Add each iteration with a delay (animate)",
+    options: ["on", "off"],
+    setValue: setAnimate,
+    tabIndex: 2,
+    value: animate,
+  }];
 
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
 
@@ -52,9 +62,10 @@ export function LSystem() {
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations, angle }}
+        drawParameters={{ iterations, angle, animate }}
         nextLink="/#/dummy"
         prevLink="/#/dragon"
+        radio={radio}
         setFullScreen={setFullScreen}
         sliders={sliders}
         title="L-system demo"

@@ -1,4 +1,4 @@
-import { CArray, c, cArr } from "../../../config/colours";
+import { CArray, cArr } from "../../../config/colours";
 import { Point } from "../../../types";
 
 type startBranch = {
@@ -6,6 +6,11 @@ type startBranch = {
   angle: number,
   length: number,
   path: Path2D,
+}
+
+type Iteration = {
+  i: number,
+  paths: Path2D[],
 }
 
 function changeColour(rgb: CArray, change: number): CArray {
@@ -23,7 +28,7 @@ class Tree {
   angle: number;
   lengthRatio: number;
   size: number;
-  iterations: Path2D[][]
+  iterations: Iteration[]
   constructor(
     ctx: CanvasRenderingContext2D,
     angle: number,
@@ -34,7 +39,7 @@ class Tree {
     this.size = size;
     this.lengthRatio = lengthRatio;
     this.angle = Math.PI / 180 * angle;
-    this.iterations = [[]]
+    this.iterations = [{i: 0, paths: [] }]
   }
 
   getX(start: Point, angle: number, length: number): number {
@@ -56,7 +61,7 @@ class Tree {
     trunk.moveTo(...start);
     trunk.lineTo(...end);
     this.ctx.stroke(trunk);
-    this.iterations.push([trunk]);
+    this.iterations[0].paths.push(trunk);
     return { end, angle: 0, length, path: trunk};
   }
 
@@ -77,8 +82,9 @@ class Tree {
   }
 
   addIteration(branches: startBranch[]) {
+    const lastIter = this.iterations.length - 1;
     const newBranches = branches.map(b => this.addBranches(b)).flat();
-    this.iterations.push(newBranches.map(b=>b.path));
+    this.iterations.push({i: lastIter, paths: newBranches.map(b=>b.path)});
     return newBranches;
   }
 
@@ -88,15 +94,15 @@ class Tree {
     });
   }
 
-  drawAll(){
-    let colour = cArr.GREEN;
-    colour = changeColour(colour, 70);
-
-    this.iterations.forEach(i => {
-      this.ctx.strokeStyle = `rgb(${colour})`;
-      this.draw(i);
-      colour = changeColour(colour, -13);
-    })
+  drawAll(animate: boolean){
+    const startColour = changeColour(cArr.GREEN, 70);
+    for (const iter of this.iterations) {
+      setTimeout(() => {
+        const colour = changeColour(startColour, -13 * iter.i);
+        this.ctx.strokeStyle = `rgb(${colour})`;
+        this.draw(iter.paths);
+      }, animate ? iter.i * 100 : 0
+    )};
   }
 }
 
@@ -104,6 +110,7 @@ export function generate(
   iterations: number,
   angle: number,
   size: number,
+  animate: boolean,
   ctx: CanvasRenderingContext2D,
 ): void {
   const tree = new Tree(ctx, angle, 0.8, size);
@@ -113,5 +120,5 @@ export function generate(
   for (let i = 0; i < iterations; i++ ) {
     branches = tree.addIteration(branches);
   }
-  tree.drawAll()
+  tree.drawAll(animate)
 }

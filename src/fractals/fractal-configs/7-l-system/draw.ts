@@ -5,6 +5,7 @@ import { generate } from "./algorithm";
 type LSystemParameters = {
   iterations: number;
   angle: number;
+  animate: string;
 }
 
 
@@ -21,7 +22,8 @@ export function draw(
     ctx.lineWidth = 2;
     ctx.strokeStyle = c.GREEN;
     ctx.beginPath();
-    generate(parameters.iterations, parameters.angle, size, ctx);
+    const animate = parameters.animate === "on";
+    generate(parameters.iterations, parameters.angle, size, animate, ctx);
     ctx.closePath();
   }
 }
