@@ -7,16 +7,23 @@ import { FullScreenContext } from "../../Components/ComplexPlane/ComplexPlane";
 import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
 import { RadioControlProps } from "../../Components/Controls/RadioInput";
-
+import { getMaxIterations } from "./algorithm";
 
 export function LSystem() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(14);
   const [angle, setAngle] = useState(15)
+  const [branches, setBranches] = useState(2)
   const [animate, setAnimate] = useState("on");
-
   const navTabIndex = useContext(NavTabContext);
+
+  useEffect(() => {
+    if (iterations > getMaxIterations(branches)) {
+      setIterations(getMaxIterations)
+    }
+  }, [branches, iterations]);
+
 
   useEffect(() => {
     const func = () => {
@@ -30,7 +37,7 @@ export function LSystem() {
   const sliders: SliderControlProps[] = [{
     value: iterations,
     label: "iterations",
-    maxValue: 16,
+    maxValue: getMaxIterations(branches),
     minValue: 1,
     setValue: setIterations,
     tabIndex: 0,
@@ -42,6 +49,14 @@ export function LSystem() {
     minValue: 1,
     setValue: setAngle,
     tabIndex: 1,
+  },
+  {
+    value: branches,
+    label: "number of branches growing out of each branch",
+    maxValue: 5,
+    minValue: 2,
+    setValue: setBranches,
+    tabIndex: 2,
   }
   ];
   const radio: RadioControlProps[] = [{
@@ -62,7 +77,7 @@ export function LSystem() {
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations, angle, animate }}
+        drawParameters={{ iterations, angle, animate, branches }}
         nextLink="/#/dummy"
         prevLink="/#/dragon"
         radio={radio}

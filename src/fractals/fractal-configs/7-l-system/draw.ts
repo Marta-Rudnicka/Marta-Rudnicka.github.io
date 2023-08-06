@@ -6,6 +6,7 @@ type LSystemParameters = {
   iterations: number;
   angle: number;
   animate: string;
+  branches: number;
 }
 
 
@@ -23,7 +24,14 @@ export function draw(
     ctx.strokeStyle = c.GREEN;
     ctx.beginPath();
     const animate = parameters.animate === "on";
-    generate(parameters.iterations, parameters.angle, size, animate, ctx);
+    generate(
+      parameters.iterations,
+      parameters.angle,
+      size,
+      animate,
+      parameters.branches,
+      ctx
+    );
     ctx.closePath();
   }
 }

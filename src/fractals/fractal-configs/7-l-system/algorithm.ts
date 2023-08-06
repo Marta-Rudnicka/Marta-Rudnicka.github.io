@@ -23,23 +23,35 @@ function changeColour(rgb: CArray, change: number): CArray {
   return rgb.map(v => v + change) as CArray;
 }
 
+export function getMaxIterations(branches: number){
+  if (branches < 3) return 16;
+  if (branches < 4) return 12;
+  return 8;
+}
+
 class Tree {
   ctx: CanvasRenderingContext2D;
   angle: number;
   lengthRatio: number;
   size: number;
-  iterations: Iteration[]
+  iterations: Iteration[];
+  branchesNumber: number;
+  colourStep: number;
+
   constructor(
     ctx: CanvasRenderingContext2D,
     angle: number,
     lengthRatio: number,
     size: number,
+    branchesNumber: number,
   ) {
     this.ctx = ctx;
     this.size = size;
     this.lengthRatio = lengthRatio;
+    this.branchesNumber = branchesNumber;
     this.angle = Math.PI / 180 * angle;
-    this.iterations = [{i: 0, paths: [] }]
+    this.iterations = [{i: 0, paths: [] }];
+    this.colourStep = this.getColourStep()
   }
 
   getX(start: Point, angle: number, length: number): number {
@@ -50,6 +62,13 @@ class Tree {
   getY(start: Point, angle: number, length: number): number {
   const height = Math.floor(Math.cos(angle) * length);
   return start[1] - height;
+  }
+
+  getColourStep() {
+    // based on what looks good in practice
+    if(this.branchesNumber === 2) return 13;
+    if(this.branchesNumber > 3) return 26;
+    return 20;
   }
 
   drawTrunk(
@@ -76,9 +95,20 @@ class Tree {
   }
 
   addBranches(branch: startBranch): startBranch[] {
+    const branches = [];
+    if (this.branchesNumber % 2 === 1) {
+      const b0 = this.addBranch(branch, branch.angle);
+      branches.push(b0);
+    }
     const b1 = this.addBranch(branch, branch.angle + this.angle);
     const b2 = this.addBranch(branch, branch.angle - this.angle);
-    return [b1, b2];
+    branches.push(b1, b2);
+    if (this.branchesNumber > 3) {
+      const b3 = this.addBranch(branch, branch.angle + 2 * this.angle);
+      const b4 = this.addBranch(branch, branch.angle - 2 * this.angle);
+      branches.push(b3, b4);
+    }
+    return branches;
   }
 
   addIteration(branches: startBranch[]) {
@@ -98,7 +128,7 @@ class Tree {
     const startColour = changeColour(cArr.GREEN, 70);
     for (const iter of this.iterations) {
       setTimeout(() => {
-        const colour = changeColour(startColour, -13 * iter.i);
+        const colour = changeColour(startColour, -this.colourStep * iter.i);
         this.ctx.strokeStyle = `rgb(${colour})`;
         this.draw(iter.paths);
       }, animate ? iter.i * 100 : 0
@@ -111,9 +141,11 @@ export function generate(
   angle: number,
   size: number,
   animate: boolean,
+  branchesNumber: number,
   ctx: CanvasRenderingContext2D,
 ): void {
-  const tree = new Tree(ctx, angle, 0.8, size);
+  const tree = new Tree(ctx, angle, 0.8, size, branchesNumber);
+  if (getMaxIterations(tree.branchesNumber) < iterations) return;
   const trunk = tree.drawTrunk()
   if (iterations === 0) return ;
   let branches = [trunk];
