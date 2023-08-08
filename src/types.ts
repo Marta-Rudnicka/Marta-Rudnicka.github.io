@@ -85,3 +85,5 @@ export type MainFractalControlProps = {
   radio?: RadioControlProps[];
   controlsChildren?: ReactNode; title: string;
 }
+
+export type Direction = 'N' | 'E' | 'S' | 'W';

@@ -1,7 +1,6 @@
 import { c } from "../../../config/colours";
-import { LineSegment, Point } from "../../../types";
-
-export type Direction = 'N' | 'E' | 'S' | 'W';
+import { Direction, LineSegment, Point } from "../../../types";
+import { CanvasFigure } from "../../Components/CanvasFigure/CanvasFigure";
 
 type NextDir = { left: Direction, right: Direction };
 type NextDirList = Record<Direction, NextDir>;
@@ -22,40 +21,6 @@ export function addIteration(turns: boolean[]): boolean[] {
   return [true, ...turns.map(t => !t).reverse()];
 }
 
-function withinBounds(
-  edges: Record<Direction, number>,
-  size: number,
-): boolean {
-  if (edges.N < 0 || edges.W < 0 || edges.E > size || edges.S > size) {
-    return false;
-  }
-  return true;
-}
-
-export function centreImageCoords(
-  edges: Record<Direction, number>,
-  size: number,
-): { x: number, y: number } {
-  let x = 0;
-  let y = 0;
-  if (withinBounds(edges, size)) {
-    return { x, y };
-  }
-  if (edges.S > size) {
-    y = size - edges.S - 2;
-  }
-  if (edges.E > size) {
-    x = size - edges.E - 2;
-  }
-  if (edges.N < 0) {
-    y = - edges.N + 2;
-  }
-  if (edges.W < 0) {
-    x = - edges.W + 2;
-  }
-  return { x, y };
-}
-
 function getLength(size: number, iterations: number) {
   let length = Math.floor(size * 0.5);
   length = length / Math.pow(2, iterations / 2);
@@ -70,32 +35,25 @@ function getLineWidth(iterations: number) {
   if (iterations < 10) return 2;
   return 1;
 }
-export class Dragon {
-  ctx: CanvasRenderingContext2D;
-  iterations: number;
+export class Dragon extends CanvasFigure{
   firstDirection: Direction;
   iterationImages: IterationImage[];
   length: number;
   lastLine: LineSegment;
-  size: number;
-  edges: Record<Direction, number>;
   turns: boolean[];
 
   constructor(
     ctx: CanvasRenderingContext2D,
-    i: number,
+    iterations: number,
     length: number,
     start: Point,
     firstDirection: Direction,
     size: number,
   ) {
-    this.ctx = ctx;
-    this.iterations = i;
+    super(ctx, iterations, size);
     this.length = length;
-    this.size = size;
     this.firstDirection = firstDirection;
     this.turns = [];
-    this.edges = { 'E': 0, 'N': 0, "S": 0, 'W': 0 }
     this.lastLine = ({ a: start, b: start });
     this.iterationImages = [];
     this.addIterationImages()
@@ -125,17 +83,15 @@ export class Dragon {
   }
 
   addIterationImages() {
-    console.log('iter 0')
     let newImage: IterationImage = { path: new Path2D(), turns: [], iteration: 0 };
     newImage.path.moveTo(...this.lastLine.b);
     this.addLine(this.firstDirection, newImage.path);
-    // this.ctx.stroke(newImage.path)
     this.iterationImages.push(newImage)
     if (this.iterations === 0) return;
 
     for (let i = 1; i <= this.iterations; i++) {
       this.addIterationImage(i)
-      const trans = centreImageCoords(this.edges, this.size);
+      const trans = this.centreImageCoords();
       this.ctx.translate(trans.x, trans.y);
     }
   }
@@ -153,17 +109,14 @@ export class Dragon {
     let end: Point = [0, 0];
     if (direction === "E") {
       end = [start[0] + this.length, start[1]];
-      this.edges.E = Math.max(end[0], this.edges.E)
     } else if (direction === "W") {
       end = [start[0] - this.length, start[1]];
-      this.edges.W = Math.min(end[0], this.edges.W);
     } else if (direction === "S") {
       end = [start[0], start[1] + this.length];
-      this.edges.S = Math.max(end[1], this.edges.S)
     } else {
       end = [start[0], start[1] - this.length];
-      this.edges.N = Math.min(end[1], this.edges.N)
     }
+    this.updateEdges(end);
     return end;
   }
 

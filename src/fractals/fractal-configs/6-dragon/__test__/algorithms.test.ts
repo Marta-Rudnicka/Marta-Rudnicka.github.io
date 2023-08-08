@@ -1,5 +1,5 @@
-import { LineSegment } from "../../../../types";
-import { Direction, addIteration, centreImageCoords, getDirection } from "../algorithm";
+import { LineSegment, } from "../../../../types";
+import { addIteration, getDirection } from "../algorithm";
 
 describe('getDirection', () => {
   it('should correctly predict E direction', () => {
@@ -48,36 +48,5 @@ describe('addIteration', () => {
   it('should create fifth iteration', () => {
     const res = [...fourth, ...addIteration(fourth) ]
     expect(res).toStrictEqual(fifth);
-  });
-});
-
-describe('centreImageCoords', () => {
-  const edges: Record<Direction, number> = {
-    W: 120,
-    E: 400,
-    N: 120,
-    S: 550,
-  }
-  it('should return zeroes if the image is within canvas', () => {
-    expect(centreImageCoords(edges, 600)).toStrictEqual({x: 0, y: 0});
-  });
-
-  it('should move up if the coordinates go beyond the bottom edge', () => {
-    expect(centreImageCoords(edges, 500)).toStrictEqual({x: 0, y: -52});
-  });
-
-  it('should move down if the coordinates go beyond the top edge', () => {
-    const testEdges = {...edges, N: -40}
-    expect(centreImageCoords(testEdges, 500)).toStrictEqual({x: 0, y: 42});
-  });
-
-  it('should move left if the coordinates go beyond the right edge', () => {
-    const testEdges = {...edges, E: 630}
-    expect(centreImageCoords(testEdges, 560)).toStrictEqual({x: -72, y: 0});
-  });
-
-  it('should move right if the coordinates go beyond the left edge', () => {
-    const testEdges = {...edges, W: -30}
-    expect(centreImageCoords(testEdges, 560)).toStrictEqual({x: 32, y: 0});
   });
 });

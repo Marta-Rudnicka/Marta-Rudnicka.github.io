@@ -97,7 +97,9 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-router-dom": "^5.3.3",
-    "gh-pages": "^5.0.0"
+    "canvas": "^2.11.2",
+    "gh-pages": "^5.0.0",
+    "jest-canvas-mock": "^2.5.2"
   },
   "jest": {
     "roots": [
@@ -108,7 +110,8 @@
       "!src/**/*.d.ts"
     ],
     "setupFiles": [
-      "react-app-polyfill/jsdom"
+      "react-app-polyfill/jsdom",
+      "jest-canvas-mock"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.ts"
