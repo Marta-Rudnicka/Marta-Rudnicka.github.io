@@ -5,6 +5,7 @@ import { generate } from "./algorithm";
 type LSystemParameters = {
   iterations: number;
   angle: number;
+  lRatio: number;
   animate: string;
   branches: number;
   curveRatio: number;
@@ -21,6 +22,7 @@ export function draw(
   canvas.style.background = "black";
 
   if (ctx) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx?.clearRect(0, 0, size, size);
     ctx.lineWidth = 1;
     ctx.strokeStyle = c.GREEN;
@@ -29,6 +31,7 @@ export function draw(
     generate(
       parameters.iterations,
       parameters.angle,
+      parameters.lRatio,
       size,
       animate,
       parameters.branches,

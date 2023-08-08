@@ -1,5 +1,6 @@
 import { CArray, cArr } from "../../../config/colours";
 import { Point } from "../../../types";
+import { CanvasFigure } from "../../Components/CanvasFigure/CanvasFigure";
 import { findLineEnd, getQuadraticCurveParams } from "../../utils";
 
 type startBranch = {
@@ -32,34 +33,32 @@ export function getMaxIterations(branches: number) {
   return 8;
 }
 
-class Tree {
-  ctx: CanvasRenderingContext2D;
+class Tree extends CanvasFigure{
   angle: number;
   lengthRatio: number;
-  size: number;
-  iterations: Iteration[];
   branchesNumber: number;
   colourStep: number;
   cpXDistRatio: number;
   cpYRatio: number;
+  iterationFigures: Iteration[];
 
   constructor(
     ctx: CanvasRenderingContext2D,
+    iterations: number,
+    size: number,
     angle: number,
     lengthRatio: number,
-    size: number,
     branchesNumber: number,
     cpXDistRatio: number,
     cpyRatio: number,
   ) {
-    this.ctx = ctx;
-    this.size = size;
+    super(ctx, iterations, size)
     this.lengthRatio = lengthRatio;
     this.branchesNumber = branchesNumber;
     this.cpXDistRatio = cpXDistRatio;
     this.cpYRatio = cpyRatio;
     this.angle = Math.PI / 180 * angle;
-    this.iterations = [{ i: 0, paths: [] }];
+    this.iterationFigures = [{ i: 0, paths: [] }];
     this.colourStep = this.getColourStep();
   }
 
@@ -72,14 +71,13 @@ class Tree {
 
   drawTrunk(
   ): startBranch {
-    const length = Math.floor(this.size * 0.15);
+    const length = Math.floor(this.size * 0.4);
     const trunk = new Path2D()
-    const start: Point = [this.size / 2, this.size - length - this.branchesNumber * 10];
-    const end: Point = [this.size / 2, this.size - 2 * length - this.branchesNumber * 10];
+    const start: Point = [this.size / 2, this.size  - 2];
+    const end: Point = [this.size / 2, this.size - length - 2];
     trunk.moveTo(...start);
     trunk.lineTo(...end);
-    this.ctx.stroke(trunk);
-    this.iterations[0].paths.push(trunk);
+    this.iterationFigures[0].paths.push(trunk);
     return { end, angle: 0, length, path: trunk };
   }
 
@@ -92,7 +90,8 @@ class Tree {
     const branch = new Path2D();
     branch.moveTo(...oldBranch.end);
 
-    const [x, y] = findLineEnd(oldBranch.end, angle, length)
+    const [x, y] = findLineEnd(oldBranch.end, angle, length);
+    this.updateEdges([x, y]);
     if (position === "middle" || this.cpXDistRatio === 0) {
       branch.lineTo(x, y);
     } else {
@@ -127,9 +126,9 @@ class Tree {
   }
 
   addIteration(branches: startBranch[]) {
-    const lastIter = this.iterations.length - 1;
+    const lastIter = this.iterationFigures.length - 1;
     const newBranches = branches.map(b => this.addBranches(b)).flat();
-    this.iterations.push({ i: lastIter, paths: newBranches.map(b => b.path) });
+    this.iterationFigures.push({ i: lastIter, paths: newBranches.map(b => b.path) });
     return newBranches;
   }
 
@@ -141,7 +140,7 @@ class Tree {
 
   drawAll(animate: boolean) {
     const startColour = changeColour(cArr.GREEN, 70);
-    for (const iter of this.iterations) {
+    for (const iter of this.iterationFigures) {
       setTimeout(() => {
         const colour = changeColour(startColour, -this.colourStep * iter.i);
         this.ctx.strokeStyle = `rgb(${colour})`;
@@ -155,6 +154,7 @@ class Tree {
 export function generate(
   iterations: number,
   angle: number,
+  lRatio: number,
   size: number,
   animate: boolean,
   branchesNumber: number,
@@ -164,9 +164,10 @@ export function generate(
 ): void {
   const tree = new Tree(
     ctx,
-    angle,
-    0.8,
+    iterations,
     size,
+    angle,
+    lRatio,
     branchesNumber,
     curveDistanceRatio,
     curveRatio
@@ -179,5 +180,10 @@ export function generate(
   for (let i = 0; i < iterations; i++) {
     branches = tree.addIteration(branches);
   }
+  const trans = tree.centreImageCoords();
+  const scaleRatio = tree.scaleRatio()
+  ctx.scale(scaleRatio, scaleRatio);
+  ctx.translate(trans.x, trans.y);
   tree.drawAll(animate)
 }
+

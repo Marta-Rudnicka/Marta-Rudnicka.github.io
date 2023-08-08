@@ -15,6 +15,7 @@ export function LSystem() {
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(14);
   const [angle, setAngle] = useState(15)
+  const [lRatio, setLRatio] = useState(0.8)
   const [branches, setBranches] = useState(2)
   const [animate, setAnimate] = useState("on");
   const [curveRatio, setCurveRatio] = useState(0.3);
@@ -54,6 +55,16 @@ export function LSystem() {
     tabIndex: 1,
   },
   {
+    value: lRatio,
+    label: "branch length ratio between iterations",
+    maxValue: 1,
+    minValue: 0.1,
+    setValue: setLRatio,
+    tabIndex: 1,
+    stepSize: 0.1,
+    info: "the ratio of 0.8 means the a branch will have 0.8 of the length of the branch from the previous iteration"
+  },
+  {
     value: branches,
     label: "number of branches growing out of each branch",
     maxValue: 5,
@@ -82,17 +93,18 @@ export function LSystem() {
   }]
 
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
+  const canvasKey = `${canvasSize}-${iterations}-${angle}-${lRatio}-${branches}`;
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
       <FractalDisplay
-        canvasInputs={{ key: iterations.toString() }}
+        canvasInputs={{ key: canvasKey }}
         canvasSize={canvasSize}
         curves={curves}
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations, angle, animate, branches, curveRatio, curveDistanceRatio }}
+        drawParameters={{ iterations, angle, lRatio, animate, branches, curveRatio, curveDistanceRatio }}
         nextLink="/#/dummy"
         prevLink="/#/dragon"
         radio={radio}
