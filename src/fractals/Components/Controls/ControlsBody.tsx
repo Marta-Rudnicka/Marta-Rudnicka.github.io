@@ -7,6 +7,7 @@ import { ChevronUp } from "../../../components/icons/ChevronUp";
 import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 import { RadioControlProps, RadioInput } from "./RadioInput";
 import { NavTabContext } from "../../../App";
+import { BezierCurveControl, BezierCurveControlProps } from "./BezierCurveControl";
 
 type ControlsProps = ControlProps & {
   allVisible: boolean,
@@ -82,6 +83,24 @@ function renderRadioInputs(
   );
 }
 
+function renderBezierCurveInputs(inputs?: BezierCurveControlProps[]){
+  if (!inputs) return null;
+  return inputs.map(i =>
+    <BezierCurveControl
+      key={i.info || i.label1}
+      curveRatio={i.curveRatio}
+      curveDistanceRatio={i.curveDistanceRatio}
+      angleDeg={i.angleDeg}
+      setCurveDistanceRatio={i.setCurveDistanceRatio}
+      setCurveRatio={i.setCurveRatio}
+      info={i.info}
+      label1={i.label1}
+      label2={i.label2}
+      tabIndex={i.tabIndex}
+    />
+  );
+}
+
 function AltControls(props: AltControlProps) {
   const [show, setShow] = useState(false);
 
@@ -126,6 +145,7 @@ export function ControlsBody(props: ControlsProps) {
   const sliders = renderSliderControls(initTabIndex, props.sliders, setShowSliderInfo)
   const buttons = renderButtonPairs(initTabIndex, props.buttonPairs)
   const radio = renderRadioInputs(props.radioInputs);
+  const curves = renderBezierCurveInputs(props.curves)
 
   return (
     <div>
@@ -133,6 +153,7 @@ export function ControlsBody(props: ControlsProps) {
       {sliders}
       {showSliderInfo && <p className="slide-open">To set the desired value, release the mouse button or press 'Enter'.</p>}
       {radio}
+      {curves}
       {!!props.altControls &&
         <AltControls tabIndex={props.altTabIndex || -1}>
           {props.altControls}

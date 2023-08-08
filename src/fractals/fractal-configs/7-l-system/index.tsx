@@ -8,6 +8,7 @@ import { SliderControlProps } from "../../Components/Controls/SliderControl";
 import { NavTabContext } from "../../../App";
 import { RadioControlProps } from "../../Components/Controls/RadioInput";
 import { getMaxIterations } from "./algorithm";
+import { BezierCurveControlProps } from "../../Components/Controls/BezierCurveControl";
 
 export function LSystem() {
   const [fullScreen, setFullScreen] = useState(false);
@@ -16,6 +17,8 @@ export function LSystem() {
   const [angle, setAngle] = useState(15)
   const [branches, setBranches] = useState(2)
   const [animate, setAnimate] = useState("on");
+  const [curveRatio, setCurveRatio] = useState(0.3);
+  const [curveDistanceRatio, setCurveDistanceRatio] = useState(0.1);
   const navTabIndex = useContext(NavTabContext);
 
   useEffect(() => {
@@ -67,17 +70,29 @@ export function LSystem() {
     value: animate,
   }];
 
+  const curves: BezierCurveControlProps[] = [{
+    curveRatio,
+    curveDistanceRatio,
+    angleDeg: angle,
+    setCurveRatio,
+    setCurveDistanceRatio,
+    label1: "distance",
+    label2: "ratio",
+    tabIndex: 3,
+  }]
+
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
       <FractalDisplay
-        canvasInputs={{key: iterations.toString()}}
+        canvasInputs={{ key: iterations.toString() }}
         canvasSize={canvasSize}
+        curves={curves}
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations, angle, animate, branches }}
+        drawParameters={{ iterations, angle, animate, branches, curveRatio, curveDistanceRatio }}
         nextLink="/#/dummy"
         prevLink="/#/dragon"
         radio={radio}

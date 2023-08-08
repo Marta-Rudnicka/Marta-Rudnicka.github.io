@@ -1,5 +1,5 @@
 import { ACTIVE_AREA } from "../consts";
-import { Point, Rectangle, TempPixelMap } from "../types";
+import { Point, QuadCurve, Rectangle, TempPixelMap } from "../types";
 
 export function getSize(fullScreen: boolean | undefined): number {
   const windowHeight = window.innerHeight;
@@ -97,4 +97,26 @@ export function getInitialPixelMap(canvasSize: number): TempPixelMap {
     x++;
   }
   return pixelMap;
+}
+
+export function findLineEnd(start: Point, angle: number, length: number): Point {
+  const width = Math.floor(Math.sin(angle) * length);
+  const height = Math.floor(Math.cos(angle) * length);
+  return [start[0] - width, start[1] - height];
+}
+
+export function getQuadraticCurveParams(
+  start: Point,
+  angle: number,
+  length: number,
+  heightRatio: number,
+  distanceRatio: number,
+  side: 'left' | 'right',
+): QuadCurve {
+
+const rightAngle = side === 'left' ? angle + Math.PI/2 : angle - Math.PI/2;
+const [x, y] = findLineEnd(start, angle, length);
+const midPoint: Point = findLineEnd(start, angle, length * heightRatio);
+const [cpX, cpY] = findLineEnd(midPoint, angle + rightAngle, length * distanceRatio)
+return [cpX, cpY, x, y];
 }

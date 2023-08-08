@@ -1,5 +1,6 @@
 import { CArray, cArr } from "../../../config/colours";
 import { Point } from "../../../types";
+import { findLineEnd, getQuadraticCurveParams } from "../../utils";
 
 type startBranch = {
   end: Point,
@@ -39,8 +40,8 @@ class Tree {
   iterations: Iteration[];
   branchesNumber: number;
   colourStep: number;
-  cpXDist: number;
-  cpRatio: number;
+  cpXDistRatio: number;
+  cpYRatio: number;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -48,39 +49,22 @@ class Tree {
     lengthRatio: number,
     size: number,
     branchesNumber: number,
-    cpXDist: number,
-    cpRatio: number,
+    cpXDistRatio: number,
+    cpyRatio: number,
   ) {
     this.ctx = ctx;
     this.size = size;
     this.lengthRatio = lengthRatio;
     this.branchesNumber = branchesNumber;
-    this.cpXDist = cpXDist;
-    this.cpRatio = cpRatio;
+    this.cpXDistRatio = cpXDistRatio;
+    this.cpYRatio = cpyRatio;
     this.angle = Math.PI / 180 * angle;
     this.iterations = [{ i: 0, paths: [] }];
     this.colourStep = this.getColourStep();
   }
 
-  offset(start: Point, length: number) {
-    return {
-      distance: Math.floor(length * this.cpRatio),
-      point: [start[0], start[1] + this.cpXDist] as Point,
-    }
-  }
-
-  getX(start: Point, angle: number, length: number): number {
-    const width = Math.floor(Math.sin(angle) * length);
-    return start[0] - width;
-  }
-
-  getY(start: Point, angle: number, length: number): number {
-    const height = Math.floor(Math.cos(angle) * length);
-    return start[1] - height;
-  }
-
   getColourStep() {
-    // based on what looks good in practice
+    // values based on aesthetics
     if (this.branchesNumber === 2) return 13;
     if (this.branchesNumber > 3) return 26;
     return 20;
@@ -88,10 +72,10 @@ class Tree {
 
   drawTrunk(
   ): startBranch {
-    const length = Math.floor(this.size / 6);
+    const length = Math.floor(this.size * 0.15);
     const trunk = new Path2D()
-    const start: Point = [this.size / 2, this.size - 2];
-    const end: Point = [this.size / 2, this.size - 2 - length]
+    const start: Point = [this.size / 2, this.size - length - this.branchesNumber * 10];
+    const end: Point = [this.size / 2, this.size - 2 * length - this.branchesNumber * 10];
     trunk.moveTo(...start);
     trunk.lineTo(...end);
     this.ctx.stroke(trunk);
@@ -108,17 +92,18 @@ class Tree {
     const branch = new Path2D();
     branch.moveTo(...oldBranch.end);
 
-    const x = this.getX(oldBranch.end, angle, length);
-    const y = this.getY(oldBranch.end, angle, length);
-    if (position === "middle" || this.cpXDist === 0) {
+    const [x, y] = findLineEnd(oldBranch.end, angle, length)
+    if (position === "middle" || this.cpXDistRatio === 0) {
       branch.lineTo(x, y);
     } else {
-
-      const offset = this.offset(oldBranch.end, length);
-
-      const offsetAngle = position === "left" ? angle : angle - this.angle;
-      const cPx = this.getX(offset.point, offsetAngle, offset.distance);
-      const cPy = this.getY(offset.point, offsetAngle, offset.distance)
+      const [cPx, cPy, x, y] = getQuadraticCurveParams(
+        oldBranch.end,
+        angle,
+        length,
+        this.cpYRatio,
+        this.cpXDistRatio,
+        position
+      );
       branch.quadraticCurveTo(cPx, cPy, x, y);
     }
     return { end: [x, y], angle, length, path: branch };
@@ -173,9 +158,20 @@ export function generate(
   size: number,
   animate: boolean,
   branchesNumber: number,
+  curveRatio: number,
+  curveDistanceRatio: number,
   ctx: CanvasRenderingContext2D,
 ): void {
-  const tree = new Tree(ctx, angle, 0.8, size, branchesNumber, 5, 0.25);
+  const tree = new Tree(
+    ctx,
+    angle,
+    0.8,
+    size,
+    branchesNumber,
+    curveDistanceRatio,
+    curveRatio
+  );
+  console.log(curveDistanceRatio, curveRatio)
   if (getMaxIterations(tree.branchesNumber) < iterations) return;
   const trunk = tree.drawTrunk()
   if (iterations === 0) return;

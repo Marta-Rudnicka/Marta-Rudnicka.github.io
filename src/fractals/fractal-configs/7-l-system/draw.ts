@@ -7,6 +7,8 @@ type LSystemParameters = {
   angle: number;
   animate: string;
   branches: number;
+  curveRatio: number;
+  curveDistanceRatio: number;
 }
 
 
@@ -20,7 +22,7 @@ export function draw(
 
   if (ctx) {
     ctx?.clearRect(0, 0, size, size);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = c.GREEN;
     ctx.beginPath();
     const animate = parameters.animate === "on";
@@ -30,7 +32,9 @@ export function draw(
       size,
       animate,
       parameters.branches,
-      ctx
+      parameters.curveRatio,
+      parameters.curveDistanceRatio,
+      ctx,
     );
     ctx.closePath();
   }

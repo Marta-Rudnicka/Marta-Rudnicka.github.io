@@ -5,6 +5,7 @@ import { SliderControlProps } from "./SliderControl";
 import { ControlsBody } from "./ControlsBody";
 import { FullScreenContext } from "../ComplexPlane/ComplexPlane";
 import { RadioControlProps } from "./RadioInput";
+import { BezierCurveControlProps } from "./BezierCurveControl";
 
 export type ControlProps = {
   altControls?: ReactNode;
@@ -13,6 +14,7 @@ export type ControlProps = {
   children?: ReactNode;
   radioInputs?: RadioControlProps[];
   sliders?: SliderControlProps[];
+  curves?: BezierCurveControlProps[];
 }
 
 export function Controls(props: ControlProps) {

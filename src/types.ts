@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { SliderControlProps } from "./fractals/Components/Controls/SliderControl";
 import { ButtonPairControlProps } from "./fractals/Components/Controls/ButtonControlPair";
 import { RadioControlProps } from "./fractals/Components/Controls/RadioInput";
+import { BezierCurveControlProps } from "./fractals/Components/Controls/BezierCurveControl";
 
 export type DrawFuncArgs = {
   canvas: HTMLCanvasElement,
@@ -13,6 +14,10 @@ export type DrawFunc = (args: DrawFuncArgs) => void;
 
 export type Point = [
   number, number,
+];
+
+export type QuadCurve = [
+  number, number, number, number,
 ];
 
 export type LineSegment = {
@@ -70,6 +75,7 @@ export type NumberCache = Record<string, Record<string, PixelValue>>;
 export type MainFractalControlProps = {
   adjustPropertiesToScreenSize?: ResizeHandler;
   altControls?: ReactNode;
+  curves?: BezierCurveControlProps[];
   description: ReactNode
   draw: (args: DrawFuncArgs) => void;
   nextLink?: string;

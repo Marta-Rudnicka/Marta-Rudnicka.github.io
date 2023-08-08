@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import { Dispatch, Fragment, ReactNode, SetStateAction, useState } from "react";
 
 export type SliderProps = {
   delayed?: boolean;
@@ -12,6 +12,7 @@ export type SliderProps = {
   stepSize?: number;
   tabIndex: number;
   value: number;
+  sliderOnly?: boolean;
 }
 
 export function Slider(props: SliderProps) {
@@ -80,20 +81,24 @@ export function Slider(props: SliderProps) {
 
   return (
     <div key={props.value} tabIndex={-1} >
-      <div className="slider-input-container slider-grid" tabIndex={-1}>
-        <input
-          max={props.maxValue}
-          min={props.minValue}
-          onBlur={() => setLocalValue(props.value)}
-          onChange={(e) => handleChange(e)}
-          onKeyDown={(e) => handleKeyboardInput(e)}
-          onMouseUp={acceptValue}
-          tabIndex={props.tabIndex}
-          type="number"
-          step={step}
-          value={localValue}
-        />
+        <div className={`slider-input-container slider-grid ${props.sliderOnly ? 'vertical' : ''}`} tabIndex={-1}>
+      {!props.sliderOnly &&
+        <Fragment>
+          <input
+            max={props.maxValue}
+            min={props.minValue}
+            onBlur={() => setLocalValue(props.value)}
+            onChange={(e) => handleChange(e)}
+            onKeyDown={(e) => handleKeyboardInput(e)}
+            onMouseUp={acceptValue}
+            tabIndex={props.tabIndex}
+            type="number"
+            step={step}
+            value={localValue}
+          />
         <div tabIndex={-1} className="right">{props.minValue}</div>
+        </Fragment>
+      }
         <input
           className="slider-input"
           id={props.id}
@@ -109,7 +114,7 @@ export function Slider(props: SliderProps) {
           type="range"
           value={localValue}
         />
-        <div tabIndex={-1}>{props.maxValue}</div>
+        {!props.sliderOnly && <div tabIndex={-1}>{props.maxValue}</div>}
       </div>
     </div>
   );
