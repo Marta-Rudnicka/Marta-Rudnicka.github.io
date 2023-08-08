@@ -46,6 +46,7 @@ export class CanvasFigure {
     }
     return { x, y };
   }
+
   updateEdges(
     p: Point,
   ) {
@@ -61,5 +62,12 @@ export class CanvasFigure {
     if (p[1] > this.size) {
       this.edges.S =  Math.max(p[1], this.edges.S);
     }
+  }
+
+  scaleRatio() {
+    if (this.withinBounds()) return 1;
+    const height = this.edges.S - this.edges.N;
+    const width = this.edges.E - this.edges.W;
+    return this.size / Math.max(height, width);
   }
 }
