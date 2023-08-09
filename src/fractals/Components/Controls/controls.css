@@ -24,6 +24,10 @@
   grid-template-columns: 7ch 3ch 1fr 3ch;
 }
 
+
+.slider-only {
+  grid-column: 1/4;
+}
 input[type="range"] {
   -webkit-appearance: none;
   background: transparent;

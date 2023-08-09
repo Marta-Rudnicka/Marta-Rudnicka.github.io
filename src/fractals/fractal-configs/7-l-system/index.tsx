@@ -14,9 +14,11 @@ export function LSystem() {
   const [fullScreen, setFullScreen] = useState(false);
   const [canvasSize, setCanvasSize] = useState(getSize(fullScreen));
   const [iterations, setIterations] = useState(14);
-  const [angle, setAngle] = useState(15)
-  const [lRatio, setLRatio] = useState(0.8)
-  const [branches, setBranches] = useState(2)
+  const [angle, setAngle] = useState(15);
+  const [lRatio, setLRatio] = useState(0.8);
+  const [branches, setBranches] = useState(2);
+  const [noise, setNoise] = useState(0.1);
+
   const [animate, setAnimate] = useState("on");
   const [curveRatio, setCurveRatio] = useState(0.3);
   const [curveDistanceRatio, setCurveDistanceRatio] = useState(0.1);
@@ -71,7 +73,19 @@ export function LSystem() {
     minValue: 2,
     setValue: setBranches,
     tabIndex: 2,
-  }
+  },
+  {
+    value: noise,
+    label: "noise",
+    maxValue: 0.5,
+    minValue: 0,
+    setValue: setNoise,
+    tabIndex: 1,
+    stepSize: 0.05,
+    inputRounding: 2,
+    info: "the level of randomness introduced into generating the tree",
+    sliderOnly: true,
+  },
   ];
   const radio: RadioControlProps[] = [{
     label: "Add each iteration with a delay (animate)",
@@ -93,7 +107,7 @@ export function LSystem() {
   }]
 
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
-  const canvasKey = `${canvasSize}-${iterations}-${angle}-${lRatio}-${branches}`;
+  const canvasKey = `${canvasSize}-${iterations}-${angle}-${lRatio}-${branches}-${noise}`;
 
   return (
     <FullScreenContext.Provider value={fullScreen} >
@@ -104,7 +118,7 @@ export function LSystem() {
         description={description}
         descriptionTabIndex={navTabIndex + 13}
         draw={draw}
-        drawParameters={{ iterations, angle, lRatio, animate, branches, curveRatio, curveDistanceRatio }}
+        drawParameters={{ iterations, angle, lRatio, animate, branches, curveRatio, curveDistanceRatio, noise }}
         nextLink="/#/dummy"
         prevLink="/#/dragon"
         radio={radio}

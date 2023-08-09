@@ -41,6 +41,7 @@ class Tree extends CanvasFigure{
   cpXDistRatio: number;
   cpYRatio: number;
   iterationFigures: Iteration[];
+  noise: number;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -51,6 +52,7 @@ class Tree extends CanvasFigure{
     branchesNumber: number,
     cpXDistRatio: number,
     cpyRatio: number,
+    noise: number,
   ) {
     super(ctx, iterations, size)
     this.lengthRatio = lengthRatio;
@@ -60,6 +62,7 @@ class Tree extends CanvasFigure{
     this.angle = Math.PI / 180 * angle;
     this.iterationFigures = [{ i: 0, paths: [] }];
     this.colourStep = this.getColourStep();
+    this.noise = noise;
   }
 
   getColourStep() {
@@ -83,14 +86,21 @@ class Tree extends CanvasFigure{
 
   addBranch(
     oldBranch: startBranch,
-    angle: number,
+    rawAngle: number,
     position: BranchPosition
   ): startBranch {
-    const length = Math.floor(oldBranch.length * this.lengthRatio);
     const branch = new Path2D();
+
+    const cpYRatio = this.noise? (1 - Math.random() * this.noise)* this.cpYRatio : this.cpYRatio
+    const cpXDistRatio = this.noise? (1 - Math.random() * this.noise) * this.cpXDistRatio : this.cpXDistRatio
+
+    let length = Math.floor(oldBranch.length * this.lengthRatio);
+    length = this.noise ? length * (1 - Math.random() * this.noise) : length
+
+    const angle = this.noise ?rawAngle * (1 - Math.random() * this.noise) : rawAngle;
+    let [x, y] = findLineEnd(oldBranch.end, angle, length);
     branch.moveTo(...oldBranch.end);
 
-    const [x, y] = findLineEnd(oldBranch.end, angle, length);
     this.updateEdges([x, y]);
     if (position === "middle" || this.cpXDistRatio === 0) {
       branch.lineTo(x, y);
@@ -99,8 +109,8 @@ class Tree extends CanvasFigure{
         oldBranch.end,
         angle,
         length,
-        this.cpYRatio,
-        this.cpXDistRatio,
+        cpYRatio,
+        cpXDistRatio,
         position
       );
       branch.quadraticCurveTo(cPx, cPy, x, y);
@@ -160,6 +170,7 @@ export function generate(
   branchesNumber: number,
   curveRatio: number,
   curveDistanceRatio: number,
+  noise: number,
   ctx: CanvasRenderingContext2D,
 ): void {
   const tree = new Tree(
@@ -170,9 +181,9 @@ export function generate(
     lRatio,
     branchesNumber,
     curveDistanceRatio,
-    curveRatio
+    curveRatio,
+    noise,
   );
-  console.log(curveDistanceRatio, curveRatio)
   if (getMaxIterations(tree.branchesNumber) < iterations) return;
   const trunk = tree.drawTrunk()
   if (iterations === 0) return;

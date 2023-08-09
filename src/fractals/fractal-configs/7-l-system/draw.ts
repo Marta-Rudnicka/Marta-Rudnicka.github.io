@@ -10,6 +10,7 @@ type LSystemParameters = {
   branches: number;
   curveRatio: number;
   curveDistanceRatio: number;
+  noise: number;
 }
 
 
@@ -37,6 +38,7 @@ export function draw(
       parameters.branches,
       parameters.curveRatio,
       parameters.curveDistanceRatio,
+      parameters.noise,
       ctx,
     );
     ctx.closePath();
