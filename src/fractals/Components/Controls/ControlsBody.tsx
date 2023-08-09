@@ -40,6 +40,7 @@ function renderSliderControls(
         minValue={slider.minValue}
         setShowSliderInfo={setShowSliderInfo}
         setValue={slider.setValue}
+        sliderOnly={slider.sliderOnly}
         stepSize={slider.stepSize}
         tabIndex={2 * slider.tabIndex + initTabIndex}
         value={slider.value}

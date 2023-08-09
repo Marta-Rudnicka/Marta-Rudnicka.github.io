@@ -100,7 +100,7 @@ export function Slider(props: SliderProps) {
         </Fragment>
       }
         <input
-          className="slider-input"
+          className={`slider-input ${props.sliderOnly ? 'slider-only' : ''}`}
           id={props.id}
           max={props.maxValue}
           min={props.minValue}

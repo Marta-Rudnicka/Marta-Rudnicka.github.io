@@ -16,6 +16,7 @@ export type SliderControlProps = {
   stepSize?: number;
   tabIndex: number;
   value: number;
+  sliderOnly?: boolean;
 }
 
 export function SliderControl(props: SliderControlProps) {
@@ -38,6 +39,7 @@ export function SliderControl(props: SliderControlProps) {
           stepSize={props.stepSize || 1}
           tabIndex={props.tabIndex}
           value={props.value}
+          sliderOnly={props.sliderOnly || false}
         />
       </div>
     </div>
