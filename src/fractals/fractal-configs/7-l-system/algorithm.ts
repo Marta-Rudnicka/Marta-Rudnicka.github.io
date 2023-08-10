@@ -81,6 +81,7 @@ class Tree extends CanvasFigure{
     trunk.moveTo(...start);
     trunk.lineTo(...end);
     this.iterationFigures[0].paths.push(trunk);
+    this.updateEdges(start);
     return { end, angle: 0, length, path: trunk };
   }
 
@@ -95,13 +96,12 @@ class Tree extends CanvasFigure{
     const cpXDistRatio = this.noise? (1 - Math.random() * this.noise) * this.cpXDistRatio : this.cpXDistRatio
 
     let length = Math.floor(oldBranch.length * this.lengthRatio);
-    length = this.noise ? length * (1 - Math.random() * this.noise) : length
+    length = this.noise ? Math.round(length * (1 - Math.random() * this.noise)) : length
 
     const angle = this.noise ?rawAngle * (1 - Math.random() * this.noise) : rawAngle;
     let [x, y] = findLineEnd(oldBranch.end, angle, length);
     branch.moveTo(...oldBranch.end);
 
-    this.updateEdges([x, y]);
     if (position === "middle" || this.cpXDistRatio === 0) {
       branch.lineTo(x, y);
     } else {
@@ -115,6 +115,7 @@ class Tree extends CanvasFigure{
       );
       branch.quadraticCurveTo(cPx, cPy, x, y);
     }
+    this.updateEdges([x, y]);
     return { end: [x, y], angle, length, path: branch };
   }
 
@@ -191,10 +192,13 @@ export function generate(
   for (let i = 0; i < iterations; i++) {
     branches = tree.addIteration(branches);
   }
-  const trans = tree.centreImageCoords();
-  const scaleRatio = tree.scaleRatio()
-  ctx.scale(scaleRatio, scaleRatio);
-  ctx.translate(trans.x, trans.y);
+  if (!tree.withinBounds()) {
+    const scaleRatio = tree.scaleRatio()
+    ctx.scale(scaleRatio, scaleRatio);
+
+    const trans = tree.centreImageCoords();
+    ctx.translate(trans.x, trans.y);
+  }
   tree.drawAll(animate)
 }
 

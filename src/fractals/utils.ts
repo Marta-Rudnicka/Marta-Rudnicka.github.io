@@ -114,9 +114,10 @@ export function getQuadraticCurveParams(
   side: 'left' | 'right',
 ): QuadCurve {
 
-const rightAngle = side === 'left' ? angle + Math.PI/2 : angle - Math.PI/2;
-const [x, y] = findLineEnd(start, angle, length);
-const midPoint: Point = findLineEnd(start, angle, length * heightRatio);
-const [cpX, cpY] = findLineEnd(midPoint, angle + rightAngle, length * distanceRatio)
-return [cpX, cpY, x, y];
+  const rightAngle = side === 'left' ? angle + Math.PI / 2 : angle - Math.PI / 2;
+  const [x, y] = findLineEnd(start, angle, length);
+  const midPoint: Point = findLineEnd(start, angle, length * heightRatio);
+  const [cpX, cpY] = findLineEnd(midPoint, angle + rightAngle, length * distanceRatio)
+  return [cpX, cpY, x, y];
 }
+

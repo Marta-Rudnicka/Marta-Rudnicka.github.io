@@ -107,7 +107,7 @@ export function LSystem() {
   }]
 
   const description = useMemo(() => <Description ti={navTabIndex + 13} />, [navTabIndex]);
-  const canvasKey = `${canvasSize}-${iterations}-${angle}-${lRatio}-${branches}-${noise}`;
+  const canvasKey = `${canvasSize}-${iterations}-${angle}-${lRatio}-${branches}-${noise}-${canvasSize}`;
 
   return (
     <FullScreenContext.Provider value={fullScreen} >

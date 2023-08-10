@@ -14,7 +14,7 @@ export class CanvasFigure {
     this.ctx = ctx;
     this.iterations = iterations;
     this.size = size;
-    this.edges = { 'E': 0, 'N': 0, "S": 0, 'W': 0 }
+    this.edges = { 'E': 0, 'N': 0, "S": 0, 'W': 0 };
   }
 
 
@@ -44,7 +44,7 @@ export class CanvasFigure {
     if (this.edges.W < 0) {
       x = - this.edges.W + 2;
     }
-    return { x, y };
+    return { x: Math.floor(x), y: Math.floor(y) };
   }
 
   updateEdges(
@@ -66,8 +66,12 @@ export class CanvasFigure {
 
   scaleRatio() {
     if (this.withinBounds()) return 1;
-    const height = this.edges.S - this.edges.N;
-    const width = this.edges.E - this.edges.W;
-    return this.size / Math.max(height, width);
+    let height = this.edges.S - this.edges.N;
+    height = height > this.size ? height : this.size;
+    let width = this.edges.E - this.edges.W;
+    width = width > this.size ? width : this.size;
+    const ratio = Math.round(this.size / Math.max(height, width) * 100)/100;
+    console.log(ratio);
+    return ratio;
   }
 }
