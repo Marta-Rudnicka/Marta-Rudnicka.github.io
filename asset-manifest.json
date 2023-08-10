@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.8dd115f8.css",
-    "main.js": "/static/js/main.640c7d03.js",
+    "main.css": "/static/css/main.17c3cab6.css",
+    "main.js": "/static/js/main.04820a59.js",
     "static/media/mandel-julia.png": "/static/media/mandel-julia.e8573f1eb6806a475e17.png",
     "static/media/bulbs.png": "/static/media/bulbs.f30df08413c4749de7df.png",
     "static/media/fractal-dimensions.png": "/static/media/fractal-dimensions.3bb06d9bbc7bfa6500e4.png",
@@ -21,11 +21,11 @@
     "static/media/blueprint-icons-16.woff2?": "/static/media/blueprint-icons-16.5a0658c2b025e421ebc2.woff2",
     "static/media/complex-plane.png": "/static/media/complex-plane.353aeebca6a843c5087b.png",
     "index.html": "/index.html",
-    "main.8dd115f8.css.map": "/static/css/main.8dd115f8.css.map",
-    "main.640c7d03.js.map": "/static/js/main.640c7d03.js.map"
+    "main.17c3cab6.css.map": "/static/css/main.17c3cab6.css.map",
+    "main.04820a59.js.map": "/static/js/main.04820a59.js.map"
   },
   "entrypoints": [
-    "static/css/main.8dd115f8.css",
-    "static/js/main.640c7d03.js"
+    "static/css/main.17c3cab6.css",
+    "static/js/main.04820a59.js"
   ]
 }
