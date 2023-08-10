@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { InfoLabel } from "./InfoLabel";
 import { Slider } from "./Slider";
 import { Point } from "../../../types";
@@ -18,26 +18,27 @@ export type BezierCurveControlProps = {
 
 export function BezierCurveControl(props: BezierCurveControlProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const ctx = canvasRef?.current?.getContext("2d");
   const cWidth = 300;
-  const cHeight = 300;
-
-  const trunkEnd: Point = [cWidth / 2, cHeight - 20];
-  const l = 200;
-
+  const cHeight = 360;
+  const l = 120;
   const angle = Math.PI / 180 * props.angleDeg; // convert to radians
-
-  if (ctx) {
-    drawCurve(
-      ctx,
-      cWidth,
-      cHeight,
-      trunkEnd,
-      angle,
-      l,
-      props.curveRatio,
-      props.curveDistanceRatio);
-  }
+  
+  useEffect(() => {
+    const trunkEnd: Point = [cWidth / 2, cHeight - 150];
+    const ctx = canvasRef?.current?.getContext("2d");
+    if (ctx) {
+      drawCurve(
+        ctx,
+        cWidth,
+        cHeight,
+        trunkEnd,
+        angle,
+        l,
+        props.curveRatio,
+        props.curveDistanceRatio
+        );
+      }
+    }, [props, angle]);
 
   return (
     <div className="bezier-container">
@@ -50,7 +51,7 @@ export function BezierCurveControl(props: BezierCurveControlProps) {
               width={cWidth}
               height={cHeight}
               ref={canvasRef}
-            ></canvas>
+            />
           </div>
           <div id="bezier-vertical-slider">
             <Slider
