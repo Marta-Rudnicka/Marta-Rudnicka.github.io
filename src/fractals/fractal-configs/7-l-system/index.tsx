@@ -124,7 +124,7 @@ export function LSystem() {
         radio={radio}
         setFullScreen={setFullScreen}
         sliders={sliders}
-        title="L-system demo"
+        title="L-system tree - work in progress"
       />
     </FullScreenContext.Provider>
   );
