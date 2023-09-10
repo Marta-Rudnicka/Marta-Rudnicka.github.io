@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.17c3cab6.css",
-    "main.js": "/static/js/main.04820a59.js",
+    "main.css": "/static/css/main.360ae71b.css",
+    "main.js": "/static/js/main.89fb13ef.js",
+    "static/media/clip.mp4": "/static/media/clip.ed65813a95d287a040c2.mp4",
     "static/media/mandel-julia.png": "/static/media/mandel-julia.e8573f1eb6806a475e17.png",
     "static/media/bulbs.png": "/static/media/bulbs.f30df08413c4749de7df.png",
     "static/media/fractal-dimensions.png": "/static/media/fractal-dimensions.3bb06d9bbc7bfa6500e4.png",
@@ -21,11 +22,11 @@
     "static/media/blueprint-icons-16.woff2?": "/static/media/blueprint-icons-16.5a0658c2b025e421ebc2.woff2",
     "static/media/complex-plane.png": "/static/media/complex-plane.353aeebca6a843c5087b.png",
     "index.html": "/index.html",
-    "main.17c3cab6.css.map": "/static/css/main.17c3cab6.css.map",
-    "main.04820a59.js.map": "/static/js/main.04820a59.js.map"
+    "main.360ae71b.css.map": "/static/css/main.360ae71b.css.map",
+    "main.89fb13ef.js.map": "/static/js/main.89fb13ef.js.map"
   },
   "entrypoints": [
-    "static/css/main.17c3cab6.css",
-    "static/js/main.04820a59.js"
+    "static/css/main.360ae71b.css",
+    "static/js/main.89fb13ef.js"
   ]
 }
