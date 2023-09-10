@@ -48,7 +48,7 @@ export function JuliaSet() {
     range={3}
     sliders={sliders}
     startValue={[-1.5, -1.5]}
-    title="Julia Set - demo"
+    title="Julia Set"
     xImaginary={cImaginary}
     xReal={cReal}
   />
