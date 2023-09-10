@@ -1,5 +1,5 @@
 import { MathJax } from "better-react-mathjax";
-import { Img } from "../../default-view/description-utils";
+import { Media } from "../../default-view/description-utils";
 
 
 type DescriptionProps = {
@@ -18,7 +18,7 @@ export function Description(props: DescriptionProps) {
       Julia sets have an interesting property: all the numbers in the set are either all connected, or all disconnected, like numbers in the Cantor set. There are no Julia sets in three or forty "pieces": it's either one, or infinitely many.</p>
       <p>Some values of {`\\(c \\)`} make a Julia set in one piece, and some values of {`\\(c \\)`} make a Julia set in infinite many pieces - sounds like something we could mark on a complex plane with different colours. And this is how Mandelbrot was looking into when he discovered his set - all the {`\\(c \\)`}s inside the Mandelbrot set create a connected Julia set, and the ones outside create dust.</p>
       <p>There are other relationships between the sets. If you pick a value for your {`\\(c \\)`} somewhere in the Mandelbrot set, the patterns in Julia set with this {`\\(c \\)`} will look somewhat similar to the patterns in that area of the Mandelbrot set: </p>
-      <Img src={require("./images/mandel-julia.png")} alt="Julia sets for the c of -0.24 + 0.84i and -0.47 -0.63i next to these values marked on the Mandelbrot set" tabIndex={ti}/>
+      <Media src={require("./images/mandel-julia.png")} alt="Julia sets for the c of -0.24 + 0.84i and -0.47 -0.63i next to these values marked on the Mandelbrot set" tabIndex={ti}/>
     </MathJax>
   );
 }

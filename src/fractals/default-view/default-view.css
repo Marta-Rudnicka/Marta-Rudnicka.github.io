@@ -130,6 +130,8 @@ body {
 
 .thumbnail-container {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .description img {
@@ -140,6 +142,7 @@ body {
 
 .img-instruction {
   position: absolute;
+  background: white;
   color: #282c34;
   top: 0;
   padding: 15px;

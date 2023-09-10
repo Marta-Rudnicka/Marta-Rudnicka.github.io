@@ -1,5 +1,5 @@
 import { MathJax } from "better-react-mathjax";
-import { Def, Img } from "../../default-view/description-utils";
+import { Def, Media } from "../../default-view/description-utils";
 
 type DescriptionProps = {
   ti: number;
@@ -25,13 +25,13 @@ export function Description(props: DescriptionProps) {
       <p>If you think that having the length of 0 and an infinite number of elements left after removing numbers from an infinite set is strange, wait 'till you hear about fractional dimensions!</p>
       <p>It would seem that a shape must have a natural number of dimensions: a line segment has one dimension, a square has two dimensions, and a cube has three dimensions. It seems that something having {`\\(0.6942\\)`} dimension doesn't make any sense.</p>
       <p>Let's think about scaling figures with a natural number of dimensions by {`\\(2\\)`}. If we have a line segment that has 1 cm, and want to make it quite as large (2cm), we need to put two of those line segments side by side. If we have a square with a 1 cm side, to make a square with 2cm side we need to put four 1cm squares. If we want to make a 2 cm cube out of 1cm cube, we need eight of them.</p>
-      <Img src={require('./images/dimensions.png')} alt="A segment, a square and a cube placed above segments, squares and cubes needed to be put together to double the initial size of the object." tabIndex={ti}/>
+      <Media src={require('./images/dimensions.png')} alt="A segment, a square and a cube placed above segments, squares and cubes needed to be put together to double the initial size of the object." tabIndex={ti}/>
       <p>In other words, we need to put {`\\(2^1\\)`} segments, {`\\(2^2\\)`} squares, and {`\\(2^3\\)`} cubes to make a shape of double the base size unit. The same happens if we want to triple the size: to make a 3cm-side square out of 1cm squares, we need {`\\(3^2\\)`} small squares. The power we use for scaling is the same as the number of dimensions of our shape.</p>
       <p>Now, let's try scaling a Cantor set. Because it involves a lot of dividing by three, it will be the easiest to triple it - instead of starting with the segment {`\\([0, 1]\\)`}, we are starting with {`\\([0, 3]\\)`}. After removing the middle third, we're left with {`\\([0, 1]\\)`} ( our original starting point), and {`\\([2, 3]\\)`} - another segment that has exactly the same size as our starting point. When we keep removing the next middle thirds, we end up with two Cantor sets. So, when we tripled the initial length our set became twice as large.</p>
       <p>Let's back to tripling the size of a square: we needed {`\\(1cm\\times3^2 \\)`} (or {`\\(9\\)`} ) 1cm-side squares to make a 3cm-side square. With a Cantor set, we need {`\\(2\\)`} or {`\\(1\\times3^d \\)`} Cantor sets to make a Cantor set three times as large, where {`\\(d\\)`} is the number of dimensions. So to find the number of dimensions, we need to solve the equation {`\\(3^d = 2\\)`}, which gives us  {`\\(d = \\frac{log(2)}{log(3)}\\)`}, or {`\\(d≈0.63093\\)`}.
     </p>
     <p>It's not just the Cantor set that has that strange dimension: let's try doubling Sierpinski triangle. If we want a Sierpinski triangle of double the size, we need to put three Sierpinski triangles together, which means that for Sierpinski triangle {`\\(2^d = 3\\)`}, therefore {`\\(d = \\frac{log(3)}{log(2)}\\)`}, or {`\\(d≈1.5850\\)`}. All fractals have dimensions of this kind.</p>
-    <Img src={require("./images/fractal-dimensions.png")} alt="An illustration of tripling the size of a square, a Cantor set, and doubling of a Sierpinski triangle" tabIndex={ti} />
+    <Media src={require("./images/fractal-dimensions.png")} alt="An illustration of tripling the size of a square, a Cantor set, and doubling of a Sierpinski triangle" tabIndex={ti} />
     <h2>Cantor dust</h2>
     <p>We can follow a similar process to building a Cantor set by starting from a square instead of a line segment. From each square, we remove a horizontal and a vertical stripe from the middle, whose width is {`\\(\\frac{1}{3}\\)`} of the side of the square. </p>
     <p className="ex"> Switch to the option "2 dimensions - Cantor dust". You can also adjust the number of iterations you see.</p>

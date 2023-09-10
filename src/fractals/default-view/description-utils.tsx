@@ -39,13 +39,14 @@ export function Def(props: DefProps) {
   )
 }
 
-type ImageProps = {
+type MediaProps = {
   alt: string;
   src: string;
   tabIndex: number;
+  video?: boolean;
 }
 
-export function Img(props: ImageProps) {
+export function Media(props: MediaProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   function handleClick() {
@@ -56,19 +57,16 @@ export function Img(props: ImageProps) {
       setDialogOpen(dialogOpen ? false : true);
     }
   }
+  const windowWidth = window.innerWidth;
   return (
     <div className="image-container"
       onClick={handleClick}
       onKeyDown={handleKeyboardInput}
     >
-      <div className="thumbnail-container" tabIndex={props.tabIndex}
->
-        <div className="img-instruction">Click or press enter to better see the image</div>
-        <img
-          alt={props.alt}
-          className='img'
-          src={props.src}
-        />
+      <div className="thumbnail-container" tabIndex={props.tabIndex}>
+        <div className="img-instruction">Click or press enter to see larger media</div>
+        {!props.video && <img alt={props.alt} className='img' src={props.src} />}
+        {props.video && (<video width={windowWidth / 4} autoPlay muted><source src={props.src} type="video/mp4" /></video>)}
       </div>
       <Dialog
         autoFocus={true}
@@ -79,7 +77,8 @@ export function Img(props: ImageProps) {
       >
         <DialogBody>
           <p className="dialog-info">Press 'Esc' or click outside to close</p>
-          <img alt={props.alt} src={props.src} className='dialog-img' />
+          {!props.video && <img alt={props.alt} src={props.src} className='dialog-img' />}
+          {props.video && (<video controls><source src={props.src} type="video/mp4" /></video>)}
         </DialogBody>
       </Dialog>
     </div>

@@ -62,7 +62,7 @@ export function HeighwayDragon() {
         radio={radio}
         setFullScreen={setFullScreen}
         sliders={sliders}
-        title="Heighway dragon - work in progress"
+        title="Heighway dragon"
       />
     </FullScreenContext.Provider>
 

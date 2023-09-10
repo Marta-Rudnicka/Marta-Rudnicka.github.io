@@ -1,5 +1,5 @@
 import { MathJax } from "better-react-mathjax";
-import { Img } from "../../default-view/description-utils";
+import { Media } from "../../default-view/description-utils";
 
 type DescriptionProps = {
   ti: number;
@@ -67,7 +67,7 @@ export function Description(props: DescriptionProps) {
       <p>Some images of the Mandelbrot set are very colourful - the colours usually show how long it takes for an orbit to start cycling or fulfil the escape criterion.</p>
       <h3>Cycles and bulbs</h3>
       <p>The Mandelbrot set has many interesting properties, and we will look into a simple example. If you zoom anywhere on the edge of the set, you will see a lot of round shapes "growing" out of the main body, often called bulbs. Yes - there is whole terminology to describe parts and areas of the Mandelbrot set! These bulbs often have an "antenna" growing out of it, branching into several others. The exact number of the branches depends on the orbit of the number in the middle of the bulbl for example, if the orbit ends up cycling over four numbers, then the antenna growing out of the bulb will have four branches (including the one growing out of the bulb). Below, there are three example bulbs compared to the orbits their middle point makes.</p>
-      <Img src={require("./bulbs.png")} alt="Values of c in the middle of the bulbs, and the orbits of those values" tabIndex={ti}/>
+      <Media src={require("./bulbs.png")} alt="Values of c in the middle of the bulbs, and the orbits of those values" tabIndex={ti}/>
       <p>The top-left bulb has {`\\(0.12 + 0.75 i\\)`} in the middle, which creates a 3-cycle. The antenna on top of it branches into two smaller ones, giving us three branches. The top-right bulb has a 4-cycle related to it, and grows an antenna with four branches etc.</p>
     </MathJax>
   );
